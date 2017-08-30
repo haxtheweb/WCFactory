@@ -4,7 +4,7 @@
   "description": "<%= readmeName %> element for RHElements",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kylebuch8/cp-base-element.git"
+    "url": ""
   },
   "main": "index.js",
   "scripts": {
