@@ -1,7 +1,7 @@
 {
   "name": "generator-rhelement",
   "version": "0.0.1",
-  "description": "",
+  "description": "Yeoman generator for creating RHElements",
   "files": [
     "generators"
   ],
