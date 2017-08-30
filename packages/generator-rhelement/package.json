@@ -12,7 +12,11 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "author": "Kyle Buchanan",
+  "author": {
+    "name": "Kyle Buchanan",
+    "email": "kylebuch8@gmail.com",
+    "url": "https://github.com/kylebuch8"
+  },
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.4",
