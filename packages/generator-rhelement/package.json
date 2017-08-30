@@ -1,0 +1,17 @@
+{
+  "name": "generator-rhelement",
+  "version": "0.0.1",
+  "description": "",
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Kyle Buchanan",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "yeoman-generator": "^1.1.1"
+  }
+}
