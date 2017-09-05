@@ -49,14 +49,26 @@ module.exports = class extends Generator {
       this.props
     );
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('gulpfile.js'),
-      this.destinationPath(`${this.props.elementName}/gulpfile.js`)
+      this.destinationPath(`${this.props.elementName}/gulpfile.js`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('demo/index.html'),
+      this.destinationPath(`${this.props.elementName}/demo/index.html`),
+      this.props
     );
 
     this.fs.copy(
       this.templatePath('.*'),
       this.destinationPath(`${this.props.elementName}`)
+    );
+
+    this.fs.copy(
+      this.templatePath('base.scss'),
+      this.destinationPath(`${this.props.elementName}/${this.props.elementName}.scss`)
     );
   }
 
