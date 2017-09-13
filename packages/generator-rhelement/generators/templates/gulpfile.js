@@ -6,6 +6,7 @@ const replace = require('gulp-replace');
 const sass = require('gulp-sass');
 const del = require('del');
 const fs = require('fs');
+let watcher;
 
 gulp.task('clean', () => {
   return del(['./*.compiled.*'])
@@ -25,6 +26,7 @@ gulp.task('replaceStyles', () => {
 
 gulp.task('compile', () => {
   return gulp.src(['./*.js', '!./gulpfile.js'])
+    .pipe(replace(/(import ["'].*).(js["'];?)/g, '$1.compiled.$2'))
     .pipe(babel())
     .pipe(uglify())
     .pipe(rename({
@@ -33,8 +35,14 @@ gulp.task('compile', () => {
     .pipe(gulp.dest('./'));
 });
 
+gulp.task('stopwatch', done => {
+  watcher.close();
+  done();
+});
+
 gulp.task('watch', () => {
-  return gulp.watch(['./*.scss'], gulp.series('sass', 'replaceStyles'));
+  watcher = gulp.watch(['./<%= elementName %>.js', './*.scss'], gulp.series('stopwatch', 'sass', 'replaceStyles', 'clean', 'compile', 'watch'));
+  return watcher;
 });
 
 gulp.task('default',

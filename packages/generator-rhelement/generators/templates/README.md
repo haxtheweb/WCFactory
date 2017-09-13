@@ -11,4 +11,4 @@ npm run build
 ```
 
 ## Demo
-Run http-server or python SimpleHTTPServer in the demo directory
+Run http-server or python SimpleHTTPServer in the root directory of the component

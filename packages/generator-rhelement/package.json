@@ -1,10 +1,10 @@
 {
   "name": "generator-rhelement",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Yeoman generator for creating RHElements",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kylebuch8/rhelement-generator"
+    "url": "https://github.com/RHElements/generator-rhelements"
   },
   "files": [
     "generators"
