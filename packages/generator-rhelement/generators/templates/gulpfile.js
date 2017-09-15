@@ -4,6 +4,8 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
 const sass = require('gulp-sass');
+const stripCssComments = require('gulp-strip-css-comments');
+const trim = require('gulp-trim');
 const del = require('del');
 const fs = require('fs');
 let watcher;
@@ -15,6 +17,8 @@ gulp.task('clean', () => {
 gulp.task('sass', () => {
   return gulp.src(['./*.scss'])
     .pipe(sass())
+    .pipe(stripCssComments())
+    .pipe(trim())
     .pipe(gulp.dest('./'));
 });
 
