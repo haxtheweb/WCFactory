@@ -3,8 +3,8 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const replace = require('gulp-replace');
-const sass = require('gulp-sass');
-const stripCssComments = require('gulp-strip-css-comments');
+<% if (useSass) { %>const sass = require('gulp-sass');
+const stripCssComments = require('gulp-strip-css-comments');<% } %>
 const trim = require('gulp-trim');
 const del = require('del');
 const fs = require('fs');
@@ -13,7 +13,7 @@ let watcher;
 gulp.task('clean', () => {
   return del(['./*.compiled.*'])
 });
-
+<% if (useSass) { %>
 gulp.task('sass', () => {
   return gulp.src(['./*.scss'])
     .pipe(sass())
@@ -27,7 +27,7 @@ gulp.task('replaceStyles', () => {
     .pipe(replace(/<style>[\s\S]*<\/style>/g, '<style>' + fs.readFileSync('./<%= elementName %>.css') + '</style>'))
     .pipe(gulp.dest('./'));
 });
-
+<% } %>
 gulp.task('compile', () => {
   return gulp.src(['./*.js', '!./gulpfile.js'])
     .pipe(replace(/(import ["'].*).(js["'];?)/g, '$1.compiled.$2'))
@@ -38,7 +38,7 @@ gulp.task('compile', () => {
     }))
     .pipe(gulp.dest('./'));
 });
-
+<% if (useSass) { %>
 gulp.task('stopwatch', done => {
   watcher.close();
   done();
@@ -52,7 +52,16 @@ gulp.task('watch', () => {
 gulp.task('default',
   gulp.series('clean', 'sass', 'replaceStyles', 'compile')
 );
+<% } else { %>
+gulp.task('watch', () => {
+  watcher = gulp.watch(['./<%= elementName %>.js'], gulp.series('clean', 'compile'));
+  return watcher;
+});
 
+gulp.task('default',
+  gulp.series('clean', 'compile')
+);
+<% } %>
 gulp.task('dev',
   gulp.series('default', 'watch')
 );

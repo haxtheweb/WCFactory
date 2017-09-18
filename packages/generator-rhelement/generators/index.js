@@ -3,6 +3,7 @@ const _ = require('lodash');
 const mkdirp = require('mkdirp');
 const path = require('path');
 const process = require('process');
+const packageJson = require('../package.json');
 
 module.exports = class extends Generator {
   prompting() {
@@ -14,6 +15,31 @@ module.exports = class extends Generator {
       type: 'input',
       name: 'author',
       message: 'Author name'
+    }, {
+      type: 'list',
+      name: 'useSass',
+      message: 'Do you want to use Sass with this element?',
+      choices: [{
+        name: 'Yes',
+        value: true
+      }, {
+        name: 'No',
+        value: false
+      }]
+    }, {
+      type: 'list',
+      name: 'sassLibrary',
+      when: answers => {
+        return answers.useSass;
+      },
+      message: 'Do want to use existing Sass dependencies?',
+      choices: [{
+        name: 'cp-sass',
+        value: 'cp-sass/cp-sass',
+      }, {
+        name: 'No thanks. I\'ll provide my own later',
+        value: null
+      }]
     }]).then(answers => {
       let name = answers.name.split('-')[1];
 
@@ -23,8 +49,11 @@ module.exports = class extends Generator {
         elementName: answers.name,
         elementClassName: _.chain(answers.name).camelCase().upperFirst().value(),
         readmeName: _.upperFirst(name),
-        lowerCaseName: name
-      }
+        lowerCaseName: name,
+        useSass: answers.useSass,
+        sassLibrary: answers.sassLibrary,
+        generatorRhelementVersion: packageJson.version
+      };
 
       mkdirp.sync(this.props.elementName);
     });
@@ -66,10 +95,13 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}`)
     );
 
-    this.fs.copy(
-      this.templatePath('base.scss'),
-      this.destinationPath(`${this.props.elementName}/${this.props.elementName}.scss`)
-    );
+    if (this.props.useSass) {
+      this.fs.copyTpl(
+        this.templatePath('base.scss'),
+        this.destinationPath(`${this.props.elementName}/${this.props.elementName}.scss`),
+        this.props
+      );
+    }
   }
 
   install() {

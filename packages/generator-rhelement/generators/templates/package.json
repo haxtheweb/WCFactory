@@ -11,10 +11,12 @@
     "build": "./node_modules/.bin/gulp",
     "dev": "./node_modules/.bin/gulp dev"
   },
-  "author": "<%= author %>",
+  "author": {
+    "name": "<%= author %>"
+  },
   "license": "ISC",
   "dependencies": {
-    "cp-sass": "*"
+    <% if (sassLibrary) { %>"cp-sass": "*"<% } %>
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -24,10 +26,13 @@
     "gulp-babel": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
+<% if (useSass) { %>
     "gulp-sass": "^3.1.0",
-    "gulp-sequence": "^0.4.6",
     "gulp-strip-css-comments": "^1.2.0",
+<% } %>
+    "gulp-sequence": "^0.4.6",
     "gulp-trim": "^1.0.2",
     "gulp-uglify": "^3.0.0"
-  }
+  },
+  "generator-rhelement-version": "<%= generatorRhelementVersion %>"
 }

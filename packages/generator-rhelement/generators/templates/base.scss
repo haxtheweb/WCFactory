@@ -1,5 +1,4 @@
-@import "node_modules/cp-sass/cp-sass";
-
+<% if (sassLibrary) { %>@import "node_modules/<%= sassLibrary %>";<% } %>
 :host {
   display: block;
 }
