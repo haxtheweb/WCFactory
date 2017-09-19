@@ -35,7 +35,7 @@ module.exports = class extends Generator {
       message: 'Do want to use existing Sass dependencies?',
       choices: [{
         name: 'cp-sass',
-        value: 'cp-sass/cp-sass',
+        value: '@rhelements/cp-sass/cp-sass',
       }, {
         name: 'No thanks. I\'ll provide my own later',
         value: null

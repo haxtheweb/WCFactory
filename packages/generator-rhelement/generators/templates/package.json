@@ -16,7 +16,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    <% if (sassLibrary) { %>"cp-sass": "*"<% } %>
+    <% if (sassLibrary) { %>"<%= sassLibrary %>": "*"<% } %>
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
