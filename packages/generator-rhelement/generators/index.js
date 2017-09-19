@@ -35,7 +35,10 @@ module.exports = class extends Generator {
       message: 'Do want to use existing Sass dependencies?',
       choices: [{
         name: 'cp-sass',
-        value: '@rhelements/cp-sass/cp-sass',
+        value: {
+          pkg: '@rhelements/cp-sass',
+          path: '@rhelements/cp-sass/cp-sass'
+        }
       }, {
         name: 'No thanks. I\'ll provide my own later',
         value: null
@@ -51,7 +54,8 @@ module.exports = class extends Generator {
         readmeName: _.upperFirst(name),
         lowerCaseName: name,
         useSass: answers.useSass,
-        sassLibrary: answers.sassLibrary,
+        sassLibraryPkg: answers.sassLibrary.pkg,
+        sassLibraryPath: answers.sassLibrary.path,
         generatorRhelementVersion: packageJson.version
       };
 

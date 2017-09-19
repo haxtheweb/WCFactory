@@ -1,4 +1,4 @@
-<% if (sassLibrary) { %>@import "node_modules/<%= sassLibrary %>";<% } %>
+<% if (sassLibraryPath) { %>@import "node_modules/<%= sassLibraryPath %>";<% } %>
 :host {
   display: block;
 }
