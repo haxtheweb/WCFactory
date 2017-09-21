@@ -54,10 +54,13 @@ module.exports = class extends Generator {
         readmeName: _.upperFirst(name),
         lowerCaseName: name,
         useSass: answers.useSass,
-        sassLibraryPkg: answers.sassLibrary.pkg || false,
-        sassLibraryPath: answers.sassLibrary.path || false,
         generatorRhelementVersion: packageJson.version
       };
+
+      if (answers.useSass) {
+        this.props.sassLibraryPkg = answers.sassLibrary.pkg;
+        this.props.sassLibraryPath = answers.sassLibrary.path;
+      }
 
       mkdirp.sync(this.props.elementName);
     });
