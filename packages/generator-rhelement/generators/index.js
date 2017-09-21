@@ -54,6 +54,8 @@ module.exports = class extends Generator {
         readmeName: _.upperFirst(name),
         lowerCaseName: name,
         useSass: answers.useSass,
+        sassLibraryPkg: false,
+        sassLibraryPath: false,
         generatorRhelementVersion: packageJson.version
       };
 
