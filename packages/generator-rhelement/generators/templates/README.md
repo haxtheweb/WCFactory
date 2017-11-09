@@ -1,8 +1,18 @@
 # RHElements <%= readmeName %> Element
 
+## Dependencies
+
+Make sure you have the [Polymer CLI][polymer-cli] installed.
+
+    npm install -g polymer-cli
+
 ## Dev
 
-    npm run dev
+    npm start
+
+## Test
+
+    npm run test
 
 ## Build
 
@@ -10,7 +20,7 @@
 
 ## Demo
 
-Run http-server or python SimpleHTTPServer in the root directory of the component
+Run `npm start` and the Polymer CLI will start a server and open your default browser to the demo page of the element.
 
 ## Code style
 
@@ -18,3 +28,4 @@ Run http-server or python SimpleHTTPServer in the root directory of the componen
 
 [prettier]: https://github.com/prettier/prettier/
 [prettier-ed]: https://github.com/prettier/prettier/#editor-integration
+[polymer-cli]: https://github.com/Polymer/polymer-cli

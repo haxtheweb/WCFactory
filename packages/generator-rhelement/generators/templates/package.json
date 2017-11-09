@@ -1,5 +1,5 @@
 {
-  "name": "<%= elementName %>",
+  "name": "@rhelements/<%= elementName %>",
   "version": "0.0.1",
   "description": "<%= readmeName %> element for RHElements",
   "repository": {
@@ -9,7 +9,9 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/gulp",
-    "dev": "./node_modules/.bin/gulp dev",
+    "start": "./node_modules/.bin/gulp dev & npm run serve",
+    "serve": "polymer serve --npm -o --open-path=\"components/@rhelements/<%= elementName %>/demo\"",
+    "test": "polymer test --npm",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -39,7 +41,10 @@
     "gulp-uglify": "^3.0.0",
     "prettier": "1.7.4",
     "lint-staged": "^4.3.0",
-    "husky": "^0.14.3"
+    "husky": "^0.14.3",
+    "lodash": "^3.10.1",
+    "lodash.clonedeep": "^4.5.0",
+    "wct-browser-legacy": "0.0.1-pre.10"
   },
   "generator-rhelement-version": "<%= generatorRhelementVersion %>"
 }
