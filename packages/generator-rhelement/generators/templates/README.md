@@ -2,9 +2,9 @@
 
 ## Dependencies
 
-Make sure you have the [Polymer CLI][polymer-cli] installed.
+Make sure you have [Polyserve][polyserve] and [Web Component Tester][web-component-tester] installed.
 
-    npm install -g polymer-cli
+    npm install -g polyserve web-component-tester
 
 ## Dev
 
@@ -20,7 +20,7 @@ Make sure you have the [Polymer CLI][polymer-cli] installed.
 
 ## Demo
 
-Run `npm start` and the Polymer CLI will start a server and open your default browser to the demo page of the element.
+Run `npm start` and Polyserve will start a server and open your default browser to the demo page of the element.
 
 ## Code style
 
@@ -28,4 +28,5 @@ Run `npm start` and the Polymer CLI will start a server and open your default br
 
 [prettier]: https://github.com/prettier/prettier/
 [prettier-ed]: https://github.com/prettier/prettier/#editor-integration
-[polymer-cli]: https://github.com/Polymer/polymer-cli
+[polyserve]: https://github.com/Polymer/polyserve
+[web-component-tester]: https://github.com/Polymer/web-component-tester
