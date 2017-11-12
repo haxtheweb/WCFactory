@@ -75,8 +75,13 @@ module.exports = class extends Generator {
       };
 
       if (answers.useSass) {
-        this.props.sassLibraryPkg = answers.sassLibrary.pkg;
-        this.props.sassLibraryPath = answers.sassLibrary.path;
+        if (answers.sassLibrary && answers.sassLibrary.pkg) {
+          this.props.sassLibraryPkg = answers.sassLibrary.pkg;
+        }
+
+        if (answers.sassLibrary && answers.sassLibrary.path) {
+          this.props.sassLibraryPath = answers.sassLibrary.path;
+        }
       }
 
       mkdirp.sync(this.props.elementName);
