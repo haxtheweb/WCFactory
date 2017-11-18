@@ -96,9 +96,9 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("element.js"),
+      this.templatePath("src/element.js"),
       this.destinationPath(
-        `${this.props.elementName}/${this.props.elementName}.js`
+        `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
       this.props
     );
@@ -147,13 +147,23 @@ module.exports = class extends Generator {
 
     if (this.props.useSass) {
       this.fs.copyTpl(
-        this.templatePath("base.scss"),
+        this.templatePath("src/element.scss"),
         this.destinationPath(
-          `${this.props.elementName}/${this.props.elementName}.scss`
+          `${this.props.elementName}/src/${this.props.elementName}.scss`
         ),
         this.props
       );
+    } else {
+      this.fs.copy(
+        this.templatePath("src/element.css"),
+        this.destinationPath(`${this.props.elementName}/src/${this.props.elementName}.css`)
+      )
     }
+
+    this.fs.copy(
+      this.templatePath("src/element.html"),
+      this.destinationPath(`${this.props.elementName}/src/${this.props.elementName}.html`)
+    );
   }
 
   install() {
