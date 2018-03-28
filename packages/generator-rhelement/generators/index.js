@@ -135,14 +135,17 @@ module.exports = class extends Generator {
       this.props
     );
 
-    this.fs.copy(
-      this.templatePath(".*"),
-      this.destinationPath(`${this.props.elementName}`)
+    this.fs.copyTpl(
+      this.templatePath("element.story.js"),
+      this.destinationPath(
+        `${this.props.elementName}/${this.props.elementName}.story.js`
+      ),
+      this.props
     );
 
     this.fs.copy(
-      this.templatePath("wct.conf.json"),
-      this.destinationPath(`${this.props.elementName}/wct.conf.json`)
+      this.templatePath(".*"),
+      this.destinationPath(`${this.props.elementName}`)
     );
 
     if (this.props.useSass) {
@@ -178,6 +181,5 @@ module.exports = class extends Generator {
 
   end() {
     this.spawnCommand("npm", ["run", "build"]);
-    this.spawnCommand("git", ["init"]);
   }
 };
