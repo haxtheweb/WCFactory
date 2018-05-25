@@ -42,10 +42,10 @@ module.exports = class extends Generator {
         message: "Do want to use existing Sass dependencies?",
         choices: [
           {
-            name: "cp-sass",
+            name: "rh-sass",
             value: {
-              pkg: "@rhelements/cp-sass",
-              path: "@rhelements/cp-sass/cp-sass"
+              pkg: "@rhelements/rh-sass",
+              path: "rh-sass/rh-sass"
             }
           },
           {
