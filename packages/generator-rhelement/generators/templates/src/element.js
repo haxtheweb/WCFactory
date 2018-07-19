@@ -1,18 +1,22 @@
-import Rhelement from '../rhelement/rhelement.js';
-
-/*
- * DO NOT EDIT. This will be autopopulated with the
- * html from <%= elementName %>.html and css from
- * <%= elementName %>.<% if (useSass) { %>scss<% } else { %>css<% } %>
- */
-const template = document.createElement('template');
-template.innerHTML = ``;
-/* end DO NOT EDIT */
+import Rhelement from "../rhelement/rhelement.js";
 
 class <%= elementClassName %> extends Rhelement {
+  static get tag() {
+    return "<%= elementName %>";
+  }
+
+  get templateUrl() {
+    return "<%= elementName %>.html";
+  }
+<% if (useSass) { %>
+  get styleUrl() {
+    return "<%= elementName %>.scss";
+  }
+<% } %>
+
   constructor() {
-    super('<%= elementName %>', template);
+    super(<%= elementClassName %>.tag);
   }
 }
 
-window.customElements.define('<%= elementName %>', <%= elementClassName %>);
+Rhelement.create(<%= elementClassName %>);
