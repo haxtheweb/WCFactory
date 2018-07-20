@@ -8,7 +8,9 @@ const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const trim = require("trim");
-<% if (useSass) { %>const sass = require('node-sass');<% } %>
+<%_ if (useSass) { _%>
+const sass = require('node-sass');
+<%_ } _%>
 
 gulp.task("compile", () => {
   return gulp
@@ -54,7 +56,6 @@ gulp.task("merge", () => {
           .toString()
           .trim();
 
-<% if (useSass) { %>
         const [
           ,
           styleUrl
@@ -62,19 +63,22 @@ gulp.task("merge", () => {
           oneLineFile
         );
 
-        const cssResult = sass.renderSync({
-          file: path.join("./src", styleUrl)
-        }).css;
+        const styleFilePath = path.join("./src", styleUrl);
 
-<% } %>
+<%_ if (useSass) { _%>
+        const cssResult = sass.renderSync({
+          file: styleFilePath
+        }).css;
+<%_ } else { _%>
+        const cssResult = fs.readFileSync(styleFilePath);
+<%_ } _%>
+
         return `${classStatement}
   get html() {
     return \`
-<% if (useSass) { %>
 <style>
 ${stripCssComments(cssResult).trim()}
 </style>
-<% } %>
 
 ${html}\`;
   }

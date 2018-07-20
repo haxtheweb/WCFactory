@@ -8,11 +8,14 @@ class <%= elementClassName %> extends Rhelement {
   get templateUrl() {
     return "<%= elementName %>.html";
   }
-<% if (useSass) { %>
+
   get styleUrl() {
+<%_ if (useSass) { _%>
     return "<%= elementName %>.scss";
+<%_ } else { _%>
+    return "<%= elementName %>.css";
+<%_ } _%>
   }
-<% } %>
 
   constructor() {
     super(<%= elementClassName %>.tag);
