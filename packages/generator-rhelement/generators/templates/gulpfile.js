@@ -39,7 +39,7 @@ gulp.task("merge", () => {
   return gulp
     .src("./src/<%= elementName %>.js")
     .pipe(
-      replace(/extends\s+Rhelement\s+{/g, (classStatement, character, jsFile) => {
+      replace(/extends\s+RHElement\s+{/g, (classStatement, character, jsFile) => {
         // extract the templateUrl and styleUrl with regex.  Would prefer to do
         // this by require'ing <%= elementName %>.js and asking it directly, but without
         // node.js support for ES modules, we're stuck with this.

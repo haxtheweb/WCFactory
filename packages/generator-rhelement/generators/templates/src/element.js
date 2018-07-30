@@ -1,6 +1,6 @@
-import Rhelement from "../rhelement/rhelement.js";
+import RHElement from "../rhelement/rhelement.js";
 
-class <%= elementClassName %> extends Rhelement {
+class <%= elementClassName %> extends RHElement {
   static get tag() {
     return "<%= elementName %>";
   }
@@ -17,9 +17,21 @@ class <%= elementClassName %> extends Rhelement {
 <%_ } _%>
   }
 
+  // static get observedAttributes() {
+  //   return [];
+  // }
+
   constructor() {
     super(<%= elementClassName %>.tag);
   }
+
+  // connectedCallback() {
+  //   super.connectedCallback();
+  // }
+
+  // disconnectedCallback() {}
+
+  // attributeChangedCallback(attr, oldValue, newValue) {}
 }
 
-Rhelement.create(<%= elementClassName %>);
+RHElement.create(<%= elementClassName %>);
