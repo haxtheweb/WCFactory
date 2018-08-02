@@ -148,6 +148,11 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}`)
     );
 
+    this.fs.copy(
+      this.templatePath("LICENSE.txt"),
+      this.destinationPath(`${this.props.elementName}/LICENSE.txt`)
+    );
+
     if (this.props.useSass) {
       this.fs.copyTpl(
         this.templatePath("src/element.scss"),

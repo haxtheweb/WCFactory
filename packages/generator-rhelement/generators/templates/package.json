@@ -15,7 +15,7 @@
   "author": {
     "name": "<%= author %>"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     <% if (sassLibraryPkg) { %>"<%= sassLibraryPkg %>": "*",<% } %>
     "@rhelements/rhelement": "*"
