@@ -1,4 +1,4 @@
-# RHElements <%= readmeName %> Element
+# <%= customElementClass %> <%= readmeName %> Element
 
 ## Dependencies
 

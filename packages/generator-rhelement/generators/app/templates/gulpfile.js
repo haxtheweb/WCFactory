@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-
 const gulp = require("gulp");
+var gulpCopy = require('gulp-copy');
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
@@ -29,14 +29,14 @@ gulp.task("compile", () => {
 });
 
 gulp.task("watch", () => {
-  return gulp.watch("./src/*", gulp.series("merge", "compile"));
+  return gulp.watch("./src/*", gulp.series("merge", "copy", "compile"));
 });
 
 gulp.task("merge", () => {
   return gulp
     .src("./src/<%= elementName %>.js")
     .pipe(
-      replace(/extends\s+RHElement\s+{/g, (classStatement, character, jsFile) => {
+    replace(/extends\s+<%= customElementClass %>\s+{/g, (classStatement, character, jsFile) => {
         // extract the templateUrl and styleUrl with regex.  Would prefer to do
         // this by require'ing <%= elementName %>.js and asking it directly, but without
         // node.js support for ES modules, we're stuck with this.
@@ -44,7 +44,7 @@ gulp.task("merge", () => {
         const [
           ,
           templateUrl
-        ] = /get\s+templateUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+        ] = /templateUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
           oneLineFile
         );
 
@@ -54,16 +54,25 @@ gulp.task("merge", () => {
           .trim();
 
         html = decomment(html);
+        // pull properties off of the file location
+        const [
+          ,
+          propertiesUrl
+        ] = /propertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+          oneLineFile
+        );
+        let props = fs
+          .readFileSync(path.join("./src", propertiesUrl));
+        props = stripCssComments(props).trim();
 
+        // pull together styles from url
         const [
           ,
           styleUrl
-        ] = /get\s+styleUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+        ] = /styleUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
           oneLineFile
         );
-
         const styleFilePath = path.join("./src", styleUrl);
-
 <%_ if (useSass) { _%>
         let cssResult = sass.renderSync({
           file: styleFilePath
@@ -71,23 +80,33 @@ gulp.task("merge", () => {
 <%_ } else { _%>
         let cssResult = fs.readFileSync(styleFilePath);
 <%_ } _%>
-
         cssResult = stripCssComments(cssResult).trim();
-
         return `${classStatement}
-  get html() {
-    return \`
+  <%= templateReturnFunctionPart %>\`
 <style>
 ${cssResult}
 </style>
 ${html}\`;
   }
-`;
+  static get properties() {
+    return ${props};
+  }`;
       })
     )
     .pipe(gulp.dest("./"));
 });
 
-gulp.task("default", gulp.series("merge", "compile"));
+gulp.task("copy", () => {
+  return gulp
+    .src("./<%= elementName %>.js")
+    .pipe(
+      rename({
+        suffix: ".es5"
+      })
+    )
+    .pipe(gulp.dest("./"));
+});
 
-gulp.task("dev", gulp.series("merge", "compile", "watch"));
+gulp.task("default", gulp.series("merge", "copy", "compile"));
+
+gulp.task("dev", gulp.series("merge", "copy", "compile", "watch"));
