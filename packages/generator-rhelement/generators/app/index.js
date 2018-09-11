@@ -3,7 +3,7 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
-const packageJson = require("../package.json");
+const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
   prompting() {
