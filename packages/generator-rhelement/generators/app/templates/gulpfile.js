@@ -139,15 +139,12 @@ ${html}\`;
 // shift build files around a bit and build source maps
 gulp.task("cleanup", () => {
   gulp
-    //should be ./build/es6/ but is failing
-
     .src("./<%= elementName %>.js")
     .pipe(sourcemaps.init())
     .pipe(uglifyES6())
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./"));
   return gulp
-  //should be ./build/es5/ but is failing
     .src("./<%= elementName %>.js")
     .pipe(
       rename({
