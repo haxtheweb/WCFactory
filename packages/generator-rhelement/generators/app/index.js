@@ -255,6 +255,10 @@ module.exports = class extends Generator {
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
+        if (prop.observer) {
+          // @todo need to do something way more advanced if observer is actually in use
+          prop.observer = '_' + prop.name + 'Changed';
+        }
         this.props.propsList[prop.name] = prop;
       });
       this.props.propsListString = JSON.stringify(this.props.propsList, null, '  ')

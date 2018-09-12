@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const gulp = require("gulp");
+const _ = require("lodash");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
@@ -102,10 +103,21 @@ gulp.task("merge", () => {
         ] = /propertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
           oneLineFile
         );
-        let props = fs
-          .readFileSync(path.join("./src", propertiesUrl));
+        let props = fs.readFileSync(path.join("./src", propertiesUrl));
         props = stripCssComments(props).trim();
-
+        // convert to object so we can build functions
+        const propObject = JSON.parse(props);
+        var functs = '';
+        _.forEach(propObject, (prop) => {
+          if (prop.observer) {
+            functs += `  // Observer ${prop.name} for changes
+  _${prop.name}Changed (newValue, oldValue) {
+    if (typeof newValue !== typeof undefined) {
+      console.log(newValue);
+    }
+  }` + "\n\n";
+          }
+        });
         // pull together styles from url
         const [
           ,
@@ -129,9 +141,11 @@ ${cssResult}
 </style>
 ${html}\`;
   }
+  // properties available to the custom element for data binding
   static get properties() {
     return ${props};
-  }`;
+  }
+  ${functs}`;
       })
     )
     .pipe(gulp.dest("./"));
