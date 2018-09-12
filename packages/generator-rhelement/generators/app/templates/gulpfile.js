@@ -48,7 +48,7 @@ gulp.task("compile", () => {
     .pipe(gulp.dest("build/es5"));
 
   return gulp
-    .src("./build/es5/<%= elementName %>.js")
+    .src("./<%= elementName %>.js")
     .pipe(
       replace(
         /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
@@ -65,6 +65,7 @@ gulp.task("compile", () => {
         presets: ["@babel/env"]
       })
     )
+    .pipe(uglifyES5())
     .pipe(gulp.dest("./"));
 });
 
