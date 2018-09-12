@@ -43,15 +43,15 @@ module.exports = class extends Generator {
         choices: [
           {
             name: "Apache 2.0",
-            value: "apache2"
+            value: "Apache2"
           },
           {
             name: "MIT",
-            value: "mit"
+            value: "MIT"
           },
           {
             name: "BSD 3 clause",
-            value: "bsd3"
+            value: "BSD3"
           }
         ]
       },
@@ -250,6 +250,8 @@ module.exports = class extends Generator {
         useSass: answers.useSass,
         sassLibraryPkg: false,
         sassLibraryPath: false,
+        polymerLibraryPkg: false,
+        litLibraryPkg: false,
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
@@ -284,14 +286,14 @@ module.exports = class extends Generator {
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>[[' + prop.name + ']]</div>' + "\n";
           });
-          // @todo add in package.json rewrites to add in @polymer/polymer
+          this.props.polymerLibraryPkg = "@polymer/polymer";
         break;
         case 'LitElement':
           this.props.templateReturnFunctionPart = "render() {\n    return html";
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
           });
-          // @todo add in package.json rewrites to add in @polymer/lit-element
+          this.props.litLibraryPkg = "@polymer/lit-element";
           break;
         case 'HTMLElement':
         case 'RHElement':
@@ -310,7 +312,6 @@ module.exports = class extends Generator {
           this.props.sassLibraryPath = answers.sassLibrary.path;
         }
       }
-      console.log(this.props.propsBindingFactory);
       mkdirp.sync(this.props.elementName);
     });
   }
@@ -319,6 +320,12 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("package.json"),
       this.destinationPath(`${this.props.elementName}/package.json`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("index.html"),
+      this.destinationPath(`${this.props.elementName}/index.html`),
       this.props
     );
 

@@ -1,19 +1,54 @@
 const fs = require("fs");
 const path = require("path");
 const gulp = require("gulp");
-var gulpCopy = require('gulp-copy');
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const trim = require("trim");
 const decomment = require("decomment");
+const sourcemaps = require("gulp-sourcemaps");
+const uglifyES6 = require("gulp-uglify-es").default;
+const uglifyES5 = require("gulp-uglify");
+const gulpif = require("gulp-if");
+const babel = require("gulp-babel");
 <%_ if (useSass) { _%>
 const sass = require('node-sass');
 <%_ } _%>
 
 gulp.task("compile", () => {
+  //const htmlMinifier = require('gulp-html-minifier');
+  const mergeStream = require("merge-stream");
+  const PolymerProject = require("polymer-build").PolymerProject;
+  const forkStream = require("polymer-build").forkStream;
+  // read off polymer.json options for simplicity
+  const project = new PolymerProject({});
+  const cssSlam = require("css-slam").gulp;
+  // create a build stream that we'll fork against to keep getting
+  // different types of build routines
+  const buildStream = mergeStream(project.sources(), project.dependencies());
+  // Create a build pipeline to pipe both streams together to the 'build/' dir
+  // Fork your build stream to write directly to the 'build/unbundled' dir
+  const es6BuildStream = forkStream(buildStream)
+    .pipe(gulpif(/\.js$/, uglifyES6()))
+    .pipe(gulpif(/\.css$/, cssSlam()))
+    .pipe(gulp.dest("build/es6"));
+  // Fork your build stream to bundle your application and write to the 'build/bundled' dir
+  const es5BuildStream = forkStream(buildStream)
+    .pipe(project.addCustomElementsEs5Adapter())
+    .pipe(
+      gulpif(
+        /\.js$/,
+        babel({
+          presets: ["@babel/env"]
+        })
+      )
+    )
+    .pipe(gulpif(/\.js$/, uglifyES5()))
+    .pipe(gulpif(/\.css$/, cssSlam()))
+    .pipe(gulp.dest("build/es5"));
+
   return gulp
-    .src("./<%= elementName %>.js")
+    .src("./build/es5/<%= elementName %>.js")
     .pipe(
       replace(
         /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
@@ -25,11 +60,16 @@ gulp.task("compile", () => {
         suffix: ".umd"
       })
     )
+    .pipe(
+      babel({
+        presets: ["@babel/env"]
+      })
+    )
     .pipe(gulp.dest("./"));
 });
 
 gulp.task("watch", () => {
-  return gulp.watch("./src/*", gulp.series("merge", "copy", "compile"));
+  return gulp.watch("./src/*", gulp.series("merge", "compile", "cleanup"));
 });
 
 gulp.task("merge", () => {
@@ -96,17 +136,35 @@ ${html}\`;
     .pipe(gulp.dest("./"));
 });
 
-gulp.task("copy", () => {
+// shift build files around a bit and build source maps
+gulp.task("cleanup", () => {
+  gulp
+    //should be ./build/es6/ but is failing
+
+    .src("./<%= elementName %>.js")
+    .pipe(sourcemaps.init())
+    .pipe(uglifyES6())
+    .pipe(sourcemaps.write("./"))
+    .pipe(gulp.dest("./"));
   return gulp
+  //should be ./build/es5/ but is failing
     .src("./<%= elementName %>.js")
     .pipe(
       rename({
         suffix: ".es5"
       })
     )
+    .pipe(
+      babel({
+        presets: ["@babel/env"]
+      })
+    )
+    .pipe(sourcemaps.init())
+    .pipe(uglifyES5())
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./"));
 });
 
-gulp.task("default", gulp.series("merge", "copy", "compile"));
+gulp.task("default", gulp.series("merge", "compile", "cleanup"));
 
-gulp.task("dev", gulp.series("merge", "copy", "compile", "watch"));
+gulp.task("dev", gulp.series("merge", "compile", "cleanup", "watch"));

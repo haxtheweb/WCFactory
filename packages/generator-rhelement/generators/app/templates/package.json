@@ -11,7 +11,7 @@
     "url": ""
   },
   "main": "<%= elementName %>.umd.js",
-  "module": "<%= elementName %>.js",
+  "module": "<%= elementName %>.es5.js",
   "es2015": "<%= elementName %>.js",
   "scripts": {
     "build": "../../node_modules/.bin/gulp && ../../node_modules/.bin/rollup -c && ../../node_modules/.bin/prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}'",
@@ -21,11 +21,20 @@
   "author": {
     "name": "<%= author %>"
   },
-  "license": "MIT",
+  "license": "<%= license %>",
+  "generator-rhelement-version": "<%= generatorRhelementVersion %>",
   "dependencies": {
-    "babel-plugin-transform-custom-element-classes": "^0.1.0",
     <% if (sassLibraryPkg) { %>"<%= sassLibraryPkg %>": "*",<% } %>
+    <% if (polymerLibraryPkg) { %>"<%= polymerLibraryPkg %>": "^3.0.5",<% } %>
+    <% if (litLibraryPkg) { %>"<%= litLibraryPkg %>": "^0.5.2",<% } %>
     "@rhelements/rhelement": "*"
   },
-  "generator-rhelement-version": "<%= generatorRhelementVersion %>"
+  "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.1.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify-es": "^1.0.4",
+    "polymer-build": "^3.0.4",
+    "uglify-es": "^3.3.9"
+  }
 }
