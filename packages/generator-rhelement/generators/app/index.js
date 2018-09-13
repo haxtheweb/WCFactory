@@ -43,7 +43,7 @@ module.exports = class extends Generator {
         choices: [
           {
             name: "Apache 2.0",
-            value: "Apache2"
+            value: "Apache-2.0"
           },
           {
             name: "MIT",
@@ -51,7 +51,7 @@ module.exports = class extends Generator {
           },
           {
             name: "BSD 3 clause",
-            value: "BSD3"
+            value: "BSD-3-Clause"
           }
         ]
       },
