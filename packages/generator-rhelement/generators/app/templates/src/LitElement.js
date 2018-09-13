@@ -27,6 +27,8 @@ import { LitElement, html, property } from '@polymer/lit-element';
  *
  *
  * @customElement
+ * @lit-html
+ * @lit-element
  * @demo demo/index.html
  */
 class <%= elementClassName %> extends <%= customElementClass %> {

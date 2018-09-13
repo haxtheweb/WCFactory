@@ -27,6 +27,7 @@ import RHElement from "../rhelement/rhelement.js";
  *
  *
  * @customElement
+ * @rhelement
  * @demo demo/index.html
  */
 class <%= elementClassName %> extends <%= customElementClass %> {

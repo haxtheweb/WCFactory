@@ -27,7 +27,7 @@ import 'slim-js';
  *
  *
  * @customElement
- * @Slim
+ * @slim
  * @demo demo/index.html
  */
 Slim.tag(
