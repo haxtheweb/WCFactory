@@ -34,9 +34,6 @@
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.1.1",
-    <% if (polymerLibraryPkg) { %>"<%= polymerLibraryPkg %>": "^3.0.5",<% } %>
-    <% if (slimLibraryPkg) { %>"<%= slimLibraryPkg %>": "^3.3.4",<% } %>
-    <% if (litLibraryPkg) { %>"<%= litLibraryPkg %>": "^0.5.2",<% } %>
     "lodash": "^4.17.10",
     "gulp-babel": "^8.0.0",
     "@polymer/iron-demo-helpers": "^3.0.1",
