@@ -35,6 +35,8 @@
     <% if (litLibraryPkg) { %>"<%= litLibraryPkg %>": "^0.5.2",<% } %>
     "lodash": "^4.17.10",
     "gulp-babel": "^8.0.0",
+    "@polymer/iron-demo-helpers": "^3.0.1",
+    "wct-browser-legacy": "^1.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.4",
     "polymer-build": "^3.0.4",

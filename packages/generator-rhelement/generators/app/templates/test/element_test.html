@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <script src="/components/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script src="/components/web-component-tester/browser.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
     <script type="module" src="../<%= elementName %>.js"></script>
   </head>
   <body>
@@ -12,16 +12,41 @@
     <<%= elementName %>>
       This is the element content.
     </<%= elementName %>>
+<test-fixture id="BasicTestFixture">
+  <template>
+    <<%= elementName %>></<%= elementName %>>
+  </template>
+</test-fixture>
 
-    <script>
-      suite('<<%= elementName %>>', () => {
-        test('it should upgrade', () => {
-          assert.instanceOf(document.querySelector('<%= name %>'), customElements.get("<%= name %>", '<%= elementName %> should be an instance of <%= camelCaseName %>'));
-        });
+<test-fixture id="ChangedPropertyTestFixture">
+  <template>
+    <<%= elementName %> <%- storyHTMLProps %>></<%= elementName %>>
+  </template>
+</test-fixture>
 
-        // you need to write more tests!!!
+<script type="module">
+  suite('<<%= elementName %>>', () => {
+    test('it should upgrade', () => {
+      assert.instanceOf(document.querySelector('<%= name %>'), customElements.get("<%= name %>", '<%= elementName %> should be an instance of <%= camelCaseName %>'));
+    });
 
-      });
+    /*test('instantiating the element with default properties works', () => {
+      const element = fixture('BasicTestFixture');
+      assert.equal(element.prop1, '<<%= elementName %>>');
+      const elementShadowRoot = element.shadowRoot;
+      const elementHeader = elementShadowRoot.querySelector('h2');
+      assert.equal(elementHeader.innerHTML, 'Hello <<%= elementName %>>!');
+    });*/
+
+    /*test('setting a property on the element works', () => {
+      // Create a test fixture
+      const element = fixture('ChangedPropertyTestFixture');
+      assert.equal(element.prop1, 'new-prop1');
+      const elementShadowRoot = element.shadowRoot;
+      const elementHeader = elementShadowRoot.querySelector('h2');
+      assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+    });*/
+  });
     </script>
   </body>
 </html>
