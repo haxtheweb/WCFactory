@@ -99,19 +99,23 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: "VanillaJS, a pure HTMLElement developer invokation",
+            name: "VanillaJS, a pure HTMLElement extension, 0 dependencies",
             value: "HTMLElement"
           },
           {
-            name: "RHElement, lightweight wrapper on Vanilla",
+            name: "RHElement, lightweight wrapper on Vanilla, 1 dependency",
             value: "RHElement"
           },
           {
-            name: "LitElement, data binding and template wrapper work",
+            name: "SlimJS, data binding +, incredibly small",
+            value: "Slim"
+          },
+          {
+            name: "LitElement, data binding ++, incredibly small",
             value: "LitElement"
           },
           {
-            name: "Polymer (3), data binding and lots of utilities to build complexity",
+            name: "Polymer (3), data binding +++, utilities to build complex things, relatively small",
             value: "PolymerElement"
           }
         ]
@@ -252,6 +256,7 @@ module.exports = class extends Generator {
         sassLibraryPath: false,
         polymerLibraryPkg: false,
         litLibraryPkg: false,
+        slimLibraryPkg: false,
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
@@ -298,7 +303,14 @@ module.exports = class extends Generator {
             this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
           });
           this.props.litLibraryPkg = "@polymer/lit-element";
-          break;
+        break;
+        case 'Slim':
+          this.props.templateReturnFunctionPart = "render(tpl) {\n    this._render";
+          _.forEach(this.props.propsListRaw, (prop) => {
+            this.props.propsBindingFactory += '<div>{{' + prop.name + '}}</div>' + "\n";
+          });
+          this.props.slimLibraryPkg = "slim-js";
+        break;
         case 'HTMLElement':
         case 'RHElement':
         default:
