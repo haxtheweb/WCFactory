@@ -111,7 +111,11 @@ module.exports = class extends Generator {
             value: "Slim"
           },
           {
-            name: "LitElement, data binding ++, incredibly small",
+            name: "SkateJS + lit-html, data binding ++, very small",
+            value: "SkateJS"
+          },
+          {
+            name: "LitElement, data binding ++, very small",
             value: "LitElement"
           },
           {
@@ -257,6 +261,7 @@ module.exports = class extends Generator {
         polymerLibraryPkg: false,
         litLibraryPkg: false,
         slimLibraryPkg: false,
+        skateJSLibraryPkg: false,
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
@@ -303,6 +308,13 @@ module.exports = class extends Generator {
             this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
           });
           this.props.litLibraryPkg = "@polymer/lit-element";
+        break;
+        case 'SkateJS':
+          this.props.templateReturnFunctionPart = "render() {\n    return html";
+          _.forEach(this.props.propsListRaw, (prop) => {
+            this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
+          });
+          this.props.skateJSLibraryPkg = "@skatejs/renderer-lit-html";
         break;
         case 'Slim':
           this.props.templateReturnFunctionPart = "render(tpl) {\n    this._render";
