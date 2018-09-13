@@ -15,7 +15,9 @@
   "es2015": "<%= elementName %>.js",
   "scripts": {
     "build": "../../node_modules/.bin/gulp && ../../node_modules/.bin/rollup -c && ../../node_modules/.bin/prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}'",
-    "dev": "../../node_modules/.bin/gulp dev",
+    "dev": "npm install && concurrently --kill-others \"npm run watch\" \"npm run serve\" && open ./src",
+    "watch": "../../node_modules/.bin/gulp dev",
+    "serve": "cd build/es6 && polymer serve --npm --module-resolution=node --open",
     "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/@rhelements/<%= elementName %>/test/",
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
@@ -33,16 +35,17 @@
     "@rhelements/rhelement": "*"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "^2.1.1",
-    "lodash": "^4.17.10",
-    "gulp-babel": "^8.0.0",
     "@polymer/iron-demo-helpers": "^3.0.1",
-    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.1.1",
+    "concurrently": "^4.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-connect": "^5.0.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.4",
+    "lighthouse": "^2.x",
+    "lodash": "^4.17.10",
     "polymer-build": "^3.0.4",
     "uglify-es": "^3.3.9",
-    "gulp-connect": "^5.0.0",
-    "lighthouse": "^2.x"
+    "wct-browser-legacy": "^1.0.1"
   }
 }
