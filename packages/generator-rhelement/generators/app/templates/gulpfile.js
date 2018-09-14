@@ -25,8 +25,10 @@ gulp.task("compile", () => {
   const mergeStream = require("merge-stream");
   const PolymerProject = require("polymer-build").PolymerProject;
   const forkStream = require("polymer-build").forkStream;
-  // read off polymer.json options for simplicity
-  const project = new PolymerProject({});
+  const project = new PolymerProject({
+    npm: true,
+    moduleResolution: "node"
+  });
   const cssSlam = require("css-slam").gulp;
   // create a build stream that we'll fork against to keep getting
   // different types of build routines
