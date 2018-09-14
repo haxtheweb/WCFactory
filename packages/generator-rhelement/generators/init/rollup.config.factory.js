@@ -14,11 +14,8 @@ function umdConfig({ elementName, className } = {}) {
       name: className
     },
     plugins: [
-      commonjs(),
-      babel({
-        // exclude: "node_modules/**" // only transpile our source code
-      }),
-      uglify()
+      resolve(),
+      commonjs()
     ],
     external: id => id.startsWith("..")
   };
