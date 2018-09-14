@@ -23,6 +23,11 @@ module.exports = class extends Generator {
       },
       {
         type: "input",
+        name: "description",
+        message: "Description / purpose of the element"
+      },
+      {
+        type: "input",
         name: "author",
         message: "Author of this element",
         store: true
@@ -239,6 +244,7 @@ module.exports = class extends Generator {
         copyrightOwner: answers.copyrightOwner,
         license: answers.license,
         name: answers.name,
+        description: answers.description,
         elementName: answers.name,
         addProps: answers.addProps,
         propsListRaw: answers.propsList,

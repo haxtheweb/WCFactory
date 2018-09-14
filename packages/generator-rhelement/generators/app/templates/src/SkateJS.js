@@ -1,33 +1,18 @@
-/*
+/**
  * Copyright <%= year %> <%= copyrightOwner %>
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * @license <%= license =>, see License.md for full text.
  */
-
 import { props, withComponent } from 'skatejs';
 import withLitHtml from '@skatejs/renderer-lit-html';
 import { html } from 'lit-html';
+// extend into class name matching library for consistency
 class SkateJS extends withComponent(withLitHtml()) { }
-
 /**
  * `<%= elementName %>`
+ * `<%= description %>`
  *
+ * @microcopy - language worth noting:
+ *  -
  *
  * @customElement
  * @lit-html
@@ -37,24 +22,28 @@ class SkateJS extends withComponent(withLitHtml()) { }
 class <%= elementClassName %> extends <%= customElementClass %> {
   /**
    * Store the tag name to make it easier to obtain directly.
+   * @notice function name must be here for tooling to operate correctly
    */
   tag() {
     return "<%= elementName %>";
   }
   /**
    * A file that contains the HTML template for the element.
+   * @notice function name must be here for tooling to operate correctly
    */
   templateUrl() {
     return "<%= elementName %>.html";
   }
   /**
    * A file that contains the properties that will be wired into this element.
+   * @notice function name must be here for tooling to operate correctly
    */
   propertiesUrl() {
     return "<%= elementName %>-properties.json";
   }
   /**
    * A file that contains the css for this element to be mixed into the html block.
+   * @notice function name must be here for tooling to operate correctly
    */
   styleUrl() {
   <%_ if (useSass) { _%>
@@ -63,9 +52,15 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     return "<%= elementName %>.css";
   <%_ } _%>
   }
+  /**
+   * life cycle
+   */
   constructor() {
     super();
     // silly but this nets us data binding for default values
+    // map our imported properties json to real props on the element
+    // @notice static getter of properties is built via tooling
+    // to edit modify src/<%= elementClassName %>-properties.json
     let obj = <%= elementClassName %>.properties;
     for (let p in obj) {
       if (obj.hasOwnProperty(p)) {
@@ -75,6 +70,9 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   }
   // SkateJS props function that we map our abstracted properties object over to
   static get props() {
+    // map our imported properties json to real props on the element
+    // @notice static getter of properties is built via tooling
+    // to edit modify src/<%= elementClassName %>-properties.json
     let obj = <%= elementClassName %>.properties;
     let simpleProps = {};
     for (let p in obj) {
