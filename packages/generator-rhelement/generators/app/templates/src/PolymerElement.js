@@ -1,6 +1,6 @@
 /**
  * Copyright <%= year %> <%= copyrightOwner %>
- * @license <%= license =>, see License.md for full text.
+ * @license <%= license %>, see License.md for full text.
  */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 /**

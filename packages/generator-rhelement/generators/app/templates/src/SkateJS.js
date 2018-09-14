@@ -1,6 +1,6 @@
 /**
  * Copyright <%= year %> <%= copyrightOwner %>
- * @license <%= license =>, see License.md for full text.
+ * @license <%= license %>, see License.md for full text.
  */
 import { props, withComponent } from 'skatejs';
 import withLitHtml from '@skatejs/renderer-lit-html';
