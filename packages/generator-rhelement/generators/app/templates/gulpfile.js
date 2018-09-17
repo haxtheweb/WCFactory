@@ -70,12 +70,6 @@ gulp.task("compile", () => {
         suffix: ".umd"
       })
     )
-    .pipe(
-      babel({
-        presets: ["@babel/env"]
-      })
-    )
-    .pipe(uglifyES5())
     .pipe(gulp.dest("./"));
 });
 
