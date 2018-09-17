@@ -27,7 +27,10 @@ gulp.task("compile", () => {
   const forkStream = require("polymer-build").forkStream;
   const project = new PolymerProject({
     npm: true,
-    moduleResolution: "node"
+    moduleResolution: "node",
+    extraDependencies: [
+      'node_modules/@webcomponents/webcomponentsjs/**'
+    ]
   });
   const cssSlam = require("css-slam").gulp;
   // create a build stream that we'll fork against to keep getting
