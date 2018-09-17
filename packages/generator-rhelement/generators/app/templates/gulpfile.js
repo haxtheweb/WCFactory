@@ -1,7 +1,7 @@
-const gulp = require('gulp');
-const connect = require('gulp-connect');
-const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
+const gulp = require("gulp");
+const connect = require("gulp-connect");
+const lighthouse = require("lighthouse");
+const chromeLauncher = require("chrome-launcher");
 const PORT = 8054;
 const fs = require("fs");
 const path = require("path");
@@ -19,63 +19,6 @@ const babel = require("gulp-babel");
 <%_ if (useSass) { _%>
 const sass = require('node-sass');
 <%_ } _%>
-
-gulp.task("compile", () => {
-  //const htmlMinifier = require('gulp-html-minifier');
-  const mergeStream = require("merge-stream");
-  const PolymerProject = require("polymer-build").PolymerProject;
-  const forkStream = require("polymer-build").forkStream;
-  const project = new PolymerProject({
-    npm: true,
-    moduleResolution: "node",
-    extraDependencies: [
-      'node_modules/@webcomponents/webcomponentsjs/**'
-    ]
-  });
-  const cssSlam = require("css-slam").gulp;
-  // create a build stream that we'll fork against to keep getting
-  // different types of build routines
-  const buildStream = mergeStream(project.sources(), project.dependencies());
-  // Create a build pipeline to pipe both streams together to the 'build/' dir
-  // Fork your build stream to write directly to the 'build/unbundled' dir
-  const es6BuildStream = forkStream(buildStream)
-    .pipe(gulpif(/\.js$/, uglifyES6()))
-    .pipe(gulpif(/\.css$/, cssSlam()))
-    .pipe(gulp.dest("build/es6"));
-  // Fork your build stream to bundle your application and write to the 'build/bundled' dir
-  const es5BuildStream = forkStream(buildStream)
-    .pipe(project.addCustomElementsEs5Adapter())
-    .pipe(
-      gulpif(
-        /\.js$/,
-        babel({
-          presets: ["@babel/env"]
-        })
-      )
-    )
-    .pipe(gulpif(/\.js$/, uglifyES5()))
-    .pipe(gulpif(/\.css$/, cssSlam()))
-    .pipe(gulp.dest("build/es5"));
-
-  return gulp
-    .src("./<%= elementName %>.js")
-    .pipe(
-      replace(
-        /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
-        "$1$2.umd$3"
-      )
-    )
-    .pipe(
-      rename({
-        suffix: ".umd"
-      })
-    )
-    .pipe(gulp.dest("./"));
-});
-
-gulp.task("watch", () => {
-  return gulp.watch("./src/*", gulp.series("merge", "compile", "cleanup"));
-});
 
 gulp.task("merge", () => {
   return gulp
@@ -154,30 +97,71 @@ ${html}\`;
     .pipe(gulp.dest("./"));
 });
 
-// shift build files around a bit and build source maps
-gulp.task("cleanup", () => {
+gulp.task("build", () => {
+  const spawn = require("child_process").spawn;
+  let child = spawn("polymer", ["build"]);
+  return child.on("close", function (code) {
+    console.log("child process exited with code " + code);
+  });
+});
+gulp.task("compile", () => {
+  const PolymerProject = require("polymer-build").PolymerProject;
+  const project = new PolymerProject(require("./polymer.json"));
+  const mergeStream = require("merge-stream");
+  mergeStream(project.sources(), project.dependencies()).pipe(
+    gulp.dest("build/")
+  );
+  // copy outputs
+  gulp.src("./build/es6/<%= elementName %>.js").pipe(gulp.dest("./"));
   gulp
-    .src("./<%= elementName %>.js")
-    .pipe(sourcemaps.init())
-    .pipe(uglifyES6())
-    .pipe(sourcemaps.write("./"))
-    .pipe(gulp.dest("./"));
-  return gulp
-    .src("./<%= elementName %>.js")
+    .src("./build/es5/<%= elementName %>.js")
     .pipe(
       rename({
         suffix: ".es5"
       })
     )
+    .pipe(gulp.dest("./"));
+  gulp
+    .src("./build/es5-amd/<%= elementName %>.js")
     .pipe(
-      babel({
-        presets: ["@babel/env"]
+      rename({
+        suffix: ".amd"
       })
     )
-    .pipe(sourcemaps.init())
-    .pipe(uglifyES5())
-    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./"));
+  return gulp
+    .src("./<%= elementName %>.js")
+    .pipe(
+      replace(
+        /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
+        "$1$2.umd$3"
+      )
+    )
+    .pipe(
+      rename({
+        suffix: ".umd"
+      })
+    )
+    .pipe(gulp.dest("./"));
+});
+
+gulp.task("watch", () => {
+  return gulp.watch(
+    "./src/*",
+    gulp.series("merge", "build", "compile", "sourcemaps")
+  );
+});
+
+// shift build files around a bit and build source maps
+gulp.task("sourcemaps", () => {
+  gulp
+    .src("./<%= elementName %>.amd.js")
+    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.write("./"));
+  return gulp
+    .src("./<%= elementName %>.js")
+    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.write("./"));
 });
 
 /**
@@ -185,8 +169,8 @@ gulp.task("cleanup", () => {
  */
 const startServer = function () {
   return connect.server({
-    root: './public',
-    port: PORT,
+    root: "./public",
+    port: PORT
   });
 };
 
@@ -235,14 +219,21 @@ const handleError = function (e) {
 };
 const flags = {}; // available options - https://github.com/GoogleChrome/lighthouse/#cli-options
 
-gulp.task("default", gulp.series("merge", "compile", "cleanup"));
+gulp.task("default", gulp.series("merge", "build", "compile", "sourcemaps"));
 
-gulp.task("dev", gulp.series("merge", "compile", "cleanup", "watch"));
+gulp.task(
+  "dev",
+  gulp.series("merge", "build", "compile", "sourcemaps", "watch")
+);
 
-gulp.task('lighthouse', () => {
+gulp.task("lighthouse", () => {
   startServer();
-  const config = { extends: 'lighthouse:default' };
-  return launchChromeAndRunLighthouse(`http://127.0.0.1:${PORT}/index.html`, flags, config)
+  const config = { extends: "lighthouse:default" };
+  return launchChromeAndRunLighthouse(
+    `http://127.0.0.1:${PORT}/index.html`,
+    flags,
+    config
+  )
     .then(handleOk)
     .catch(handleError);
 });
