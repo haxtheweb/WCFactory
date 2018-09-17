@@ -13,6 +13,7 @@
   "main": "<%= elementName %>.umd.js",
   "module": "<%= elementName %>.es5.js",
   "es2015": "<%= elementName %>.js",
+  "amd": "<%= elementName %>.amd.js",
   "scripts": {
     "build": "../../node_modules/.bin/gulp && ../../node_modules/.bin/rollup -c && ../../node_modules/.bin/prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}'",
     "dev": "npm run build && open ./src && concurrently --kill-others \"npm run watch\" \"npm run serve\"",
@@ -44,6 +45,7 @@
     "gulp-uglify-es": "^1.0.4",
     "lighthouse": "^2.x",
     "lodash": "^4.17.10",
+    "polymer-cli": "^1.7.1",
     "polymer-build": "^3.0.4",
     "uglify-es": "^3.3.9",
     "wct-browser-legacy": "^1.0.1"
