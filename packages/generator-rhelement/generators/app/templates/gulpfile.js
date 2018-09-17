@@ -105,32 +105,23 @@ gulp.task("build", () => {
   });
 });
 gulp.task("compile", () => {
-  const PolymerProject = require("polymer-build").PolymerProject;
-  const project = new PolymerProject(require("./polymer.json"));
-  const mergeStream = require("merge-stream");
-  mergeStream(project.sources(), project.dependencies()).pipe(
-    gulp.dest("build/")
-  );
   // copy outputs
   gulp.src("./build/es6/<%= elementName %>.js").pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5/<%= elementName %>.js")
+  gulp.src("./build/es5/<%= elementName %>.js")
     .pipe(
       rename({
         suffix: ".es5"
       })
     )
     .pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5-amd/<%= elementName %>.js")
+  gulp.src("./build/es5-amd/<%= elementName %>.js")
     .pipe(
       rename({
         suffix: ".amd"
       })
     )
     .pipe(gulp.dest("./"));
-  return gulp
-    .src("./<%= elementName %>.js")
+  return gulp.src("./<%= elementName %>.js")
     .pipe(
       replace(
         /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
