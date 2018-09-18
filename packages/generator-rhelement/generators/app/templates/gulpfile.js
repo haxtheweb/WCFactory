@@ -51,9 +51,7 @@ gulp.task("merge", () => {
         );
         let HAXProps = fs.readFileSync(path.join("./src", HAXPropertiesUrl));
         HAXProps = stripCssComments(HAXProps).trim();
-        // convert to object so we can build functions
-        const HAXPropObject = JSON.parse(HAXProps);
-          // pull properties off of the file location
+        // pull properties off of the file location
         const [
           ,
           propertiesUrl
@@ -63,6 +61,7 @@ gulp.task("merge", () => {
         let props = fs.readFileSync(path.join("./src", propertiesUrl));
         props = stripCssComments(props).trim();
         // convert to object so we can build functions
+        // @todo move this over to the prebuild stuff instead of run-time into this file
         const propObject = JSON.parse(props);
         var functs = '';
         _.forEach(propObject, (prop) => {
@@ -100,7 +99,7 @@ ${html}\`;
   }
   // haxProperty definition
   static get haxProperties() {
-    return ${HAXPropObject};
+    return ${HAXProps};
   }
   // properties available to the custom element for data binding
   static get properties() {
