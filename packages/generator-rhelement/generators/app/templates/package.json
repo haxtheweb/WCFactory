@@ -1,6 +1,6 @@
 {
   "name": "@rhelements/<%= elementName %>",
-  "rhelement": {
+  "wcfactory": {
     "className": "<%= elementClassName %>",
     "elementName": "<%= elementName %>"
   },
@@ -29,10 +29,7 @@
   "generator-rhelement-version": "<%= generatorRhelementVersion %>",
   "dependencies": {
     <% if (sassLibraryPkg) { %>"<%= sassLibraryPkg %>": "*",<% } %>
-    <% if (polymerLibraryPkg) { %>"<%= polymerLibraryPkg %>": "^3.0.5",<% } %>
-    <% if (slimLibraryPkg) { %>"<%= slimLibraryPkg %>": "^3.3.4",<% } %>
-    <% if (litLibraryPkg) { %>"<%= litLibraryPkg %>": "^0.5.2",<% } %>
-    <% if (skateJSLibraryPkg) { %>"<%= skateJSLibraryPkg %>": "^0.2.2","skatejs": "^5.2.4","lit-html": "^0.11.2",<% } %>
+    <%- libraryPkg %>
     "@rhelements/rhelement": "*"
   },
   "devDependencies": {
