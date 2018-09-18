@@ -449,6 +449,17 @@ module.exports = class extends Generator {
           // maybe someday :(
         break;
       }
+      _.forEach(this.props.propsListRaw, (prop) => {
+        // convert to object so we can build functions
+        if (prop.observer) {
+          this.props.additionalFunctionsString +=`  // Observer ${prop.name} for changes
+          _${prop.name}Changed (newValue, oldValue) {
+            if (typeof newValue !== typeof undefined) {
+              console.log(newValue);
+            }
+          }` + "\n\n";
+        }
+      });
       if (answers.useSass) {
         if (answers.sassLibrary && answers.sassLibrary.pkg) {
           this.props.sassLibraryPkg = answers.sassLibrary.pkg;
