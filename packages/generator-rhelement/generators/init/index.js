@@ -6,12 +6,20 @@ const process = require("process");
 const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
+  // constructor(args, opts) {
+  //   super(args, opts)
+
+  //   this.argument('name', {type: String, required: true})
+  // }
+
   prompting() {
     return this.prompt([
       {
-        type: "input",
+        type: "string",
         name: "name",
-        message: "Your element name"
+        message: "Your Repo name. Must be a valid npm name format.",
+        required: true,
+        default: path.basename(process.cwd())
       },
     ]).then(answers => {
       let name = answers.name.split("-")[1]
@@ -52,5 +60,6 @@ module.exports = class extends Generator {
   }
 
   end() {
+    this.spawnCommand("npm", ["run", "init"]);
   }
 };

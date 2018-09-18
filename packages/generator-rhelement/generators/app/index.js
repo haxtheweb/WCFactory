@@ -8,6 +8,7 @@ const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
   initializing() {
+    this.log('New app')
     this.env.adapter.promptModule.registerPrompt('recursive', recursive);
   }
   prompting() {

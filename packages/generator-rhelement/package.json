@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/RHElements/generator-rhelements"
   },
-  "main": "./generators/app/index.js",
+  "main": "generators/app/index.js",
   "files": [
     "generators"
   ],
