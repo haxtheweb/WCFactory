@@ -38,6 +38,13 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     return "<%= elementName %>-properties.json";
   }
   /**
+   * A file that contains the HAX properties that will be wired into this element.
+   * @notice function name must be here for tooling to operate correctly
+   */
+  get HAXPropertiesUrl() {
+    return "<%= elementName %>-hax.json";
+  }
+  /**
    * A file that contains the css for this element to be mixed into the html block.
    * @notice function name must be here for tooling to operate correctly
    */

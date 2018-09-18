@@ -42,7 +42,18 @@ gulp.task("merge", () => {
           .trim();
 
         html = decomment(html);
-        // pull properties off of the file location
+        // check on the HAX wiring
+        const [
+          ,
+          HAXPropertiesUrl
+        ] = /HAXPropertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+          oneLineFile
+        );
+        let HAXProps = fs.readFileSync(path.join("./src", HAXPropertiesUrl));
+        HAXProps = stripCssComments(HAXProps).trim();
+        // convert to object so we can build functions
+        const HAXPropObject = JSON.parse(HAXProps);
+          // pull properties off of the file location
         const [
           ,
           propertiesUrl
@@ -86,6 +97,10 @@ gulp.task("merge", () => {
 ${cssResult}
 </style>
 ${html}\`;
+  }
+  // haxProperty definition
+  static get haxProperties() {
+    return ${HAXPropObject};
   }
   // properties available to the custom element for data binding
   static get properties() {

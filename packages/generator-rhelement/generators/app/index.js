@@ -328,9 +328,9 @@ module.exports = class extends Generator {
       });
       // work on HAX integration if requested
       if (this.props.useHAX) {
-        this.props.includesString += 'import { HAXWiring } from "../hax-body-behaviors/lib/HAXWiring.js"';
-        // @todo add support for props file dynamic rewriting
-        //this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(props, ' + this.props.elementClassName + '.tag, this);';
+        this.props.includesString += 'import { HAXWiring } from "hax-body-behaviors/lib/HAXWiring.js"';
+        // load props in from this dynamically generated function call
+        this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
         // set baseline for HAX schema
         this.props.haxList = {
           'canScale': true,
