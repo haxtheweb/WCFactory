@@ -9,22 +9,18 @@ const _ = require("lodash");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
-const trim = require("trim");
 const decomment = require("decomment");
 const sourcemaps = require("gulp-sourcemaps");
-const uglifyES6 = require("gulp-uglify-es").default;
-const uglifyES5 = require("gulp-uglify");
-const gulpif = require("gulp-if");
-const babel = require("gulp-babel");
+const packageJson = require("package.json");
 <%_ if (useSass) { _%>
 const sass = require('node-sass');
 <%_ } _%>
 
 gulp.task("merge", () => {
   return gulp
-    .src("./src/<%= elementName %>.js")
+    .src("./src/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
-    replace(/extends\s+<%= customElementClass %>\s+{/g, (classStatement, character, jsFile) => {
+    replace(/extends\s+packageJson.wcfactory.className\s+{/g, (classStatement, character, jsFile) => {
         // extract the templateUrl and styleUrl with regex.  Would prefer to do
         // this by require'ing <%= elementName %>.js and asking it directly, but without
         // node.js support for ES modules, we're stuck with this.
@@ -60,20 +56,6 @@ gulp.task("merge", () => {
         );
         let props = fs.readFileSync(path.join("./src", propertiesUrl));
         props = stripCssComments(props).trim();
-        // convert to object so we can build functions
-        // @todo move this over to the prebuild stuff instead of run-time into this file
-        const propObject = JSON.parse(props);
-        var functs = '';
-        _.forEach(propObject, (prop) => {
-          if (prop.observer) {
-            functs += `  // Observer ${prop.name} for changes
-  _${prop.name}Changed (newValue, oldValue) {
-    if (typeof newValue !== typeof undefined) {
-      console.log(newValue);
-    }
-  }` + "\n\n";
-          }
-        });
         // pull together styles from url
         const [
           ,
@@ -120,22 +102,22 @@ gulp.task("build", () => {
 });
 gulp.task("compile", () => {
   // copy outputs
-  gulp.src("./build/es6/<%= elementName %>.js").pipe(gulp.dest("./"));
-  gulp.src("./build/es5/<%= elementName %>.js")
+  gulp.src("./build/es6/" + packageJson.wcfactory.elementName + ".js").pipe(gulp.dest("./"));
+  gulp.src("./build/es5/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       rename({
         suffix: ".es5"
       })
     )
     .pipe(gulp.dest("./"));
-  gulp.src("./build/es5-amd/<%= elementName %>.js")
+  gulp.src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       rename({
         suffix: ".amd"
       })
     )
     .pipe(gulp.dest("./"));
-  return gulp.src("./<%= elementName %>.js")
+  return gulp.src("./" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       replace(
         /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
@@ -160,11 +142,11 @@ gulp.task("watch", () => {
 // shift build files around a bit and build source maps
 gulp.task("sourcemaps", () => {
   gulp
-    .src("./<%= elementName %>.amd.js")
+    .src("./" + packageJson.wcfactory.elementName + ".amd.js")
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write("./"));
   return gulp
-    .src("./<%= elementName %>.js")
+    .src("./" + packageJson.wcfactory.elementName + ".js")
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write("./"));
 });
