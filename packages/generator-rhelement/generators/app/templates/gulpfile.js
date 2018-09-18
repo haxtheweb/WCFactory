@@ -11,7 +11,7 @@ const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const decomment = require("decomment");
 const sourcemaps = require("gulp-sourcemaps");
-const packageJson = require("package.json");
+const packageJson = require("./package.json");
 <%_ if (useSass) { _%>
 const sass = require('node-sass');
 <%_ } _%>
