@@ -75,5 +75,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   // disconnectedCallback() {}
 
   // attributeChangedCallback(attr, oldValue, newValue) {}
+  <%- additionalFunctionsString %>
 }
 customElements.define("<%= elementName %>", <%= elementClassName %>);

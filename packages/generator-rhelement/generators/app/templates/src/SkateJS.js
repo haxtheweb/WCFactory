@@ -97,5 +97,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   connected() {
     <%- connectedString %>
   }
+
+  <%- additionalFunctionsString %>
 }
 customElements.define("<%= elementName %>", <%= elementClassName %>);

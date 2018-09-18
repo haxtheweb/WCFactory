@@ -90,5 +90,6 @@ Slim.tag(
     get onRender() {
       <%- connectedString %>
     }
+    <%- additionalFunctionsString %>
   }
 );

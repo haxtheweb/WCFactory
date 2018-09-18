@@ -135,5 +135,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   //}
   // disconnectedCallback() {}
   // attributeChangedCallback(attr, oldValue, newValue) {}
+  <%- additionalFunctionsString %>
 }
 window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);

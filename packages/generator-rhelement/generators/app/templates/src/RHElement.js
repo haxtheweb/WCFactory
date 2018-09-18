@@ -84,6 +84,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   }
   // disconnectedCallback() {}
   // attributeChangedCallback(attr, oldValue, newValue) {}
+  <%- additionalFunctionsString %>
 }
 
 RHElement.create(<%= elementClassName %>);

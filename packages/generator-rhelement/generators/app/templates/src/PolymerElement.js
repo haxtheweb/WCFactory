@@ -66,5 +66,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
    * life cycle, element is removed from the DOM
    */
   //disconnectedCallback() {}
+  <%- additionalFunctionsString %>
 }
 window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
