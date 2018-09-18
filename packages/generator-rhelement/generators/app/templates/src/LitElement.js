@@ -3,6 +3,7 @@
  * @license <%= license %>, see License.md for full text.
  */
 import { LitElement, html, property } from '@polymer/lit-element';
+<%- includesString %>
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -52,15 +53,18 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   // life cycle
   constructor() {
     super();
+    <%- constructorString %>
   },
+  /**
+   * life cycle, element is afixed to the DOM
+   */
+  connectedCallback() {
+    super.connectedCallback();
+    <%- connectedString %>
+  }
   // static get observedAttributes() {
   //   return [];
   // }
-
-  // connectedCallback() {
-  //   super.connectedCallback();
-  // }
-
   // disconnectedCallback() {}
 
   // attributeChangedCallback(attr, oldValue, newValue) {}

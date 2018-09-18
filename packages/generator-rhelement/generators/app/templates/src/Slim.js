@@ -3,6 +3,7 @@
  * @license <%= license %>, see License.md for full text.
  */
 import 'slim-js';
+<%- includesString %>
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -54,6 +55,7 @@ Slim.tag(
      */
     constructor() {
       super();
+      <%- constructorString %>
       // map our imported properties json to real props on the element
       // @notice static getter of properties is built via tooling
       // to edit modify src/<%= elementClassName %>-properties.json
@@ -74,6 +76,12 @@ Slim.tag(
     // when 'who' attribute changed - it is reflected to the property, and the component alters the relevant text node.
     get autoBoundAttributes() {
       return Object.keys(<%= elementClassName %>.properties);
+    }
+    /**
+     * life cycle, element is afixed to the DOM
+     */
+    get onRender() {
+      <%- connectedString %>
     }
   }
 );

@@ -146,6 +146,25 @@ module.exports = class extends Generator {
         ]
       },
       {
+        type: "list",
+        name: "useHAX",
+        message: "Do you want this element to work in the HAX authoring system?",
+        store: true,
+        when: answers => {
+          return answers.addProps;
+        },
+        choices: [
+          {
+            name: "Yes",
+            value: true
+          },
+          {
+            name: "No",
+            value: false
+          }
+        ]
+      },
+      {
         type: 'recursive',
         message: 'Add a new property to this element ?',
         name: 'propsList',
@@ -237,19 +256,28 @@ module.exports = class extends Generator {
       // ensure answer is in kebabcase and lowercase
       answers.name = _.kebabCase(answers.name).toLowerCase();
       let name = answers.name.split("-")[1];
-
+      this.capitalizeFirstLetter = (string) => {
+        return string[0].toUpperCase() + string.slice(1);
+      };
       this.props = {
         year: new Date().getFullYear(),
         author: answers.author,
         copyrightOwner: answers.copyrightOwner,
         license: answers.license,
         name: answers.name,
+        humanName: this.capitalizeFirstLetter(answers.name.replace('-', ' ')),
         description: answers.description,
         elementName: answers.name,
         addProps: answers.addProps,
         propsListRaw: answers.propsList,
+        includesString: '',
+        connectedString: '',
+        constructorString: '',
         propsList: {},
         propsListString: '',
+        useHAX: answers.useHAX,
+        haxList: {},
+        haxListString: '',
         storyPropDeclaration: '',
         propsBindingFactory: '',
         storyHTMLProps: '',
@@ -272,7 +300,6 @@ module.exports = class extends Generator {
       };
       _.forEach(this.props.propsListRaw, (prop) => {
         if (prop.observer) {
-          // @todo need to do something way more advanced if observer is actually in use
           prop.observer = '_' + prop.name + 'Changed';
         }
         this.props.propsList[prop.name] = prop;
@@ -299,6 +326,92 @@ module.exports = class extends Generator {
       _.forEach(this.props.propsListRaw, (prop) => {
         this.props.storyHTMLProps += _.kebabCase(prop.name) + '="${' + prop.name + '}"; ';
       });
+      // work on HAX integration if requested
+      if (this.props.useHAX) {
+        this.props.includesString += 'import { HAXWiring } from "../hax-body-behaviors/lib/HAXWiring.js"';
+        // @todo add support for props file dynamic rewriting
+        //this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(props, ' + this.props.elementClassName + '.tag, this);';
+        // set baseline for HAX schema
+        this.props.haxList = {
+          'canScale': true,
+          'canPosition': true,
+          'canEditSource': false,
+          'gizmo': {
+            'title': this.props.humanName,
+            'description': this.props.description,
+            'icon': 'icons:android',
+            'color': 'green',
+            'groups': [this.props.readmeName],
+            'handles': [
+              {
+                'type': 'todo:read-the-docs-for-usage',
+              }
+            ],
+            'meta': {
+              'author': this.props.author,
+              'owner': this.props.copyrightOwner,
+            }
+          },
+          'settings': {
+            'quick': [],
+            'configure': [],
+            'advanced': []
+          }
+        };
+        // wire HAX properties into the configure block by default
+        _.forEach(this.props.propsListRaw, (prop) => {
+          let method = 'textfield';
+          let icon = 'icons:android';
+          // attempt to map data type to hax inputMethod
+          switch (prop.type) {
+            case 'Boolean':
+            case 'Array':
+              method = prop.type.toLowerCase();
+            break;
+            case 'Object':
+              method = 'array';
+            break;
+            case 'Date':
+              method = 'datepicker';
+              icon = 'icons:date-range';
+            break;
+          }
+          let config = {
+            property: prop.name,
+            title: prop.humanName,
+            description: '',
+            inputMethod: method,
+            required: false,
+            icon: icon,
+          };
+          // guess a bit for decent starting points on some common ones we see all the time
+          if (prop.name === 'source' || prop.name === 'src' || prop.name === 'url') {
+            config.validationType = 'url';
+            config.required = true;
+            config.icon = 'icons:link';
+            // make this quickly available
+            this.props.haxList.settings.quick.push(config);
+          }
+          else if (prop.name === 'alt') {
+            config.inputMethod = 'alt';
+            config.required = true;
+            config.icon = 'icons:accessibility';
+            // make this quickly available
+            this.props.haxList.settings.quick.push(config);
+          }
+          else if (prop.name === 'color' || prop.name === 'primaryColor' || prop.name === 'accentColor') {
+            if (config.type === 'textfield') {
+              config.inputMethod = 'colorpicker';
+              config.icon = 'editor:format-color-fill';
+              // make this quickly available by default
+              this.props.haxList.settings.quick.push(config);
+            }
+          }
+          this.props.haxList.settings.configure.push(config);
+        });
+      }
+      // convert to string so we can write to the {name}-hax.json file
+      this.props.haxListString = JSON.stringify(this.props.haxList, null, '  ')
       // mix in the template output related to customElementClass
       switch (answers.customElementClass) {
         case 'PolymerElement':
@@ -385,6 +498,13 @@ module.exports = class extends Generator {
       ),
       this.props
     );
+    this.fs.copyTpl(
+      this.templatePath(`src/hax.json`),
+      this.destinationPath(
+        `${this.props.elementName}/src/${this.props.elementName}-hax.json`
+      ),
+      this.props
+    );
 
     this.fs.copyTpl(
       this.templatePath("README.md"),
@@ -437,6 +557,11 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}`)
     );
 
+    this.fs.copy(
+      this.templatePath("polymer.json"),
+      this.destinationPath(`${this.props.elementName}/polymer.json`)
+    )
+
     if (this.props.useSass) {
       this.fs.copyTpl(
         this.templatePath("src/element.scss"),
@@ -458,7 +583,6 @@ module.exports = class extends Generator {
       this.props
     );
   }
-
   install() {
     process.chdir(this.props.elementName);
 

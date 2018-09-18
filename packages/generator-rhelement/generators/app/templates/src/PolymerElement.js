@@ -3,6 +3,7 @@
  * @license <%= license %>, see License.md for full text.
  */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+<%- includesString %>
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -50,9 +51,10 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   /**
    * life cycle, element is afixed to the DOM
    */
-  //connectedCallback() {
-  //  super.connectedCallback();
-  //}
+  connectedCallback() {
+    super.connectedCallback();
+    <%- connectedString %>
+  }
   /**
    * life cycle, element is removed from the DOM
    */

@@ -3,6 +3,7 @@
  * @license <%= license %>, see License.md for full text.
  */
 import RHElement from "../rhelement/rhelement.js";
+<%- includesString %>
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -52,6 +53,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
    */
   constructor() {
     super(<%= elementClassName %>.tag);
+    <%- constructorString %>
     // map our imported properties json to real props on the element
     // @notice static getter of properties is built via tooling
     // to edit modify src/<%= elementClassName %>-properties.json
@@ -66,9 +68,13 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   // static get observedAttributes() {
   //   return [];
   // }
-  // connectedCallback() {
-  //   super.connectedCallback();
-  // }
+  /**
+   * life cycle, element is afixed to the DOM
+   */
+  connectedCallback() {
+    super.connectedCallback();
+    <%- connectedString %>
+  }
   // disconnectedCallback() {}
   // attributeChangedCallback(attr, oldValue, newValue) {}
 }

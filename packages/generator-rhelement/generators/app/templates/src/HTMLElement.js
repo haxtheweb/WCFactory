@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-
+<%- includesString %>
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -52,6 +52,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
    */
   constructor(delayRender = false) {
     super();
+    <%- constructorString %>
     // set tag for later use
     this.tag = <%= elementClassName %>.tag;
     // map our imported properties json to real props on the element
@@ -84,6 +85,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     if (this._queue.length) {
       this._processQueue();
     }
+    <%- connectedString %>
   }
 
   _copyAttribute(name, to) {
