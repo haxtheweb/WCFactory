@@ -1,0 +1,25 @@
+{
+  "name": "rhelement-cli",
+  "version": "0.0.1",
+  "description": "Rhelement CLI for managing your custom elements at scale.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.18.0",
+    "generator-vue": "0.0.2",
+    "shelljs": "^0.8.2",
+    "yeoman-environment": "^2.3.3",
+    "generator-rhelement": "*"
+  },
+  "bin": {
+    "rhelement": "./bin/rhelement-cli.js"
+  }
+}

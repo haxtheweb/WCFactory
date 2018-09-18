@@ -1,0 +1,10 @@
+{
+  "name": "wcfactory",
+  "private": false,
+  "devDependencies": {
+    "lerna": "^3.4.0"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap"
+  }
+}
