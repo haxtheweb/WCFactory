@@ -274,6 +274,7 @@ module.exports = class extends Generator {
         includesString: '',
         connectedString: '',
         constructorString: '',
+        additionalFunctionsString: '',
         propsList: {},
         propsListString: '',
         useHAX: answers.useHAX,
@@ -293,10 +294,7 @@ module.exports = class extends Generator {
         useSass: answers.useSass,
         sassLibraryPkg: false,
         sassLibraryPath: false,
-        polymerLibraryPkg: false,
-        litLibraryPkg: false,
-        slimLibraryPkg: false,
-        skateJSLibraryPkg: false,
+        libraryPkg: '',
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
@@ -420,28 +418,28 @@ module.exports = class extends Generator {
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>[[' + prop.name + ']]</div>' + "\n";
           });
-          this.props.polymerLibraryPkg = "@polymer/polymer";
+          this.props.libraryPkg = `"@polymer/polymer": "^3.0.5",`;
         break;
         case 'LitElement':
           this.props.templateReturnFunctionPart = "render() {\n    return html";
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
           });
-          this.props.litLibraryPkg = "@polymer/lit-element";
+          this.props.libraryPkg = `"@polymer/lit-element": "^0.5.2",`;
         break;
         case 'SkateJS':
           this.props.templateReturnFunctionPart = "render() {\n    return html";
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
           });
-          this.props.skateJSLibraryPkg = "@skatejs/renderer-lit-html";
+          this.props.libraryPkg = `"@skatejs/renderer-lit-html": "^0.2.2","skatejs": "^5.2.4","lit-html": "^0.11.2",`;
         break;
         case 'Slim':
           this.props.templateReturnFunctionPart = "render(tpl) {\n    this._render";
           _.forEach(this.props.propsListRaw, (prop) => {
             this.props.propsBindingFactory += '<div>{{' + prop.name + '}}</div>' + "\n";
           });
-          this.props.slimLibraryPkg = "slim-js";
+          this.props.libraryPkg = `"slim-js": "^3.3.4",`;
         break;
         case 'HTMLElement':
         case 'RHElement':
