@@ -61,7 +61,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   constructor() {
     super();
     <%- constructorString %>
-  },
+  }
   /**
    * life cycle, element is afixed to the DOM
    */
