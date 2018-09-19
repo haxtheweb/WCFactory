@@ -24,6 +24,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9"
 }

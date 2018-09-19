@@ -22,8 +22,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "inquirer-recursive": "0.0.5",
     "lodash": "^4.17.4",
-    "yeoman-generator": "^1.1.1",
-    "inquirer-recursive": "0.0.5"
-  }
+    "yeoman-generator": "^1.1.1"
+  },
+  "version": "0.0.4"
 }
