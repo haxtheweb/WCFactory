@@ -1,6 +1,11 @@
 {
   "name": "@wcfactory/generator-wcfactory",
   "description": "Yeoman generator for creating a sustainable web component library.",
+  "wcfactory": {
+    "askSASS": true,
+    "askProps": true,
+    "askHAX": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/elmsln/wcfactory"
