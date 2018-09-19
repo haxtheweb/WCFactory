@@ -21,6 +21,6 @@
   "bin": {
     "rhelement": "./bin/rhelement-cli.js"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "gitHead": "d4a8aedf59bb2e394dcc8e2bc0416cf6524feea3"
 }
