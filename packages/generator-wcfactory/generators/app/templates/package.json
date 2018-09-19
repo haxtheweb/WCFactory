@@ -2,6 +2,7 @@
   "name": "@rhelements/<%= elementName %>",
   "wcfactory": {
     "className": "<%= elementClassName %>",
+    "customElementClass": "<%= customElementClass %>",
     "elementName": "<%= elementName %>",
     "generator-rhelement-version": "<%= generatorRhelementVersion %>"
   },
