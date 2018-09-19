@@ -12,7 +12,7 @@
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
-    "new": "cd elements && yo --no-insight --no-update-notifier rhelement && npm run test-suite-inject && npm run bootstrap"
+    "new": "./node_modules/.bin/gulp && cd elements && yo --no-insight --no-update-notifier rhelement && npm run test-suite-inject && npm run bootstrap"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -25,7 +25,7 @@
     "@storybook/addon-storyshots": "^3.4.10",
     "@storybook/addon-storysource": "^3.4.10",
     "@storybook/addon-viewport": "^3.4.8",
-    "@storybook/cli": "^3.4.8",
+    "@storybook/cli": "^3.4.11",
     "@storybook/polymer": "^3.4.8",
     "@webcomponents/webcomponentsjs": "^2.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -42,6 +42,7 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^7.0.0",
     "gulp-clean-css": "^3.10.0",
+    "gulp-concat-util": "^0.5.5",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.0.1",
@@ -63,8 +64,8 @@
     "requirejs": "^2.3.5",
     "rollup": "^0.64.1",
     "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-commonjs": "^9.1.5",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-uglify": "^4.0.0",
     "spandx": "^1.0.3",
     "strip-css-comments": "^3.0.0",
@@ -80,6 +81,7 @@
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "gulp-copy": "^1.1.0",
     "inquirer-recursive": "0.0.5",
+    "jest": "^23.6.0",
     "slim-js": "^3.3.4"
   },
   "lint-staged": {
