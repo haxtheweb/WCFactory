@@ -8,11 +8,42 @@ const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
   initializing() {
-    this.log('New app')
     this.env.adapter.promptModule.registerPrompt('recursive', recursive);
   }
   prompting() {
     return this.prompt([
+      {
+        type: "list",
+        name: "customElementClass",
+        message: "Custom element base class to use",
+        store: true,
+        choices: [
+          {
+            name: "VanillaJS, a pure HTMLElement extension, 0 dependencies",
+            value: "HTMLElement"
+          },
+          {
+            name: "RHElement, lightweight wrapper on Vanilla, 1 dependency",
+            value: "RHElement"
+          },
+          {
+            name: "SlimJS, data binding +, incredibly small helper functions, 1 dependency",
+            value: "Slim"
+          },
+          {
+            name: "SkateJS + lit-html, data binding ++, very small library, 2 dependencies",
+            value: "SkateJS"
+          },
+          {
+            name: "LitElement, data binding ++, very small library",
+            value: "LitElement"
+          },
+          {
+            name: "Polymer (3), data binding +++, utilities to build complex things, a small library",
+            value: "PolymerElement"
+          }
+        ]
+      },
       {
         type: "input",
         name: "name",
@@ -64,6 +95,9 @@ module.exports = class extends Generator {
       {
         type: "list",
         name: "useSass",
+        when: answers => {
+          return packageJson.wcfactory.askSASS;
+        },
         message: "Do you want to use Sass in this element?",
         store: true,
         choices: [
@@ -81,7 +115,7 @@ module.exports = class extends Generator {
         type: "list",
         name: "sassLibrary",
         when: answers => {
-          return answers.useSass;
+          return answers.useSass && packageJson.wcfactory.askSASS;
         },
         message: "Do want to use existing Sass dependencies?",
         choices: [
@@ -100,40 +134,11 @@ module.exports = class extends Generator {
       },
       {
         type: "list",
-        name: "customElementClass",
-        message: "Custom element base to build off of",
-        store: true,
-        choices: [
-          {
-            name: "VanillaJS, a pure HTMLElement extension, 0 dependencies",
-            value: "HTMLElement"
-          },
-          {
-            name: "RHElement, lightweight wrapper on Vanilla, 1 dependency",
-            value: "RHElement"
-          },
-          {
-            name: "SlimJS, data binding +, incredibly small",
-            value: "Slim"
-          },
-          {
-            name: "SkateJS + lit-html, data binding ++, very small",
-            value: "SkateJS"
-          },
-          {
-            name: "LitElement, data binding ++, very small",
-            value: "LitElement"
-          },
-          {
-            name: "Polymer (3), data binding +++, utilities to build complex things, relatively small",
-            value: "PolymerElement"
-          }
-        ]
-      },
-      {
-        type: "list",
         name: "addProps",
         message: "Do you want custom properties? (typically yes)",
+        when: answers => {
+          return packageJson.wcfactory.askProps;
+        },
         store: true,
         choices: [
           {
@@ -152,7 +157,7 @@ module.exports = class extends Generator {
         message: "Do you want this element to work in the HAX authoring system?",
         store: true,
         when: answers => {
-          return answers.addProps;
+          return answers.addProps && packageJson.wcfactory.askHAX;
         },
         choices: [
           {

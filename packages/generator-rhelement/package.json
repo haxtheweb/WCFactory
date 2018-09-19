@@ -1,7 +1,12 @@
 {
   "name": "generator-rhelement",
+  "wcfactory": {
+    "askSASS": true,
+    "askProps": true,
+    "askHAX": true
+  },
   "version": "0.6.3",
-  "description": "Yeoman generator for creating RHElements",
+  "description": "Yeoman generator for creating web components",
   "repository": {
     "type": "git",
     "url": "https://github.com/RHElements/generator-rhelements"
