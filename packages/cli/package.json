@@ -1,6 +1,5 @@
 {
-  "name": "rhelement-cli",
-  "version": "0.0.1",
+  "name": "@wcfactory/cli",
   "description": "Rhelement CLI for managing your custom elements at scale.",
   "main": "index.js",
   "scripts": {
