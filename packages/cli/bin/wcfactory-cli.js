@@ -35,29 +35,29 @@ if (!semver.satisfies(process.version, version)) {
 /**
  * Register our yeoman generators
  */
-env.register(require.resolve('generator-rhelement/generators/app'), 'rhelement:app')
-env.register(require.resolve('generator-rhelement/generators/init'), 'rhelement:init')
+env.register(require.resolve('generator-wcfactory/generators/app'), 'wcfactory:app')
+env.register(require.resolve('generator-wcfactory/generators/init'), 'wcfactory:init')
 
 /*
  * We are going to use commander to set up a nice user focused cli for accessing our
  * yeoman generator.
  */
 program
-  .version(rhelementVersion)
+  .version(wcfactoryVersion)
   .description(description)
 
 program
   .command('new <name>')
   .description('Create a new element.')
   .action((name) => {
-    env.run(`rhelement:app ${name}`)
+    env.run(`wcfactory:app ${name}`)
   })
 
 program
   .command('init')
   .description('Create mono repo for your element library. You will only need to do this once.')
   .action((name) => {
-    env.run(`rhelement:init`)
+    env.run(`wcfactory:init`)
   })
 
 // instantiate commander

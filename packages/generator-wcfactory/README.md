@@ -1,7 +1,7 @@
-# RHElement Generator
+# Web Component Factory Generator
 
 ```
-yo rhelement
+yo wcfactory
 ```
 
 1. Enter the name of the element you want to create (Example: rh-card)

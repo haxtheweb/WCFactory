@@ -1,6 +1,6 @@
 {
   "name": "@wcfactory/cli",
-  "description": "Rhelement CLI for managing your custom elements at scale.",
+  "description": "CLI for managing your custom elements at scale.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
     "yeoman-environment": "^2.3.3"
   },
   "bin": {
-    "rhelement": "./bin/rhelement-cli.js"
+    "wcfactory": "./bin/wcfactory-cli.js"
   },
   "publishConfig": {
     "access": "public"
