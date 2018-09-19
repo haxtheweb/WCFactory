@@ -14,11 +14,12 @@
   "dependencies": {
     "commander": "^2.18.0",
     "generator-vue": "0.0.2",
+    "generator-wcfactory": "*",
     "shelljs": "^0.8.2",
-    "yeoman-environment": "^2.3.3",
-    "generator-wcfactory": "*"
+    "yeoman-environment": "^2.3.3"
   },
   "bin": {
     "rhelement": "./bin/rhelement-cli.js"
-  }
+  },
+  "version": "0.0.1"
 }
