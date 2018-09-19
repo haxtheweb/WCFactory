@@ -1,15 +1,14 @@
 {
-  "name": "generator-rhelement",
+  "name": "@wcfactory/generator-wcfactory",
+  "description": "Yeoman generator for creating a sustainable web component library.",
   "wcfactory": {
     "askSASS": true,
     "askProps": true,
     "askHAX": true
   },
-  "version": "0.6.3",
-  "description": "Yeoman generator for creating web components",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RHElements/generator-rhelements"
+    "url": "https://github.com/elmsln/wcfactory"
   },
   "main": "generators/app/index.js",
   "files": [
@@ -23,10 +22,14 @@
     "email": "kylebuch8@gmail.com",
     "url": "https://github.com/kylebuch8"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
+    "inquirer-recursive": "0.0.5",
     "lodash": "^4.17.4",
-    "yeoman-generator": "^1.1.1",
-    "inquirer-recursive": "0.0.5"
-  }
+    "yeoman-generator": "^1.1.1"
+  },
+  "version": "0.0.5"
 }

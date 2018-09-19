@@ -1,7 +1,6 @@
 {
-  "name": "rhelement-cli",
-  "version": "0.0.1",
-  "description": "Rhelement CLI for managing your custom elements at scale.",
+  "name": "@wcfactory/cli",
+  "description": "CLI for managing your custom elements at scale.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,11 +14,16 @@
   "dependencies": {
     "commander": "^2.18.0",
     "generator-vue": "0.0.2",
+    "generator-wcfactory": "*",
     "shelljs": "^0.8.2",
-    "yeoman-environment": "^2.3.3",
-    "generator-rhelement": "*"
+    "yeoman-environment": "^2.3.3"
   },
   "bin": {
-    "rhelement": "./bin/rhelement-cli.js"
-  }
+    "wcfactory": "./bin/wcfactory-cli.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.5",
+  "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9"
 }
