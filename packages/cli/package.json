@@ -17,7 +17,7 @@
     "generator-vue": "0.0.2",
     "shelljs": "^0.8.2",
     "yeoman-environment": "^2.3.3",
-    "generator-rhelement": "*"
+    "generator-wcfactory": "*"
   },
   "bin": {
     "rhelement": "./bin/rhelement-cli.js"
