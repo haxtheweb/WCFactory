@@ -2,7 +2,8 @@
   "name": "@rhelements/<%= elementName %>",
   "wcfactory": {
     "className": "<%= elementClassName %>",
-    "elementName": "<%= elementName %>"
+    "elementName": "<%= elementName %>",
+    "generator-rhelement-version": "<%= generatorRhelementVersion %>"
   },
   "version": "0.0.1",
   "description": "<%= readmeName %> element for <%= customElementClass %>",
@@ -26,7 +27,6 @@
     "name": "<%= author %>"
   },
   "license": "<%= license %>",
-  "generator-rhelement-version": "<%= generatorRhelementVersion %>",
   "dependencies": {
     <% if (sassLibraryPkg) { %>"<%= sassLibraryPkg %>": "*",<% } %>
     <%- libraryPkg %>
