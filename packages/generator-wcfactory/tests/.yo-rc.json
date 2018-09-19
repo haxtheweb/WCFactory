@@ -1,0 +1,13 @@
+{
+  "@wcfactory/generator-wcfactory": {
+    "promptValues": {
+      "customElementClass": "PolymerElement",
+      "author": "heymp",
+      "copyrightOwner": "Red Hat, Inc.",
+      "license": "MIT",
+      "useSass": false,
+      "addProps": true,
+      "useHAX": true
+    }
+  }
+}

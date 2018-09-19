@@ -1,0 +1,9 @@
+{
+  "title": {
+    "name": "title",
+    "type": "String",
+    "value": "",
+    "reflectToAttribute": false,
+    "observer": "_titleChanged"
+  }
+}
