@@ -21,6 +21,9 @@
   "bin": {
     "rhelement": "./bin/rhelement-cli.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.3",
-  "gitHead": "d4a8aedf59bb2e394dcc8e2bc0416cf6524feea3"
+  "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9"
 }

@@ -17,6 +17,9 @@
     "email": "kylebuch8@gmail.com",
     "url": "https://github.com/kylebuch8"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
