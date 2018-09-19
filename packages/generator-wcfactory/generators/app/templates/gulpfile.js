@@ -142,7 +142,7 @@ gulp.task("compile", () => {
 gulp.task("watch", () => {
   return gulp.watch(
     "./src/*",
-    gulp.series("merge", "build", "compile", "sourcemaps")
+    gulp.series("merge")
   );
 });
 
@@ -217,7 +217,7 @@ gulp.task("default", gulp.series("merge", "build", "compile", "sourcemaps"));
 
 gulp.task(
   "dev",
-  gulp.series("merge", "build", "compile", "sourcemaps", "watch")
+  gulp.series("merge", "watch")
 );
 
 gulp.task("lighthouse", () => {
