@@ -6,43 +6,34 @@ const path = require("path");
 const process = require("process");
 const packageJson = require("../../package.json");
 
+const fs = require('fs');
+const wcfLibrariesCache = JSON.parse(fs.readFileSync('../.wcflibcache.json', 'utf8'));
+var wcfLibraries = {};
 module.exports = class extends Generator {
   initializing() {
     this.env.adapter.promptModule.registerPrompt('recursive', recursive);
   }
   prompting() {
+    // generated dynamically
+    let customElementClassChoices = [];
+    // array into nestings we need to simplify yo work
+    _.forEach(wcfLibrariesCache, (lib) => {
+      if (typeof lib.name !== typeof undefined) {
+        // @notice this effectively assumes there is only 1 def per class
+        wcfLibraries[lib.wcfactory.customElementClass] = lib;
+        customElementClassChoices.push({
+          name: `${lib.name} -- ${lib.description}. ${Object.keys(lib.dependencies).length} dependencies`,
+          value: lib.wcfactory.customElementClass
+        });
+      }
+    });
     return this.prompt([
       {
         type: "list",
         name: "customElementClass",
         message: "Custom element base class to use",
         store: true,
-        choices: [
-          {
-            name: "VanillaJS, a pure HTMLElement extension, 0 dependencies",
-            value: "HTMLElement"
-          },
-          {
-            name: "RHElement, lightweight wrapper on Vanilla, 1 dependency",
-            value: "RHElement"
-          },
-          {
-            name: "SlimJS, data binding +, incredibly small helper functions, 1 dependency",
-            value: "Slim"
-          },
-          {
-            name: "SkateJS + lit-html, data binding ++, very small library, 2 dependencies",
-            value: "SkateJS"
-          },
-          {
-            name: "LitElement, data binding ++, very small library",
-            value: "LitElement"
-          },
-          {
-            name: "Polymer (3), data binding +++, utilities to build complex things, a small library",
-            value: "PolymerElement"
-          }
-        ]
+        choices: customElementClassChoices
       },
       {
         type: "input",
@@ -69,7 +60,6 @@ module.exports = class extends Generator {
         name: "copyrightOwner",
         message: "Copyright owner of this work",
         store: true,
-        default: "Red Hat, Inc."
       },
       {
         type: "list",
@@ -154,7 +144,7 @@ module.exports = class extends Generator {
       {
         type: "list",
         name: "useHAX",
-        message: "Do you want this element to work in the HAX authoring system?",
+        message: "Auto build support for the HAX authoring system?",
         store: true,
         when: answers => {
           return answers.addProps && packageJson.wcfactory.askHAX;
@@ -172,7 +162,7 @@ module.exports = class extends Generator {
       },
       {
         type: 'recursive',
-        message: 'Add a new property to this element ?',
+        message: 'Add a new property?',
         name: 'propsList',
         when: answers => {
           return answers.addProps;
@@ -181,7 +171,7 @@ module.exports = class extends Generator {
           {
             type: 'input',
             name: 'name',
-            message: "Name of the property (examples: title, fistName, dataUrl)",
+            message: "Name (examples: title, fistName, urlLocation)",
             validate: function (value) {
               if ((/\w/).test(value)) { return true; }
               return 'Property name must be a single word';
@@ -190,7 +180,7 @@ module.exports = class extends Generator {
           {
             type: 'list',
             name: 'type',
-            message: "What 'type' of value is this (the way it is used as data)",
+            message: "type of value (the way it is used as data)",
             default: "String",
             choices: [
               {
@@ -202,7 +192,7 @@ module.exports = class extends Generator {
                 value: "Boolean"
               },
               {
-                name: "Number, pure number like 54",
+                name: "Number, number like 54",
                 value: "Number"
               },
               {
@@ -289,6 +279,7 @@ module.exports = class extends Generator {
         propsBindingFactory: '',
         storyHTMLProps: '',
         customElementClass: answers.customElementClass,
+        activeWCFLibrary: wcfLibraries[answers.customElementClass],
         elementClassName: _.chain(answers.name)
           .camelCase()
           .upperFirst()
@@ -299,7 +290,9 @@ module.exports = class extends Generator {
         useSass: answers.useSass,
         sassLibraryPkg: false,
         sassLibraryPath: false,
-        libraryPkg: '',
+        libraryScripts: '',
+        libraryDevDependencies: '',
+        libraryDependencies: '',
         generatorRhelementVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
@@ -416,43 +409,36 @@ module.exports = class extends Generator {
       }
       // convert to string so we can write to the {name}-hax.json file
       this.props.haxListString = JSON.stringify(this.props.haxList, null, '  ')
-      // mix in the template output related to customElementClass
-      switch (answers.customElementClass) {
-        case 'PolymerElement':
-          this.props.templateReturnFunctionPart = "static get template() {\n    return html";
-          _.forEach(this.props.propsListRaw, (prop) => {
-            this.props.propsBindingFactory += '<div>[[' + prop.name + ']]</div>' + "\n";
-          });
-          this.props.libraryPkg = `"@polymer/polymer": "^3.0.5",`;
-        break;
-        case 'LitElement':
-          this.props.templateReturnFunctionPart = "render() {\n    return html";
-          _.forEach(this.props.propsListRaw, (prop) => {
-            this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
-          });
-          this.props.libraryPkg = `"@polymer/lit-element": "^0.5.2",`;
-        break;
-        case 'SkateJS':
-          this.props.templateReturnFunctionPart = "render() {\n    return html";
-          _.forEach(this.props.propsListRaw, (prop) => {
-            this.props.propsBindingFactory += '<div>${this.' + prop.name + '}</div>' + "\n";
-          });
-          this.props.libraryPkg = `"@skatejs/renderer-lit-html": "^0.2.2","skatejs": "^5.2.4","lit-html": "^0.11.2",`;
-        break;
-        case 'Slim':
-          this.props.templateReturnFunctionPart = "render(tpl) {\n    this._render";
-          _.forEach(this.props.propsListRaw, (prop) => {
-            this.props.propsBindingFactory += '<div>{{' + prop.name + '}}</div>' + "\n";
-          });
-          this.props.libraryPkg = `"slim-js": "^3.3.4",`;
-        break;
-        case 'HTMLElement':
-        case 'RHElement':
-        default:
-          this.props.templateReturnFunctionPart = "get html() {\n    return ";
-          // vanilla element factories do not have native prop binding
-          // maybe someday :(
-        break;
+      // step through the active package.json file and grab the pieces we most directly need
+      this.props.templateReturnFunctionPart = this.props.activeWCFLibrary.wcfactory.templateReturnFunctionPart;
+      // work on scripts
+      _.forEach(this.props.activeWCFLibrary.scripts, (version, dependency) => {
+        this.props.libraryScripts += `"${dependency}":"${version}",`;
+      });
+      // trim that last , if needed
+      if (this.props.libraryScripts !== '') {
+        this.props.libraryScripts = this.props.libraryScripts.slice(0, -1);
+      }
+      // work on devDependencies
+      _.forEach(this.props.activeWCFLibrary.devDependencies, (version, dependency) => {
+        this.props.libraryDevDependencies += `"${dependency}":"${version}",`;
+      });
+      // trim that last , if needed
+      if (this.props.libraryDevDependencies !== '') {
+        this.props.libraryDevDependencies = this.props.libraryDevDependencies.slice(0, -1);
+      }
+      // work on dependencies
+      _.forEach(this.props.activeWCFLibrary.dependencies, (version, dependency) => {
+        this.props.libraryDependencies += `"${dependency}":"${version}",`;
+      });
+      // trim that last , if needed
+      if (this.props.libraryDependencies !== '') {
+        this.props.libraryDependencies = this.props.libraryDependencies.slice(0, -1);
+      }
+      if (this.props.activeWCFLibrary.wcfactory.propertyBinding) {
+        _.forEach(this.props.propsListRaw, (prop) => {
+          this.props.propsBindingFactory += '<div>' + this.props.activeWCFLibrary.wcfactory.propertyBinding.prefix + prop.name + this.props.activeWCFLibrary.wcfactory.propertyBinding.suffix +'</div>' + "\n";
+        });
       }
       _.forEach(this.props.propsListRaw, (prop) => {
         // convert to object so we can build functions
@@ -473,6 +459,12 @@ module.exports = class extends Generator {
         if (answers.sassLibrary && answers.sassLibrary.path) {
           this.props.sassLibraryPath = answers.sassLibrary.path;
         }
+        if (this.props.libraryDependencies === '') {
+          this.props.libraryDependencies = `"${answers.sassLibrary.pkg}":"*"`;
+        }
+        else {
+          this.props.libraryDependencies += `,"${answers.sassLibrary.pkg}":"*"`;
+        }
       }
       mkdirp.sync(this.props.elementName);
     });
@@ -484,7 +476,7 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/package.json`),
       this.props
     );
-
+    
     this.fs.copyTpl(
       this.templatePath("index.html"),
       this.destinationPath(`${this.props.elementName}/index.html`),
@@ -498,14 +490,7 @@ module.exports = class extends Generator {
       ),
       this.props
     );
-    
-    this.fs.copyTpl(
-      this.templatePath(`src/${this.props.customElementClass}.js`),
-      this.destinationPath(
-        `${this.props.elementName}/src/${this.props.elementName}.js`
-      ),
-      this.props
-    );
+
     this.fs.copyTpl(
       this.templatePath(`src/properties.json`),
       this.destinationPath(
@@ -544,7 +529,7 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/demo/index.html`),
       this.props
     );
-
+    
     this.fs.copyTpl(
       this.templatePath("test/element_test.html"),
       this.destinationPath(
@@ -595,6 +580,14 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("src/element.html"),
       this.destinationPath(`${this.props.elementName}/src/${this.props.elementName}.html`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.destinationPath(
+        `${this.props.elementName}/src/${this.props.elementName}.js`
+      ),
       this.props
     );
   }
