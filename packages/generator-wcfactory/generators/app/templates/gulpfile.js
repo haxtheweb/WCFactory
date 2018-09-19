@@ -93,8 +93,7 @@ ${html}\`;
   // properties available to the custom element for data binding
   static get properties() {
     return ${props};
-  }
-  ${functs}`;
+  }`;
       })
     )
     .pipe(gulp.dest("./"));
