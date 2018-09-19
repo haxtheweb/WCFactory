@@ -2,4 +2,4 @@
 import configFactory from "../../scripts/rollup.config.factory.js";
 import packageJson from "./package.json";
 
-export default configFactory(packageJson.wcfactory.elementName);
+export default configFactory(packageJson.wcfactory);
