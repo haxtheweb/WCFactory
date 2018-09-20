@@ -14,7 +14,6 @@
   "dependencies": {
     "@wcfactory/generator-wcfactory": "0.0.5",
     "commander": "^2.18.0",
-    "generator-vue": "0.0.2",
     "shelljs": "^0.8.2",
     "yeoman-environment": "^2.3.3"
   },
