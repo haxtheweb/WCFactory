@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wcfactory/generator-wcfactory": "^0.0.6",
+    "@wcfactory/generator-wcfactory": "^0.0.7",
     "commander": "^2.18.0",
     "generator-vue": "0.0.2",
     "shelljs": "^0.8.2",
@@ -24,6 +24,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9"
 }
