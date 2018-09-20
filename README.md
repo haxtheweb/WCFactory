@@ -2,6 +2,11 @@
 
 A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills*
 
+## Install
+```
+$ npm install -g wcfactory
+```
+
 ## Vision
 - 1 command to get everything up and going
 - Never have to understand the complexities of tooling
