@@ -46,10 +46,10 @@ program
   .description(description)
 
 program
-  .command('new <name>')
+  .command('new')
   .description('Create a new element.')
   .action((name) => {
-    env.run(`wcfactory:app ${name}`)
+    env.run(`wcfactory:app`)
   })
 
 program

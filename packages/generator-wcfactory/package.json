@@ -27,6 +27,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@wcfactory/cli": "0.0.7",
     "inquirer-recursive": "0.0.5",
     "lodash": "^4.17.4",
     "yeoman-generator": "^1.1.1"
