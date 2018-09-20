@@ -12,7 +12,7 @@
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
-    "new": "./node_modules/.bin/gulp && cd elements && yo --no-insight --no-update-notifier rhelement && npm run test-suite-inject && npm run bootstrap"
+    "new": "./node_modules/.bin/gulp && cd elements && yo --no-insight --no-update-notifier wcfactory && npm run test-suite-inject && npm run bootstrap"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
