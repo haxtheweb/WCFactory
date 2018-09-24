@@ -4,7 +4,7 @@ A factory that churns out web components, library agnostic with a unified develo
 
 ## Install
 ```
-$ npm install -g wcfactory
+$ npm install -g @wcfactory/cli
 ```
 
 ## Vision
