@@ -7,7 +7,7 @@ const process = require("process");
 const packageJson = require("../../package.json");
 
 const fs = require('fs');
-const wcfLibrariesCache = JSON.parse(fs.readFileSync('../.wcflibcache.json', 'utf8'));
+const wcfLibrariesCache = JSON.parse(fs.readFileSync('.wcflibcache.json', 'utf8'));
 var wcfLibraries = {};
 module.exports = class extends Generator {
   initializing() {
@@ -584,7 +584,7 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.sourceRoot(`wcfLibraries/${this.props.activeWCFLibrary.main}`),
       this.destinationPath(
         `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
