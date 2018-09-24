@@ -25,7 +25,7 @@ if (!semver.satisfies(process.version, version)) {
   // Strip version range characters leaving the raw semantic version for output
   var rawVersion = version.replace(/[^\d\.]*/, '');
   console.log(
-      'Rhelements requires at least Node v' + rawVersion + '. ' +
+      'WCFactory requires at least Node v' + rawVersion + '. ' +
       'You have ' + process.version + '.\n'
   )
   process.exit(1);
