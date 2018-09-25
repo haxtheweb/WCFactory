@@ -1,14 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <title><%= elementClassName %>: <%= elementName %> Demo</title>
-    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script type="module" src="<%= elementName %>.js"></script>
+    <script type="module">
+      import '../node_modules/@polymer/iron-demo-helpers/demo-snippet.js';
+      import '../<%= elementName %>.js';
+    </script>
+    <style is="custom-style" include="demo-pages-shared-styles"></style>
   </head>
   <body>
-    <<%= elementName %>>
-      This is <%= elementName %>
-    </<%= elementName %>>
+    <div class="vertical-section-container centered">
+      <h3>Basic <%= elementName %> demo</h3>
+      <demo-snippet>
+        <template>
+          <<%= elementName %>>
+            This is <%= elementName %>
+          </<%= elementName %>>
+        </template>
+      </demo-snippet>
+    </div>
   </body>
 </html>
