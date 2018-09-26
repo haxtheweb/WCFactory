@@ -28,5 +28,13 @@
     "access": "public"
   },
   "version": "0.0.8",
-  "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9"
+  "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmsln/wcfactory.git"
+  },
+  "homepage": "https://github.com/elmsln/wcfactory/",
+  "bugs": {
+    "url": "https://github.com/elmsln/wcfactory/issues"
+  }
 }
