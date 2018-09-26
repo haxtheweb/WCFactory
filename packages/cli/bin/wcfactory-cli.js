@@ -9,27 +9,15 @@
  * asynchronously after this version check has been performed.
  */
 
-// NOTE 04-21-2017: Confirmed "semver" supports Node versions as low as 0.10
-var semver = require('semver');
-var version = require('../package.json').engines.node;
-var wcfactoryVersion = require('../package.json').version;
-var description = require('../package.json').description;
-const { exec, spawn } = require('child_process')
-const program = require('commander')
-const yeoman = require('yeoman-environment')
-const shell = require('shelljs')
-const env = yeoman.createEnv()
+var pkg = require('../package.json');
 
 // Exit early if the user's node version is too low.
-if (!semver.satisfies(process.version, version)) {
-  // Strip version range characters leaving the raw semantic version for output
-  var rawVersion = version.replace(/[^\d\.]*/, '');
-  console.log(
-      'WCFactory requires at least Node v' + rawVersion + '. ' +
-      'You have ' + process.version + '.\n'
-  )
-  process.exit(1);
-}
+require('please-upgrade-node')(pkg);
+
+var program = require('commander')
+var yeoman = require('yeoman-environment')
+var env = yeoman.createEnv()
+
 
 /**
  * Register our yeoman generators
@@ -42,21 +30,21 @@ env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 
  * yeoman generator.
  */
 program
-  .version(wcfactoryVersion)
-  .description(description)
+  .version(pkg.version)
+  .description(pkg.description)
 
 program
   .command('new')
   .description('Create a new element.')
-  .action((name) => {
-    env.run(`wcfactory:app`)
+  .action(function (name) {
+    env.run('wcfactory:app')
   })
 
 program
   .command('init')
   .description('Create mono repo for your element library. You will only need to do this once.')
-  .action((name) => {
-    env.run(`wcfactory:init`)
+  .action(function (name) {
+    env.run('wcfactory:init')
   })
 
 // instantiate commander
