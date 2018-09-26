@@ -64,7 +64,7 @@ Safari, Firefox, Chrome, Opera, Edge (polyfill), IE 11 (polyfill); all of which 
 
 ### Yarn and Lerna
 
-We use a combination of Yarn Workspaces and Lerna to management local developement and publishing of this monorepo. [Read more about that ingeration(https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
+We use a combination of Yarn Workspaces and Lerna to manage local developement and publishing of this monorepo. [Read more about that ingeration(https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
 
 ### Before Installing
 
