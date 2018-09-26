@@ -77,8 +77,12 @@ module.exports = class extends Generator {
             value: "MIT"
           },
           {
-            name: "BSD 3 clause",
+            name: "BSD 3-clause",
             value: "BSD-3-Clause"
+          },
+          {
+            name: "BSD 2-clause",
+            value: "BSD-2-Clause"
           }
         ]
       },
