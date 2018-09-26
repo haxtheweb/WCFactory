@@ -58,3 +58,43 @@ In the future, Build will be in the CLI and support build targets (like make me 
 
 ## End user support
 Safari, Firefox, Chrome, Opera, Edge (polyfill), IE 11 (polyfill); all of which are to be supported natively during the built in build routine. This should not be a configuration step for developers, it should just happen! As Edge supports it natively (probably by late 2019) it will just work anyway :)
+
+
+## Development
+
+### Yarn and Lerna
+
+We use a combination of Yarn Workspaces and Lerna to manage local developement and publishing of this monorepo. [Read more about that ingeration(https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
+
+### Before Installing
+
+Make sure you have a version of node >=6.0 and above.
+
+Verify that you have yarn enabled — if not install yarn globally https://yarnpkg.com/lang/en/docs/install/.
+
+```bash
+yarn
+```
+
+### Install
+
+Clone and install dependencies with yarn install.
+
+```bash
+git clone https://github.com/elmsln/wcfactory.git
+cd wcfactory
+yarn install
+```
+
+Make the local version of the cli available globally.
+
+```bash
+cd cli
+yarn link
+```
+
+Verify that the cli is installed globally
+
+```bash
+wcfactory -h
+```
