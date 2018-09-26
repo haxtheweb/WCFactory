@@ -89,5 +89,7 @@
       "git add"
     ]
   },
-  "private": true
+  "private": true,
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }

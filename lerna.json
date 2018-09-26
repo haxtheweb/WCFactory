@@ -3,5 +3,7 @@
     "packages/*",
     "packages/*/elements/*"
   ],
-  "version": "0.0.8"
+  "version": "0.0.8",
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }
