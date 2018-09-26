@@ -14,9 +14,9 @@ var pkg = require('../package.json');
 // Exit early if the user's node version is too low.
 require('please-upgrade-node')(pkg);
 
-const program = require('commander')
-const yeoman = require('yeoman-environment')
-const env = yeoman.createEnv()
+var program = require('commander')
+var yeoman = require('yeoman-environment')
+var env = yeoman.createEnv()
 
 
 /**
@@ -36,15 +36,15 @@ program
 program
   .command('new')
   .description('Create a new element.')
-  .action((name) => {
-    env.run(`wcfactory:app`)
+  .action(function (name) {
+    env.run('wcfactory:app')
   })
 
 program
   .command('init')
   .description('Create mono repo for your element library. You will only need to do this once.')
-  .action((name) => {
-    env.run(`wcfactory:init`)
+  .action(function (name) {
+    env.run('wcfactory:init')
   })
 
 // instantiate commander
