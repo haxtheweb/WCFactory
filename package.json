@@ -1,6 +1,6 @@
 {
   "name": "wcfactory",
-  "private": false,
+  "private": true,
   "publishConfig": {
     "access": "public"
   },
