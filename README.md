@@ -70,7 +70,7 @@ We use a combination of Yarn Workspaces and Lerna to manage local developement a
 
 Make sure you have a version of node >=6.0 and above.
 
-Verify that you have yarn workspaces enabled — if not install yarn globally https://yarnpkg.com/lang/en/docs/install/.
+Verify that you have yarn enabled — if not install yarn globally https://yarnpkg.com/lang/en/docs/install/.
 
 ```bash
 yarn
