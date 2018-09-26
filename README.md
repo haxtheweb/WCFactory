@@ -48,12 +48,12 @@ In the future, Build will be in the CLI and support build targets (like make me 
 
 ## Features
 - Monorepo management via Lerna
-- Storybook for entire element catelogue
+- Storybook for entire element catalogue
 - Unified CLI that can create anything it finds a definition for in `./wcfLibraries/`
 - All `example-element` would be worked on in `example-element/src`
-- Gulp based dev routines + built in serve + compile to AMD,UMD,ES5 and ES6/native, per element for complete break away flexibility
+- Gulp based dev routines + built in serve + compile to AMD, UMD, ES5 and ES6/native, per element for complete break away flexibility
 - Data binding definitions mapped across element libraries (when applicable)
-- Ability to add any customElement baseClass definintion you want!
+- Ability to add any customElement baseClass definition you want!
 - Support for [HAX schematic wiring](http://haxtheweb.org/) as a single question!
 
 ## End user support
