@@ -1,9 +1,6 @@
 {
   "name": "wcfactory",
   "private": true,
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "lerna": "^3.4.0"
   },
