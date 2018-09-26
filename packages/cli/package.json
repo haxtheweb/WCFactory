@@ -5,7 +5,13 @@
   "engines": {
     "node": ">=6.0"
   },
-  "keywords": [],
+  "keywords": [
+    "web",
+    "component",
+    "custom",
+    "element",
+    "cli"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
