@@ -2,9 +2,6 @@
   "name": "@wcfactory/cli",
   "description": "CLI for managing your custom elements at scale.",
   "main": "./bin/wcfactory-cli.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "engines": {
     "node": ">=6.0"
   },
