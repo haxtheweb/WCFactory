@@ -27,7 +27,6 @@
     "@storybook/addon-viewport": "^3.4.8",
     "@storybook/cli": "^3.4.11",
     "@storybook/polymer": "^3.4.8",
-    "@wcfactory/generator-wcfactory": "^0.0.7",
     "@webcomponents/webcomponentsjs": "^2.0.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
