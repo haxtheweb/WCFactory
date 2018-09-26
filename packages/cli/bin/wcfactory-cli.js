@@ -14,10 +14,12 @@ var pkg = require('../package.json');
 // Exit early if the user's node version is too low.
 require('please-upgrade-node')(pkg);
 
+// Alert user if a newer version of cli is availible
+require('update-notifier')({pkg: pkg}).notify()
+
 var program = require('commander')
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
-
 
 /**
  * Register our yeoman generators

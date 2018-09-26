@@ -15,6 +15,7 @@
     "@wcfactory/generator-wcfactory": "^0.0.8",
     "commander": "^2.18.0",
     "please-upgrade-node": "^3.1.1",
+    "update-notifier": "^2.5.0",
     "yeoman-environment": "^2.3.3"
   },
   "bin": {
