@@ -89,7 +89,7 @@ yarn install
 Make the local version of the cli available globally.
 
 ```bash
-cd cli
+cd packages/cli
 yarn link
 ```
 
