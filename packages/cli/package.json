@@ -13,7 +13,7 @@
     "cli"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@wcfactory/generator-wcfactory": "^0.0.8",
     "commander": "^2.18.0",
