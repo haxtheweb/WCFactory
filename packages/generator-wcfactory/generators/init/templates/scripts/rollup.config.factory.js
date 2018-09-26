@@ -17,7 +17,12 @@ function umdConfig({ elementName, className } = {}) {
       resolve(),
       commonjs(),
       babel({
-        presets: ["@babel/env"]
+        presets: [
+          '@babel/preset-env',
+          {
+            useBuiltIns: 'usage',
+          }
+        ]
       }),
       uglify()
     ],
