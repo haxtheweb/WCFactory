@@ -106,9 +106,16 @@
     "slim-js": "^3.3.4"
   },
   "lint-staged": {
-    "*.{js,json}": [
-      "prettier --write",
-      "git add"
+    "linters": {
+      "*.{js,json}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "elements/**/*.*.js",
+      "wcfLibraries/**/*.js",
+      "wcfBuildTargets/**/*.js"
     ]
   },
   "keywords": [
