@@ -21,7 +21,7 @@ module.exports = class extends Generator {
         message: "NPM organization name (include @)",
         required: true,
         store: true,
-        default: path.basename(process.cwd())
+        default: '@' + path.basename(process.cwd())
       },
       {
         type: "string",
@@ -102,7 +102,6 @@ module.exports = class extends Generator {
   install() {
     this.spawnCommandSync("git", ["init"]);
     this.spawnCommandSync("git", ["remote", "add", "origin", this.props.gitRepo]);
-    this.spawnCommand("yarn", ["run", "rebuild-wcfcache"]);
     this.installDependencies({
       npm: false,
       bower: false,
@@ -111,7 +110,8 @@ module.exports = class extends Generator {
   }
 
   end() {
-    this.spawnCommand("yarn", ["run", "init"]);
+    this.spawnCommandSync("yarn", ["run", "init"]);
+    this.spawnCommandSync("yarn", ["run", "rebuild-wcfcache"]);
     this.spawnCommandSync("git", ["add", "-A"]);
     this.spawnCommandSync("git", ["commit", "-m", `"Initial commit after wcfactory init"`]);
     this.spawnCommandSync("git", ["push", "-u", "origin", "master"]);
