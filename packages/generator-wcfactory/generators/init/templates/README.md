@@ -1,6 +1,5 @@
 # <%= name %>
 [![Published on npm](https://img.shields.io/npm/v/<%= orgNpm %>/<%= name %>.svg?style=flat)](https://www.npmjs.com/package/<%= orgNpm %>/<%= name %>)
-[![NPM downloads](https://img.shields.io/npm/<%= orgNpm %>/<%= name %>.svg?style=flat)](https://www.npmjs.com/package/<%= orgNpm %>/<%= name %>)
 [![Build Status](https://travis-ci.org/<%= orgGit %>/<%= name %>.svg?branch=master)](https://travis-ci.org/<%= orgGit %>/<%= name %>)
 [![Dependency Status](https://img.shields.io/david/<%= orgGit %>/<%= name %>.svg?style=flat)](https://david-dm.org/<%= orgGit %>/<%= name %>)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/author/<%= orgGit %>)
