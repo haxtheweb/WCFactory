@@ -16,6 +16,7 @@
   "module": "<%= elementName %>.amd.js",
   "es2015": "<%= elementName %>.js",
   "scripts": {
+    "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
     <%- libraryScripts %>
   },
   "author": {
