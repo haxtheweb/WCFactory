@@ -34,7 +34,7 @@
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
     "rebuild-wcfcache": "./node_modules/.bin/gulp",
-    "new": "yarn run rebuild-wcfcache && cd elements && wcfactory new && yarn run test-suite-inject && yarn run bootstrap"
+    "new": "yarn run rebuild-wcfcache && wcfactory new && yarn run test-suite-inject && yarn run bootstrap"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
