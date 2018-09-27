@@ -28,5 +28,10 @@
   },
   "devDependencies": {
     <%- libraryDevDependencies %>
+  },
+  "private": false,
+  "flat": true,
+  "publishConfig": {
+    "access": "public"
   }
 }
