@@ -16,7 +16,9 @@ $ wcfactory new
 
 # if you didn't get any options you may need to rebuild some caches
 $ yarn run rebuild-wcfcache
-# running this will rebuild caches and execute new each time
+
+
+# running yarn run new will rebuild caches each time, useful for working on the generator itself or adding new element classes
 $ yarn run new
 ```
 Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
