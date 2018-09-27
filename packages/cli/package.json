@@ -15,7 +15,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@wcfactory/generator-wcfactory": "^0.1.1",
+    "@wcfactory/generator-wcfactory": "^0.1.2",
     "commander": "^2.18.0",
     "please-upgrade-node": "^3.1.1",
     "update-notifier": "^2.5.0",
@@ -27,7 +27,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "gitHead": "8467ba70b4116632d1445584ac3614f64258edd9",
   "repository": {
     "type": "git",
