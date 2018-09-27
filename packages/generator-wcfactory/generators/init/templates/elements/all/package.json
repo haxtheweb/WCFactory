@@ -1,10 +1,10 @@
 {
-  "name": "@<%= org %>/all",
+  "name": "<%= orgNpm %>/all",
   "description": "All the <%= name %>.",
   "scripts": {
     "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json elements/all/test/"
   },
   "private": true,
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {}
 }

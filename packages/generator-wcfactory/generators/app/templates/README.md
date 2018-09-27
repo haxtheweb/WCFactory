@@ -1,32 +1,62 @@
-# <%= customElementClass %> <%= readmeName %> Element
+# &lt;<%= elementName %>&gt;
 
-## Dependencies
+<%= readmeName %>
+> <%= description %>
 
-Make sure you have [Polyserve][polyserve] and [Web Component Tester][web-component-tester] installed.
+## Usage
+To use this web component in your project you can utilize one of the following styles of syntax.
 
-    npm install -g polyserve web-component-tester
+```js
+/* In an existing module / web component */
+import '<%= orgNpm %>/<%= elementName %>.js';
+/* At top of an application */
+<script type="module" src="<%= elementName %>.js"></script>
+/* Alternatives for top of application */
+<script type="module">
+  import '<%= orgNpm %>/<%= elementName %>.js';
 
-## Dev
+  import {<%= elementClassName %>} from '<%= orgNpm %>/<%= elementName %>';
+</script>
+```
 
-    npm start
+## Develop
+
+```bash
+$ yarn run dev
+```
 
 ## Test
 
-    npm run test
-
+```bash
+$ yarn run test
+```
 ## Build
-
-    npm run build
+Builds ensure that wcfactory can correctly compile your web component project to
+work on the maximum number of browsers possible.
+```bash
+$ yarn run build
+```
 
 ## Demo
 
-Run `npm start` and Polyserve will start a server and open your default browser to the demo page of the element.
+Run `yarn start` will start a local development server, open your default browser to display it, open your finder to the correct window and start watching the `/src` directory for changes and automatically rebuilding the element and documentation site for the demo.
+
+## Contributing
+
+1. Fork it! `git clone <%= gitRepo %>`
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
 
 ## Code style
 
-<%= readmeName %> (and all RHElements) use [Prettier][prettier] to auto-format JS and JSON.  The style rules get applied when you commit a change.  If you choose to, you can [integrate your editor][prettier-ed] with Prettier to have the style rules applied on every save.
+<%= readmeName %> (and all <%= monorepo %>) use [Prettier][prettier] to auto-format JS and JSON.  The style rules get applied when you commit a change.  If you choose to, you can [integrate your editor][prettier-ed] with Prettier to have the style rules applied on every save.
 
 [prettier]: https://github.com/prettier/prettier/
 [prettier-ed]: https://github.com/prettier/prettier/#editor-integration
 [polyserve]: https://github.com/Polymer/polyserve
 [web-component-tester]: https://github.com/Polymer/web-component-tester
+
+## License
+[<%= license %> License](http://opensource.org/licenses/<%= license %>)

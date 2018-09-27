@@ -27,7 +27,7 @@ function testPathRel(prefix) {
     return path.join(
       prefix,
       "node_modules",
-      "@<%= org %>",
+      "<%= orgNpm %>",
       element,
       "test",
       "index.html"
@@ -71,7 +71,7 @@ const packagePath = "../elements/all/package.json";
 const allPackage = require(packagePath);
 allPackage.dependencies = withTests
   .keyBy()
-  .mapKeys(e => `@<%= org %>/${e}`)
+  .mapKeys(e => `<%= orgNpm %>/${e}`)
   .mapValues(e => `file:elements/${e}`)
   .value();
 

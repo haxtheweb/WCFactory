@@ -114,10 +114,10 @@ module.exports = class extends Generator {
         message: "Do want to use existing Sass dependencies?",
         choices: [
           {
-            name: "rh-sass",
+            name: packageJson.wcfactory.sass.name,
             value: {
-              pkg: "@rhelements/rh-sass",
-              path: "rh-sass/rh-sass"
+              pkg: packageJson.wcfactory.sass.pkg,
+              path: packageJson.wcfactory.sass.path
             }
           },
           {
@@ -261,6 +261,9 @@ module.exports = class extends Generator {
       };
       this.props = {
         year: new Date().getFullYear(),
+        orgNpm: packageJson.wcfactory.orgNpm,
+        monorepo: packageJson.wcfactory.monorepo,
+        orgGit: packageJson.wcfactory.orgGit,
         author: answers.author,
         copyrightOwner: answers.copyrightOwner,
         license: answers.license,
@@ -297,7 +300,7 @@ module.exports = class extends Generator {
         libraryScripts: '',
         libraryDevDependencies: '',
         libraryDependencies: '',
-        generatorRhelementVersion: packageJson.version
+        generatorWCFactoryVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
         if (prop.observer) {
