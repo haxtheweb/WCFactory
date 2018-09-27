@@ -1,21 +1,20 @@
 {
-  "name": "@rhelements/<%= elementName %>",
+  "name": "<%= orgNpm %>/<%= elementName %>",
   "wcfactory": {
     "className": "<%= elementClassName %>",
     "customElementClass": "<%= customElementClass %>",
     "elementName": "<%= elementName %>",
-    "generator-rhelement-version": "<%= generatorRhelementVersion %>"
+    "generator-wcfactory-version": "<%= generatorWCFactoryVersion %>"
   },
   "version": "0.0.1",
-  "description": "<%= readmeName %> element for <%= customElementClass %>",
+  "description": "<%= description %>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "<%= gitRepo %>"
   },
   "main": "<%= elementName %>.umd.js",
-  "module": "<%= elementName %>.es5.js",
+  "module": "<%= elementName %>.amd.js",
   "es2015": "<%= elementName %>.js",
-  "amd": "<%= elementName %>.amd.js",
   "scripts": {
     <%- libraryScripts %>
   },

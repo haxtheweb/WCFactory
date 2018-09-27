@@ -2,12 +2,13 @@ const Generator = require("yeoman-generator");
 const recursive = require('inquirer-recursive');
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
-const path = require("path");
-const process = require("process");
-const packageJson = require("../../package.json");
-
+const chalk = require("chalk");
 const fs = require('fs');
-const wcfLibrariesCache = JSON.parse(fs.readFileSync('.wcflibcache.json', 'utf8'));
+const process = require("process");
+const cwd = process.cwd();
+const packageJson = require(`${cwd}/package.json`);
+const elementsDirectory = `${cwd}/elements/`;
+const wcfLibrariesCache = JSON.parse(fs.readFileSync(`${cwd}/.wcflibcache.json`, 'utf8'));
 var wcfLibraries = {};
 module.exports = class extends Generator {
   initializing() {
@@ -114,10 +115,10 @@ module.exports = class extends Generator {
         message: "Do want to use existing Sass dependencies?",
         choices: [
           {
-            name: "rh-sass",
+            name: packageJson.wcfactory.sass.name,
             value: {
-              pkg: "@rhelements/rh-sass",
-              path: "rh-sass/rh-sass"
+              pkg: packageJson.wcfactory.sass.pkg,
+              path: packageJson.wcfactory.sass.path
             }
           },
           {
@@ -261,6 +262,10 @@ module.exports = class extends Generator {
       };
       this.props = {
         year: new Date().getFullYear(),
+        orgNpm: packageJson.wcfactory.orgNpm,
+        monorepo: packageJson.wcfactory.monorepo,
+        orgGit: packageJson.wcfactory.orgGit,
+        gitRepo: packageJson.wcfactory.gitRepo,
         author: answers.author,
         copyrightOwner: answers.copyrightOwner,
         license: answers.license,
@@ -297,7 +302,7 @@ module.exports = class extends Generator {
         libraryScripts: '',
         libraryDevDependencies: '',
         libraryDependencies: '',
-        generatorRhelementVersion: packageJson.version
+        generatorWCFactoryVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
         if (prop.observer) {
@@ -475,6 +480,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.destinationRoot(elementsDirectory);
     this.fs.copyTpl(
       this.templatePath("package.json"),
       this.destinationPath(`${this.props.elementName}/package.json`),
@@ -588,7 +594,7 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.sourceRoot(`wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
       this.destinationPath(
         `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
@@ -596,16 +602,21 @@ module.exports = class extends Generator {
     );
   }
   install() {
-    process.chdir(this.props.elementName);
+    process.chdir(elementsDirectory + this.props.elementName);
 
     this.installDependencies({
-      npm: true,
+      npm: false,
       bower: false,
-      yarn: false
+      yarn: true
     });
   }
 
   end() {
-    this.spawnCommand("npm", ["run", "build"]);
+    this.spawnCommandSync("yarn", ["run", "build"]);
+    process.chdir(cwd);
+    this.spawnCommand("lerna", ["link"]);
+    let banner = chalk.green("\n    A fresh made ") + chalk.yellowBright("Web Component Factory ") + chalk.green("element brought to you by:\n        ") + chalk.blueBright("The Pennsylvania ") + chalk.white("State University's ") + chalk.magentaBright("E") + chalk.cyanBright("L") + chalk.redBright("M") + chalk.yellowBright("S") + chalk.white(": ") + chalk.greenBright("Learning Network\n") + chalk.red("        Red Hat, Inc.\n");
+    banner += chalk.green("\n\nTo work on your new element type:\n    ") + chalk.yellowBright(`cd elements/${this.props.elementName} && yarn start\n\n`);
+    this.log(banner);
   }
 };

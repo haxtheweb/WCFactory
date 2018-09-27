@@ -17,22 +17,31 @@ module.exports = class extends Generator {
     return this.prompt([
       {
         type: "string",
-        name: "name",
-        message: "Your Repo name. Must be a valid npm name format.",
+        name: "orgNpm",
+        message: "NPM organization name (include @)",
         required: true,
+        store: true,
         default: path.basename(process.cwd())
       },
       {
         type: "string",
-        name: "org",
-        message: "NPM Organization name (without @)",
+        name: "orgGit",
+        message: "Git organization name",
+        required: true,
+        store: true,
+        default: path.basename(process.cwd())
+      },
+      {
+        type: "string",
+        name: "name",
+        message: "Your Repo name. Must be a valid git/npm name",
         required: true,
         default: path.basename(process.cwd())
       },
       {
         type: "string",
         name: "gitRepo",
-        message: "Git repo to power this",
+        message: "Git repo (full git address)",
         required: true,
         default: `git@github.com:` + path.basename(process.cwd()) + `/` + path.basename(process.cwd()) + `.git`
       },
@@ -40,8 +49,10 @@ module.exports = class extends Generator {
       let name = answers.name.split("-")[1]
       this.props = {
         name: answers.name,
-        org: answers.org,
-        gitRepo: answers.gitRepo
+        orgNpm: answers.orgNpm,
+        orgGit: answers.orgGit,
+        gitRepo: answers.gitRepo,
+        year: new Date().getFullYear(),
       }
     })
   }
@@ -49,16 +60,22 @@ module.exports = class extends Generator {
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
-      this.templatePath('*/*'),
+      this.templatePath('*/**'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*.*", "wcfLibraries/**", "wcfBuildTargets/**"]}
+      { ignore: ["_*.*"]}
+    );
+    this.fs.copyTpl(
+      this.templatePath('*/.*'),
+      this.destinationPath(),
+      this.props,
+      { ignore: ["_*.*"] }
     );
     this.fs.copyTpl(
       this.templatePath('*'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*", "wcfLibraries", "wcfBuildTargets"]}
+      { ignore: ["_*"]}
     );
     this.fs.copyTpl(
       this.templatePath('.*'),
@@ -66,17 +83,26 @@ module.exports = class extends Generator {
       this.props,
       {ignore:["._*"]}
     );
+    this.fs.copyTpl(
+      this.templatePath('.*/**'),
+      this.destinationPath(),
+      this.props,
+      { ignore: ["._*"] }
+    );
     this.fs.copy(
-      this.templatePath("wcfLibraries/**"),
+      this.templatePath("../wcfTemplates/libraries/**"),
       this.destinationPath("wcfLibraries/")
     );
     this.fs.copy(
-      this.templatePath("wcfBuildTargets/**"),
+      this.templatePath("../wcfTemplates/buildTargets/**"),
       this.destinationPath("wcfBuildTargets/")
     );
   }
 
   install() {
+    this.spawnCommandSync("git", ["init"]);
+    this.spawnCommandSync("git", ["remote", "add", "origin", this.props.gitRepo]);
+    this.spawnCommand("yarn", ["run", "rebuild-wcfcache"]);
     this.installDependencies({
       npm: false,
       bower: false,
@@ -85,11 +111,9 @@ module.exports = class extends Generator {
   }
 
   end() {
-    this.spawnCommand("git", ["init"]);
-    this.spawnCommand("git", ["remote", "add", "origin", this.props.gitRepo]);
     this.spawnCommand("yarn", ["run", "init"]);
-    this.spawnCommand("git", ["add", "-A"]);
-    this.spawnCommand("git", ["commit", "-m", `"Initial commit after wcfactory init"`]);
-    this.spawnCommand("git", ["push", "-u", "origin", "master"]);
+    this.spawnCommandSync("git", ["add", "-A"]);
+    this.spawnCommandSync("git", ["commit", "-m", `"Initial commit after wcfactory init"`]);
+    this.spawnCommandSync("git", ["push", "-u", "origin", "master"]);
   }
 };
