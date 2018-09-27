@@ -616,6 +616,7 @@ module.exports = class extends Generator {
     process.chdir(cwd);
     this.spawnCommand("lerna", ["link"]);
     let banner = chalk.green("\n    A fresh made ") + chalk.yellowBright("Web Component Factory ") + chalk.green("element brought to you by:\n        ") + chalk.blueBright("The Pennsylvania ") + chalk.white("State University's ") + chalk.magentaBright("E") + chalk.cyanBright("L") + chalk.redBright("M") + chalk.yellowBright("S") + chalk.white(": ") + chalk.greenBright("Learning Network\n") + chalk.red("        Red Hat, Inc.\n");
+    banner += chalk.green("\n\nTo work on your new element type:\n    ") + chalk.yellowBright(`cd elements/${this.props.elementName} && yarn start\n\n`);
     this.log(banner);
   }
 };
