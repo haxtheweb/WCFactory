@@ -18,20 +18,20 @@ module.exports = class extends Generator {
     // generated dynamically
     let customElementClassChoices = [];
     // array into nestings we need to simplify yo work
-    _.forEach(wcfLibrariesCache, (lib) => {
+    _.forEach(wcfLibrariesCache, (lib, key) => {
       if (typeof lib.name !== typeof undefined) {
         // @notice this effectively assumes there is only 1 def per class
-        wcfLibraries[lib.wcfactory.customElementClass] = lib;
+        wcfLibraries[key] = lib;
         customElementClassChoices.push({
           name: `${lib.name} -- ${lib.description}. ${Object.keys(lib.dependencies).length} dependencies`,
-          value: lib.wcfactory.customElementClass
+          value: key
         });
       }
     });
     return this.prompt([
       {
         type: "list",
-        name: "customElementClass",
+        name: "customElementClassArrayPosition",
         message: "Custom element base class to use",
         store: true,
         choices: customElementClassChoices
@@ -287,8 +287,8 @@ module.exports = class extends Generator {
         storyPropDeclaration: '',
         propsBindingFactory: '',
         storyHTMLProps: '',
-        customElementClass: answers.customElementClass,
-        activeWCFLibrary: wcfLibraries[answers.customElementClass],
+        customElementClass: wcfLibraries[answers.customElementClassArrayPosition].wcfactory.customElementClass,
+        activeWCFLibrary: wcfLibraries[answers.customElementClassArrayPosition],
         elementClassName: _.chain(answers.name)
           .camelCase()
           .upperFirst()
@@ -302,6 +302,7 @@ module.exports = class extends Generator {
         libraryScripts: '',
         libraryDevDependencies: '',
         libraryDependencies: '',
+        // @todo this needs to be the version of the generator not this repo
         generatorWCFactoryVersion: packageJson.version
       };
       _.forEach(this.props.propsListRaw, (prop) => {
