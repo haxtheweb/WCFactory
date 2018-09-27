@@ -1,6 +1,6 @@
 # Web Component Factory
 
-A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills*
+A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills* See (End user support)(#endusersupport) for full details below.
 
 ## Install
 ```bash
@@ -57,8 +57,15 @@ In the future, Build will be in the CLI and support build targets (like make me 
 - Support for [HAX schematic wiring](http://haxtheweb.org/) as a single question!
 
 ## End user support
-Safari, Firefox, Chrome, Opera, Edge (polyfill), IE 11 (polyfill); all of which are to be supported natively during the built in build routine. This should not be a configuration step for developers, it should just happen! As Edge supports it natively (probably by late 2019) it will just work anyway :)
+Because of the Web component standard, babel and polyfills we support the following as part of our build routines.
+- Chrome 50+
+- Opera 47+
+- IOS / Safari 9+
+- FF 54+
+- Edge 15+
+- IE 11
 
+This is confirmed to work with 98.26% of all global traffic (Aug-Sep 2018) and should work with 99.64% (difficult to confirm Android original browser) with only being 0.36% unknown. 93.83% of all traffic loads via ES Modules (async loading of assets, http2 is lightning). As of Oct 23, 2018, 89.18% of all traffic will not require any polyfills.
 
 ## Development
 
