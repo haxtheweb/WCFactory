@@ -334,7 +334,10 @@ module.exports = class extends Generator {
       });
       // work on HAX integration if requested
       if (this.props.useHAX) {
-        this.props.includesString += 'import { HAXWiring } from "hax-body-behaviors/lib/HAXWiring.js"';
+        // include statement for top of files
+        this.props.includesString += 'import { HAXWiring } from "@lrnwebcomponents/hax-body-behaviors/lib/HAXWiring.js"';
+        // package dependency
+        this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"^0.0.1",`;
         // load props in from this dynamically generated function call
         this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
         // set baseline for HAX schema
