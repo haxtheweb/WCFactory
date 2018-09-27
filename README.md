@@ -4,7 +4,7 @@ A factory that churns out web components, library agnostic with a unified develo
 
 ## Install
 ```bash
-$ yarn install -g @wcfactory/cli
+$ yarn global add @wcfactory/cli
 ```
 ## Usage
 Create a folder for the factory you are working on and run `wcfactory init` in this directory
