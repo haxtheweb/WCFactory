@@ -10,9 +10,13 @@ $ yarn global add @wcfactory/cli
 Create a folder for the factory you are working on and run `wcfactory init` in this directory
 ```bash
 $ mkdir some-directory && cd some-directory && wcfactory init
-# add a new element (this needs work, yarn run new is more functional currently)
+# add a new element
 $ wcfactory new
-# or
+
+
+# if you didn't get any options you may need to rebuild some caches
+$ yarn run rebuild-wcfcache
+# running this will rebuild caches and execute new each time
 $ yarn run new
 ```
 Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
