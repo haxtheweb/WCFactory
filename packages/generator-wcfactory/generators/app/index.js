@@ -2,12 +2,12 @@ const Generator = require("yeoman-generator");
 const recursive = require('inquirer-recursive');
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
-const path = require("path");
-const process = require("process");
-const packageJson = require("../../package.json");
-
 const fs = require('fs');
-const wcfLibrariesCache = JSON.parse(fs.readFileSync('.wcflibcache.json', 'utf8'));
+const process = require("process");
+const cwd = process.cwd();
+const packageJson = require(`${cwd}/package.json`);
+const elementsDirectory = `${cwd}/elements/`;
+const wcfLibrariesCache = JSON.parse(fs.readFileSync(`${cwd}/.wcflibcache.json`, 'utf8'));
 var wcfLibraries = {};
 module.exports = class extends Generator {
   initializing() {
@@ -264,6 +264,7 @@ module.exports = class extends Generator {
         orgNpm: packageJson.wcfactory.orgNpm,
         monorepo: packageJson.wcfactory.monorepo,
         orgGit: packageJson.wcfactory.orgGit,
+        gitRepo: packageJson.wcfactory.gitRepo,
         author: answers.author,
         copyrightOwner: answers.copyrightOwner,
         license: answers.license,
@@ -478,6 +479,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.destinationRoot(elementsDirectory);
     this.fs.copyTpl(
       this.templatePath("package.json"),
       this.destinationPath(`${this.props.elementName}/package.json`),
@@ -591,7 +593,7 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.sourceRoot(`wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
       this.destinationPath(
         `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
@@ -599,16 +601,16 @@ module.exports = class extends Generator {
     );
   }
   install() {
-    process.chdir(this.props.elementName);
+    process.chdir(elementsDirectory + this.props.elementName);
 
     this.installDependencies({
-      npm: true,
+      npm: false,
       bower: false,
-      yarn: false
+      yarn: true
     });
   }
 
   end() {
-    this.spawnCommand("npm", ["run", "build"]);
+    this.spawnCommand("yarn", ["run", "build"]);
   }
 };
