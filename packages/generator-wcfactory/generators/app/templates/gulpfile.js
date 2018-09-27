@@ -43,9 +43,8 @@ gulp.task("merge", () => {
           oneLineFile
         );
         let HAXProps = fs.readFileSync(path.join("./src", HAXPropertiesUrl));
-        HAXProps = stripCssComments(HAXProps).trim();
 <%_ } _%>
-        let props = {};
+        let props = '{}';
 <%_ if (addProps) { _%>
         // pull properties off of the file location
         const [
