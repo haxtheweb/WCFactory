@@ -1,5 +1,5 @@
 {
-  "name": "<%= name %>",
+  "name": "@<%= org =>/<%= name %>",
   "scripts": {
     "start": "spandx",
     "lerna": "lerna",
