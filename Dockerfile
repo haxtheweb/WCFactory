@@ -23,4 +23,7 @@ RUN yarn link
 WORKDIR /home/node/html
 COPY . .
 
-ENTRYPOINT [ "bash" ]
+# Default to a tmp directory for volume mounting
+WORKDIR /home/node/tmp
+
+ENTRYPOINT [ "wcfactory" ]

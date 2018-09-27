@@ -2,3 +2,10 @@ version: "3"
 services:
   wcfactory:
     build: .
+    volumes:
+      - .:/home/node/html
+      - ./.tmp/docker/wcfactory:/home/node/tmp
+      # Prevent node_module override
+      - /home/node/html/node_modules
+      - /home/node/html/packages/cli/node_modules
+      - /home/node/html/packages/generator-wcfactory/node_modules
