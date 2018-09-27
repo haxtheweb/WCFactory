@@ -478,7 +478,7 @@ module.exports = class extends Generator {
           this.props.libraryDependencies += `,"${answers.sassLibrary.pkg}":"*"`;
         }
       }
-      mkdirp.sync(this.props.elementName);
+      mkdirp.sync(`${elementsDirectory}/${this.props.elementName}`);
     });
   }
 
