@@ -2,6 +2,7 @@ const Generator = require("yeoman-generator");
 const recursive = require('inquirer-recursive');
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
+const chalk = require("chalk");
 const fs = require('fs');
 const process = require("process");
 const cwd = process.cwd();
@@ -611,6 +612,10 @@ module.exports = class extends Generator {
   }
 
   end() {
-    this.spawnCommand("yarn", ["run", "build"]);
+    this.spawnCommandSync("yarn", ["run", "build"]);
+    process.chdir(cwd);
+    this.spawnCommand("lerna", ["link"]);
+    let banner = chalk.green("\n    A fresh made ") + chalk.yellowBright("Web Component Factory ") + chalk.green("element brought to you by:\n        ") + chalk.blueBright("The Pennsylvania ") + chalk.white("State University's ") + chalk.magentaBright("E") + chalk.cyanBright("L") + chalk.redBright("M") + chalk.yellowBright("S") + chalk.white(": ") + chalk.greenBright("Learning Network\n") + chalk.red("        Red Hat, Inc.\n");
+    this.log(banner);
   }
 };
