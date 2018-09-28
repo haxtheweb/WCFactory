@@ -37,10 +37,10 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@wcfactory/cli": "^0.1.5",
+    "@wcfactory/cli": "^0.1.6",
     "inquirer-recursive": "0.0.5",
     "lodash": "^4.17.4",
     "yeoman-generator": "^3.0.0"
   },
-  "version": "0.1.5"
+  "version": "0.1.6"
 }
