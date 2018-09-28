@@ -40,7 +40,7 @@
     "@wcfactory/cli": "^0.1.5",
     "inquirer-recursive": "0.0.5",
     "lodash": "^4.17.4",
-    "yeoman-generator": "^1.1.1"
+    "yeoman-generator": "^3.0.0"
   },
   "version": "0.1.5"
 }
