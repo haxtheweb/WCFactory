@@ -28,7 +28,7 @@
   "license": "MIT",
   "generator-rhelement-version": "0.0.5",
   "dependencies": {
-    
+
     "@polymer/polymer": "^3.0.5",
     "@rhelements/rhelement": "*"
   },
@@ -39,12 +39,10 @@
     "gulp-babel": "^8.0.0",
     "gulp-connect": "^5.0.0",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify-es": "^1.0.4",
     "lighthouse": "^2.x",
     "lodash": "^4.17.10",
     "polymer-cli": "^1.7.1",
     "polymer-build": "^3.0.4",
-    "uglify-es": "^3.3.9",
     "wct-browser-legacy": "^1.0.1"
   }
 }
