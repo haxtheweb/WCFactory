@@ -10,11 +10,21 @@
     "type": "git",
     "url": "https://github.com/elmsln/wcfactory"
   },
+  "homepage": "https://github.com/elmsln/wcfactory/",
+  "bugs": {
+    "url": "https://github.com/elmsln/wcfactory/issues"
+  },
   "main": "generators/app/index.js",
   "files": [
     "generators"
   ],
   "keywords": [
+    "web",
+    "component",
+    "custom",
+    "element",
+    "generator",
+    "yeoman",
     "yeoman-generator"
   ],
   "author": {
@@ -25,7 +35,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@wcfactory/cli": "^0.1.5",
     "inquirer-recursive": "0.0.5",
