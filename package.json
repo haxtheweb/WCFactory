@@ -24,5 +24,9 @@
       "plugin:node/recommended",
       "plugin:prettier/recommended"
     ]
+  },
+  "engines": {
+    "node": "^6.0.0 || ^8.0.0 || ^10.0.0",
+    "yarn": "^1.10.0"
   }
 }
