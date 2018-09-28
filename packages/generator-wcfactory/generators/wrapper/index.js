@@ -3,21 +3,21 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
+
 const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
+  // constructor(args, opts) {
+  //   super(args, opts)
+
+  //   this.argument('name', {type: String, required: true})
+  // }
+
   prompting() {
-    this.log('New project')
     return this.prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "Your element name"
-      },
+      
     ]).then(answers => {
-      let name = answers.name.split("-")[1]
       this.props = {
-        name: answers.name
       }
     })
   }
@@ -25,31 +25,28 @@ module.exports = class extends Generator {
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
-      this.templatePath('*/*'),
+      this.templatePath('*/.*'),
       this.destinationPath(),
       this.props,
-      {ignore:["_*.*"]}
     );
     this.fs.copyTpl(
-      this.templatePath('*'),
+      this.templatePath('*/*/.*'),
       this.destinationPath(),
-      this.props,
-      {ignore:["_*"]}
+      this.props
     );
     this.fs.copyTpl(
       this.templatePath('.*'),
       this.destinationPath(),
-      this.props,
-      {ignore:["._*"]}
+      this.props
+    );
+    this.fs.copyTpl(
+      this.templatePath('.*/.*'),
+      this.destinationPath(),
+      this.props
     );
   }
 
   install() {
-    this.installDependencies({
-      npm: true,
-      bower: false,
-      yarn: false
-    });
   }
 
   end() {

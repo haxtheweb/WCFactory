@@ -26,6 +26,8 @@ var env = yeoman.createEnv()
  */
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/app'), 'wcfactory:app')
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/wrapper'), 'wcfactory:wrapper')
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/product'), 'wcfactory:product')
 
 /*
  * We are going to use commander to set up a nice user focused cli for accessing our
@@ -40,6 +42,20 @@ program
   .description('Create a new element.')
   .action(function (name) {
     env.run('wcfactory:app')
+  })
+
+  program
+    .command('wrapper')
+  .description('Create a meta-repo that makes it easier to orchestrate multiple factories')
+  .action(function (name) {
+    env.run('wcfactory:wrapper')
+  })
+
+program
+  .command('product')
+  .description('Create a new product / build target')
+  .action(function (name) {
+    env.run('wcfactory:product')
   })
 
 program
