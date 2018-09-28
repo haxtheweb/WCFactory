@@ -91,12 +91,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     let simpleProps = {};
     for (let p in obj) {
       if (obj.hasOwnProperty(p)) {
-        if (this.hasAttribute(p)) {
-          simpleProps[p] = this.getAttribute(p);
-        }
-        else {
-          simpleProps[p] = obj[p].value;
-        }
+        simpleProps[p] = obj[p].value;
       }
     }
     return simpleProps;
