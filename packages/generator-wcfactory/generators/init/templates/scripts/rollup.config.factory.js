@@ -1,7 +1,7 @@
 import resolve from "rollup-plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
-import { uglify } from "rollup-plugin-uglify";
+import { terser } from "rollup-plugin-terser";
 
 function umdConfig({ elementName, className } = {}) {
   const umdFilename = `${elementName}.umd.js`;
@@ -24,7 +24,7 @@ function umdConfig({ elementName, className } = {}) {
           }
         ]
       }),
-      uglify()
+      terser()
     ],
     external: id => id.startsWith("..")
   };
