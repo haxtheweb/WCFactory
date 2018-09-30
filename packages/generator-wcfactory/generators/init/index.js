@@ -9,56 +9,12 @@ const packageJson = require("../../package.json");
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
-
-    console.log(args, opts)
-    // this.argument('name', {type: String, required: true})
-  }
-
-  prompting() {
-    return this.prompt([
-      {
-        type: "string",
-        name: "orgNpm",
-        message: "NPM organization name (include @)",
-        required: true,
-        store: true,
-        default: '@' + path.basename(process.cwd())
-      },
-      {
-        type: "string",
-        name: "orgGit",
-        message: "Git organization name",
-        required: true,
-        store: true,
-        default: path.basename(process.cwd())
-      },
-      {
-        type: "string",
-        name: "name",
-        message: "Your Repo name. Must be a valid git/npm name",
-        required: true,
-        default: path.basename(process.cwd())
-      },
-      {
-        type: "string",
-        name: "gitRepo",
-        message: "Git repo (full git address)",
-        required: true,
-        default: `git@github.com:` + path.basename(process.cwd()) + `/` + path.basename(process.cwd()) + `.git`
-      },
-    ]).then(answers => {
-      let name = answers.name.split("-")[1]
-      this.props = {
-        name: answers.name,
-        orgNpm: answers.orgNpm,
-        orgGit: answers.orgGit,
-        gitRepo: answers.gitRepo,
-        year: new Date().getFullYear(),
-      }
-    })
+    // get any opts passed from above
+    this.props = opts
   }
 
   writing() {
+    this.props.year = new Date().getFullYear()
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.templatePath('*/**'),

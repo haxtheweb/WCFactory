@@ -1323,6 +1323,11 @@ cardinal@^2.1.1:
     ansicolors "~0.3.2"
     redeyed "~2.1.0"
 
+case@^1.5.5:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/case/-/case-1.5.5.tgz#8e832ef0329609a4f3198dee37c029645dc27c72"
+  integrity sha512-tQm8bxc8L9Dk/6FGhtBtV89rrRzqytUbdLqGZxmGwYKqeAD0VmLc8kYSqm0GXOTsf9r1tc0bzq+CDLqtrjiuHw==
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
