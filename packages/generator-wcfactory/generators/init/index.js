@@ -17,6 +17,29 @@ module.exports = class extends Generator {
     return this.prompt([
       {
         type: "string",
+        name: "humanName",
+        message: "Name of this factory",
+        required: true,
+        store: true,
+        default: '@' + path.basename(process.cwd())
+      },
+      {
+        type: "string",
+        name: "description",
+        message: "Description",
+        required: true,
+        store: true,
+        default: '@' + path.basename(process.cwd())
+      },
+      {
+        type: "string",
+        name: "name",
+        message: "Repo name (a valid git / npm machine name)",
+        required: true,
+        default: path.basename(process.cwd())
+      },
+      {
+        type: "string",
         name: "orgNpm",
         message: "NPM organization name (include @)",
         required: true,
@@ -33,13 +56,6 @@ module.exports = class extends Generator {
       },
       {
         type: "string",
-        name: "name",
-        message: "Your Repo name. Must be a valid git/npm name",
-        required: true,
-        default: path.basename(process.cwd())
-      },
-      {
-        type: "string",
         name: "gitRepo",
         message: "Git repo (full git address)",
         required: true,
@@ -49,6 +65,8 @@ module.exports = class extends Generator {
       let name = answers.name.split("-")[1]
       this.props = {
         name: answers.name,
+        humanName: answers.humanName,
+        description: answers.description,
         orgNpm: answers.orgNpm,
         orgGit: answers.orgGit,
         gitRepo: answers.gitRepo,
@@ -114,6 +132,5 @@ module.exports = class extends Generator {
     this.spawnCommandSync("yarn", ["run", "rebuild-wcfcache"]);
     this.spawnCommandSync("git", ["add", "-A"]);
     this.spawnCommandSync("git", ["commit", "-m", `"Initial commit after wcfactory init"`]);
-    this.spawnCommandSync("git", ["push", "-u", "origin", "master"]);
   }
 };

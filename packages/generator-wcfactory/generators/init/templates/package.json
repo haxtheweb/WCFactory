@@ -1,6 +1,6 @@
 {
   "name": "<%= orgNpm %>/<%= name %>",
-  "description": "A WCFactory managed, sustainable web component library.",
+  "description": "<%= description %>",
   "wcfactory": {
     "askSASS": true,
     "askProps": true,
