@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import * as path from 'path'
 import * as Case from 'case'
+var emoji = require('node-emoji')
 var inquirer = require('inquirer')
 var prompt = inquirer.createPromptModule();
 var yeoman = require('yeoman-environment')
@@ -35,7 +36,7 @@ export default class Init extends Command {
       // if the user already answered this flag then
       // log it out and skip it
       if (flags[name]) {
-        this.log(`${q.message}: ${flags[name]}`)
+        this.log(`${emoji.emojify(q.emoji)} ${q.message}: ${flags[name]}`)
       }
       // if not then we need to prompt the user for the answer
       // to this flag
@@ -68,6 +69,7 @@ const questions: any = [
     message: "NPM organization name (include @)",
     required: true,
     store: true,
+    emoji: 'npm',
     default: (flags: any) => {
       return '@' + path.basename(process.cwd())
     },

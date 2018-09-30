@@ -14,6 +14,7 @@
     "@wcfactory/generator-wcfactory": "0.1.7",
     "case": "^1.5.5",
     "inquirer": "^6.2.0",
+    "node-emoji": "^1.8.1",
     "tslib": "^1",
     "yeoman-environment": "^2.3.3"
   },
