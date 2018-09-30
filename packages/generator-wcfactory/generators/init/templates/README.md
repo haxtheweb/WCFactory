@@ -1,12 +1,14 @@
-# <%= name %>
+# <%= humanName %>
 [![Published on npm](https://img.shields.io/npm/v/<%= orgNpm %>/<%= name %>.svg?style=flat)](https://www.npmjs.com/package/<%= orgNpm %>/<%= name %>)
 [![Build Status](https://travis-ci.org/<%= orgGit %>/<%= name %>.svg?branch=master)](https://travis-ci.org/<%= orgGit %>/<%= name %>)
 [![Dependency Status](https://img.shields.io/david/<%= orgGit %>/<%= name %>.svg?style=flat)](https://david-dm.org/<%= orgGit %>/<%= name %>)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/author/<%= orgGit %>)
-Welcome to the <%= name %> project! Let's work with web components!
+Welcome to the <%= humanName %> project!
+<%= description %>
 ## Quick-start
 
-*Notice: You will need to use [Node](https://nodejs.org/en/) v.6 or higher. These web components are written in [ES6](http://es6-features.org/) and build routines compile to es5 to encompass more browsers.*
+*Notice: You will need to use [Node](https://nodejs.org/en/) version 6.0 or higher. Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/). These web components are written in [ES6](http://es6-features.org/) and build routines compile to es5 to encompass more browsers.*
+### Install
 
 ```bash
 $ git clone <%= gitRepo %>
@@ -22,6 +24,8 @@ $ yarn start
     - Launch a demo server. This should be continuously running as you develop.
 - `$ yarn run new`
     -  Create a new component.
+- `$ yarn run rebuild-wcfcache`
+    - Rebuild caches as to what web component libraries can be used
 - `$ yarn test`
     -  Run tests on ALL <%= name %>.
 - `$ yarn run build`
