@@ -7,11 +7,12 @@ const process = require("process");
 const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
-  // constructor(args, opts) {
-  //   super(args, opts)
+  constructor(args, opts) {
+    super(args, opts)
 
-  //   this.argument('name', {type: String, required: true})
-  // }
+    console.log(args, opts)
+    // this.argument('name', {type: String, required: true})
+  }
 
   prompting() {
     return this.prompt([

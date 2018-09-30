@@ -1,0 +1,39 @@
+{
+  "name": "asdf",
+  "description": "CLI for managing your custom elements at scale.",
+  "main": "./bin/wcfactory-cli.js",
+  "engines": {
+    "node": ">=6.0"
+  },
+  "keywords": [
+    "web",
+    "component",
+    "custom",
+    "element",
+    "cli"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@wcfactory/generator-wcfactory": "^0.1.7",
+    "commander": "^2.18.0",
+    "please-upgrade-node": "^3.1.1",
+    "update-notifier": "^2.5.0",
+    "yeoman-environment": "^2.3.3"
+  },
+  "bin": {
+    "wcfactory": "./bin/wcfactory-cli.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.1.7",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmsln/wcfactory.git"
+  },
+  "homepage": "https://github.com/elmsln/wcfactory/",
+  "bugs": {
+    "url": "https://github.com/elmsln/wcfactory/issues"
+  }
+}
