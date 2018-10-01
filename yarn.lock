@@ -3953,7 +3953,7 @@ md5-o-matic@^0.1.1:
   resolved "https://registry.yarnpkg.com/md5-o-matic/-/md5-o-matic-0.1.1.tgz#822bccd65e117c514fab176b25945d54100a03c3"
   integrity sha1-givM1l4RfFFPqxdrJZRdVBAKA8M=
 
-mem-fs-editor@^5.0.0:
+mem-fs-editor@^5.0.0, mem-fs-editor@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/mem-fs-editor/-/mem-fs-editor-5.1.0.tgz#51972241640be8567680a04f7adaffe5fc603667"
   integrity sha512-2Yt2GCYEbcotYbIJagmow4gEtHDqzpq5XN94+yAx/NT5+bGqIjkXnm3KCUQfE6kRfScGp9IZknScoGRKu8L78w==
@@ -6455,7 +6455,7 @@ yeoman-environment@^2.0.5, yeoman-environment@^2.3.3:
     text-table "^0.2.0"
     untildify "^3.0.3"
 
-yeoman-generator@^3.0.0:
+yeoman-generator@^3.0.0, yeoman-generator@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/yeoman-generator/-/yeoman-generator-3.1.1.tgz#60cea712618f65ddefd9569a58bb71d2e38d377c"
   integrity sha512-ur4+vzXQEkyJNV+uBf9wLIo8gcuwRJkPyYU8CbKoXjfaVDMF0hYjO242UKK9eVx5uL2IvZAG/tLS/g7QaFdn/A==
