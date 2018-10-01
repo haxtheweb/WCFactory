@@ -14,14 +14,10 @@ function umdConfig({ elementName, className } = {}) {
       name: className
     },
     plugins: [
-      resolve(),
       commonjs(),
       babel({
         presets: [
-          '@babel/preset-env',
-          {
-            useBuiltIns: 'usage',
-          }
+          '@babel/preset-env'
         ]
       }),
       terser()
