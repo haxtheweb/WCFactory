@@ -1,9 +1,0 @@
-node_modules
-.DS_Store
-lerna-debug.log
-*.local.umd.js
-*.local.js
-.storybook_out
-npm-debug.log
-test/.wct-kludge
-.sass-cache

@@ -19,7 +19,7 @@ module.exports = class extends Generator {
       this.templatePath('*/**'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*.*"]}
+      { ignore: ["_*.*"] }
     );
     this.fs.copyTpl(
       this.templatePath('*/.*'),
@@ -31,13 +31,13 @@ module.exports = class extends Generator {
       this.templatePath('*'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*"]}
+      { ignore: ["_*"] }
     );
     this.fs.copyTpl(
       this.templatePath('.*'),
       this.destinationPath(),
       this.props,
-      {ignore:["._*"]}
+      { ignore: ["._*"] }
     );
     this.fs.copyTpl(
       this.templatePath('.*/**'),
@@ -56,20 +56,8 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.spawnCommandSync("git", ["init"]);
-    this.spawnCommandSync("git", ["remote", "add", "origin", this.props.gitRepo]);
-    this.installDependencies({
-      npm: false,
-      bower: false,
-      yarn: true
-    });
   }
 
   end() {
-    this.spawnCommandSync("yarn", ["run", "init"]);
-    this.spawnCommandSync("yarn", ["run", "rebuild-wcfcache"]);
-    this.spawnCommandSync("git", ["add", "-A"]);
-    this.spawnCommandSync("git", ["commit", "-m", `"Initial commit after wcfactory init"`]);
-    this.spawnCommandSync("git", ["push", "-u", "origin", "master"]);
   }
 };

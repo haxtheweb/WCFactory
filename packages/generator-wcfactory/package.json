@@ -38,9 +38,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@wcfactory/cli": "^0.1.7",
-    "execa": "^1.0.0",
     "inquirer-recursive": "0.0.5",
-    "listr": "^0.14.2",
     "lodash": "^4.17.4",
     "yeoman-generator": "^3.0.0"
   },
