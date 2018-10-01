@@ -14,9 +14,14 @@
     "@wcfactory/generator-wcfactory": "0.1.7",
     "case": "^1.5.5",
     "inquirer": "^6.2.0",
+    "listr": "^0.14.2",
+    "listr-silent-renderer": "^1.1.1",
+    "listr-update-renderer": "^0.4.0",
+    "mem-fs-editor": "^5.1.0",
     "node-emoji": "^1.8.1",
     "tslib": "^1",
-    "yeoman-environment": "^2.3.3"
+    "yeoman-environment": "^2.3.3",
+    "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

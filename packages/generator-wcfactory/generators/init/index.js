@@ -3,27 +3,23 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
-const execa = require('execa');
-const Listr = require('listr');
-
 
 const packageJson = require("../../package.json");
 
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
-    // get any opts passed from above
+
     this.props = opts
   }
 
   writing() {
-    this.props.year = new Date().getFullYear()
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.templatePath('*/**'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*.*"] }
+      { ignore: ["_*.*"]}
     );
     this.fs.copyTpl(
       this.templatePath('*/.*'),
@@ -35,13 +31,13 @@ module.exports = class extends Generator {
       this.templatePath('*'),
       this.destinationPath(),
       this.props,
-      { ignore: ["_*"] }
+      { ignore: ["_*"]}
     );
     this.fs.copyTpl(
       this.templatePath('.*'),
       this.destinationPath(),
       this.props,
-      { ignore: ["._*"] }
+      {ignore:["._*"]}
     );
     this.fs.copyTpl(
       this.templatePath('.*/**'),
@@ -60,25 +56,13 @@ module.exports = class extends Generator {
   }
 
   install() {
-    const tasks = new Listr([
-      {
-        title: 'Setting up Git',
-        task: () => {
-          this.spawnCommandSync("git", ["init"]);
-          this.spawnCommandSync("git", ["remote", "add", "origin", this.props.gitRepo]);
-        }
-      },
-      {
-        title: 'Installing Dependencies',
-        task: () => {
-          this.installDependencies({
-            npm: false,
-            bower: false,
-            yarn: true
-          });
-        }
-      }
-    ])
+    this.spawnCommandSync("git", ["init"]);
+    this.spawnCommandSync("git", ["remote", "add", "origin", this.props.gitRepo]);
+    this.installDependencies({
+      npm: false,
+      bower: false,
+      yarn: true
+    });
   }
 
   end() {

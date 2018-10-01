@@ -1,7 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import * as path from 'path'
 import * as Case from 'case'
-var emoji = require('node-emoji')
 var inquirer = require('inquirer')
 var prompt = inquirer.createPromptModule();
 var yeoman = require('yeoman-environment')
@@ -53,7 +52,10 @@ export default class Init extends Command {
       }
     }
 
-    // send the flags to the generator
+    // add year
+    flags.year = new Date().getFullYear()
+
+    // start the yeoman generator
     env.run('wcfactory:init', flags)
   }
 }
