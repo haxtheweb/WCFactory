@@ -1,4 +1,3 @@
-import resolve from "rollup-plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
@@ -16,9 +15,7 @@ function umdConfig({ elementName, className } = {}) {
     plugins: [
       commonjs(),
       babel({
-        presets: [
-          '@babel/preset-env'
-        ]
+        presets: ["@babel/preset-env"]
       }),
       terser()
     ],
@@ -27,7 +24,5 @@ function umdConfig({ elementName, className } = {}) {
 }
 
 export default function factory({ elementName, className } = {}) {
-  return [
-    umdConfig({ elementName, className }),
-  ];
+  return [umdConfig({ elementName, className })];
 }
