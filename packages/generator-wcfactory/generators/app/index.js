@@ -176,7 +176,7 @@ module.exports = class extends Generator {
           {
             type: 'input',
             name: 'name',
-            message: "Name (examples: title, fistName, urlLocation)",
+            message: "Name (eg: title)",
             validate: function (value) {
               if ((/\w/).test(value)) { return true; }
               return 'Property name must be a single word';
