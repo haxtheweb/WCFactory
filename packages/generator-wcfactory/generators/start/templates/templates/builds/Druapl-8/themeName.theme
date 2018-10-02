@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Functions to support theming in the <%= themeName %> theme.
+ * Functions to support theming in the <%= name %> theme.
  */
 
 use Drupal\Core\Form\FormStateInterface;

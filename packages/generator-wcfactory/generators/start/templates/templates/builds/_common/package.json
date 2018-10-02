@@ -1,0 +1,12 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.1",
+  "description": "<%= description %>",
+  "main": "webcomponents/es6/build.js",
+  "umd": "webcomponents/umd/build.umd.js",
+  "module": "webcomponents/amd/build.amd.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+  <%- dependencies %>
+  }
+}
