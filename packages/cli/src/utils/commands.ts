@@ -1,6 +1,5 @@
 const inquirer = require('inquirer')
-const recursive = require('inquirer-recursive');
-const prompt = inquirer.createPromptModule();
+inquirer.registerPrompt('recursive', require('inquirer-recursive'));
 const UpdaterRenderer = require('listr-update-renderer');
 const VerboseRenderer = require('listr-verbose-renderer');
 
@@ -24,11 +23,15 @@ export const promptUser = async (questions: any, flags: any, ctx: any) => {
     // to this flag
     else {
       // we need to evalutate the default function in this context
-      if (typeof q.default !== 'undefined') {
+      if (typeof q.default === 'function') {
         q = Object.assign(q, { default: q.default(flags) })
       }
+      // we need to evaluate when dynamically
+      if (typeof q.when === 'function') {
+        q = Object.assign(q, { when: q.when(flags) })
+      }
       // prompt the user and set the answer to the flags variable
-      Object.assign(flags, await prompt([q]))
+      Object.assign(flags, await inquirer.prompt([q]))
     }
 
     // run the post processing on the flag values
