@@ -8,6 +8,7 @@ var inquirer = require('inquirer')
 var prompt = inquirer.createPromptModule();
 var Listr = require('listr')
 const UpdaterRenderer = require('listr-update-renderer');
+const VerboseRenderer = require('listr-verbose-renderer');
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
@@ -19,8 +20,10 @@ export default class Init extends Command {
    * @todo dynaimically generate this based on the questions const
    */
   static flags = {
+    // global
     help: flags.help({ char: 'h' }),
-    // flag with a value (-n, --name=VALUE)
+    verbose: flags.boolean({ char: 'v', description: 'Verbose mode' }),
+    // specific to this command
     orgNpm: flags.string({ char: 'o', description: 'NPM organization name (include @)' }),
     orgGit: flags.string({ char: 'O', description: 'Git organization name' }),
     name: flags.string({ char: 'n', description: 'Git organization name' }),
@@ -29,11 +32,8 @@ export default class Init extends Command {
 
   async run() {
     // process the user input
-    const { args, flags } = this.parse(Init)
-
-    /**
-     * A little async iterator for prompts
-     */
+    let { args, flags } = this.parse(Init)
+    // prompt the user for the remaining flags
     for await (let q of questions) {
       // get the name of the question
       const name = q.name
@@ -46,31 +46,27 @@ export default class Init extends Command {
       // to this flag
       else {
         // we need to evalutate the default function in this context
-        q = Object.assign(q, { default: q.default(flags) })
+        if (typeof q.default !== 'undefined') {
+          q = Object.assign(q, { default: q.default(flags) })
+        }
         // prompt the user and set the answer to the flags variable
         Object.assign(flags, await prompt([q]))
       }
-
+  
       // run the post processing on the flag values
       if (typeof q.postProcess !== 'undefined') {
         Object.assign(flags, { [name]: q.postProcess(flags[name]) })
       }
     }
-
-    // add year
+    // add a year
     flags.year = new Date().getFullYear()
-
-    /**
-     * Now we are going to start the Generator
-     */
+    // now we are going to assemble a task list
+    const listOptions = getListOptions(flags)
     const list = new Listr([
       {
         title: 'Setting up files',
         task: async () => {
-          /**
-           * @todo need to put this in a background thread somehow
-           */
-          await env.run('wcfactory:init', flags)
+          const res = await env.run('wcfactory:init', flags)
         }
       },
       {
@@ -117,13 +113,7 @@ export default class Init extends Command {
           }
         }
       },
-    ],
-      {
-        renderer: UpdaterRenderer,
-        collapse: false
-      }
-    )
-
+    ], listOptions)
     // run the list
     list.run();
   }
@@ -136,14 +126,36 @@ export default class Init extends Command {
 const questions: any = [
   {
     type: "string",
+    name: "humanName",
+    message: "Name of this factory",
+    required: true,
+    store: true,
+    default: (flags: any) => {
+      return path.basename(process.cwd())
+    }
+  },
+  {
+    type: "string",
+    name: "description",
+    message: "Description",
+    required: true,
+    store: true
+  },
+  {
+    type: "string",
+    name: "name",
+    message: "Repo name (a valid git / npm machine name)",
+    required: true,
+    default: (flags: any) => flags.humanName.trim().replace(' ', '-'),
+    postProcess: (value: any) => value.trim().replace(' ', '-')
+  },
+  {
+    type: "string",
     name: "orgNpm",
     message: "NPM organization name (include @)",
     required: true,
     store: true,
-    emoji: 'npm',
-    default: (flags: any) => {
-      return '@' + path.basename(process.cwd())
-    },
+    default: (flags: any) => '@' + flags.name,
     postProcess: (value: any) => value.trim().replace(' ', '-')
   },
   {
@@ -152,17 +164,7 @@ const questions: any = [
     message: "Git organization name",
     required: true,
     store: true,
-    default: (flags: any) => {
-      return flags.orgNpm || path.basename(process.cwd())
-    },
-    postProcess: (value: any) => value.trim().replace(' ', '-')
-  },
-  {
-    type: "string",
-    name: "name",
-    message: "Your Repo name. Must be a valid git/npm name",
-    required: true,
-    default: (flags: any) => flags.orgNpm || path.basename(process.cwd()),
+    default: (flags: any) => flags.name.replace('@', ''),
     postProcess: (value: any) => value.trim().replace(' ', '-')
   },
   {
@@ -170,13 +172,24 @@ const questions: any = [
     name: "gitRepo",
     message: "Git repo (full git address)",
     required: true,
-    default: (flags: any) => {
-      if (flags.name && flags.orgGit) {
-        return `git@github.com:${flags.orgGit}/${flags.name}.git`
-      }
-      else {
-        return `git@github.com:${path.basename(process.cwd())}/${path.basename(process.cwd())}.git`
-      }
-    },
-  },
+    default: (flags: any) => `git@github.com:${flags.orgGit}/${flags.name}.git`
+  }
 ]
+
+/**
+ * Generate list options based on flags
+ */
+const getListOptions = (flags: any) => {
+  if (flags.verbose) {
+    return {
+      renderer: VerboseRenderer,
+      collapse: false
+    }
+  }
+  else {
+    return {
+      renderer: UpdaterRenderer,
+      collapse: false
+    }
+  }
+}

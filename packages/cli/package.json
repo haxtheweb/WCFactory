@@ -11,10 +11,11 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "@wcfactory/generator-wcfactory": "0.1.7",
+    "@wcfactory/generator-wcfactory": "^0.1.8",
     "inquirer": "^6.2.0",
     "listr": "^0.14.2",
     "listr-update-renderer": "^0.4.0",
+    "listr-verbose-renderer": "^0.4.1",
     "tslib": "^1",
     "yeoman-environment": "^2.3.3",
     "yeoman-generator": "^3.1.1"
