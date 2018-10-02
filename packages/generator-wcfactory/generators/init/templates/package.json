@@ -138,5 +138,10 @@
     "nohoist": [
       "**"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run test-suite-inject > /dev/null && lint-staged"
+    }
   }
 }
