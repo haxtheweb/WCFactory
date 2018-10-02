@@ -2,10 +2,9 @@ import { Command, flags } from '@oclif/command'
 import * as path from 'path'
 import { executionAsyncId } from 'async_hooks';
 import { spawnSync, spawn } from 'child_process';
+import { promptUser } from '../utils/prompts'
 var execa = require('execa')
 var dargs = require('dargs')
-var inquirer = require('inquirer')
-var prompt = inquirer.createPromptModule();
 var Listr = require('listr')
 const UpdaterRenderer = require('listr-update-renderer');
 const VerboseRenderer = require('listr-verbose-renderer');
@@ -24,6 +23,8 @@ export default class Init extends Command {
     help: flags.help({ char: 'h' }),
     verbose: flags.boolean({ char: 'v', description: 'Verbose mode' }),
     // specific to this command
+    humanName: flags.string({ char: 'h', description: 'Name of this factory' }),
+    description: flags.string({ char: 'd', description: 'Description of this factory' }),
     orgNpm: flags.string({ char: 'o', description: 'NPM organization name (include @)' }),
     orgGit: flags.string({ char: 'O', description: 'Git organization name' }),
     name: flags.string({ char: 'n', description: 'Git organization name' }),
@@ -33,31 +34,7 @@ export default class Init extends Command {
   async run() {
     // process the user input
     let { args, flags } = this.parse(Init)
-    // prompt the user for the remaining flags
-    for await (let q of questions) {
-      // get the name of the question
-      const name = q.name
-      // if the user already answered this flag then
-      // log it out and skip it
-      if (flags[name]) {
-        this.log(`${emoji.emojify(q.emoji)} ${q.message}: ${flags[name]}`)
-      }
-      // if not then we need to prompt the user for the answer
-      // to this flag
-      else {
-        // we need to evalutate the default function in this context
-        if (typeof q.default !== 'undefined') {
-          q = Object.assign(q, { default: q.default(flags) })
-        }
-        // prompt the user and set the answer to the flags variable
-        Object.assign(flags, await prompt([q]))
-      }
-  
-      // run the post processing on the flag values
-      if (typeof q.postProcess !== 'undefined') {
-        Object.assign(flags, { [name]: q.postProcess(flags[name]) })
-      }
-    }
+    flags = await promptUser(questions, flags, this)
     // add a year
     flags.year = new Date().getFullYear()
     // now we are going to assemble a task list
