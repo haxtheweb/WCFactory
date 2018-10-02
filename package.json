@@ -4,6 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "license": "Apache-2.0",
   "devDependencies": {
     "eslint": "5.6.1",
     "eslint-config-prettier": "3.1.0",
