@@ -92,8 +92,11 @@ const questions: any = [
     name: "name",
     message: "Repo name (a valid git / npm machine name)",
     required: true,
-    default: (flags: any) => flags.humanName.trim().replace(' ', '-'),
-    postProcess: (value: any) => value.trim().replace(' ', '-')
+    default: (flags: any) => flags.humanName,
+    validate: (value: any) => {
+      if ((/([a-z]*)-([a-z]*)/).test(value)) { return true; }
+      return 'name requires a hyphen and all lowercase';
+    }
   },
   {
     type: "string",
@@ -102,7 +105,10 @@ const questions: any = [
     required: true,
     store: true,
     default: (flags: any) => '@' + flags.name,
-    postProcess: (value: any) => value.trim().replace(' ', '-')
+    validate: (value: any) => {
+      if (!(/ /gm).test(value)) { return true; }
+      return 'can not contain a space';
+    }
   },
   {
     type: "string",
@@ -111,7 +117,10 @@ const questions: any = [
     required: true,
     store: true,
     default: (flags: any) => flags.name.replace('@', ''),
-    postProcess: (value: any) => value.trim().replace(' ', '-')
+    validate: (value: any) => {
+      if (!(/ /).test(value)) { return true; }
+      return 'can not contain a space';
+    }
   },
   {
     type: "string",
