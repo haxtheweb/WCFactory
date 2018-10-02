@@ -13,13 +13,15 @@ Verify that you have yarn enabled — if not [install yarn globally](https://yar
 ```bash
 $ yarn global add @wcfactory/cli
 ```
-## Usage
-Create a folder for the factory you are working on and run `wcfactory init` in this directory
+## Usage (conglomerate)
+A conglomerate helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else.
 ```bash
-$ mkdir some-directory && cd some-directory && wcfactory init
-# add a new element
-$ wcfactory new
-
+# create a new conglomerate, a series of factories linked by the owner
+$ mkdir my-conglomerate-name && cd my-conglomerate-name && wcfactory start
+# create a new factory after you've made the conglomerate
+wcfactory init
+# add a new element to the factory-name that you produced in the previous step
+$ cd factories/factory-name && wcfactory new
 
 # if you didn't get any options you may need to rebuild some caches
 $ yarn run rebuild-wcfcache

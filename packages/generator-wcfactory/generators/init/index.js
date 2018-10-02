@@ -3,16 +3,7 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
-
-const packageJson = require("../../package.json");
-
 module.exports = class extends Generator {
-  // constructor(args, opts) {
-  //   super(args, opts)
-
-  //   this.argument('name', {type: String, required: true})
-  // }
-
   prompting() {
     return this.prompt([
       {
@@ -76,6 +67,10 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    mkdirp.sync(`factories/${this.props.name}`);
+
+    this.destinationRoot(`factories/${this.props.name}`);
+
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.templatePath('*/**'),
@@ -106,14 +101,6 @@ module.exports = class extends Generator {
       this.destinationPath(),
       this.props,
       { ignore: ["._*"] }
-    );
-    this.fs.copy(
-      this.templatePath("../wcfTemplates/libraries/**"),
-      this.destinationPath("wcfLibraries/")
-    );
-    this.fs.copy(
-      this.templatePath("../wcfTemplates/buildTargets/**"),
-      this.destinationPath("wcfBuildTargets/")
     );
   }
 
