@@ -138,14 +138,7 @@
       "themes/*"
     ],
     "nohoist": [
-      "**/@polymer",
-      "**/@polymer/**",
-      "**/@webcomponents",
-      "**/@webcomponents/**",
-      "**/@lrnwebcomponents",
-      "**/@lrnwebcomponents/**",
-      "**/marked/**",
-      "**/prismjs/**"
+      "**"
     ]
   }
 }
