@@ -27,14 +27,12 @@
     "init": "lerna init",
     "test": "yarn run build && wct --configFile wct.conf.json test/index.html",
     "build": "lerna run build",
-    "bootstrap": "lerna bootstrap --hoist",
-    "postinstall": "yarn run bootstrap",
     "precommit": "yarn run test-suite-inject > /dev/null && lint-staged",
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
     "rebuild-wcfcache": "./node_modules/.bin/gulp",
-    "new": "yarn run rebuild-wcfcache && wcfactory new && yarn run test-suite-inject && yarn run bootstrap"
+    "new": "yarn run rebuild-wcfcache && wcfactory new && yarn run test-suite-inject && yarn install --link-duplicates"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",
