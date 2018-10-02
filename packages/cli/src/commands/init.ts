@@ -57,7 +57,7 @@ export default class Init extends Command {
       },
       {
         title: 'Rebuilding cache',
-        task: async () => execa('yarn', ['run', 'rebuild0-wcfacache']).stdout
+        task: async () => execa('yarn', ['run', 'rebuild-wcfacache']).stdout
       }
     ], listOptions)
     // run the list

@@ -1,5 +1,6 @@
-var inquirer = require('inquirer')
-var prompt = inquirer.createPromptModule();
+const inquirer = require('inquirer')
+const recursive = require('inquirer-recursive');
+const prompt = inquirer.createPromptModule();
 const UpdaterRenderer = require('listr-update-renderer');
 const VerboseRenderer = require('listr-verbose-renderer');
 
