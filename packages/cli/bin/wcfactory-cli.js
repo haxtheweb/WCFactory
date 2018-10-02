@@ -26,7 +26,7 @@ var env = yeoman.createEnv()
  */
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/app'), 'wcfactory:app')
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
-env.register(require.resolve('@wcfactory/generator-wcfactory/generators/wrapper'), 'wcfactory:wrapper')
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/start'), 'wcfactory:start')
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/product'), 'wcfactory:product')
 
 /*
@@ -45,10 +45,10 @@ program
   })
 
   program
-    .command('wrapper')
-  .description('Create a meta-repo that makes it easier to orchestrate multiple factories')
+    .command('start')
+  .description('Create a meta-repo that makes it easier to orchestrate all your factories')
   .action(function (name) {
-    env.run('wcfactory:wrapper')
+    env.run('wcfactory:start')
   })
 
 program
@@ -60,7 +60,7 @@ program
 
 program
   .command('init')
-  .description('Create mono repo for your element library. You will only need to do this once.')
+  .description('Create mono repo for your element library. This is a factory in our mental model.')
   .action(function (name) {
     env.run('wcfactory:init')
   })

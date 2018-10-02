@@ -598,7 +598,7 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.sourceRoot(`../../../templates/libraries/${this.props.activeWCFLibrary.main}`),
       this.destinationPath(
         `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
@@ -607,6 +607,7 @@ module.exports = class extends Generator {
   }
   install() {
     process.chdir(elementsDirectory + this.props.elementName);
+    fs.symlink(elementsDirectory + this.props.elementName, '../../../../products/elements/' + this.props.elementName, (err) => { console.log(err || "Done."); });
 
     this.installDependencies({
       npm: false,
