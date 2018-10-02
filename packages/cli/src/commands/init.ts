@@ -1,13 +1,8 @@
 import { Command, flags } from '@oclif/command'
 import * as path from 'path'
-import { executionAsyncId } from 'async_hooks';
-import { spawnSync, spawn } from 'child_process';
-import { promptUser } from '../utils/prompts'
+import { promptUser, getListOptions } from '../utils/commands'
 var execa = require('execa')
-var dargs = require('dargs')
 var Listr = require('listr')
-const UpdaterRenderer = require('listr-update-renderer');
-const VerboseRenderer = require('listr-verbose-renderer');
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
@@ -34,11 +29,13 @@ export default class Init extends Command {
   async run() {
     // process the user input
     let { args, flags } = this.parse(Init)
+    // prompt the user for more info
     flags = await promptUser(questions, flags, this)
     // add a year
     flags.year = new Date().getFullYear()
     // now we are going to assemble a task list
     const listOptions = getListOptions(flags)
+    // assemble a list
     const list = new Listr([
       {
         title: 'Setting up files',
@@ -48,48 +45,20 @@ export default class Init extends Command {
       },
       {
         title: 'Initializing Git',
-        task: async () => {
-          const commands = [
-            {
-              command: 'git',
-              args: ['init']
-            },
-          ]
-
-          for await (let command of commands) {
-            const res = await execa(command.command, command.args)
-            if (res.code === 1) {
-              throw Error(res.stdout)
-            }
-          }
-        }
+        task: async () => execa('git', ['init']).stdout
       },
       {
         title: 'Installing dependencies',
-        task: async () => {
-          const commands = [
-            {
-              command: 'yarn',
-              args: ['install']
-            },
-            {
-              command: 'yarn',
-              args: ['run', 'init']
-            },
-            {
-              command: 'yarn',
-              args: ['run', 'rebuild-wcfacache']
-            },
-          ]
-
-          for await (let command of commands) {
-            const res = await execa(command.command, command.args)
-            if (res.code === 1) {
-              throw Error(res.stdout)
-            }
-          }
-        }
+        task: async () => execa('yarn', ['install']).stdout
       },
+      {
+        title: 'Running Initalizer',
+        task: async () => execa('yarn', ['run', 'init']).stdout
+      },
+      {
+        title: 'Rebuilding cache',
+        task: async () => execa('yarn', ['run', 'rebuild0-wcfacache']).stdout
+      }
     ], listOptions)
     // run the list
     list.run();
@@ -152,21 +121,3 @@ const questions: any = [
     default: (flags: any) => `git@github.com:${flags.orgGit}/${flags.name}.git`
   }
 ]
-
-/**
- * Generate list options based on flags
- */
-const getListOptions = (flags: any) => {
-  if (flags.verbose) {
-    return {
-      renderer: VerboseRenderer,
-      collapse: false
-    }
-  }
-  else {
-    return {
-      renderer: UpdaterRenderer,
-      collapse: false
-    }
-  }
-}

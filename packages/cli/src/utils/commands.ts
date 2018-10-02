@@ -1,5 +1,7 @@
 var inquirer = require('inquirer')
 var prompt = inquirer.createPromptModule();
+const UpdaterRenderer = require('listr-update-renderer');
+const VerboseRenderer = require('listr-verbose-renderer');
 
 /**
  * Takes flags from the cli and converts them into prompts
@@ -35,4 +37,22 @@ export const promptUser = async (questions: any, flags: any, ctx: any) => {
   }
 
   return flags
+}
+
+/**
+ * Generate list options based on flags
+ */
+export const getListOptions = (flags: any) => {
+  if (flags.verbose) {
+    return {
+      renderer: VerboseRenderer,
+      collapse: false
+    }
+  }
+  else {
+    return {
+      renderer: UpdaterRenderer,
+      collapse: false
+    }
+  }
 }
