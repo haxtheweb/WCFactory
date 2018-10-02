@@ -1,10 +1,11 @@
 import { Command, flags } from '@oclif/command'
-// import { promptUser, getListOptions } from '../utils/commands'
-import { getCustomElementClasses } from '../utils/customElementClasses'
 import { promptUser } from '../utils/commands'
-const customElementClassChoices = getCustomElementClasses()
+import { getListOptions } from '../utils/commands'
+const { wcfLibrariesListChoices } = require('@wcfactory/common/wcflibraries')
 const cwd = process.cwd();
 const packageJson = require(`${cwd}/package.json`);
+var execa = require('execa')
+var Listr = require('listr')
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/app'), 'wcfactory:app')
@@ -22,242 +23,262 @@ export default class Element extends Command {
 
   async run() {
     let { args, flags } = this.parse(Element)
-
-    env.run('wcfactory:app')
-
-    // questions
-    const questions: any = [
+    // prompt the user for remaining flags
+    flags = await promptUser(questions, flags, this)
+    // now we are going to assemble a task list
+    const listOptions = getListOptions(flags)
+    // assemble a list
+    const list = new Listr([
       {
-        type: "list",
-        name: "customElementClassArrayPosition",
-        message: "Custom element base class to use",
-        store: true,
-        choices: customElementClassChoices
-      },
-      {
-        type: "input",
-        name: "name",
-        message: "Element name",
-        validate: function (value) {
-          if ((/([a-z]*)-([a-z]*)/).test(value)) { return true; }
-          return 'name requires a hyphen and all lowercase';
+        title: 'Setting up files',
+        task: async () => {
+          const res = await env.run('wcfactory:app', flags)
         }
       },
       {
-        type: "input",
-        name: "description",
-        message: "Description / purpose of the element"
+        title: 'Installing dependencies',
+        task: async () => execa('yarn', ['install']).stdout
       },
-      {
-        type: "input",
-        name: "author",
-        message: "Author of this element",
-        store: true
-      },
-      {
-        type: "input",
-        name: "copyrightOwner",
-        message: "Copyright owner of this work",
-        store: true,
-      },
-      {
-        type: "list",
-        name: "license",
-        message: "Software License to use",
-        store: true,
-        default: "apache2",
-        choices: [
-          {
-            name: "Apache 2.0",
-            value: "Apache-2.0"
-          },
-          {
-            name: "MIT",
-            value: "MIT"
-          },
-          {
-            name: "BSD 3-clause",
-            value: "BSD-3-Clause"
-          },
-          {
-            name: "BSD 2-clause",
-            value: "BSD-2-Clause"
-          }
-        ]
-      },
-      {
-        type: "list",
-        name: "useSass",
-        when: (answers: any) => {
-          return packageJson.wcfactory.askSASS;
-        },
-        message: "Do you want to use Sass in this element?",
-        store: true,
-        choices: [
-          {
-            name: "Yes",
-            value: true
-          },
-          {
-            name: "No",
-            value: false
-          }
-        ]
-      },
-      {
-        type: "list",
-        name: "sassLibrary",
-        when: (answers: any) => {
-          return answers.useSass && packageJson.wcfactory.askSASS;
-        },
-        message: "Do want to use existing Sass dependencies?",
-        choices: [
-          {
-            name: packageJson.wcfactory.sass.name,
-            value: {
-              pkg: packageJson.wcfactory.sass.pkg,
-              path: packageJson.wcfactory.sass.path
-            }
-          },
-          {
-            name: "No thanks. I'll provide my own later",
-            value: null
-          }
-        ]
-      },
-      {
-        type: "list",
-        name: "addProps",
-        message: "Do you want custom properties? (typically yes)",
-        when: (answers: any) => {
-          return packageJson.wcfactory.askProps;
-        },
-        store: true,
-        choices: [
-          {
-            name: "Yes",
-            value: true
-          },
-          {
-            name: "No",
-            value: false
-          }
-        ]
-      },
-      {
-        type: "list",
-        name: "useHAX",
-        message: "Auto build support for the HAX authoring system?",
-        store: true,
-        when: (answers: any) => {
-          return answers.addProps && packageJson.wcfactory.askHAX;
-        },
-        choices: [
-          {
-            name: "Yes",
-            value: true
-          },
-          {
-            name: "No",
-            value: false
-          }
-        ]
-      },
-      {
-        type: 'recursive',
-        message: 'Add a new property?',
-        name: 'propsList',
-        when: (answers: any) => {
-          return answers.addProps;
-        },
-        prompts: [
-          {
-            type: 'input',
-            name: 'name',
-            message: "Name (eg: title)",
-            validate: function (value) {
-              if ((/\w/).test(value)) { return true; }
-              return 'Property name must be a single word';
-            }
-          },
-          {
-            type: 'list',
-            name: 'type',
-            message: "type of value (the way it is used as data)",
-            default: "String",
-            choices: [
-              {
-                name: "String, text based input",
-                value: "String"
-              },
-              {
-                name: "Boolean, true/false value",
-                value: "Boolean"
-              },
-              {
-                name: "Number, number like 54",
-                value: "Number"
-              },
-              {
-                name: "Object, complex item storing multiple types",
-                value: "Object"
-              },
-              {
-                name: "Array, list of types",
-                value: "Array"
-              },
-              {
-                name: "Date, javascript date based object",
-                value: "Date"
-              },
-            ]
-          },
-          {
-            type: 'input',
-            name: 'value',
-            message: "Default value (leave blank for none)",
-          },
-          {
-            type: 'list',
-            name: 'reflectToAttribute',
-            message: "Make available in css styles? [name=\"stuff\"] { color: blue; }",
-            default: false,
-            choices: [
-              {
-                name: "No",
-                value: false
-              },
-              {
-                name: "Yes",
-                value: true
-              },
-            ]
-          },
-          {
-            type: 'list',
-            name: 'observer',
-            message: "Notice changes to this property?",
-            default: true,
-            choices: [
-              {
-                name: "Yes",
-                value: true
-              },
-              {
-                name: "No",
-                value: false
-              },
-            ]
-          },
-        ]
-      }
-    ]
-    // prompt the user for remaining flags
-    flags = await promptUser(questions, flags, this)
+    ], listOptions)
+    // this.spawnCommandSync("yarn", ["run", "build"]);
+    // process.chdir(cwd);
+    // this.spawnCommand("lerna", ["link"]);
+    // let banner = chalk.green("\n    A fresh made ") + chalk.yellowBright("Web Component Factory ") + chalk.green("element brought to you by:\n        ") + chalk.blueBright("The Pennsylvania ") + chalk.white("State University's ") + chalk.magentaBright("E") + chalk.cyanBright("L") + chalk.redBright("M") + chalk.yellowBright("S") + chalk.white(": ") + chalk.greenBright("Learning Network\n") + chalk.red("        Red Hat, Inc.\n");
+    // banner += chalk.green("\n\nTo work on your new element type:\n    ") + chalk.yellowBright(`cd elements/${this.props.elementName} && yarn start\n\n`);
+    // this.log(banner);
+    // run the list
+    list.run();
   }
 }
+
 
 /**
  * A listing of all prompt questions
  */
-
+// questions
+const questions: any = [
+  {
+    type: "list",
+    name: "customElementClassArrayPosition",
+    message: "Custom element base class to use",
+    store: true,
+    choices: wcfLibrariesListChoices
+  },
+  {
+    type: "input",
+    name: "name",
+    message: "Element name",
+    validate: function (value) {
+      if ((/([a-z]*)-([a-z]*)/).test(value)) { return true; }
+      return 'name requires a hyphen and all lowercase';
+    }
+  },
+  {
+    type: "input",
+    name: "description",
+    message: "Description / purpose of the element"
+  },
+  {
+    type: "input",
+    name: "author",
+    message: "author of this element",
+    store: true
+  },
+  {
+    type: "input",
+    name: "copyrightOwner",
+    message: "Copyright owner of this work",
+    store: true,
+  },
+  {
+    type: "list",
+    name: "license",
+    message: "Software License to use",
+    store: true,
+    default: "apache2",
+    choices: [
+      {
+        name: "Apache 2.0",
+        value: "Apache-2.0"
+      },
+      {
+        name: "MIT",
+        value: "MIT"
+      },
+      {
+        name: "BSD 3-clause",
+        value: "BSD-3-Clause"
+      },
+      {
+        name: "BSD 2-clause",
+        value: "BSD-2-Clause"
+      }
+    ]
+  },
+  {
+    type: "list",
+    name: "useSass",
+    when: (flags: any) => {
+      return packageJson.wcfactory.askSASS;
+    },
+    message: "Do you want to use Sass in this element?",
+    store: true,
+    choices: [
+      {
+        name: "Yes",
+        value: true
+      },
+      {
+        name: "No",
+        value: false
+      }
+    ]
+  },
+  {
+    type: "list",
+    name: "sassLibrary",
+    when: (flags: any) => {
+      return flags.useSass && packageJson.wcfactory.askSASS;
+    },
+    message: "Do want to use existing Sass dependencies?",
+    choices: [
+      {
+        name: packageJson.wcfactory.sass.name,
+        value: {
+          pkg: packageJson.wcfactory.sass.pkg,
+          path: packageJson.wcfactory.sass.path
+        }
+      },
+      {
+        name: "No thanks. I'll provide my own later",
+        value: null
+      }
+    ]
+  },
+  {
+    type: "list",
+    name: "addProps",
+    message: "Do you want custom properties? (typically yes)",
+    when: (flags: any) => {
+      return packageJson.wcfactory.askProps;
+    },
+    store: true,
+    choices: [
+      {
+        name: "Yes",
+        value: true
+      },
+      {
+        name: "No",
+        value: false
+      }
+    ]
+  },
+  {
+    type: "list",
+    name: "useHAX",
+    message: "Auto build support for the HAX authoring system?",
+    store: true,
+    when: (flags: any) => {
+      return flags.addProps && packageJson.wcfactory.askHAX;
+    },
+    choices: [
+      {
+        name: "Yes",
+        value: true
+      },
+      {
+        name: "No",
+        value: false
+      }
+    ]
+  },
+  {
+    type: 'recursive',
+    message: 'Add a new property?',
+    name: 'propsList',
+    when: (answers: any) => {
+      return answers.addProps;
+    },
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: "Name (eg: title)",
+        validate: function (value) {
+          if ((/\w/).test(value)) { return true; }
+          return 'Property name must be a single word';
+        }
+      },
+      {
+        type: 'list',
+        name: 'type',
+        message: "type of value (the way it is used as data)",
+        default: "String",
+        choices: [
+          {
+            name: "String, text based input",
+            value: "String"
+          },
+          {
+            name: "Boolean, true/false value",
+            value: "Boolean"
+          },
+          {
+            name: "Number, number like 54",
+            value: "Number"
+          },
+          {
+            name: "Object, complex item storing multiple types",
+            value: "Object"
+          },
+          {
+            name: "Array, list of types",
+            value: "Array"
+          },
+          {
+            name: "Date, javascript date based object",
+            value: "Date"
+          },
+        ]
+      },
+      {
+        type: 'input',
+        name: 'value',
+        message: "Default value (leave blank for none)",
+      },
+      {
+        type: 'list',
+        name: 'reflectToAttribute',
+        message: "Make available in css styles? [name=\"stuff\"] { color: blue; }",
+        default: false,
+        choices: [
+          {
+            name: "No",
+            value: false
+          },
+          {
+            name: "Yes",
+            value: true
+          },
+        ]
+      },
+      {
+        type: 'list',
+        name: 'observer',
+        message: "Notice changes to this property?",
+        default: true,
+        choices: [
+          {
+            name: "Yes",
+            value: true
+          },
+          {
+            name: "No",
+            value: false
+          },
+        ]
+      },
+    ]
+  }
+]
