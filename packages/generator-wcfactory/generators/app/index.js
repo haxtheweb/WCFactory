@@ -9,6 +9,7 @@ const cwd = process.cwd();
 const packageJson = require(`${cwd}/package.json`);
 const elementsDirectory = `${cwd}/elements/`;
 const wcfLibrariesCache = JSON.parse(fs.readFileSync(`${cwd}/.wcflibcache.json`, 'utf8'));
+const userPrefs = JSON.parse(fs.readFileSync(`${cwd}/../../.wcfconfig/user`, 'utf8'));
 var wcfLibraries = {};
 module.exports = class extends Generator {
   initializing() {
@@ -49,43 +50,6 @@ module.exports = class extends Generator {
         type: "input",
         name: "description",
         message: "Description / purpose of the element"
-      },
-      {
-        type: "input",
-        name: "author",
-        message: "Author of this element",
-        store: true
-      },
-      {
-        type: "input",
-        name: "copyrightOwner",
-        message: "Copyright owner of this work",
-        store: true,
-      },
-      {
-        type: "list",
-        name: "license",
-        message: "Software License to use",
-        store: true,
-        default: "apache2",
-        choices: [
-          {
-            name: "Apache 2.0",
-            value: "Apache-2.0"
-          },
-          {
-            name: "MIT",
-            value: "MIT"
-          },
-          {
-            name: "BSD 3-clause",
-            value: "BSD-3-Clause"
-          },
-          {
-            name: "BSD 2-clause",
-            value: "BSD-2-Clause"
-          }
-        ]
       },
       {
         type: "list",
@@ -266,9 +230,9 @@ module.exports = class extends Generator {
         monorepo: packageJson.wcfactory.monorepo,
         orgGit: packageJson.wcfactory.orgGit,
         gitRepo: packageJson.wcfactory.gitRepo,
-        author: answers.author,
-        copyrightOwner: answers.copyrightOwner,
-        license: answers.license,
+        author: userPrefs.author,
+        copyrightOwner: userPrefs.copyrightOwner,
+        license: userPrefs.license,
         name: answers.name,
         humanName: this.capitalizeFirstLetter(answers.name.replace('-', ' ')),
         description: answers.description,
