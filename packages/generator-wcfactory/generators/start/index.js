@@ -14,45 +14,37 @@ module.exports = class extends Generator {
   // }
 
   prompting() {
-    return this.prompt([
-      
-    ]).then(answers => {
-      this.props = {
-      }
-    })
+    return this.prompt([]).then(answers => {
+      this.props = {};
+    });
   }
 
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
-      this.templatePath('*/.*'),
-      this.destinationPath(),
-      this.props,
-    );
-    this.fs.copyTpl(
-      this.templatePath('*/*/.*'),
-      this.destinationPath(),
-      this.props
-    );
-    this.fs.copy(
-      this.templatePath('**/**'),
-      this.destinationPath()
-    );
-    this.fs.copyTpl(
-      this.templatePath('.*'),
+      this.templatePath("*/.*"),
       this.destinationPath(),
       this.props
     );
     this.fs.copyTpl(
-      this.templatePath('.*/.*'),
+      this.templatePath("*/*/.*"),
+      this.destinationPath(),
+      this.props
+    );
+    this.fs.copy(this.templatePath("**/**"), this.destinationPath());
+    this.fs.copyTpl(
+      this.templatePath(".*"),
+      this.destinationPath(),
+      this.props
+    );
+    this.fs.copyTpl(
+      this.templatePath(".*/.*"),
       this.destinationPath(),
       this.props
     );
   }
 
-  install() {
-  }
+  install() {}
 
-  end() {
-  }
+  end() {}
 };
