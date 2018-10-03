@@ -87,7 +87,8 @@ module.exports = class extends Generator {
         build: answers.build,
         factory: answers.factory,
         buildData: buildData,
-        dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n"
+        dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n",
+        imports: '',
       };
       // package files of each element
       let files = glob.sync(
@@ -95,8 +96,13 @@ module.exports = class extends Generator {
       );
       _.forEach(files, val => {
         let json = JSON.parse(fs.readFileSync(val, "utf8"));
-        this.props.dependencies +=
-          `    "${json.name}" : "${json.version}",` + "\n";
+        if (json.version && !json.private) {
+          this.props.dependencies +=
+            `    "${json.name}" : "${json.version}",` + "\n";
+          this.props.imports +=
+            `    import "${json.name}";` + "\n";
+        }
+
       });
       // trim that last , if needed
       if (this.props.dependencies !== "") {
@@ -113,12 +119,26 @@ module.exports = class extends Generator {
       this.sourceRoot(`templates/builds/${buildData[this.props.build].key}`),
       this.destinationPath(`${buildsDirectory}/${this.props.name}`),
       this.props,
-      { ignore: ["_common"] }
+      { ignore: ["_common", ".DS_Store"] }
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
       this.destinationPath(
         `${buildsDirectory}/${this.props.name}/package.json`
+      ),
+      this.props
+    );
+    this.fs.copyTpl(
+      this.sourceRoot("templates/builds/_common/build.html"),
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/dist/build.html`
+      ),
+      this.props
+    );
+    this.fs.copyTpl(
+      this.sourceRoot("templates/builds/_common/build.js"),
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/build.js`
       ),
       this.props
     );
@@ -138,10 +158,10 @@ module.exports = class extends Generator {
       bower: false,
       yarn: true
     });
-    this.spawnCommandSync("polymer", ["build"]);
   }
 
   end() {
+    this.spawnCommandSync("polymer", ["build"]);
     this.fs.copy(
       this.sourceRoot(`${buildsDirectory}/${this.props.name}/build`),
       this.destinationPath(

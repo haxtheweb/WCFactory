@@ -61,23 +61,27 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("*/.*"),
       this.destinationPath(),
-      this.props
+      this.props,
+      { ignore: [".DS_Store"] }
     );
     this.fs.copyTpl(
       this.templatePath("*/*/.*"),
       this.destinationPath(),
-      this.props
+      this.props,
+      { ignore: [".DS_Store"] }
     );
     this.fs.copy(this.templatePath("**/**"), this.destinationPath());
     this.fs.copyTpl(
       this.templatePath(".*"),
       this.destinationPath(),
-      this.props
+      this.props,
+      { ignore: [".DS_Store"] }
     );
     this.fs.copyTpl(
       this.templatePath(".wcfconfig/*"),
       this.destinationPath(".wcfconfig/"),
-      this.props
+      this.props,
+      { ignore: [".DS_Store"] }
     );
   }
 

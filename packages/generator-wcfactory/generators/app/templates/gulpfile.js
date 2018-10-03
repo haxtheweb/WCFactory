@@ -113,7 +113,13 @@ gulp.task("analyze", () => {
 // copy from the built locations pulling them together
 gulp.task("compile", () => {
   // copy outputs
-  gulp.src("./build/es6/" + packageJson.wcfactory.elementName + ".js").pipe(gulp.dest("./"));
+  gulp.src("./build/es6/" + packageJson.wcfactory.elementName + ".js")
+    .pipe(
+      rename({
+        suffix: ".es6"
+      })
+    )
+    .pipe(gulp.dest("./"));
   gulp.src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       rename({
@@ -145,12 +151,8 @@ gulp.task("watch", () => {
 
 // shift build files around a bit and build source maps
 gulp.task("sourcemaps", () => {
-  gulp
-    .src("./" + packageJson.wcfactory.elementName + ".amd.js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
   return gulp
-    .src("./" + packageJson.wcfactory.elementName + ".js")
+    .src("./" + packageJson.wcfactory.elementName + ".es6.js")
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write("./"));
 });
