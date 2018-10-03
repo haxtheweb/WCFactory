@@ -13,10 +13,15 @@ Welcome to the <%= humanName %> project!
 ```bash
 $ git clone <%= gitRepo %>
 $ cd <%= name %>
-$ yarn install # this will take a while due to lerna bootstrap
-$ yarn rebuild node-sass  # this may be necessary
+$ yarn install
+$ yarn rebuild node-sass  # this may be necessary if using sass
 $ yarn start
 ```
+
+### Working on elements (new-element)
+Run `yarn run new` to make a new element. Go to the new element `cd elements/new-element` and run `yarn start` to do development on the element. If you are pulling in another element to use, run `yarn add reponame --save`.
+
+*Special Note:* If you are referencing your own elements from inside the repo (like element-a is used in element-b) then make sure when you do the install for it you issue `yarn add @myrepo/element-a@latest --save` to ensure that it's pegged to latest. This helps with development consistency.
 
 ## Scripts
 
@@ -30,15 +35,11 @@ $ yarn start
     -  Run tests on ALL <%= name %>.
 - `$ yarn run build`
     -  Run build on ALL <%= name %>.
-- `$ yarn run bootstrap`
-    - Update ALL <%= name %>' dependencies and interlink them with [lerna bootstrap][lerna-bs].
 - `$ yarn run storybook`
     - Run storybook
 - `$ yarn run build-storybook`
     - Build storybook for deployment
 
-[lerna]: https://github.com/lerna/lerna
-[lerna-bs]: https://github.com/lerna/lerna#bootstrap
 
 ## Web Component development
 
