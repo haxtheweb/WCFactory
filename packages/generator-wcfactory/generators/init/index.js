@@ -4,8 +4,6 @@ const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
 
-const packageJson = require("../../package.json");
-
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
@@ -59,10 +57,28 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // moved to cli
+    this.spawnCommandSync("git", ["init"]);
+    this.spawnCommandSync("git", [
+      "remote",
+      "add",
+      "origin",
+      this.props.gitRepo
+    ]);
+    this.installDependencies({
+      npm: false,
+      bower: false,
+      yarn: true
+    });
   }
 
   end() {
-    // moved to cli
+    this.spawnCommandSync("yarn", ["run", "init"]);
+    this.spawnCommandSync("yarn", ["run", "rebuild-wcfcache"]);
+    this.spawnCommandSync("git", ["add", "-A"]);
+    this.spawnCommandSync("git", [
+      "commit",
+      "-m",
+      `"Initial commit after wcfactory init"`
+    ]);
   }
 };

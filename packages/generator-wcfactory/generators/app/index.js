@@ -1,4 +1,5 @@
 const { wcfLibraries } = require('@wcfactory/common/wcflibraries')
+const { config } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
@@ -6,8 +7,8 @@ const chalk = require("chalk");
 const fs = require('fs');
 const process = require("process");
 const cwd = process.cwd();
-const packageJson = require(`${cwd}/package.json`);
 const elementsDirectory = `${cwd}/elements/`;
+
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
@@ -23,10 +24,10 @@ module.exports = class extends Generator {
     };
     this.props = {
       year: new Date().getFullYear(),
-      orgNpm: packageJson.wcfactory.orgNpm,
-      monorepo: packageJson.wcfactory.monorepo,
-      orgGit: packageJson.wcfactory.orgGit,
-      gitRepo: packageJson.wcfactory.gitRepo,
+      orgNpm: config.orgNpm,
+      monorepo: config.monorepo,
+      orgGit: config.orgGit,
+      gitRepo: config.gitRepo,
       author: this.answers.author,
       copyrightOwner: this.answers.copyrightOwner,
       license: this.answers.license,
@@ -64,7 +65,7 @@ module.exports = class extends Generator {
       libraryDevDependencies: '',
       libraryDependencies: '',
       // @todo this needs to be the version of the generator not this repo
-      generatorWCFactoryVersion: packageJson.version
+      generatorWCFactoryVersion: config.version
     };
     _.forEach(this.props.propsListRaw, (prop) => {
       if (prop.observer) {
@@ -365,8 +366,44 @@ module.exports = class extends Generator {
   }
 
   install() {
+    process.chdir(elementsDirectory + this.props.elementName);
+    fs.symlink(
+      elementsDirectory + this.props.elementName,
+      "../../../../products/elements/" + this.props.elementName,
+      err => {
+        console.log(err || "Done.");
+      }
+    );
+
+    this.installDependencies({
+      npm: false,
+      bower: false,
+      yarn: true
+    });
   }
 
   end() {
+    this.spawnCommandSync("yarn", ["run", "build"]);
+    process.chdir(cwd);
+    this.spawnCommand("lerna", ["link"]);
+    let banner =
+      chalk.green("\n    A fresh made ") +
+      chalk.yellowBright("Web Component Factory ") +
+      chalk.green("element brought to you by:\n        ") +
+      chalk.blueBright("The Pennsylvania ") +
+      chalk.white("State University's ") +
+      chalk.magentaBright("E") +
+      chalk.cyanBright("L") +
+      chalk.redBright("M") +
+      chalk.yellowBright("S") +
+      chalk.white(": ") +
+      chalk.greenBright("Learning Network\n") +
+      chalk.red("        Red Hat, Inc.\n");
+    banner +=
+      chalk.green("\n\nTo work on your new element type:\n    ") +
+      chalk.yellowBright(
+        `cd elements/${this.props.elementName} && yarn start\n\n`
+      );
+    this.log(banner);
   }
 };
