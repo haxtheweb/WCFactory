@@ -13,12 +13,12 @@ Verify that you have yarn enabled — if not [install yarn globally](https://yar
 ```bash
 $ yarn global add @wcfactory/cli
 ```
-## Usage (conglomerate)
-A conglomerate helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else.
+## Usage (company)
+A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else.
 ```bash
-# create a new conglomerate, a series of factories linked by the owner
-$ mkdir my-conglomerate-name && cd my-conglomerate-name && wcfactory start
-# create a new factory after you've made the conglomerate
+# create a new company, a series of factories linked by the owner
+$ mkdir my-company-name && cd my-company-name && wcfactory start
+# create a new factory after you've made the company
 wcfactory init
 # add a new element to the factory-name that you produced in the previous step
 $ cd factories/factory-name && wcfactory new
