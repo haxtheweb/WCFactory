@@ -1,7 +1,7 @@
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
-const fs = require('fs');
-const glob = require('glob');
+const fs = require("fs");
+const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
 const cwd = process.cwd();
@@ -18,27 +18,27 @@ module.exports = class extends Generator {
   prompting() {
     // generated dynamically
     buildData = {
-      "static": {
-        "name": "Static boilerplate",
-        "key": "Static",
+      static: {
+        name: "Static boilerplate",
+        key: "Static"
       },
-      "cdn": {
-        "name": "CDN based publish",
-        "key": "CDN",
+      cdn: {
+        name: "CDN based publish",
+        key: "CDN"
       },
-      "drupal8": {
-        "name": "Drupal 8 (Twig)",
-        "key": "Drupal-8",
+      drupal8: {
+        name: "Drupal 8 (Twig)",
+        key: "Drupal-8"
       },
-      "drupal7": {
-        "name": "Drupal 7",
-        "key": "Drupal-7",
-      },
+      drupal7: {
+        name: "Drupal 7",
+        key: "Drupal-7"
+      }
     };
     let buildOptions = [];
     let factoryOptions = [];
     let folders = glob.sync(`${factoriesDirectory}/*`);
-    _.forEach(folders, (val) => {
+    _.forEach(folders, val => {
       let name = val.split("/").pop();
       factoryOptions.push({
         name: name,
@@ -59,12 +59,12 @@ module.exports = class extends Generator {
         type: "string",
         name: "name",
         message: "Folder name for the build",
-        required: true,
+        required: true
       },
       {
         type: "string",
         name: "description",
-        message: "Brief description for the build",
+        message: "Brief description for the build"
       },
       {
         type: "list",
@@ -79,7 +79,7 @@ module.exports = class extends Generator {
         message: "Type of build target",
         store: true,
         choices: buildOptions
-      },
+      }
     ]).then(answers => {
       this.props = {
         name: answers.name,
@@ -88,41 +88,46 @@ module.exports = class extends Generator {
         factory: answers.factory,
         buildData: buildData,
         dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n"
-      }
+      };
       // package files of each element
-      let files = glob.sync(`${factoriesDirectory}/${this.props.factory}/elements/*/package.json`);
-      _.forEach(files, (val) => {
-        let json = JSON.parse(fs.readFileSync(val, 'utf8'));
-        this.props.dependencies += `    "${json.name}" : "${json.version}",` + "\n";
+      let files = glob.sync(
+        `${factoriesDirectory}/${this.props.factory}/elements/*/package.json`
+      );
+      _.forEach(files, val => {
+        let json = JSON.parse(fs.readFileSync(val, "utf8"));
+        this.props.dependencies +=
+          `    "${json.name}" : "${json.version}",` + "\n";
       });
       // trim that last , if needed
-      if (this.props.dependencies !== '') {
+      if (this.props.dependencies !== "") {
         this.props.dependencies = this.props.dependencies.slice(0, -2);
       }
       // create folder to populate
       mkdirp.sync(`${buildsDirectory}/${this.props.name}`);
-    })
+    });
   }
 
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.sourceRoot(`templates/builds/${buildData[this.props.build].key}`),
-      this.destinationPath(
-        `${buildsDirectory}/${this.props.name}`,
-      ),
+      this.destinationPath(`${buildsDirectory}/${this.props.name}`),
       this.props,
-      { ignore: ["_common"] },
+      { ignore: ["_common"] }
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}/package.json`),
-      this.props,
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/package.json`
+      ),
+      this.props
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/polymer.json"),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}/polymer.json`),
-      this.props,
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/polymer.json`
+      ),
+      this.props
     );
   }
 
@@ -139,7 +144,9 @@ module.exports = class extends Generator {
   end() {
     this.fs.copy(
       this.sourceRoot(`${buildsDirectory}/${this.props.name}/build`),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}/webcomponents`)
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/webcomponents`
+      )
     );
   }
 };

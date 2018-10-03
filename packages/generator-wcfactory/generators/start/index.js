@@ -3,10 +3,9 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const path = require("path");
 const process = require("process");
-var os = require('os');
+var os = require("os");
 
 module.exports = class extends Generator {
-
   prompting() {
     return this.prompt([
       {
@@ -14,13 +13,13 @@ module.exports = class extends Generator {
         name: "author",
         message: "Author name for your elements",
         store: true,
-        default: os.userInfo().username,
+        default: os.userInfo().username
       },
       {
         type: "input",
         name: "copyrightOwner",
         message: "Copyright owner of your work",
-        store: true,
+        store: true
       },
       {
         type: "list",
@@ -46,48 +45,43 @@ module.exports = class extends Generator {
             value: "BSD-2-Clause"
           }
         ]
-      },
+      }
     ]).then(answers => {
       this.props = {
         author: answers.author,
         copyrightOwner: answers.copyrightOwner,
-        license: answers.license,
-      }
-      this.props.prefString = JSON.stringify(this.props, null, '  ')
-    })
+        license: answers.license
+      };
+      this.props.prefString = JSON.stringify(this.props, null, "  ");
+    });
   }
 
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
-      this.templatePath('*/.*'),
-      this.destinationPath(),
-      this.props,
-    );
-    this.fs.copyTpl(
-      this.templatePath('*/*/.*'),
-      this.destinationPath(),
-      this.props
-    );
-    this.fs.copy(
-      this.templatePath('**/**'),
-      this.destinationPath()
-    );
-    this.fs.copyTpl(
-      this.templatePath('.*'),
+      this.templatePath("*/.*"),
       this.destinationPath(),
       this.props
     );
     this.fs.copyTpl(
-      this.templatePath('.wcfconfig/*'),
-      this.destinationPath('.wcfconfig/'),
+      this.templatePath("*/*/.*"),
+      this.destinationPath(),
+      this.props
+    );
+    this.fs.copy(this.templatePath("**/**"), this.destinationPath());
+    this.fs.copyTpl(
+      this.templatePath(".*"),
+      this.destinationPath(),
+      this.props
+    );
+    this.fs.copyTpl(
+      this.templatePath(".wcfconfig/*"),
+      this.destinationPath(".wcfconfig/"),
       this.props
     );
   }
 
-  install() {
-  }
+  install() {}
 
-  end() {
-  }
+  end() {}
 };
