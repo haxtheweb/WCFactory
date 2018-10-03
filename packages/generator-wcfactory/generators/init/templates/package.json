@@ -27,7 +27,6 @@
     "init": "lerna init",
     "test": "yarn run build && wct --configFile wct.conf.json test/index.html",
     "build": "lerna run build",
-    "precommit": "yarn run test-suite-inject > /dev/null && lint-staged",
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
