@@ -15,44 +15,40 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    mkdirp.sync(`factories/${this.props.name}`);
+
+    this.destinationRoot(`factories/${this.props.name}`);
+
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
-      this.templatePath('*/**'),
+      this.templatePath("*/**"),
       this.destinationPath(),
       this.props,
       { ignore: ["_*.*"] }
     );
     this.fs.copyTpl(
-      this.templatePath('*/.*'),
+      this.templatePath("*/.*"),
       this.destinationPath(),
       this.props,
       { ignore: ["_*.*"] }
     );
     this.fs.copyTpl(
-      this.templatePath('*'),
+      this.templatePath("*"),
       this.destinationPath(),
       this.props,
       { ignore: ["_*"] }
     );
     this.fs.copyTpl(
-      this.templatePath('.*'),
+      this.templatePath(".*"),
       this.destinationPath(),
       this.props,
       { ignore: ["._*"] }
     );
     this.fs.copyTpl(
-      this.templatePath('.*/**'),
+      this.templatePath(".*/**"),
       this.destinationPath(),
       this.props,
       { ignore: ["._*"] }
-    );
-    this.fs.copy(
-      this.templatePath("../wcfTemplates/libraries/**"),
-      this.destinationPath("wcfLibraries/")
-    );
-    this.fs.copy(
-      this.templatePath("../wcfTemplates/buildTargets/**"),
-      this.destinationPath("wcfBuildTargets/")
     );
   }
 

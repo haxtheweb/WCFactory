@@ -17,53 +17,54 @@ gulp.task("merge", () => {
   return gulp
     .src("./src/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
-    replace(/extends\s+packageJson.wcfactory.className\s+{/g, (classStatement, character, jsFile) => {
-        // extract the templateUrl and styleUrl with regex.  Would prefer to do
-        // this by require'ing heym-asdf.js and asking it directly, but without
-        // node.js support for ES modules, we're stuck with this.
-        const oneLineFile = jsFile.slice(character).split("\n").join(" ");
-        const [
-          ,
-          templateUrl
-        ] = /templateUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
-          oneLineFile
-        );
+      replace(
+        /extends\s+packageJson.wcfactory.className\s+{/g,
+        (classStatement, character, jsFile) => {
+          // extract the templateUrl and styleUrl with regex.  Would prefer to do
+          // this by require'ing heym-asdf.js and asking it directly, but without
+          // node.js support for ES modules, we're stuck with this.
+          const oneLineFile = jsFile
+            .slice(character)
+            .split("\n")
+            .join(" ");
+          const [
+            ,
+            templateUrl
+          ] = /templateUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(oneLineFile);
 
-        let html = fs
-          .readFileSync(path.join("./src", templateUrl))
-          .toString()
-          .trim();
+          let html = fs
+            .readFileSync(path.join("./src", templateUrl))
+            .toString()
+            .trim();
 
-        html = decomment(html);
-        // check on the HAX wiring
-        const [
-          ,
-          HAXPropertiesUrl
-        ] = /HAXPropertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
-          oneLineFile
-        );
-        let HAXProps = fs.readFileSync(path.join("./src", HAXPropertiesUrl));
-        HAXProps = stripCssComments(HAXProps).trim();
-        // pull properties off of the file location
-        const [
-          ,
-          propertiesUrl
-        ] = /propertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
-          oneLineFile
-        );
-        let props = fs.readFileSync(path.join("./src", propertiesUrl));
-        props = stripCssComments(props).trim();
-        // pull together styles from url
-        const [
-          ,
-          styleUrl
-        ] = /styleUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
-          oneLineFile
-        );
-        const styleFilePath = path.join("./src", styleUrl);
-        let cssResult = fs.readFileSync(styleFilePath);
-        cssResult = stripCssComments(cssResult).trim();
-        return `${classStatement}
+          html = decomment(html);
+          // check on the HAX wiring
+          const [
+            ,
+            HAXPropertiesUrl
+          ] = /HAXPropertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+            oneLineFile
+          );
+          let HAXProps = fs.readFileSync(path.join("./src", HAXPropertiesUrl));
+          HAXProps = stripCssComments(HAXProps).trim();
+          // pull properties off of the file location
+          const [
+            ,
+            propertiesUrl
+          ] = /propertiesUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(
+            oneLineFile
+          );
+          let props = fs.readFileSync(path.join("./src", propertiesUrl));
+          props = stripCssComments(props).trim();
+          // pull together styles from url
+          const [
+            ,
+            styleUrl
+          ] = /styleUrl\([^)]*\)\s*{\s*return\s+"([^"]+)"/.exec(oneLineFile);
+          const styleFilePath = path.join("./src", styleUrl);
+          let cssResult = fs.readFileSync(styleFilePath);
+          cssResult = stripCssComments(cssResult).trim();
+          return `${classStatement}
   static get template() {
     return html\`
 <style>
@@ -80,7 +81,8 @@ ${html}\`;
     return ${props};
   }
   ${functs}`;
-      })
+        }
+      )
     )
     .pipe(gulp.dest("./"));
 });
@@ -88,28 +90,33 @@ ${html}\`;
 gulp.task("build", () => {
   const spawn = require("child_process").spawn;
   let child = spawn("polymer", ["build"]);
-  return child.on("close", function (code) {
+  return child.on("close", function(code) {
     console.log("child process exited with code " + code);
   });
 });
 gulp.task("compile", () => {
   // copy outputs
-  gulp.src("./build/es6/" + packageJson.wcfactory.elementName + ".js").pipe(gulp.dest("./"));
-  gulp.src("./build/es5/" + packageJson.wcfactory.elementName + ".js")
+  gulp
+    .src("./build/es6/" + packageJson.wcfactory.elementName + ".js")
+    .pipe(gulp.dest("./"));
+  gulp
+    .src("./build/es5/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       rename({
         suffix: ".es5"
       })
     )
     .pipe(gulp.dest("./"));
-  gulp.src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
+  gulp
+    .src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       rename({
         suffix: ".amd"
       })
     )
     .pipe(gulp.dest("./"));
-  return gulp.src("./" + packageJson.wcfactory.elementName + ".js")
+  return gulp
+    .src("./" + packageJson.wcfactory.elementName + ".js")
     .pipe(
       replace(
         /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
@@ -146,7 +153,7 @@ gulp.task("sourcemaps", () => {
 /**
  * Start server
  */
-const startServer = function () {
+const startServer = function() {
   return connect.server({
     root: "./public",
     port: PORT
@@ -156,7 +163,7 @@ const startServer = function () {
 /**
  * Stop server
  */
-const stopServer = function () {
+const stopServer = function() {
   connect.serverClose();
 };
 
@@ -176,7 +183,7 @@ function launchChromeAndRunLighthouse(url, flags, config = null) {
  * Handle ok result
  * @param {Object} results - Lighthouse results
  */
-const handleOk = function (results) {
+const handleOk = function(results) {
   stopServer();
   console.log(results); // eslint-disable-line no-console
   // TODO: use lighthouse results for checking your performance expectations.
@@ -191,7 +198,7 @@ const handleOk = function (results) {
 /**
  * Handle error
  */
-const handleError = function (e) {
+const handleError = function(e) {
   stopServer();
   console.error(e); // eslint-disable-line no-console
   throw e; // Throw to exit process with status 1.

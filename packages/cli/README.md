@@ -1,20 +1,27 @@
 # Web Component Factory
 
+[![Join the chat at https://gitter.im/wcfactory/Lobby](https://badges.gitter.im/wcfactory/Lobby.svg)](https://gitter.im/wcfactory/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills* See (End user support)(#endusersupport) for full details below.
 
 [Here's a video showing what this is and how it works](https://www.youtube.com/watch?v=CMNYuXTe1tM).
 
-## Install
+### Install
+
+Make sure you have a version of node >=6.0 and above.
+Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
 ```bash
 $ yarn global add @wcfactory/cli
 ```
-## Usage
-Create a folder for the factory you are working on and run `wcfactory init` in this directory
+## Usage (company)
+A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else.
 ```bash
-$ mkdir some-directory && cd some-directory && wcfactory init
-# add a new element
-$ wcfactory new
-
+# create a new company, a series of factories linked by the owner
+$ mkdir my-company-name && cd my-company-name && wcfactory start
+# create a new factory after you've made the company
+wcfactory init
+# add a new element to the factory-name that you produced in the previous step
+$ cd factories/factory-name && wcfactory new
 
 # if you didn't get any options you may need to rebuild some caches
 $ yarn run rebuild-wcfcache
@@ -75,21 +82,11 @@ Because of the Web component standard, babel and polyfills we support the follow
 
 This is confirmed to work with 98.26% of all global traffic (Aug-Sep 2018) and should work with 99.64% (difficult to confirm Android original browser) with only being 0.36% unknown. 93.83% of all traffic loads via ES Modules (async loading of assets, http2 is lightning). As of Oct 23, 2018, 89.18% of all traffic will not require any polyfills.
 
-## Development
+## Development (on wcfactory itself)
 
 ### Yarn and Lerna
 
 We use a combination of Yarn Workspaces and Lerna to manage local developement and publishing of this monorepo. [Read more about that ingeration(https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
-
-### Before Installing
-
-Make sure you have a version of node >=6.0 and above.
-
-Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
-
-```bash
-yarn
-```
 
 ### Install
 

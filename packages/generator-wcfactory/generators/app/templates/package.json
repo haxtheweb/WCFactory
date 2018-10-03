@@ -13,8 +13,9 @@
     "url": "<%= gitRepo %>"
   },
   "main": "<%= elementName %>.js",
+  "module": "<%= elementName %>.es6.js",
   "umd": "<%= elementName %>.umd.js",
-  "module": "<%= elementName %>.amd.js",
+  "amd": "<%= elementName %>.amd.js",
   "scripts": {
     "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
     <%- libraryScripts %>

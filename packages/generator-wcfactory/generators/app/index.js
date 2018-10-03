@@ -4,7 +4,7 @@ const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const chalk = require("chalk");
-const fs = require('fs');
+const fs = require("fs");
 const process = require("process");
 const cwd = process.cwd();
 const elementsDirectory = `${cwd}/elements/`;
@@ -258,16 +258,16 @@ module.exports = class extends Generator {
 
     this.fs.copyTpl(
       this.templatePath(`licenses/${this.props.license}.md`),
-      this.destinationPath(
-        `${this.props.elementName}/LICENSE.md`
-      ),
+      this.destinationPath(`${this.props.elementName}/LICENSE.md`),
       this.props
     );
 
     this.fs.copyTpl(
       this.templatePath(`src/properties.json`),
       this.destinationPath(
-        `${this.props.elementName}/src/${this.props.elementName}-properties.json`
+        `${this.props.elementName}/src/${
+          this.props.elementName
+        }-properties.json`
       ),
       this.props
     );
@@ -333,7 +333,7 @@ module.exports = class extends Generator {
     this.fs.copy(
       this.templatePath("polymer.json"),
       this.destinationPath(`${this.props.elementName}/polymer.json`)
-    )
+    );
 
     if (this.props.useSass) {
       this.fs.copyTpl(
@@ -346,18 +346,24 @@ module.exports = class extends Generator {
     } else {
       this.fs.copy(
         this.templatePath("src/element.css"),
-        this.destinationPath(`${this.props.elementName}/src/${this.props.elementName}.css`)
-      )
+        this.destinationPath(
+          `${this.props.elementName}/src/${this.props.elementName}.css`
+        )
+      );
     }
 
     this.fs.copyTpl(
       this.templatePath("src/element.html"),
-      this.destinationPath(`${this.props.elementName}/src/${this.props.elementName}.html`),
+      this.destinationPath(
+        `${this.props.elementName}/src/${this.props.elementName}.html`
+      ),
       this.props
     );
 
     this.fs.copyTpl(
-      this.sourceRoot(`../wcfLibraries/${this.props.activeWCFLibrary.main}`),
+      this.sourceRoot(
+        `../../../templates/libraries/${this.props.activeWCFLibrary.main}`
+      ),
       this.destinationPath(
         `${this.props.elementName}/src/${this.props.elementName}.js`
       ),
