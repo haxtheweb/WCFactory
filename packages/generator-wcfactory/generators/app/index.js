@@ -338,9 +338,9 @@ module.exports = class extends Generator {
         // include statement for top of files
         this.props.includesString += 'import { HAXWiring } from "@lrnwebcomponents/hax-body-behaviors/lib/HAXWiring.js"';
         // package dependency
-        this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"latest",`;
+        this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"latest",` + "\n";
         // load props in from this dynamically generated function call
-        this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
+        this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);' + "\n";
         // set baseline for HAX schema
         this.props.haxList = {
           'canScale': true,
@@ -426,27 +426,27 @@ module.exports = class extends Generator {
       this.props.templateReturnFunctionPart = this.props.activeWCFLibrary.wcfactory.templateReturnFunctionPart;
       // work on scripts
       _.forEach(this.props.activeWCFLibrary.scripts, (version, dependency) => {
-        this.props.libraryScripts += `"${dependency}":"${version}",`;
+        this.props.libraryScripts += `"${dependency}":"${version}",` + "\n";
       });
       // trim that last , if needed
       if (this.props.libraryScripts !== '') {
-        this.props.libraryScripts = this.props.libraryScripts.slice(0, -1);
+        this.props.libraryScripts = this.props.libraryScripts.slice(0, -2);
       }
       // work on devDependencies
       _.forEach(this.props.activeWCFLibrary.devDependencies, (version, dependency) => {
-        this.props.libraryDevDependencies += `"${dependency}":"${version}",`;
+        this.props.libraryDevDependencies += `"${dependency}":"${version}",` + "\n";
       });
       // trim that last , if needed
       if (this.props.libraryDevDependencies !== '') {
-        this.props.libraryDevDependencies = this.props.libraryDevDependencies.slice(0, -1);
+        this.props.libraryDevDependencies = this.props.libraryDevDependencies.slice(0, -2);
       }
       // work on dependencies
       _.forEach(this.props.activeWCFLibrary.dependencies, (version, dependency) => {
-        this.props.libraryDependencies += `"${dependency}":"${version}",`;
+        this.props.libraryDependencies += `"${dependency}":"${version}",` + "\n";
       });
       // trim that last , if needed
       if (this.props.libraryDependencies !== '') {
-        this.props.libraryDependencies = this.props.libraryDependencies.slice(0, -1);
+        this.props.libraryDependencies = this.props.libraryDependencies.slice(0, -2);
       }
       if (this.props.activeWCFLibrary.wcfactory.propertyBinding) {
         _.forEach(this.props.propsListRaw, (prop) => {
@@ -473,10 +473,10 @@ module.exports = class extends Generator {
           this.props.sassLibraryPath = answers.sassLibrary.path;
         }
         if (this.props.libraryDependencies === '') {
-          this.props.libraryDependencies = `"${answers.sassLibrary.pkg}":"*"`;
+          this.props.libraryDependencies = `"${answers.sassLibrary.pkg}":"*"` + "\n";
         }
         else {
-          this.props.libraryDependencies += `,"${answers.sassLibrary.pkg}":"*"`;
+          this.props.libraryDependencies += `,"${answers.sassLibrary.pkg}":"*"` + "\n";
         }
       }
       mkdirp.sync(`${elementsDirectory}/${this.props.elementName}`);

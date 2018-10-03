@@ -7,6 +7,6 @@
   "module": "webcomponents/amd/build.amd.js",
   "license": "Apache-2.0",
   "dependencies": {
-  <%- dependencies %>
+<%- dependencies %>
   }
 }

@@ -1,9 +1,12 @@
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
+const fs = require('fs');
+const glob = require('glob');
 const mkdirp = require("mkdirp");
 const process = require("process");
 const cwd = process.cwd();
 const buildsDirectory = `${cwd}/products/builds`;
+const factoriesDirectory = `${cwd}/factories`;
 var buildData = {};
 module.exports = class extends Generator {
   // constructor(args, opts) {
@@ -33,13 +36,15 @@ module.exports = class extends Generator {
       },
     };
     let buildOptions = [];
-    // @todo generate off the file system or store in a config blob
-    let factoryOptions = [
-      {
-      name: "Wrapper land",
-      value: "wrapperland",
-      }
-    ];
+    let factoryOptions = [];
+    let folders = glob.sync(`${factoriesDirectory}/*`);
+    _.forEach(folders, (val) => {
+      let name = val.split("/").pop();
+      factoryOptions.push({
+        name: name,
+        value: name
+      });
+    });
     // array into nestings we need to simplify yo work
     _.forEach(buildData, (val, key) => {
       if (typeof val !== typeof undefined) {
@@ -75,8 +80,6 @@ module.exports = class extends Generator {
         store: true,
         choices: buildOptions
       },
-
-      
     ]).then(answers => {
       this.props = {
         name: answers.name,
@@ -84,19 +87,17 @@ module.exports = class extends Generator {
         build: answers.build,
         factory: answers.factory,
         buildData: buildData,
-        dependencies: ''
+        dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n"
       }
-      // @todo generate off the file system factoryname/elements or store in a config blob
-      let elements = ["thing-eis", "ls-aad-d", "dfs-fd"];
-      // @todo get from factory JSON file
-      let version = "latest";
-      // work on scripts
-      _.forEach(elements, (name, key) => {
-        this.props.dependencies += `"${name}":"${version}",`;
+      // package files of each element
+      let files = glob.sync(`${factoriesDirectory}/${this.props.factory}/elements/*/package.json`);
+      _.forEach(files, (val) => {
+        let json = JSON.parse(fs.readFileSync(val, 'utf8'));
+        this.props.dependencies += `    "${json.name}" : "${json.version}",` + "\n";
       });
       // trim that last , if needed
       if (this.props.dependencies !== '') {
-        this.props.dependencies = this.props.dependencies.slice(0, -1);
+        this.props.dependencies = this.props.dependencies.slice(0, -2);
       }
       // create folder to populate
       mkdirp.sync(`${buildsDirectory}/${this.props.name}`);
@@ -116,12 +117,12 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
       this.destinationPath(`${buildsDirectory}/${this.props.name}/package.json`),
-      this.props
+      this.props,
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/polymer.json"),
       this.destinationPath(`${buildsDirectory}/${this.props.name}/polymer.json`),
-      this.props
+      this.props,
     );
   }
 
@@ -137,8 +138,8 @@ module.exports = class extends Generator {
 
   end() {
     this.fs.copy(
-      this.templatePath("build"),
-      this.destinationPath("webcomponents")
+      this.sourceRoot(`${buildsDirectory}/${this.props.name}/build`),
+      this.destinationPath(`${buildsDirectory}/${this.props.name}/webcomponents`)
     );
   }
 };
