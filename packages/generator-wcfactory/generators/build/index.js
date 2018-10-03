@@ -100,7 +100,7 @@ module.exports = class extends Generator {
           this.props.dependencies +=
             `    "${json.name}" : "${json.version}",` + "\n";
           this.props.imports +=
-            `    import "${json.name}";` + "\n";
+            `    import "${json.name}/${json.main}";` + "\n";
         }
 
       });
