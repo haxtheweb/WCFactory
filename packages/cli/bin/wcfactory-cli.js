@@ -50,7 +50,7 @@ program.version(pkg.version).description(pkg.description);
 program
   .command("new")
   .description("Create a new element.")
-  .action(function(name) {
+  .action(function() {
     env.run("wcfactory:app");
   });
 
@@ -59,14 +59,14 @@ program
   .description(
     "Create a meta-repo that makes it easier to orchestrate all your factories"
   )
-  .action(function(name) {
+  .action(function() {
     env.run("wcfactory:start");
   });
 
 program
   .command("build")
   .description("Build a new product")
-  .action(function(name) {
+  .action(function() {
     env.run("wcfactory:build");
   });
 
@@ -75,7 +75,7 @@ program
   .description(
     "Create mono repo for your element library. This is a factory in our mental model."
   )
-  .action(function(name) {
+  .action(function() {
     env.run("wcfactory:init");
   });
 
