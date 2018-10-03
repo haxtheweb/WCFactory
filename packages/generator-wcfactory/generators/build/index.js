@@ -15,29 +15,29 @@ module.exports = class extends Generator {
   prompting() {
     // generated dynamically
     buildData = {
-      "static": {
-        "name": "Static boilerplate",
-        "key": "Static",
+      static: {
+        name: "Static boilerplate",
+        key: "Static"
       },
-      "cdn": {
-        "name": "CDN based publish",
-        "key": "CDN",
+      cdn: {
+        name: "CDN based publish",
+        key: "CDN"
       },
-      "drupal8": {
-        "name": "Drupal 8 (Twig)",
-        "key": "Drupal-8",
+      drupal8: {
+        name: "Drupal 8 (Twig)",
+        key: "Drupal-8"
       },
-      "drupal7": {
-        "name": "Drupal 7",
-        "key": "Drupal-7",
-      },
+      drupal7: {
+        name: "Drupal 7",
+        key: "Drupal-7"
+      }
     };
     let buildOptions = [];
     // @todo generate off the file system or store in a config blob
     let factoryOptions = [
       {
-      name: "Wrapper land",
-      value: "wrapperland",
+        name: "Wrapper land",
+        value: "wrapperland"
       }
     ];
     // array into nestings we need to simplify yo work
@@ -54,12 +54,12 @@ module.exports = class extends Generator {
         type: "string",
         name: "name",
         message: "Folder name for the build",
-        required: true,
+        required: true
       },
       {
         type: "string",
         name: "description",
-        message: "Brief description for the build",
+        message: "Brief description for the build"
       },
       {
         type: "list",
@@ -74,9 +74,7 @@ module.exports = class extends Generator {
         message: "Type of build target",
         store: true,
         choices: buildOptions
-      },
-
-      
+      }
     ]).then(answers => {
       this.props = {
         name: answers.name,
@@ -84,8 +82,8 @@ module.exports = class extends Generator {
         build: answers.build,
         factory: answers.factory,
         buildData: buildData,
-        dependencies: ''
-      }
+        dependencies: ""
+      };
       // @todo generate off the file system factoryname/elements or store in a config blob
       let elements = ["thing-eis", "ls-aad-d", "dfs-fd"];
       // @todo get from factory JSON file
@@ -95,32 +93,34 @@ module.exports = class extends Generator {
         this.props.dependencies += `"${name}":"${version}",`;
       });
       // trim that last , if needed
-      if (this.props.dependencies !== '') {
+      if (this.props.dependencies !== "") {
         this.props.dependencies = this.props.dependencies.slice(0, -1);
       }
       // create folder to populate
       mkdirp.sync(`${buildsDirectory}/${this.props.name}`);
-    })
+    });
   }
 
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.sourceRoot(`templates/builds/${buildData[this.props.build].key}`),
-      this.destinationPath(
-        `${buildsDirectory}/${this.props.name}`,
-      ),
+      this.destinationPath(`${buildsDirectory}/${this.props.name}`),
       this.props,
-      { ignore: ["_common"] },
+      { ignore: ["_common"] }
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}/package.json`),
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/package.json`
+      ),
       this.props
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/polymer.json"),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}/polymer.json`),
+      this.destinationPath(
+        `${buildsDirectory}/${this.props.name}/polymer.json`
+      ),
       this.props
     );
   }
