@@ -113,6 +113,7 @@
     },
     "ignore": [
       "elements/**/*.*.js",
+      "**/analysis-error.json",
       "themes/**/*.*.js",
       "libraries/**/*.js"
     ]
