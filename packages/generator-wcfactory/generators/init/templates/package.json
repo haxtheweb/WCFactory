@@ -1,6 +1,6 @@
 {
   "name": "<%= orgNpm %>/<%= name %>",
-  "description": "A WCFactory managed, sustainable web component library.",
+  "description": "<%= description %>",
   "wcfactory": {
     "askSASS": true,
     "askProps": true,
@@ -27,26 +27,25 @@
     "init": "lerna init",
     "test": "yarn run build && wct --configFile wct.conf.json test/index.html",
     "build": "lerna run build",
-    "bootstrap": "lerna bootstrap --hoist",
-    "postinstall": "yarn run bootstrap",
-    "precommit": "yarn run test-suite-inject > /dev/null && lint-staged",
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o .storybook_out",
     "rebuild-wcfcache": "./node_modules/.bin/gulp",
-    "new": "yarn run rebuild-wcfcache && wcfactory new && yarn run test-suite-inject && yarn run bootstrap"
+    "new": "yarn run rebuild-wcfcache && wcfactory new && yarn run test-suite-inject && yarn install --link-duplicates"
   },
   "devDependencies": {
-    "@babel/core": "7.1.0",
+    "@babel/core": "7.1.2",
     "@babel/preset-env": "7.1.0",
     "@storybook/addon-a11y": "3.4.11",
     "@storybook/addon-actions": "3.4.11",
     "@storybook/addon-knobs": "3.4.11",
     "@storybook/addon-notes": "3.4.11",
     "@storybook/addon-options": "3.4.11",
-    "@storybook/addon-storyshots": "3.4.11",
     "@storybook/addon-storysource": "3.4.11",
     "@storybook/addon-viewport": "3.4.11",
+    "@storybook/addons": "3.4.11",
+    "react": "*",
+    "react-dom": "*",
     "@storybook/cli": "3.4.11",
     "@storybook/polymer": "3.4.11",
     "@webcomponents/webcomponentsjs": "2.1.3",
@@ -72,20 +71,20 @@
     "gulp-strip-css-comments": "2.0.0",
     "gulp-svg-sprite": "1.5.0",
     "gulp-trim": "1.0.2",
-    "husky": "1.0.1",
-    "lerna": "3.4.0",
+    "husky": "1.1.0",
+    "lerna": "3.4.1",
     "lint-staged": "7.3.0",
     "lodash": "4.17.11",
     "lodash.clonedeep": "4.5.0",
     "node-sass": "4.9.3",
     "polymer-build": "3.0.4",
     "polymer-webpack-loader": "2.0.3",
+    "webpack": "4.20.2",
     "prettier": "1.14.3",
     "requirejs": "2.3.6",
-    "rollup": "0.66.2",
+    "rollup": "0.66.4",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "9.1.8",
-    "rollup-plugin-node-resolve": "3.4.0",
     "rollup-plugin-terser": "3.0.0",
     "spandx": "1.0.3",
     "strip-css-comments": "3.0.0",
@@ -132,5 +131,22 @@
   ],
   "private": true,
   "npmClient": "yarn",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "workspaces": {
+    "packages": [
+      "elements/*",
+      "themes/*"
+    ],
+    "nohoist": [
+      "**/@polymer",
+      "**/@polymer/**",
+      "**/@webcomponents",
+      "**/@webcomponents/**"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run test-suite-inject > /dev/null && lint-staged"
+    }
+  }
 }

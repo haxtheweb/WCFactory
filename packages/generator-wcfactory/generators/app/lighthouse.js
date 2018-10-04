@@ -20,7 +20,7 @@ gulp.task("lighthouse", () => {
 /**
  * Start server
  */
-const startServer = function () {
+const startServer = function() {
   return connect.server({
     root: "./public",
     port: PORT
@@ -30,7 +30,7 @@ const startServer = function () {
 /**
  * Stop server
  */
-const stopServer = function () {
+const stopServer = function() {
   connect.serverClose();
 };
 
@@ -50,7 +50,7 @@ function launchChromeAndRunLighthouse(url, flags, config = null) {
  * Handle ok result
  * @param {Object} results - Lighthouse results
  */
-const handleOk = function (results) {
+const handleOk = function(results) {
   stopServer();
   console.log(results); // eslint-disable-line no-console
   // TODO: use lighthouse results for checking your performance expectations.
@@ -65,7 +65,7 @@ const handleOk = function (results) {
 /**
  * Handle error
  */
-const handleError = function (e) {
+const handleError = function(e) {
   stopServer();
   console.error(e); // eslint-disable-line no-console
   throw e; // Throw to exit process with status 1.

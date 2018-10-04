@@ -1,20 +1,27 @@
-# <%= name %>
+# <%= humanName %>
 [![Published on npm](https://img.shields.io/npm/v/<%= orgNpm %>/<%= name %>.svg?style=flat)](https://www.npmjs.com/package/<%= orgNpm %>/<%= name %>)
 [![Build Status](https://travis-ci.org/<%= orgGit %>/<%= name %>.svg?branch=master)](https://travis-ci.org/<%= orgGit %>/<%= name %>)
 [![Dependency Status](https://img.shields.io/david/<%= orgGit %>/<%= name %>.svg?style=flat)](https://david-dm.org/<%= orgGit %>/<%= name %>)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/author/<%= orgGit %>)
-Welcome to the <%= name %> project! Let's work with web components!
+Welcome to the <%= humanName %> project!
+<%= description %>
 ## Quick-start
 
-*Notice: You will need to use [Node](https://nodejs.org/en/) v.6 or higher. These web components are written in [ES6](http://es6-features.org/) and build routines compile to es5 to encompass more browsers.*
+*Notice: You will need to use [Node](https://nodejs.org/en/) version 6.0 or higher. Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/). These web components are written in [ES6](http://es6-features.org/) and build routines compile to es5 to encompass more browsers.*
+### Install
 
 ```bash
 $ git clone <%= gitRepo %>
 $ cd <%= name %>
-$ yarn install # this will take a while due to lerna bootstrap
-$ yarn rebuild node-sass  # this may be necessary
+$ yarn install
+$ yarn rebuild node-sass  # this may be necessary if using sass
 $ yarn start
 ```
+
+### Working on elements (new-element)
+Run `yarn run new` to make a new element. Go to the new element `cd elements/new-element` and run `yarn start` to do development on the element. If you are pulling in another element to use, run `yarn add reponame --save`.
+
+*Special Note:* If you are referencing your own elements from inside the repo (like element-a is used in element-b) then make sure when you do the install for it you issue `yarn add @myrepo/element-a@latest --save` to ensure that it's pegged to latest. This helps with development consistency.
 
 ## Scripts
 
@@ -22,19 +29,17 @@ $ yarn start
     - Launch a demo server. This should be continuously running as you develop.
 - `$ yarn run new`
     -  Create a new component.
+- `$ yarn run rebuild-wcfcache`
+    - Rebuild caches as to what web component libraries can be used
 - `$ yarn test`
     -  Run tests on ALL <%= name %>.
 - `$ yarn run build`
     -  Run build on ALL <%= name %>.
-- `$ yarn run bootstrap`
-    - Update ALL <%= name %>' dependencies and interlink them with [lerna bootstrap][lerna-bs].
 - `$ yarn run storybook`
     - Run storybook
 - `$ yarn run build-storybook`
     - Build storybook for deployment
 
-[lerna]: https://github.com/lerna/lerna
-[lerna-bs]: https://github.com/lerna/lerna#bootstrap
 
 ## Web Component development
 

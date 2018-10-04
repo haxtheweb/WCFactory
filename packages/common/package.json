@@ -1,0 +1,13 @@
+{
+  "name": "@wcfactory/common",
+  "version": "0.1.8",
+  "main": "index.js",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "glob": "^7.1.3",
+    "lodash": "^4.17.11"
+  }
+}
