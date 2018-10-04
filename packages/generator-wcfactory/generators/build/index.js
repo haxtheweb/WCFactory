@@ -5,7 +5,7 @@ const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
 const cwd = process.cwd();
-const buildsDirectory = `${cwd}/products/builds`;
+const buildsDirectory = `${cwd}/builds`;
 const factoriesDirectory = `${cwd}/factories`;
 var buildData = {};
 module.exports = class extends Generator {
@@ -16,7 +16,7 @@ module.exports = class extends Generator {
   // }
 
   prompting() {
-    // generated dynamically
+    // @todo generate this dynamically
     buildData = {
       static: {
         name: "Static boilerplate",
