@@ -140,18 +140,18 @@
       "themes/*"
     ],
     "nohoist": [
+      "**/@lrnwebcomponents/hax-body-behaviors",
       "**/@polymer",
       "**/@polymer/**",
-      "**/@webcomponents",
-      "**/@webcomponents/**",
-      "**/@rhelements",
-      "**/@rhelements/**",
+      "**/@rhelements/rhelement",
       "**/@skatejs",
       "**/@skatejs/**",
-      "**/slim-js",
-      "**/slim-js/**",
+      "**/@webcomponents",
+      "**/@webcomponents/**",
       "**/lit-html",
-      "**/lit-html/**"
+      "**/lit-html/**",
+      "**/slim-js",
+      "**/slim-js/**"
     ]
   },
   "husky": {
