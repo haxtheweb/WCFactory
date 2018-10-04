@@ -1,5 +1,6 @@
 {
   "name": "wcfactory",
+  "version": "0.1.8",
   "private": true,
   "workspaces": [
     "packages/*"
