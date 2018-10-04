@@ -7,15 +7,89 @@
 const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
+const glob = require('glob')
+const cwd = process.cwd()
 
 /**
  * Get a singular config object for this project.
  */
-const config = (() => {
+const config = () => {
   const configs = getConfigs()
   const configObject = convertConfigs(configs)
-  return config
-})
+  return configObject
+}
+
+/**
+ * Get factories Directory
+ */
+const factoryDir = () => {
+  return path.join(cwd, 'factories')
+}
+
+/**
+ * Get a list of factory options
+ */
+const factoryOptions = () => {
+  let factoryOptions = [];
+  let folders = glob.sync(`${factoryDir()}/*`);
+  _.forEach(folders, val => {
+    let name = val.split("/").pop();
+    factoryOptions.push({
+      name: name,
+      value: name
+    });
+  });
+  return factoryOptions
+}
+
+/**
+ * Get location of the build directory
+ */
+const buildsDir = () => {
+  return path.join(cwd, 'products', 'builds')
+}
+
+/**
+ * Get a list of build options
+ */
+const buildOptions = () => {
+  let buildOptions = [];
+  // array into nestings we need to simplify yo work
+  _.forEach(buildData(), (val, key) => {
+    if (typeof val !== typeof undefined) {
+      buildOptions.push({
+        name: val.name,
+        value: key
+      });
+    }
+  });
+  return buildOptions
+}
+
+/**
+ * Get build data
+ */
+const buildData = () => {
+  // generated dynamically
+  return {
+    static: {
+      name: "Static boilerplate",
+      key: "Static"
+    },
+    cdn: {
+      name: "CDN based publish",
+      key: "CDN"
+    },
+    drupal8: {
+      name: "Drupal 8 (Twig)",
+      key: "Drupal-8"
+    },
+    drupal7: {
+      name: "Drupal 7",
+      key: "Drupal-7"
+    }
+  };
+}
 
 /**
  * Retreive array of config objects found
@@ -89,4 +163,9 @@ const convertConfigs = (configs) => {
   return config
 }
 
-module.exports.config = config
+module.exports.config = config()
+module.exports.factoryDir = factoryDir()
+module.exports.factoryOptions = factoryOptions()
+module.exports.buildsDir = buildsDir()
+module.exports.buildOptions = buildOptions()
+module.exports.buildData = buildData()

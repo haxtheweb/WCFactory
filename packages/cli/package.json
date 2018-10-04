@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^2",
     "@wcfactory/common": "^0.1.8",
     "@wcfactory/generator-wcfactory": "^0.1.8",
+    "glob": "^7.1.3",
     "inquirer": "^6.2.0",
     "inquirer-recursive": "^0.0.5",
     "listr": "^0.14.2",

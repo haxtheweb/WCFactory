@@ -1,11 +1,11 @@
 import { Command, flags } from '@oclif/command'
 import { promptUser, getListOptions } from '../utils/commands'
-import { questions } from '../questions/init'
+import { questions } from '../questions/factory'
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
 
-export default class Init extends Command {
+export default class Factory extends Command {
   static description = 'Create mono repo for your element library. You will only need to do this once.'
 
   /**
@@ -26,7 +26,7 @@ export default class Init extends Command {
 
   async run() {
     // process the user input
-    let { args, flags } = this.parse(Init)
+    let { args, flags } = this.parse(Factory)
     // prompt the user for more info
     flags = await promptUser(questions, flags, this)
     // add a year
