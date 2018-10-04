@@ -85,7 +85,16 @@ module.exports = class extends Generator {
     );
   }
 
-  install() {}
+  install() {
+  }
 
-  end() {}
+  end() {
+    this.spawnCommandSync("git", ["init"]);
+    this.spawnCommandSync("git", ["add", "-A"]);
+    this.spawnCommandSync("git", [
+      "commit",
+      "-m",
+      `"Initial commit after company started"`
+    ]);
+  }
 };
