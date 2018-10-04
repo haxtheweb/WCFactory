@@ -38,6 +38,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@wcfactory/cli": "^0.1.8",
+    "@wcfactory/common": "^0.1.8",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.8",
     "inquirer-recursive": "0.0.5",

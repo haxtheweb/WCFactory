@@ -1,20 +1,45 @@
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const fs = require("fs");
+const path = require("path");
 const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
+<<<<<<< HEAD
+const { buildsDir, buildData, factoryDir } = require('@wcfactory/common/config')
+
+=======
 const cwd = process.cwd();
 const buildsDirectory = `${cwd}/builds`;
 const factoriesDirectory = `${cwd}/factories`;
 var buildData = {};
+>>>>>>> 22955ed3262389de154ff8bb36eaa4643df1b304
 module.exports = class extends Generator {
-  // constructor(args, opts) {
-  //   super(args, opts)
+  constructor(args, opts) {
+    super(args, opts)
 
-  //   this.argument('name', {type: String, required: true})
-  // }
+    this.props = opts
+  }
 
+<<<<<<< HEAD
+  writing() {
+    Object.assign(this.props, {
+      buildData: buildData,
+      dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n",
+      imports: '',
+    })
+    // package files of each element
+    let files = glob.sync(
+      `${factoryDir}/${this.props.factory}/elements/*/package.json`
+    );
+    _.forEach(files, val => {
+      let json = JSON.parse(fs.readFileSync(val, "utf8"));
+      if (json.version && !json.private) {
+        this.props.dependencies +=
+          `    "${json.name}" : "${json.version}",` + "\n";
+        this.props.imports +=
+          `    import "${json.name}/${json.main}";` + "\n";
+=======
   prompting() {
     // @todo generate this dynamically
     buildData = {
@@ -79,80 +104,56 @@ module.exports = class extends Generator {
         message: "Type of build target",
         store: true,
         choices: buildOptions
+>>>>>>> 22955ed3262389de154ff8bb36eaa4643df1b304
       }
-    ]).then(answers => {
-      this.props = {
-        name: answers.name,
-        description: answers.description,
-        build: answers.build,
-        factory: answers.factory,
-        buildData: buildData,
-        dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n",
-        imports: '',
-      };
-      // package files of each element
-      let files = glob.sync(
-        `${factoriesDirectory}/${this.props.factory}/elements/*/package.json`
-      );
-      _.forEach(files, val => {
-        let json = JSON.parse(fs.readFileSync(val, "utf8"));
-        if (json.version && !json.private) {
-          this.props.dependencies +=
-            `    "${json.name}" : "${json.version}",` + "\n";
-          this.props.imports +=
-            `    import "${json.name}/${json.main}";` + "\n";
-        }
 
-      });
-      // trim that last , if needed
-      if (this.props.dependencies !== "") {
-        this.props.dependencies = this.props.dependencies.slice(0, -2);
-      }
-      // create folder to populate
-      mkdirp.sync(`${buildsDirectory}/${this.props.name}`);
     });
-  }
-
-  writing() {
+    // trim that last , if needed
+    if (this.props.dependencies !== "") {
+      this.props.dependencies = this.props.dependencies.slice(0, -2);
+    }
+    // create folder to populate
+    mkdirp.sync(`${buildsDir}/${this.props.name}`);
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.sourceRoot(`templates/builds/${buildData[this.props.build].key}`),
-      this.destinationPath(`${buildsDirectory}/${this.props.name}`),
+      this.destinationPath(`${buildsDir}/${this.props.name}`),
       this.props,
       { ignore: ["_common", ".DS_Store"] }
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
       this.destinationPath(
-        `${buildsDirectory}/${this.props.name}/package.json`
+        `${buildsDir}/${this.props.name}/package.json`
       ),
       this.props
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/build.html"),
       this.destinationPath(
-        `${buildsDirectory}/${this.props.name}/dist/build.html`
+        `${buildsDir}/${this.props.name}/dist/build.html`
       ),
       this.props
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/build.js"),
       this.destinationPath(
-        `${buildsDirectory}/${this.props.name}/build.js`
+        `${buildsDir}/${this.props.name}/build.js`
       ),
       this.props
     );
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/polymer.json"),
       this.destinationPath(
-        `${buildsDirectory}/${this.props.name}/polymer.json`
+        `${buildsDir}/${this.props.name}/polymer.json`
       ),
       this.props
     );
   }
 
   install() {
-    process.chdir(`${buildsDirectory}/${this.props.name}`);
+    process.chdir(path.join(buildsDir, this.props.name));
+    console.log(process.cwd())
     this.installDependencies({
       npm: false,
       bower: false,
@@ -163,9 +164,9 @@ module.exports = class extends Generator {
   end() {
     this.spawnCommandSync("polymer", ["build"]);
     this.fs.copy(
-      this.sourceRoot(`${buildsDirectory}/${this.props.name}/build`),
+      this.sourceRoot(`${buildsDir}/${this.props.name}/build`),
       this.destinationPath(
-        `${buildsDirectory}/${this.props.name}/webcomponents`
+        `${buildsDir}/${this.props.name}/webcomponents`
       )
     );
   }
