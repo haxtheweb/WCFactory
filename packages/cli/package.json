@@ -25,19 +25,19 @@
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1",
-    "@oclif/test": "^1",
-    "@oclif/tslint": "^3",
-    "@types/chai": "^4",
-    "@types/mocha": "^5",
-    "@types/node": "^10",
-    "chai": "^4",
-    "globby": "^8",
-    "mocha": "^5",
-    "nyc": "^13",
-    "ts-node": "^7",
-    "tslint": "^5",
-    "typescript": "^3.0"
+    "@oclif/dev-cli": "1.18.1",
+    "@oclif/test": "1.2.1",
+    "@oclif/tslint": "3.1.0",
+    "@types/chai": "4.1.6",
+    "@types/mocha": "5.2.5",
+    "@types/node": "10.11.3",
+    "chai": "4.2.0",
+    "globby": "8.0.1",
+    "mocha": "5.2.0",
+    "nyc": "13.0.1",
+    "ts-node": "7.0.1",
+    "tslint": "5.11.0",
+    "typescript": "3.1.1"
   },
   "engines": {
     "node": ">=8.0.0"
