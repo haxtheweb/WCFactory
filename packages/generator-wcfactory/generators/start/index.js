@@ -21,12 +21,6 @@ module.exports = class extends Generator {
       this.props,
       { ignore: [".DS_Store"] }
     );
-    this.fs.copyTpl(
-      this.templatePath("*/*/.*"),
-      this.destinationPath(),
-      this.props,
-      { ignore: [".DS_Store"] }
-    );
     this.fs.copy(this.templatePath("**/**"), this.destinationPath());
     /**
      * @todo this fails hard

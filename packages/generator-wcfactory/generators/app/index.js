@@ -1,5 +1,4 @@
-const { wcfLibraries } = require('@wcfactory/common/wcflibraries')
-const { config } = require('@wcfactory/common/config')
+const { config, libraries } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
@@ -49,8 +48,8 @@ module.exports = class extends Generator {
       storyPropDeclaration: '',
       propsBindingFactory: '',
       storyHTMLProps: '',
-      customElementClass: wcfLibraries[this.answers.customElementClassArrayPosition].wcfactory.customElementClass,
-      activeWCFLibrary: wcfLibraries[this.answers.customElementClassArrayPosition],
+      customElementClass: libraries[this.answers.customElementClassArrayPosition].wcfactory.customElementClass,
+      activeWCFLibrary: libraries[this.answers.customElementClassArrayPosition],
       elementClassName: _.chain(this.answers.name)
         .camelCase()
         .upperFirst()

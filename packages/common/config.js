@@ -163,9 +163,58 @@ const convertConfigs = (configs) => {
   return config
 }
 
+const libraries = () => {
+  const libs = []
+  const libsLocations = getLibrarieLocations()
+  _.forEach(libsLocations, (lib, key) => {
+    const packageLocation = path.join(lib, 'package.json')
+    let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
+    libs.push(json)
+  })
+  return libs
+}
+
+/**
+ * Libraries Dir
+ */
+const librariesDir = () => {
+  return path.join(cwd, 'templates', 'libraries')
+}
+
+/**
+ * Listing of library templates
+ */
+const librariesOptions = () => {
+  // package files of each element
+  let options = []
+  let libraries = getLibrarieLocations()
+  _.forEach(libraries, (lib, key) => {
+    const packageLocation = path.join(lib, 'package.json')
+    let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
+    options.push({
+      name: `${json.name} -- ${json.description}. ${Object.keys(json.dependencies).length} dependencies`,
+      value: key
+    })
+  });
+  return options
+}
+
+
+/**
+ * Returns the a list of libraries found
+ */
+const getLibrarieLocations = () => {
+  // package files of each element
+  let files = glob.sync(`${librariesDir()}/*`);
+  return files
+}
+
 module.exports.config = config()
 module.exports.factoryDir = factoryDir()
 module.exports.factoryOptions = factoryOptions()
 module.exports.buildsDir = buildsDir()
 module.exports.buildOptions = buildOptions()
 module.exports.buildData = buildData()
+module.exports.libraries = libraries()
+module.exports.librariesOptions = librariesOptions()
+module.exports.librariesDir = librariesDir()
