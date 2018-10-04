@@ -159,8 +159,10 @@ const collectUserConfigs = () => {
 const convertConfigs = (configs) => {
   const _configs = configs.reverse()
   // reverse array
-  const config = _configs.reduce((acc, cur) => Object.assign(acc, cur))
-  return config
+  if (_configs.length > 0) {
+    return _configs.reduce((acc, cur) => Object.assign(acc, cur))
+  }
+  return _configs
 }
 
 const libraries = () => {
