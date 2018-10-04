@@ -26,4 +26,4 @@ COPY . .
 # Default to a tmp directory for volume mounting
 WORKDIR /home/node/tmp
 
-ENTRYPOINT [ "wcfactory" ]
+ENTRYPOINT [ "wcf" ]

@@ -46,7 +46,7 @@ const factoryOptions = () => {
  * Get location of the build directory
  */
 const buildsDir = () => {
-  return path.join(cwd, 'products', 'builds')
+  return path.join(cwd, 'builds')
 }
 
 /**
