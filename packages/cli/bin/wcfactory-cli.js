@@ -26,19 +26,19 @@ var env = yeoman.createEnv();
  */
 env.register(
   require.resolve("@wcfactory/generator-wcfactory/generators/app"),
-  "wcfactory:app"
+  "wcf:app"
 );
 env.register(
   require.resolve("@wcfactory/generator-wcfactory/generators/init"),
-  "wcfactory:init"
+  "wcf:init"
 );
 env.register(
   require.resolve("@wcfactory/generator-wcfactory/generators/start"),
-  "wcfactory:start"
+  "wcf:start"
 );
 env.register(
   require.resolve("@wcfactory/generator-wcfactory/generators/build"),
-  "wcfactory:build"
+  "wcf:build"
 );
 
 /*
@@ -51,7 +51,7 @@ program
   .command("new")
   .description("Create a new element.")
   .action(function(name) {
-    env.run("wcfactory:app");
+    env.run("wcf:app");
   });
 
 program
@@ -60,14 +60,14 @@ program
     "Create a meta-repo that makes it easier to orchestrate all your factories"
   )
   .action(function(name) {
-    env.run("wcfactory:start");
+    env.run("wcf:start");
   });
 
 program
   .command("build")
   .description("Build a new product")
   .action(function(name) {
-    env.run("wcfactory:build");
+    env.run("wcf:build");
   });
 
 program
@@ -76,7 +76,7 @@ program
     "Create mono repo for your element library. This is a factory in our mental model."
   )
   .action(function(name) {
-    env.run("wcfactory:init");
+    env.run("wcf:init");
   });
 
 // instantiate commander
