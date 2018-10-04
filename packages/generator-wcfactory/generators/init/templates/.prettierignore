@@ -1,6 +1,8 @@
 test
 *.umd.js
 *.amd.js
+*.es6.js
 *.min.js
 package.json
 package-lock.json
+analysis-error.json

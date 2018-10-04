@@ -372,14 +372,6 @@ module.exports = class extends Generator {
 
   install() {
     process.chdir(elementsDirectory + this.props.elementName);
-    fs.symlink(
-      elementsDirectory + this.props.elementName,
-      "../../../../products/elements/" + this.props.elementName,
-      err => {
-        console.log(err || "Done.");
-      }
-    );
-
     this.installDependencies({
       npm: false,
       bower: false,

@@ -19,10 +19,10 @@ import '<%= orgNpm %>/<%= elementName %>.js';
 </script>
 ```
 
-## Develop
-
+## Develop / Demo
+Run `yarn start` will start a local development server, open your default browser to display it, open your finder to the correct window and start watching the `/src` directory for changes and automatically rebuilding the element and documentation site for the demo.
 ```bash
-$ yarn run dev
+$ yarn start
 ```
 
 ## Test
@@ -30,16 +30,13 @@ $ yarn run dev
 ```bash
 $ yarn run test
 ```
+
 ## Build
 Builds ensure that wcfactory can correctly compile your web component project to
 work on the maximum number of browsers possible.
 ```bash
 $ yarn run build
 ```
-
-## Demo
-
-Run `yarn start` will start a local development server, open your default browser to display it, open your finder to the correct window and start watching the `/src` directory for changes and automatically rebuilding the element and documentation site for the demo.
 
 ## Contributing
 

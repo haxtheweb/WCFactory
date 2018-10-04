@@ -5,8 +5,15 @@ const path = require("path");
 const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
+<<<<<<< HEAD
 const { buildsDir, buildData, factoryDir } = require('@wcfactory/common/config')
 
+=======
+const cwd = process.cwd();
+const buildsDirectory = `${cwd}/builds`;
+const factoriesDirectory = `${cwd}/factories`;
+var buildData = {};
+>>>>>>> 22955ed3262389de154ff8bb36eaa4643df1b304
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
@@ -14,6 +21,7 @@ module.exports = class extends Generator {
     this.props = opts
   }
 
+<<<<<<< HEAD
   writing() {
     Object.assign(this.props, {
       buildData: buildData,
@@ -31,6 +39,72 @@ module.exports = class extends Generator {
           `    "${json.name}" : "${json.version}",` + "\n";
         this.props.imports +=
           `    import "${json.name}/${json.main}";` + "\n";
+=======
+  prompting() {
+    // @todo generate this dynamically
+    buildData = {
+      static: {
+        name: "Static boilerplate",
+        key: "Static"
+      },
+      cdn: {
+        name: "CDN based publish",
+        key: "CDN"
+      },
+      drupal8: {
+        name: "Drupal 8 (Twig)",
+        key: "Drupal-8"
+      },
+      drupal7: {
+        name: "Drupal 7",
+        key: "Drupal-7"
+      }
+    };
+    let buildOptions = [];
+    let factoryOptions = [];
+    let folders = glob.sync(`${factoriesDirectory}/*`);
+    _.forEach(folders, val => {
+      let name = val.split("/").pop();
+      factoryOptions.push({
+        name: name,
+        value: name
+      });
+    });
+    // array into nestings we need to simplify yo work
+    _.forEach(buildData, (val, key) => {
+      if (typeof val !== typeof undefined) {
+        buildOptions.push({
+          name: val.name,
+          value: key
+        });
+      }
+    });
+    return this.prompt([
+      {
+        type: "string",
+        name: "name",
+        message: "Folder name for the build",
+        required: true
+      },
+      {
+        type: "string",
+        name: "description",
+        message: "Brief description for the build"
+      },
+      {
+        type: "list",
+        name: "factory",
+        message: "Factory to build from",
+        store: true,
+        choices: factoryOptions
+      },
+      {
+        type: "list",
+        name: "build",
+        message: "Type of build target",
+        store: true,
+        choices: buildOptions
+>>>>>>> 22955ed3262389de154ff8bb36eaa4643df1b304
       }
 
     });
