@@ -82,7 +82,7 @@
     "webpack": "4.20.2",
     "prettier": "1.14.3",
     "requirejs": "2.3.6",
-    "rollup": "0.66.3",
+    "rollup": "0.66.4",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "9.1.8",
     "rollup-plugin-terser": "3.0.0",
