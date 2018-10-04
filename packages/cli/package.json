@@ -4,7 +4,7 @@
   "version": "0.1.8",
   "author": "heyMP @heyMP",
   "bin": {
-    "wcfactory": "./bin/run"
+    "wcf": "./bin/run"
   },
   "bugs": "https://github.com/elmsln/wcfactory/issues",
   "dependencies": {
