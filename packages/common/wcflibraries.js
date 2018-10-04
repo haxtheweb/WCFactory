@@ -1,8 +1,6 @@
 const _ = require("lodash");
 const fs = require('fs');
 const cwd = process.cwd();
-const packageJson = require(`${cwd}/package.json`);
-const elementsDirectory = `${cwd}/elements/`;
 
 /**
  * Get the list of wcfLibraries from cache
