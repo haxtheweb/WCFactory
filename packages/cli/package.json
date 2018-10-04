@@ -22,8 +22,7 @@
     "yeoman-environment": "^2.3.3"
   },
   "bin": {
-    "wcf": "./bin/wcfactory-cli.js",
-    "wcfactory": "./bin/wcfactory-cli.js"
+    "wcf": "./bin/wcfactory-cli.js"
   },
   "publishConfig": {
     "access": "public"
