@@ -88,12 +88,12 @@ module.exports = class extends Generator {
   }
 
   end() {
-    // this.spawnCommandSync("polymer", ["build"]);
-    // this.fs.copy(
-    //   this.sourceRoot(`${buildsDir}/${this.props.name}/build`),
-    //   this.destinationPath(
-    //     `${buildsDir}/${this.props.name}/webcomponents`
-    //   )
-    // );
+    this.spawnCommandSync("polymer", ["build"]);
+    this.fs.copy(
+      this.sourceRoot(`${buildsDir}/${this.props.name}/build`),
+      this.destinationPath(
+        `${buildsDir}/${this.props.name}/webcomponents`
+      )
+    );
   }
 };
