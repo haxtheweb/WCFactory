@@ -146,6 +146,7 @@
       "**/@rhelements/rhelement",
       "**/@skatejs",
       "**/@skatejs/**",
+      "**/skatejs",
       "**/@webcomponents",
       "**/@webcomponents/**",
       "**/lit-html",
