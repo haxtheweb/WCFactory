@@ -3,7 +3,6 @@ const fs = require('fs');
 const cwd = process.cwd();
 const packageJson = require(`${cwd}/package.json`);
 const elementsDirectory = `${cwd}/elements/`;
-const wcfLibrariesCache = JSON.parse(fs.readFileSync(`${cwd}/.wcflibcache.json`, 'utf8'));
 
 /**
  * Get the list of wcfLibraries from cache
@@ -38,6 +37,18 @@ const wcfLibrariesListChoices = () => {
   });
   return wcfLibrariesListChoices
 }
+
+/**
+ * Current state of the wcf cache file.
+ * @return object
+ */
+const wcfLibrariesCache = (() => {
+  const cacheFile = `${cwd}/.wcflibcache.json`;
+  if (fs.existsSync(cacheFile)) {
+    return JSON.parse(fs.readFileSync(`${cwd}/.wcflibcache.json`, 'utf8'))
+  }
+  return {}
+})
 
 module.exports.wcfLibraries = wcfLibraries()
 module.exports.wcfLibrariesListChoices = wcfLibrariesListChoices()
