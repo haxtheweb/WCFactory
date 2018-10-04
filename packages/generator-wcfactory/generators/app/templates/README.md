@@ -30,6 +30,7 @@ $ yarn run dev
 ```bash
 $ yarn run test
 ```
+
 ## Build
 Builds ensure that wcfactory can correctly compile your web component project to
 work on the maximum number of browsers possible.

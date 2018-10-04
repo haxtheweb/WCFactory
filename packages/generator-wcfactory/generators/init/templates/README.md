@@ -8,13 +8,13 @@ Welcome to the <%= humanName %> project!
 ## Quick-start
 
 *Notice: You will need to use [Node](https://nodejs.org/en/) version 6.0 or higher. Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/). These web components are written in [ES6](http://es6-features.org/) and build routines compile to es5 to encompass more browsers.*
+
 ### Install
 
 ```bash
 $ git clone <%= gitRepo %>
 $ cd <%= name %>
 $ yarn install
-$ yarn rebuild node-sass  # this may be necessary if using sass
 $ yarn start
 ```
 
@@ -39,6 +39,8 @@ Run `yarn run new` to make a new element. Go to the new element `cd elements/new
     - Run storybook
 - `$ yarn run build-storybook`
     - Build storybook for deployment
+- `$ yarn run publish`
+    - Publish ALL lrnwebcomponents' elements to npmjs.com
 
 
 ## Web Component development
