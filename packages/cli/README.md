@@ -21,13 +21,9 @@ $ mkdir my-company-name && cd my-company-name && wcf start
 # create a new factory after you've made the company
 wcf factory
 # add a new element to the factory-name that you produced in the previous step
-$ cd factories/factory-name && wcf new
-
-# if you didn't get any options you may need to rebuild some caches
-$ yarn run rebuild-wcfcache
-
-# running yarn run new will rebuild caches each time, useful for working on the generator itself or adding new element classes
-$ yarn run new
+$ cd factories/factory-name
+# create a new element
+yarn run new
 ```
 Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
 ```bash
@@ -35,6 +31,9 @@ $ cd elements/new-name
 $ yarn start
 ```
 This will open the folder to the `elements/new-name/src` folder, start watching it for changes which will be compiled automatically (and documented), and open a mini-server (via `polymer serve`) which will allow you to edit the src directory files, compile them together and make them available for the localhost window for viewing.
+
+## Library development
+Storybook is built into the tooling to automatically be setup based on the properties and demos you create for the individual elements. You can fire it up from the factory level by running `yarn run storybook`. The default for elements is that their properties are analzed to generate knobs automatically and their demo is a mix of a live demo of the element + knobs as well as static demos from your element's `demo/index.html`.
 
 ## Publishing
 The repo generated is managed by `lerna`. `lerna` allows you to manage multiple packages at once so that other people can take your individual elements you produce and use them as they please, while allowing you to develop everything in one repository.
