@@ -28,43 +28,6 @@ export const questions: any = [
     message: "Description / purpose of the element"
   },
   {
-    type: "input",
-    name: "author",
-    message: "author of this element",
-    store: true
-  },
-  {
-    type: "input",
-    name: "copyrightOwner",
-    message: "Copyright owner of this work",
-    store: true,
-  },
-  {
-    type: "list",
-    name: "license",
-    message: "Software License to use",
-    store: true,
-    default: "apache2",
-    choices: [
-      {
-        name: "Apache 2.0",
-        value: "Apache-2.0"
-      },
-      {
-        name: "MIT",
-        value: "MIT"
-      },
-      {
-        name: "BSD 3-clause",
-        value: "BSD-3-Clause"
-      },
-      {
-        name: "BSD 2-clause",
-        value: "BSD-2-Clause"
-      }
-    ]
-  },
-  {
     type: "list",
     name: "useSass",
     when: (flags: any) => {

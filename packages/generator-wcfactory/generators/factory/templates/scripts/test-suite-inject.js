@@ -72,7 +72,7 @@ const allPackage = require(packagePath);
 allPackage.dependencies = withTests
   .keyBy()
   .mapKeys(e => `<%= orgNpm %>/${e}`)
-  .mapValues(e => `file:../${e}`)
+  .mapValues(e => `^${allPackage.version}`)
   .value();
 
 fs.writeFileSync(

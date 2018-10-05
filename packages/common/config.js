@@ -119,6 +119,7 @@ const collectPackageConfigs = () => {
       if (wcfactorySettings) {
         configs.push(wcfactorySettings)
       }
+      configs.version = _.get(packageJSONContents, 'version');
     }
     // move up a directory
     _cwd = path.join(_cwd, '../')

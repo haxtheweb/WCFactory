@@ -1,5 +1,6 @@
 {
   "name": "<%= orgNpm %>/<%= name %>",
+  "version": "0.0.0",
   "description": "<%= description %>",
   "wcfactory": {
     "askSASS": true,
@@ -93,15 +94,16 @@
     "web-component-tester": "6.8.0",
     "webpack": "4.20.2",
     "whatwg-fetch": "3.0.0",
-    "yo": "2.0.5"
+    "yo": "2.0.5",
+    "raw-loader": "0.5.1",
+    "inquirer-recursive": "0.0.5",
+    "gulp-copy": "4.0.0",
+    "babel-plugin-transform-custom-element-classes": "0.1.0",
+    "jest": "23.6.0"
   },
   "dependencies": {
     "@polymer/lit-element": "0.6.1",
     "@polymer/polymer": "3.0.5",
-    "babel-plugin-transform-custom-element-classes": "0.1.0",
-    "gulp-copy": "4.0.0",
-    "inquirer-recursive": "0.0.5",
-    "jest": "23.6.0",
     "slim-js": "4.0.1"
   },
   "lint-staged": {

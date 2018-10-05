@@ -7,6 +7,7 @@ const fs = require("fs");
 const process = require("process");
 const cwd = process.cwd();
 const elementsDirectory = `${cwd}/elements/`;
+const packageJson = require(`${cwd}/package.json`);
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -27,9 +28,9 @@ module.exports = class extends Generator {
       monorepo: config.monorepo,
       orgGit: config.orgGit,
       gitRepo: config.gitRepo,
-      author: this.answers.author,
-      copyrightOwner: this.answers.copyrightOwner,
-      license: this.answers.license,
+      author: config.author,
+      copyrightOwner: config.copyrightOwner,
+      license: config.license,
       name: this.answers.name,
       humanName: this.capitalizeFirstLetter(this.answers.name.replace('-', ' ')),
       description: this.answers.description,
@@ -45,9 +46,7 @@ module.exports = class extends Generator {
       useHAX: this.answers.useHAX,
       haxList: {},
       haxListString: '',
-      storyPropDeclaration: '',
       propsBindingFactory: '',
-      storyHTMLProps: '',
       customElementClass: libraries[this.answers.customElementClassArrayPosition].wcfactory.customElementClass,
       activeWCFLibrary: libraries[this.answers.customElementClassArrayPosition],
       elementClassName: _.chain(this.answers.name)
@@ -55,6 +54,7 @@ module.exports = class extends Generator {
         .upperFirst()
         .value(),
       readmeName: _.upperFirst(name),
+      storyGroup: _.upperFirst(name),
       lowerCaseName: name,
       camelCaseName: _.camelCase(this.answers.name),
       useSass: this.answers.useSass,
@@ -63,8 +63,8 @@ module.exports = class extends Generator {
       libraryScripts: '',
       libraryDevDependencies: '',
       libraryDependencies: '',
-      // @todo this needs to be the version of the generator not this repo
-      generatorWCFactoryVersion: config.version
+      generatorWCFactoryVersion: config.version,
+      version: packageJson.version
     };
     _.forEach(this.props.propsListRaw, (prop) => {
       if (prop.observer) {
@@ -73,35 +73,14 @@ module.exports = class extends Generator {
       this.props.propsList[prop.name] = prop;
     });
     this.props.propsListString = JSON.stringify(this.props.propsList, null, '  ')
-    // generate a string that can pull together the values needed for an HTML string
-    _.forEach(this.props.propsListRaw, (prop) => {
-      let method = 'text';
-      // figure out the method to use as a knob
-      switch (prop.type) {
-        case 'Boolean':
-        case 'Number':
-        case 'Object':
-        case 'Array':
-        case 'Date':
-          method = prop.type.toLowerCase();
-          break;
-        default:
-          method = 'text';
-          break;
-      }
-      this.props.storyPropDeclaration += '  const ' + prop.name + ' = ' + method + '("' + prop.name + '", "' + prop.value + '");' + "\n";
-    });
-    _.forEach(this.props.propsListRaw, (prop) => {
-      this.props.storyHTMLProps += _.kebabCase(prop.name) + '="${' + prop.name + '}"; ';
-    });
     // work on HAX integration if requested
     if (this.props.useHAX) {
       // include statement for top of files
       this.props.includesString += 'import { HAXWiring } from "@lrnwebcomponents/hax-body-behaviors/lib/HAXWiring.js"';
       // package dependency
-      this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"latest",`;
+      this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"^${packageJson.version}",`;
       // load props in from this dynamically generated function call
-      this.props.connectedString = 'this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
+      this.props.connectedString = '  this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
       // set baseline for HAX schema
       this.props.haxList = {
         'canScale': true,

@@ -20,7 +20,7 @@
 
 <test-fixture id="ChangedPropertyTestFixture">
   <template>
-    <<%= elementName %> <%- storyHTMLProps %>></<%= elementName %>>
+    <<%= elementName %>></<%= elementName %>>
   </template>
 </test-fixture>
 
@@ -30,21 +30,13 @@
       assert.instanceOf(document.querySelector('<%= name %>'), customElements.get("<%= name %>", '<%= elementName %> should be an instance of <%= camelCaseName %>'));
     });
 
-    /*test('instantiating the element with default properties works', () => {
-      const element = fixture('BasicTestFixture');
-      assert.equal(element.prop1, '<<%= elementName %>>');
-      const elementShadowRoot = element.shadowRoot;
-      const elementHeader = elementShadowRoot.querySelector('h2');
-      assert.equal(elementHeader.innerHTML, 'Hello <<%= elementName %>>!');
-    });*/
-
     /*test('setting a property on the element works', () => {
-      // Create a test fixture
-      const element = fixture('ChangedPropertyTestFixture');
-      assert.equal(element.prop1, 'new-prop1');
+      const element = fixture('AdvancedTestFixture');
+      element.title = 'my title';
+      assert.equal(element.title, 'my title');
       const elementShadowRoot = element.shadowRoot;
       const elementHeader = elementShadowRoot.querySelector('h2');
-      assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+      assert.equal(elementHeader.innerHTML, 'Hello my title!');
     });*/
   });
     </script>

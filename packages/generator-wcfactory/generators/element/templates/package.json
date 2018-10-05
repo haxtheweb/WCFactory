@@ -4,9 +4,19 @@
     "className": "<%= elementClassName %>",
     "customElementClass": "<%= customElementClass %>",
     "elementName": "<%= elementName %>",
-    "generator-wcfactory-version": "<%= generatorWCFactoryVersion %>"
+    "generator-wcfactory-version": "<%= generatorWCFactoryVersion %>",
+    "useHAX": <%= useHAX %>,
+    "useSass": <%= useSass %>,
+    "files": {
+      "css": "src/<%= elementName %>.css",
+      "scss": "src/<%= elementName %>.scss",
+      "html": "src/<%= elementName %>.html",
+      "js": "src/<%= elementName %>.js",
+      "properties": "src/<%= elementName %>-properties.json",
+      "hax": "src/<%= elementName %>-hax.json"
+    }
   },
-  "version": "0.0.1",
+  "version": "<%= version %>",
   "description": "<%= description %>",
   "repository": {
     "type": "git",

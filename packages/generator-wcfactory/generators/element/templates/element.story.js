@@ -1,14 +1,53 @@
 import { storiesOf } from "@storybook/polymer";
-import { withKnobs, text, boolean, number, color, object, array, date, select } from "@storybook/addon-knobs/polymer";
-import "./<%= elementName %>";
-const stories = storiesOf("<%= readmeName %>", module);
-stories.addDecorator(withKnobs);
-stories.add("<%= elementName %>",
-  () => {
-<%- storyPropDeclaration %>
+import * as storybookBridge from "@storybook/addon-knobs/polymer";
+import { <%= elementClassName %> } from "./<%= elementName %>.js";
+import "@polymer/iron-demo-helpers/demo-snippet.js";
+
+// need to account for polymer goofiness when webpack rolls this up
+var template = require("raw-loader!./demo/index.html");
+let pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
+var array_matches = pattern.exec(template);
+// now template is just the body contents
+template = array_matches[1];
+const stories = storiesOf("<%= storyGroup %>", module);
+stories.addDecorator(storybookBridge.withKnobs);
+stories.add("<%= elementName %>", () => {
+  var binding = {};
+  // start of tag for demo
+  let elementDemo = `<<%= elementName %>`;
+  // mix in properties defined on the class
+  for (var key in <%= elementClassName %>.properties) {
+    // skip prototype
+    if (!<%= elementClassName %>.properties.hasOwnProperty(key)) continue;
+    // convert typed props
+    if (<%= elementClassName %>.properties[key].type.name) {
+      let method = 'text';
+      switch (<%= elementClassName %>.properties[key].type.name) {
+        case 'Boolean':
+        case 'Number':
+        case 'Object':
+        case 'Array':
+        case 'Date':
+          method = <%= elementClassName %>.properties[key].type.name.toLowerCase();
+          break;
+        default:
+          method = 'text';
+          break;
+      }
+      binding[key] = storybookBridge[method](key, <%= elementClassName %>.properties[key].value);
+      // ensure ke-bab case
+      let kebab = key.replace(/[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g, function (match) {
+        return '-' + match.toLowerCase();
+      });
+      elementDemo += ` ${kebab}="${binding[key]}"`;
+    }
+  }
+  const innerText = storybookBridge.text("Inner contents", "<%= readmeName %>");
+  elementDemo += `> ${ innerText }</<%= elementName %>>`
   return `
-  <<%= elementName %> <%- storyHTMLProps %>>
-    <%= readmeName %>
-  </<%= elementName %>>
+  <h1>Live demo</h1>
+  ${elementDemo}
+  <h1>Additional examples</h1>
+  ${template}
   `;
 });
