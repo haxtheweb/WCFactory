@@ -22,7 +22,7 @@
   "dependencies": {
     "@skatejs/renderer-lit-html": "^0.2.2",
     "skatejs": "^5.2.4",
-    "lit-html": "^0.11.2"
+    "lit-html": "^0.12.0"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "3.0.2",
