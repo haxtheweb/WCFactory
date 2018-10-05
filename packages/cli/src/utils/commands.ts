@@ -11,7 +11,7 @@ const VerboseRenderer = require('listr-verbose-renderer');
  */
 export const promptUser = async (questions: any, flags: any, ctx: any) => {
   // prompt the user for the remaining flags
-  for await (let q of questions) {
+  for (let q of questions) {
     // get the name of the question
     const name = q.name
     // if the user already answered this flag then
