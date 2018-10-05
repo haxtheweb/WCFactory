@@ -28,8 +28,8 @@ export const questions: any = [
     required: true,
     default: (flags: any) => flags.humanName,
     validate: (value: any) => {
-      if ((/([a-z]*)-([a-z]*)/).test(value)) { return true; }
-      return 'name requires a hyphen and all lowercase';
+      if (!(/ /gm).test(value)) { return true; }
+      return 'can not contain a space';
     }
   },
   {
@@ -61,6 +61,10 @@ export const questions: any = [
     name: "gitRepo",
     message: "Git repo (full git address)",
     required: true,
-    default: (flags: any) => `git@github.com:${flags.orgGit}/${flags.name}.git`
+    default: (flags: any) => `git@github.com:${flags.orgGit}/${flags.name}.git`,
+    validate: (value: any) => {
+      if (!(/ /gm).test(value)) { return true; }
+      return 'can not contain a space';
+    }
   }
 ]
