@@ -180,7 +180,7 @@ const libraries = () => {
  * Libraries Dir
  */
 const librariesDir = () => {
-  return path.join(cwd, 'templates', 'libraries')
+  return path.join(cwd, '../../', 'templates', 'libraries')
 }
 
 /**
