@@ -6,7 +6,7 @@ var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/start'), 'wcfactory:start')
 
 export default class Start extends Command {
-  static description = 'Create a conglomerate for your factories.'
+  static description = 'Create a company for your factories.'
 
   static flags = {
     help: flags.help({ char: 'h' }),

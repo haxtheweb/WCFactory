@@ -19,7 +19,7 @@ A company helps you manage multiple factories and the products they produce so y
 # create a new company, a series of factories linked by the owner
 $ mkdir my-company-name && cd my-company-name && wcf start
 # create a new factory after you've made the company
-wcf init
+wcf factory
 # add a new element to the factory-name that you produced in the previous step
 $ cd factories/factory-name && wcf new
 
@@ -130,7 +130,7 @@ To run wcfactory cli commands inside of the docker image you can run the follow 
 Examples
 ```bash
 docker-compose run wcf <command>
-docker-compose run wcf init
+docker-compose run wcf factory
 docker-compose run wcf new
 ```
 
