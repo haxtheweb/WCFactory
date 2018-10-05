@@ -102,7 +102,7 @@
     "jest": "23.6.0"
   },
   "dependencies": {
-    "@polymer/lit-element": "0.6.1",
+    "@polymer/lit-element": "0.6.2",
     "@polymer/polymer": "3.0.5",
     "slim-js": "4.0.1"
   },
