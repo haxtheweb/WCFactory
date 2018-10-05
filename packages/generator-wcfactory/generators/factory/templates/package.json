@@ -33,7 +33,7 @@
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o ../../storybooks/<%= name %>",
     "rebuild-wcfcache": "./node_modules/.bin/gulp",
-    "new": "yarn run rebuild-wcfcache && wcf new && yarn run test-suite-inject && yarn install --link-duplicates"
+    "new": "yarn run rebuild-wcfcache && wcf element && yarn run test-suite-inject && yarn install --link-duplicates"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",

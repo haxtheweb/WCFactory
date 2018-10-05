@@ -3,7 +3,7 @@ import { promptUser, getListOptions } from '../utils/commands'
 import { questions } from '../questions/factory'
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
-env.register(require.resolve('@wcfactory/generator-wcfactory/generators/init'), 'wcfactory:init')
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/factory'), 'wcfactory:factory')
 
 export default class Factory extends Command {
   static description = 'Create mono repo for your element library. You will only need to do this once.'
@@ -32,6 +32,6 @@ export default class Factory extends Command {
     // add a year
     flags.year = new Date().getFullYear()
     // kick off generator
-    env.run('wcfactory:init', flags)
+    env.run('wcfactory:factory', flags)
   }
 }

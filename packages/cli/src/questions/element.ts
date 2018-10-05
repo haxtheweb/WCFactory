@@ -1,4 +1,5 @@
-const { config, librariesOptions } = require('@wcfactory/common/config')
+const { config } = require('@wcfactory/common/config')
+const { wcfLibrariesListChoices } = require('@wcfactory/common/libraries')
 const _ = require('lodash')
 
 /**
@@ -11,7 +12,7 @@ export const questions: any = [
     name: "customElementClassArrayPosition",
     message: "Custom element base class to use",
     store: true,
-    choices: librariesOptions
+    choices: wcfLibrariesListChoices
   },
   {
     type: "input",

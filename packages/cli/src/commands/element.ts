@@ -3,7 +3,7 @@ import { promptUser } from '../utils/commands'
 import { questions } from '../questions/element'
 var yeoman = require('yeoman-environment')
 var env = yeoman.createEnv()
-env.register(require.resolve('@wcfactory/generator-wcfactory/generators/app'), 'wcfactory:app')
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/element'), 'wcfactory:element')
 
 export default class Element extends Command {
   static description = 'Create a new element'
@@ -21,6 +21,6 @@ export default class Element extends Command {
     // prompt the user for remaining flags
     flags = await promptUser(questions, flags, this)
     // // kick off the generator
-    env.run('wcfactory:app', flags)
+    env.run('wcfactory:element', flags)
   }
 }

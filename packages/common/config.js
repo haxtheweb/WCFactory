@@ -167,7 +167,7 @@ const convertConfigs = (configs) => {
 
 const libraries = () => {
   const libs = []
-  const libsLocations = getLibrarieLocations()
+  const libsLocations = getLibraryLocations()
   _.forEach(libsLocations, (lib, key) => {
     const packageLocation = path.join(lib, 'package.json')
     let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
@@ -189,7 +189,7 @@ const librariesDir = () => {
 const librariesOptions = () => {
   // package files of each element
   let options = []
-  let libraries = getLibrarieLocations()
+  let libraries = getLibraryLocations()
   _.forEach(libraries, (lib, key) => {
     const packageLocation = path.join(lib, 'package.json')
     let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
@@ -205,7 +205,7 @@ const librariesOptions = () => {
 /**
  * Returns the a list of libraries found
  */
-const getLibrarieLocations = () => {
+const getLibraryLocations = () => {
   // package files of each element
   let files = glob.sync(`${librariesDir()}/*`);
   return files
