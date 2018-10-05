@@ -160,6 +160,9 @@ module.exports = class extends Generator {
         this.props.haxList.settings.configure.push(config);
       });
     }
+    else {
+      this.props.useHAX = false;
+    }
     // convert to string so we can write to the {name}-hax.json file
     this.props.haxListString = JSON.stringify(this.props.haxList, null, '  ')
     // step through the active package.json file and grab the pieces we most directly need
