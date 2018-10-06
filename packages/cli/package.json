@@ -56,7 +56,7 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "cli",
+    "bin": "wcf",
     "plugins": [
       "@oclif/plugin-help"
     ]
