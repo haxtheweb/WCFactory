@@ -1,4 +1,5 @@
 const { config, librariesOptions } = require('@wcfactory/common/config')
+const { factoryList } = require('@wcfactory/common/factories')
 const _ = require('lodash')
 
 /**
@@ -6,6 +7,15 @@ const _ = require('lodash')
  */
 // questions
 export const questions: any = [
+  {
+    type: "list",
+    name: "factory",
+    message: "Choose your factory",
+    require: true,
+    store: true,
+    choices: factoryList,
+    when: (flags: any) => !flags.factory
+  },
   {
     type: "list",
     name: "customElementClassArrayPosition",
