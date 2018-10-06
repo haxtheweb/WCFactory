@@ -153,5 +153,6 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/node,code,linux,macos,windows
 
+yarn.lock
 package-lock.json
 .tmp
