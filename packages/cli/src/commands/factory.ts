@@ -6,7 +6,7 @@ var env = yeoman.createEnv()
 env.register(require.resolve('@wcfactory/generator-wcfactory/generators/factory'), 'wcfactory:factory')
 
 export default class Factory extends Command {
-  static description = 'Create mono repo for your element library. You will only need to do this once.'
+  static description = 'Create mono repo for your element library.'
 
   /**
    * @todo dynaimically generate this based on the questions const
