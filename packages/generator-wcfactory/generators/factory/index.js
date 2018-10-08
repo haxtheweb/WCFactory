@@ -3,6 +3,7 @@ const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const process = require("process");
+const fs = require("fs");
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -50,6 +51,7 @@ module.exports = class extends Generator {
   }
 
   install() {
+    fs.rename('./storybook', './.storybook');
     this.spawnCommandSync("git", ["init"]);
     this.spawnCommandSync("git", [
       "remote",
