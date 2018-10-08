@@ -1,6 +1,7 @@
-const { config, librariesOptions } = require('@wcfactory/common/config')
+const { librariesOptions } = require('@wcfactory/common/config')
 const { factoryList } = require('@wcfactory/common/factories')
 const _ = require('lodash')
+var packageJson = '';
 
 /**
  * A listing of all prompt questions
@@ -14,14 +15,31 @@ export const questions: any = [
     require: true,
     store: true,
     choices: factoryList,
-    when: (flags: any) => !flags.factory
+    default: () => {
+      if (factoryList.length === 1) {
+        console.log(`Only one factory, "${factoryList[0].name}" selected.`);
+        return factoryList[0].value;
+      }
+    },
+    when: (flags: any) => {
+      return (factoryList.length > 1 && !flags.factory)
+    },
   },
   {
     type: "list",
     name: "customElementClassArrayPosition",
     message: "Custom element base class to use",
     store: true,
-    choices: librariesOptions
+    choices: librariesOptions,
+    when: (answers: any) => {
+      // account for auto selection
+      if (!answers.factory) {
+        answers.factory = factoryList[0].value;
+      }
+      // hack to get packJson for the factory selected loaded dynamically
+      packageJson = require(`${answers.factory}/package.json`);
+      return packageJson.name;
+    }
   },
   {
     type: "input",
@@ -40,8 +58,8 @@ export const questions: any = [
   {
     type: "list",
     name: "useSass",
-    when: (flags: any) => {
-      return _.get(config, 'wcfactory.askSASS');
+    when: (answers: any, flags: any) => {
+      return _.get(packageJson, 'wcfactory.askSASS');
     },
     message: "Do you want to use Sass in this element?",
     store: true,
@@ -59,30 +77,33 @@ export const questions: any = [
   {
     type: "list",
     name: "sassLibrary",
-    when: (flags: any) => {
-      return flags.useSass && _.get(config, 'wcfactory.askSASS');
-    },
     message: "Do want to use existing Sass dependencies?",
-    choices: [
-      {
-        name: _.get(config, 'wcfactory.sass.name'),
-        value: {
-          pkg: _.get(config, 'wcfactory.sass.pkg'),
-          path: _.get(config, 'wcfactory.sass.path')
+    when: () => {
+      return _.get(packageJson, 'wcfactory.askSASS');
+    },
+    choices: () => {
+      return [
+        {
+          name: _.get(packageJson, 'wcfactory.sass.name'),
+          value: {
+            pkg: _.get(packageJson, 'wcfactory.sass.pkg'),
+            path: _.get(packageJson, 'wcfactory.sass.path')
+          }
+        },
+        {
+          name: "No thanks. I'll provide my own later",
+          value: null
         }
-      },
-      {
-        name: "No thanks. I'll provide my own later",
-        value: null
-      }
-    ]
+      ]
+    }
   },
   {
     type: "list",
     name: "addProps",
     message: "Do you want custom properties? (typically yes)",
-    when: (flags: any) => {
-      return _.get(config, 'wcfactory.askProps')
+    when: (answers: any, flags: any) => {
+      const packageJson = require(`${answers.factory}/package.json`);
+      return _.get(packageJson, 'wcfactory.askProps')
     },
     store: true,
     choices: [
@@ -101,8 +122,9 @@ export const questions: any = [
     name: "useHAX",
     message: "Auto build support for the HAX authoring system?",
     store: true,
-    when: (flags: any) => {
-      return flags.addProps && _.get(config, 'wcfactory.askHAX');
+    when: (answers: any, flags: any) => {
+      const packageJson = require(`${answers.factory}/package.json`);
+      return answers.addProps && _.get(packageJson, 'wcfactory.askHAX')
     },
     choices: [
       {

@@ -1,7 +1,7 @@
+const { userConfig } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const mkdirp = require("mkdirp");
-const path = require("path");
 const process = require("process");
 
 module.exports = class extends Generator {
@@ -10,11 +10,8 @@ module.exports = class extends Generator {
     this.props = opts
   }
 
-  prompting() {
-    // moved to cli
-  }
-
   writing() {
+    process.chdir(userConfig.companyDir);
     mkdirp.sync(`factories/${this.props.name}`);
 
     this.destinationRoot(`factories/${this.props.name}`);

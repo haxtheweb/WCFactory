@@ -8,6 +8,7 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const glob = require('glob')
+const os = require('os')
 const cwd = process.cwd()
 
 /**
@@ -23,7 +24,8 @@ const config = () => {
  * Get factories Directory
  */
 const factoryDir = () => {
-  return path.join(cwd, 'factories')
+  const userConfig = getUserConfig()
+  return path.join(userConfig.companyDir, 'factories')
 }
 
 /**
@@ -46,7 +48,8 @@ const factoryOptions = () => {
  * Get location of the build directory
  */
 const buildsDir = () => {
-  return path.join(cwd, 'builds')
+  const userConfig = getUserConfig()
+  return path.join(userConfig.companyDir, 'builds')
 }
 
 /**
@@ -76,10 +79,6 @@ const buildData = () => {
       name: "Static boilerplate",
       key: "Static"
     },
-    cdn: {
-      name: "CDN based publish",
-      key: "CDN"
-    },
     drupal8: {
       name: "Drupal 8 (Twig)",
       key: "Drupal-8"
@@ -87,6 +86,10 @@ const buildData = () => {
     drupal7: {
       name: "Drupal 7",
       key: "Drupal-7"
+    },
+    backdropcms: {
+      name: "Backdrop CMS",
+      key: "BackdropCMS"
     }
   };
 }
@@ -178,10 +181,28 @@ const libraries = () => {
 }
 
 /**
+ * User config
+ */
+const getUserConfig = () => {
+  const userData = JSON.parse(fs.readFileSync(path.join(os.homedir(), '.wcfconfig/user'), 'utf8'))
+  if (userData) {
+    return userData;
+  }
+  else {
+    console.warn(path.join(os.homedir(), '.wcfconfig/') + ' is missing! Run wcf start from your desired directory to get started!');
+  }
+}
+
+const userConfig = () => {
+  return getUserConfig()
+}
+
+/**
  * Libraries Dir
  */
 const librariesDir = () => {
-  return path.join(cwd, '../../', 'templates', 'libraries')
+  const userConfig = getUserConfig()
+  return path.join(userConfig.companyDir, 'templates', 'libraries');
 }
 
 /**
@@ -213,6 +234,7 @@ const getLibraryLocations = () => {
 }
 
 module.exports.config = config()
+module.exports.userConfig = userConfig()
 module.exports.factoryDir = factoryDir()
 module.exports.factoryOptions = factoryOptions()
 module.exports.buildsDir = buildsDir()

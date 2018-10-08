@@ -15,7 +15,7 @@ export default class Start extends Command {
     license: flags.enum({
       char: 'l',
       description: 'Software License to use',
-      options: ["Apache 2.0", "MIT", "BSD 3-clause", "BSD 2-clause"]
+      options: ["Apache-2.0", "MIT", "BSD-3-Clause", "BSD-2-Clause"]
     })
   }
 

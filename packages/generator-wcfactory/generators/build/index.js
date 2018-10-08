@@ -5,7 +5,7 @@ const path = require("path");
 const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
-const { buildsDir, buildData, factoryDir } = require('@wcfactory/common/config')
+const { buildsDir, buildData, factoryDir, userConfig } = require('@wcfactory/common/config')
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
@@ -13,6 +13,8 @@ module.exports = class extends Generator {
     this.props = opts
   }
   writing() {
+    this.props.themeName = this.props.name;
+    process.chdir(userConfig.companyDir);
     Object.assign(this.props, {
       buildData: buildData,
       dependencies: `    "@webcomponents/webcomponentsjs": "2.1.3",` + "\n",
@@ -43,8 +45,33 @@ module.exports = class extends Generator {
       this.sourceRoot(`templates/builds/${buildData[this.props.build].key}`),
       this.destinationPath(`${buildsDir}/${this.props.name}`),
       this.props,
-      { ignore: ["_common", ".DS_Store"] }
+      { ignore: ["_common", ".DS_Store", "themeName.info", "themeName.info.yml", "themeName.theme"] }
     );
+    if (buildData[this.props.build].key === 'BackdropCMS' || buildData[this.props.build].key === 'Drupal-7') {
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.info`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/${this.props.name}.info`
+        ),
+        this.props
+      );
+    }
+    else if (buildData[this.props.build].key === 'Drupal-8') {
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.info.yml`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/${this.props.name}.info.yml`
+        ),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.theme`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/${this.props.name}.theme`
+        ),
+        this.props
+      );
+    }
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/package.json"),
       this.destinationPath(
@@ -77,7 +104,6 @@ module.exports = class extends Generator {
 
   install() {
     process.chdir(path.join(buildsDir, this.props.name));
-    console.log(process.cwd())
     this.installDependencies({
       npm: false,
       bower: false,

@@ -1,13 +1,10 @@
 const { config, libraries } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
+const path = require("path");
 const mkdirp = require("mkdirp");
 const chalk = require("chalk");
-const fs = require("fs");
 const process = require("process");
-const cwd = process.cwd();
-const elementsDirectory = `${cwd}/elements/`;
-const packageJson = require(`${cwd}/package.json`);
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -16,6 +13,10 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    const dir = path.join(path.dirname(__filename), "../", "../");
+    const operationJson = require(`${dir}/package.json`);
+    // move to the company to write relative to here
+    const packageJson = require(`${this.answers.factory}/package.json`);
     // ensure answer is in kebabcase and lowercase
     this.answers.name = _.kebabCase(this.answers.name).toLowerCase();
     let name = this.answers.name.split("-")[1];
@@ -23,11 +24,12 @@ module.exports = class extends Generator {
       return string[0].toUpperCase() + string.slice(1);
     };
     this.props = {
+      factory: this.answers.factory,
       year: new Date().getFullYear(),
-      orgNpm: config.orgNpm,
-      monorepo: config.monorepo,
-      orgGit: config.orgGit,
-      gitRepo: config.gitRepo,
+      orgNpm: packageJson.wcfactory.orgNpm,
+      monorepo: packageJson.wcfactory.monorepo,
+      orgGit: packageJson.wcfactory.orgGit,
+      gitRepo: packageJson.wcfactory.gitRepo,
       author: config.author,
       copyrightOwner: config.copyrightOwner,
       license: config.license,
@@ -63,7 +65,7 @@ module.exports = class extends Generator {
       libraryScripts: '',
       libraryDevDependencies: '',
       libraryDependencies: '',
-      generatorWCFactoryVersion: config.version,
+      generatorWCFactoryVersion: operationJson.version,
       version: packageJson.version
     };
     _.forEach(this.props.propsListRaw, (prop) => {
@@ -222,9 +224,10 @@ module.exports = class extends Generator {
         this.props.libraryDependencies += `,"${this.answers.sassLibrary.pkg}":"*"`;
       }
     }
-    mkdirp.sync(`${elementsDirectory}/${this.props.elementName}`);
-
-    this.destinationRoot(elementsDirectory);
+    // create element directory
+    mkdirp.sync(`${this.props.factory}/elements/${this.props.elementName}`);
+    // transition into that directory
+    this.destinationRoot(`${this.props.factory}/elements/`);
     this.fs.copyTpl(
       this.templatePath("package.json"),
       this.destinationPath(`${this.props.elementName}/package.json`),
@@ -353,7 +356,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    process.chdir(elementsDirectory + this.props.elementName);
+    process.chdir(`${this.props.factory}/elements/${this.props.elementName}`);
     this.installDependencies({
       npm: false,
       bower: false,
@@ -363,7 +366,7 @@ module.exports = class extends Generator {
 
   end() {
     this.spawnCommandSync("yarn", ["run", "build"]);
-    process.chdir(cwd);
+    process.chdir(this.props.factory);
     this.spawnCommand("lerna", ["link"]);
     let banner =
       chalk.green("\n    A fresh made ") +
@@ -381,7 +384,7 @@ module.exports = class extends Generator {
     banner +=
       chalk.green("\n\nTo work on your new element type:\n    ") +
       chalk.yellowBright(
-        `cd elements/${this.props.elementName} && yarn start\n\n`
+        `cd ${this.props.factory}/elements/${this.props.elementName} && yarn start\n\n`
       );
     this.log(banner);
   }

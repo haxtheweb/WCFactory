@@ -1,7 +1,5 @@
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
-const mkdirp = require("mkdirp");
-const path = require("path");
 const process = require("process");
 
 
@@ -12,8 +10,14 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.props.prefString = JSON.stringify(this.props, null, "  ");
-    console.log(this.props)
+    this.props.companyDir = process.cwd();
+    const prefSave = {
+      author: this.props.author,
+      copyrightOwner: this.props.copyrightOwner,
+      license: this.props.license,
+      companyDir: this.props.companyDir,
+    }
+    this.props.prefString = JSON.stringify(prefSave, null, "  ");
     // copy all files that don't start with an underscore
     this.fs.copyTpl(
       this.templatePath("*/.*"),
@@ -31,9 +35,11 @@ module.exports = class extends Generator {
     //   this.props,
     //   { ignore: [".DS_Store"] }
     // );
+    // write this to their home directory as well so it can be run more globally
+    const homedir = require('os').homedir();
     this.fs.copyTpl(
       this.templatePath(".wcfconfig/*"),
-      this.destinationPath(".wcfconfig/"),
+      this.destinationPath(`${homedir}/.wcfconfig/`),
       this.props,
       { ignore: [".DS_Store"] }
     );
