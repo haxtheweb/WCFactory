@@ -46,7 +46,7 @@ The repo generated is managed by `lerna`. `lerna` allows you to manage multiple 
 The CLI supports building for different targets to produce a boilerplate as well as a build flow to get from nothing, to elements, to publishing, to built and served by a production website to all browser targets. To use build do the following:
 - Have a factory with some elements in it
 - Issue `yarn run build` from the factory, followed up `lerna publish` to publish versions of all elements
-- Go to the {companyName} directory `cd ../../` and issue `wcf build`
+- Issue `wcf build`
 - Answer the questions (picking a buildName), factory and output target (Drupal 7, Drupal 8, Static and CDN styles are supported)
 - When finished, you'll have something in the `builds/{buildName}` directory that will work across all browsers!
 
