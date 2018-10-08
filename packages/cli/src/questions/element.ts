@@ -58,7 +58,7 @@ export const questions: any = [
   {
     type: "list",
     name: "useSass",
-    when: (answers: any, flags: any) => {
+    when: () => {
       return _.get(packageJson, 'wcfactory.askSASS');
     },
     message: "Do you want to use Sass in this element?",
@@ -78,8 +78,8 @@ export const questions: any = [
     type: "list",
     name: "sassLibrary",
     message: "Do want to use existing Sass dependencies?",
-    when: () => {
-      return _.get(packageJson, 'wcfactory.askSASS');
+    when: (answers: any) => {
+      return answers.useSass && _.get(packageJson, 'wcfactory.askSASS');
     },
     choices: () => {
       return [
