@@ -179,7 +179,7 @@ const libraries = () => {
   _.forEach(libsLocations, (lib, key) => {
     const packageLocation = path.join(lib, 'package.json')
     let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
-    libs.push(json)
+    libs[json.name] = json;
   })
   return libs
 }
@@ -221,7 +221,7 @@ const librariesOptions = () => {
     let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
     options.push({
       name: `${json.name} -- ${json.description}. ${Object.keys(json.dependencies).length} dependencies`,
-      value: key
+      value: json.name
     })
   });
   return options

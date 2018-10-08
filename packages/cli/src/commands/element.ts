@@ -13,7 +13,14 @@ export default class Element extends Command {
    */
   static flags = {
     // global
-    help: flags.help({ char: 'h' })
+    help: flags.help({ char: 'h' }),
+    factory: flags.string({ char: 'f', description: 'Factory to use' }),
+    customElementTemplate: flags.string({ char: 'c', description: 'Custom element template to use' }),
+    name: flags.string({ char: 'n', description: 'Name of the element' }),
+    description: flags.string({ char: 'd', description: 'Description of the element' }),
+    useSass: flags.boolean({ char: 's', description: 'Description of the element', allowNo: true }),
+    addProps: flags.boolean({ char: 'p', description: 'Add properties', allowNo: true }),
+    useHAX: flags.boolean({ char: 'h', description: 'Use HAX', allowNo: true }),
   }
 
   async run() {

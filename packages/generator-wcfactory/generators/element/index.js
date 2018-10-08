@@ -49,8 +49,8 @@ module.exports = class extends Generator {
       haxList: {},
       haxListString: '',
       propsBindingFactory: '',
-      customElementClass: libraries[this.answers.customElementClassArrayPosition].wcfactory.customElementClass,
-      activeWCFLibrary: libraries[this.answers.customElementClassArrayPosition],
+      customElementClass: libraries[this.answers.customElementTemplate].wcfactory.customElementClass,
+      activeWCFLibrary: libraries[this.answers.customElementTemplate],
       elementClassName: _.chain(this.answers.name)
         .camelCase()
         .upperFirst()
