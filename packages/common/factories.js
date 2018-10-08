@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs')
 const glob = require('glob')
 const { factoryDir } = require('./config')
 
