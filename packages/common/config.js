@@ -90,6 +90,10 @@ const buildData = () => {
     backdropcms: {
       name: "Backdrop CMS",
       key: "BackdropCMS"
+    },
+    gravcms: {
+      name: "Grav CMS",
+      key: "GravCMS"
     }
   };
 }

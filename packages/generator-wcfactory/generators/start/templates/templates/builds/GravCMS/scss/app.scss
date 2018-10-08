@@ -1,0 +1,14 @@
+@import "variables";
+
+// Import npm dependencies
+// You can use tilde syntax
+// @import "~dependency-name";
+
+// Common
+@import "common/global";
+@import "common/utilities";
+
+// Partials
+@import "partials/header";
+@import "partials/footer";
+@import "partials/posts";

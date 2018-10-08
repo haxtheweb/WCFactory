@@ -8,5 +8,5 @@ ABOUT <%= name %>
 ABOUT DRUPAL THEMING
 --------------------
 
-See https://www.drupal.org/docs/8/theming for more information on Drupal
+See https://www.drupal.org/docs/7/theming for more information on Drupal
 theming.

@@ -1,0 +1,6 @@
+name = <%= name %>
+description = <%= description %>
+package = Web components
+version = BACKDROP_VERSION
+type = theme
+backdrop = 1.x

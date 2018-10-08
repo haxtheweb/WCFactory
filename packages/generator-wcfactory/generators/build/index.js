@@ -5,15 +5,24 @@ const path = require("path");
 const glob = require("glob");
 const mkdirp = require("mkdirp");
 const process = require("process");
-const { buildsDir, buildData, factoryDir, userConfig } = require('@wcfactory/common/config')
+const { config, buildsDir, buildData, factoryDir, userConfig } = require('@wcfactory/common/config')
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
-
     this.props = opts
   }
   writing() {
+    // load factory's package
+    const packageJson = require(`${factoryDir}/${this.props.factory}/package.json`);
+    this.props.version = packageJson.version;
+    this.props.author = config.author;
+    this.props.copyrightOwner = config.copyrightOwner;
+    this.props.license = config.license;
     this.props.themeName = this.props.name;
+    this.props.camelCaseName = _.chain(this.props.name)
+      .camelCase()
+      .upperFirst()
+      .value();
     process.chdir(userConfig.companyDir);
     Object.assign(this.props, {
       buildData: buildData,
@@ -56,6 +65,22 @@ module.exports = class extends Generator {
         this.props
       );
     }
+    else if (buildData[this.props.build].key === 'GravCMS') {
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.yaml`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/${this.props.name}.yaml`
+        ),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.php`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/${this.props.name}.php`
+        ),
+        this.props
+      );
+    }
     else if (buildData[this.props.build].key === 'Drupal-8') {
       this.fs.copyTpl(
         this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/themeName.info.yml`),
@@ -72,13 +97,25 @@ module.exports = class extends Generator {
         this.props
       );
     }
-    this.fs.copyTpl(
-      this.sourceRoot("templates/builds/_common/package.json"),
-      this.destinationPath(
-        `${buildsDir}/${this.props.name}/package.json`
-      ),
-      this.props
-    );
+    // allow for theme to define it's own package
+    if (fs.existsSync(path.join('templates', 'builds', buildData[this.props.build].key, 'package.json'))) {
+      this.fs.copyTpl(
+        this.sourceRoot(`templates/builds/${buildData[this.props.build].key}/package.json`),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/package.json`
+        ),
+        this.props
+      );
+    }
+    else {
+      this.fs.copyTpl(
+        this.sourceRoot("templates/builds/_common/package.json"),
+        this.destinationPath(
+          `${buildsDir}/${this.props.name}/package.json`
+        ),
+        this.props
+      );
+    }
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/build.html"),
       this.destinationPath(

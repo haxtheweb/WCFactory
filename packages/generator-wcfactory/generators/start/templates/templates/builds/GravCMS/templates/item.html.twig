@@ -1,0 +1,18 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+  {% if page.header.featured_image is defined %}
+    {% set post_image = page.media.images[page.header.featured_image] %}
+  {% else %}
+    {% set post_image = page.media.images | first %}
+  {% endif %}
+
+  <h1>{{ page.title }}</h1>
+  <h4>{{ post.date | date('y-m-d') }}</h4>
+  {% if post_image %}
+    {{ post_image.html }}
+  {% else %}
+    <img src="https://source.unsplash.com/random/800x600?sig={{ random() }}">
+  {% endif %}
+  {{ page.content }}
+{% endblock %}

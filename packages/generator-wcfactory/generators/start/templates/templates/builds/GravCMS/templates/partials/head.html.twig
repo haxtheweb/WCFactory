@@ -1,0 +1,25 @@
+<meta charset="utf-8"/>
+<title>
+  {% if header.title %}
+    {{ header.title|e('html') }}
+    |
+  {% endif %}{{ site.title|e('html') }}</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{% include 'partials/metadata.html.twig' %}
+
+<link rel="icon" type="image/png" href="{{ url('theme://images/favicon.png') }}"/>
+<link rel="canonical" href="{{ page.url(true, true) }}"/>
+
+{% block stylesheets %}
+  {% do
+    assets.addCss('theme://dist/css/app.css') %}
+{% endblock %}
+{{ assets.css() }}
+
+{% block javascripts %}
+  {% do
+    assets.addJs('theme://dist/js/app.js', {group: 'bottom'}) %}
+{% endblock %}
+{{ assets.js() }}

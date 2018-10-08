@@ -1,10 +1,11 @@
 {
   "name": "<%= name %>",
-  "version": "0.0.1",
   "description": "<%= description %>",
+  "version": "<%= version %>",
+  "author": "<%= author %>",
+  "license": "<%= license %>",
   "main": "webcomponents/es6/build.js",
   "module": "webcomponents/amd/build.amd.js",
-  "license": "Apache-2.0",
   "flat": true,
   "dependencies": {
 <%- dependencies %>

@@ -5,8 +5,8 @@ ABOUT <%= name %>
 
 <%= description %>
 
-ABOUT DRUPAL THEMING
+ABOUT BACKDROP THEMING
 --------------------
 
-See https://www.drupal.org/docs/8/theming for more information on Drupal
+See https://backdropcms.org/user-guide/themes for more information on Backdrop CMS
 theming.
