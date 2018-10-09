@@ -84,7 +84,7 @@
     "react": "*",
     "react-dom": "*",
     "requirejs": "2.3.6",
-    "rollup": "0.66.4",
+    "rollup": "0.66.5",
     "rollup-plugin-babel": "4.0.3",
     "rollup-plugin-commonjs": "9.1.8",
     "rollup-plugin-terser": "3.0.0",
