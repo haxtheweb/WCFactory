@@ -1,6 +1,6 @@
 var os = require("os");
 
-export const questions = [
+const questions = [
   {
     type: "input",
     name: "author",
@@ -40,3 +40,5 @@ export const questions = [
     ]
   }
 ]
+
+module.exports.questions = questions

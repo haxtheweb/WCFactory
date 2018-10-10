@@ -3,14 +3,14 @@ const path = require('path')
 /**
  * A listing of all prompt questions
  */
-export const questions: any = [
+const questions = [
   {
     type: "string",
     name: "humanName",
     message: "Name of this factory",
     required: true,
     store: true,
-    default: (flags: any) => {
+    default: (flags) => {
       return path.basename(process.cwd())
     }
   },
@@ -26,8 +26,8 @@ export const questions: any = [
     name: "name",
     message: "Repo name (a valid git / npm machine name)",
     required: true,
-    default: (flags: any) => flags.humanName,
-    validate: (value: any) => {
+    default: (flags) => flags.humanName,
+    validate: (value) => {
       if (!(/ /gm).test(value)) { return true; }
       return 'can not contain a space';
     }
@@ -38,8 +38,8 @@ export const questions: any = [
     message: "NPM organization name (include @)",
     required: true,
     store: true,
-    default: (flags: any) => '@' + flags.name,
-    validate: (value: any) => {
+    default: (flags) => '@' + flags.name,
+    validate: (value) => {
       if (!(/ /gm).test(value)) { return true; }
       return 'can not contain a space';
     }
@@ -50,8 +50,8 @@ export const questions: any = [
     message: "Git organization name",
     required: true,
     store: true,
-    default: (flags: any) => flags.name.replace('@', ''),
-    validate: (value: any) => {
+    default: (flags) => flags.name.replace('@', ''),
+    validate: (value) => {
       if (!(/ /).test(value)) { return true; }
       return 'can not contain a space';
     }
@@ -61,10 +61,12 @@ export const questions: any = [
     name: "gitRepo",
     message: "Git repo (full git address)",
     required: true,
-    default: (flags: any) => `git@github.com:${flags.orgGit}/${flags.name}.git`,
-    validate: (value: any) => {
+    default: (flags) => `git@github.com:${flags.orgGit}/${flags.name}.git`,
+    validate: (value) => {
       if (!(/ /gm).test(value)) { return true; }
       return 'can not contain a space';
     }
   }
 ]
+
+module.exports.questions = questions

@@ -9,7 +9,7 @@ const VerboseRenderer = require('listr-verbose-renderer');
  * @param flags 
  * @param ctx context 
  */
-export const promptUser = async (questions: any, flags: any, ctx: any) => {
+const promptUser = async (questions, flags, ctx) => {
   // prompt the user for the remaining flags
   for (let q of questions) {
     // get the name of the question
@@ -46,7 +46,7 @@ export const promptUser = async (questions: any, flags: any, ctx: any) => {
 /**
  * Generate list options based on flags
  */
-export const getListOptions = (flags: any) => {
+const getListOptions = (flags) => {
   if (flags.verbose) {
     return {
       renderer: VerboseRenderer,
@@ -60,3 +60,6 @@ export const getListOptions = (flags: any) => {
     }
   }
 }
+
+module.exports.promptUser = promptUser
+module.exports.getListOptions = getListOptions
