@@ -97,7 +97,7 @@
     "yo": "2.0.5",
     "raw-loader": "0.5.1",
     "inquirer-recursive": "0.0.5",
-    "gulp-copy": "4.0.0",
+    "gulp-copy": "4.0.1",
     "babel-plugin-transform-custom-element-classes": "0.1.0",
     "jest": "23.6.0"
   },
