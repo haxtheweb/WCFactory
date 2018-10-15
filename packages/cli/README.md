@@ -4,7 +4,7 @@
 
 A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills* See (End user support)(#endusersupport) for full details below.
 
-[Here's a video showing what this is and how it works](https://www.youtube.com/watch?v=CMNYuXTe1tM).
+[Here's a video showing what this is and how it works](https://www.youtube.com/playlist?list=PLJQupiji7J5cAv7Jfr1V8FvUTx_jJrmCl).
 
 ### Install
 
