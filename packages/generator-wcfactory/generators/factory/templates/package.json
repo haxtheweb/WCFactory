@@ -66,7 +66,7 @@
     "gulp-concat-util": "0.5.5",
     "gulp-rename": "1.4.0",
     "gulp-replace": "1.0.0",
-    "gulp-sass": "4.0.1",
+    "gulp-sass": "4.0.2",
     "gulp-sequence": "1.0.0",
     "gulp-shell": "0.6.5",
     "gulp-strip-css-comments": "2.0.0",
