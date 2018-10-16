@@ -25,7 +25,7 @@
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "1.19.0",
+    "@oclif/dev-cli": "1.19.2",
     "@oclif/test": "1.2.2",
     "@oclif/tslint": "3.1.1",
     "@types/chai": "4.1.6",
