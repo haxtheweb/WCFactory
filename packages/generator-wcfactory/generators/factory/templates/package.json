@@ -90,7 +90,7 @@
     "rollup-plugin-terser": "3.0.0",
     "strip-css-comments": "3.0.0",
     "trim": "0.0.1",
-    "wct-browser-legacy": "1.0.1",
+    "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.8.0",
     "webpack": "4.20.2",
     "whatwg-fetch": "3.0.0",
