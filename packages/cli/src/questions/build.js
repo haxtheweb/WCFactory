@@ -1,6 +1,6 @@
 const { factoryOptions, buildOptions } = require('@wcfactory/common/config')
 
-export const questions = [
+const questions = [
   {
     type: "list",
     name: "factory",
@@ -27,3 +27,5 @@ export const questions = [
     message: "Brief description for the build"
   }
 ]
+
+module.exports.questions = questions

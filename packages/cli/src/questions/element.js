@@ -10,7 +10,7 @@ var factoryAnswer = '';
  * A listing of all prompt questions
  */
 // questions
-export const questions: any = [
+ const questions = [
   {
     type: "list",
     name: "factory",
@@ -24,7 +24,7 @@ export const questions: any = [
         return factoryList[0].value;
       }
     },
-    when: (flags: any) => {
+    when: (flags) => {
       return (factoryList.length > 1 && !flags.factory)
     },
   },
@@ -34,7 +34,7 @@ export const questions: any = [
     message: "Custom element base class to use",
     store: true,
     choices: librariesOptions,
-    when: (answers: any) => {
+    when: (answers) => {
       // account for auto selection
       if (!answers.factory) {
         factoryAnswer = factoryList[0].value;
@@ -83,7 +83,7 @@ export const questions: any = [
     type: "list",
     name: "sassLibrary",
     message: "Do want to use existing Sass dependencies?",
-    when: (answers: any) => {
+    when: (answers) => {
       if (!factoryAnswer) {
         return false;
       }
@@ -110,7 +110,7 @@ export const questions: any = [
     type: "confirm",
     name: "addProps",
     message: "Do you want custom properties? (typically yes)",
-    when: (answers: any, flags: any) => {
+    when: (answers, flags) => {
       if (!factoryAnswer) {
         return false;
       }
@@ -124,7 +124,7 @@ export const questions: any = [
     name: "useHAX",
     message: "Auto build support for the HAX authoring system?",
     store: true,
-    when: (answers: any, flags: any) => {
+    when: (answers, flags) => {
       if (!factoryAnswer) {
         return false;
       }
@@ -136,7 +136,7 @@ export const questions: any = [
     type: 'recursive',
     message: 'Add a new property?',
     name: 'propsList',
-    when: (answers: any) => {
+    when: (answers) => {
       return answers.addProps;
     },
     prompts: [
@@ -144,7 +144,7 @@ export const questions: any = [
         type: 'input',
         name: 'name',
         message: "Name (eg: title)",
-        validate: function (value: any) {
+        validate: function (value) {
           if ((/\w/).test(value)) { return true; }
           return 'Property name must be a single word';
         }
@@ -201,3 +201,5 @@ export const questions: any = [
     ]
   }
 ]
+
+module.exports.questions = questions
