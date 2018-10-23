@@ -14,10 +14,6 @@ function hasTests(element) {
   return fs.existsSync(path);
 }
 
-function notAll(element) {
-  return element !== "all";
-}
-
 function testPathAbs(element) {
   return path.join(elementsDir, element, "test", "index.html");
 }
@@ -40,8 +36,7 @@ function formatPaths(paths) {
 }
 
 const withTests = _(elementNames)
-  .filter(hasTests)
-  .filter(notAll);
+  .filter(hasTests);
 
 const testRelPaths = withTests.map(testPathRel("..")).value();
 
@@ -64,20 +59,5 @@ const withPaths = template.replace(
 );
 
 fs.writeFileSync(outFile, withPaths);
-
-// write elements/all/package.json
-
-const packagePath = "../elements/all/package.json";
-const allPackage = require(packagePath);
-allPackage.dependencies = withTests
-  .keyBy()
-  .mapKeys(e => `<%= orgNpm %>/${e}`)
-  .mapValues(e => `^${allPackage.version}`)
-  .value();
-
-fs.writeFileSync(
-  path.join(__dirname, packagePath),
-  JSON.stringify(allPackage, null, 2)
-);
 
 console.log(chalk.green(`Complete!`));
