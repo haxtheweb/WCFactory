@@ -43,5 +43,9 @@
   "private": false,
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "keywords": [
+    "web-components",
+    "html"
+  ]
 }
