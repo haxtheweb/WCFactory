@@ -16,7 +16,8 @@
   },
   "main": "generators/app/index.js",
   "files": [
-    "generators"
+    "generators",
+    "/utils"
   ],
   "keywords": [
     "web",
