@@ -12,7 +12,7 @@
     "eslint-plugin-node": "8.0.0",
     "eslint-plugin-prettier": "3.0.0",
     "lerna": "3.4.3",
-    "prettier": "1.14.3"
+    "prettier": "1.15.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
