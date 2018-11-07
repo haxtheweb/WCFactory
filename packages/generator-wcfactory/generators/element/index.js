@@ -17,6 +17,7 @@ module.exports = class extends Generator {
     const operationJson = require(`${dir}/package.json`);
     // move to the company to write relative to here
     const packageJson = require(`${this.answers.factory}/package.json`);
+    const lernaJson = require(`${this.answers.factory}/lerna.json`);
     // ensure answer is in kebabcase and lowercase
     this.answers.name = _.kebabCase(this.answers.name).toLowerCase();
     let name = this.answers.name.split("-")[1];
@@ -66,7 +67,7 @@ module.exports = class extends Generator {
       libraryDevDependencies: '',
       libraryDependencies: '',
       generatorWCFactoryVersion: operationJson.version,
-      version: packageJson.version
+      version: lernaJson.version
     };
     _.forEach(this.props.propsListRaw, (prop) => {
       if (prop.observer) {
@@ -80,7 +81,7 @@ module.exports = class extends Generator {
       // include statement for top of files
       this.props.includesString += 'import { HAXWiring } from "@lrnwebcomponents/hax-body-behaviors/lib/HAXWiring.js"';
       // package dependency
-      this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"^${packageJson.version}",`;
+      this.props.libraryDependencies += `"@lrnwebcomponents/hax-body-behaviors":"^${lernaJson.version}",`;
       // load props in from this dynamically generated function call
       this.props.connectedString = '  this.HAXWiring = new HAXWiring;' + "\n" + '    this.HAXWiring.setHaxProperties(' + this.props.elementClassName + '.haxProperties, ' + this.props.elementClassName + '.tag, this);';
       // set baseline for HAX schema
