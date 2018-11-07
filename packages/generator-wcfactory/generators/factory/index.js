@@ -51,7 +51,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    fs.rename('./storybook', './.storybook');
+    fs.renameSync('./storybook', './.storybook');
     this.spawnCommandSync("git", ["init"]);
     this.spawnCommandSync("git", [
       "remote",
