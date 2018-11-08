@@ -21,13 +21,11 @@ $ mkdir my-company-name && cd my-company-name && wcf start
 # create a new factory after you've made the company
 wcf factory
 # add a new element to the factory-name that you produced in the previous step
-$ cd factories/factory-name
-# create a new element
-yarn run new
+wcf element
 ```
 Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
 ```bash
-$ cd elements/new-name
+$ cd {factoryName}/elements/new-name
 $ yarn start
 ```
 This will open the folder to the `elements/new-name/src` folder, start watching it for changes which will be compiled automatically (and documented), and open a mini-server (via `polymer serve`) which will allow you to edit the src directory files, compile them together and make them available for the localhost window for viewing.
@@ -40,7 +38,9 @@ The repo generated is managed by `lerna`. `lerna` allows you to manage multiple 
 
 `yarn run build` will perform the build step for the individual project. You may need to do this in order to get lerna to pick it up (we're still fleshing the workflow here out in the CLI).
 
-`lerna publish` will perform a publish to npmjs.com for each element in the factory.
+`lerna run build --no-bail` will perform the build step in all elements
+
+`lerna publish` will perform a publish to npmjs.com / yarn for each element in the factory.
 
 ## Build
 The CLI supports building for different targets to produce a boilerplate as well as a build flow to get from nothing, to elements, to publishing, to built and served by a production website to all browser targets. To use build do the following:
