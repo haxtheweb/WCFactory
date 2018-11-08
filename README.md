@@ -137,10 +137,12 @@ Anything created inside of the docker image will be synced locally inside of the
 
 ### Troubleshooting
 
-```yarn install v1.10.1
+```
+yarn install v1.10.1
 error ../../package.json: Name contains illegal characters
-info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.```
+info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+```
 
-There is an error in how package can be composed when using the factory command that fails to prepend a '@' in front of your NPM organization name if you don't manually add one.  This can lead to invalid package names.  
+There is an error in how package can be composed when using the factory command that fails to prepend a '@' in front of your NPM organization name if you don't manually add one.  This can lead to invalid package names.
 
 To fix, modify your /package.json file where it says ```"orgNpm": "my-org",``` to be ```"orgNpm": "@my-org",```
