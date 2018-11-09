@@ -105,7 +105,7 @@
   },
   "dependencies": {
     "lit-html": "0.13.0",
-    "@polymer/lit-element": "0.6.2",
+    "@polymer/lit-element": "0.6.3",
     "@polymer/polymer": "3.1.0",
     "slim-js": "4.0.5"
   },
