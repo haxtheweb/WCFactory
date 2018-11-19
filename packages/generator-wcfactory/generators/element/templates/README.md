@@ -7,16 +7,20 @@
 To use this web component in your project you can utilize one of the following styles of syntax.
 
 ```js
-/* In an existing module / web component */
-import '<%= orgNpm %>/<%= elementName %>.js';
-/* At top of an application */
-<script type="module" src="<%= elementName %>.js"></script>
+/* In an existing JS module / web component */
+import '<%= orgNpm %>/<%= elementName %>/<%= elementName %>.js';
+/* At top of an application with build routine */
+<script type="module" src="<%= orgNpm %>/<%= elementName %>/<%= elementName %>.js"></script>
 /* Alternatives for top of application */
 <script type="module">
-  import '<%= orgNpm %>/<%= elementName %>.js';
-
+  import '<%= orgNpm %>/<%= elementName %>/<%= elementName %>.js';
+  // imperative form
   import {<%= elementClassName %>} from '<%= orgNpm %>/<%= elementName %>';
+  // if you don't have a build routine and need to reference directly
+  import './node_modules/<%= orgNpm %>/<%= elementName %>/<%= elementName %>.js';
 </script>
+// via unpkg CDN (good for testing)
+<script type="module" src="https://unpkg.com/<%= orgNpm %>/<%= elementName %>/<%= elementName %>.js"></script>
 ```
 
 ## Develop / Demo
