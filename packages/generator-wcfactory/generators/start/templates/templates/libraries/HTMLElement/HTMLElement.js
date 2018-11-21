@@ -3,7 +3,6 @@
  * @license <%= license %>, see License.md for full text.
  */
 <%- includesString %>
-export { <%= elementClassName %> };
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -114,3 +113,4 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   <%- additionalFunctionsString %>
 }
 window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+export { <%= elementClassName %> };
