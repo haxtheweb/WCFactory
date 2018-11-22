@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 8
+  - 10
+  - 11
+os:
+  - windows
+  - linux
+  - osx
+install:
+  - npm install --global yarn lerna
+  - lerna bootstrap
+  - lerna exec -- yarn link
+script:
+  - wcf
+  - wcf factory --humanName test --description test --name test --orgNpm @test --orgGit test --gitRepo git@github.com:test/test.git
