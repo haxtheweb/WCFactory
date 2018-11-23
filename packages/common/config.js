@@ -1,7 +1,7 @@
 /**
  * Recursively finds all package.json files relative to a wcfactory Factory
  * and returns a settings object.
- * 
+ *
  * @todo think about where we want these configs, how we want overrides to work
  */
 const fs = require('fs')
@@ -188,11 +188,9 @@ const libraries = () => {
  * User config
  */
 const getUserConfig = () => {
-  const userData = JSON.parse(fs.readFileSync(path.join(os.homedir(), '.wcfconfig/user'), 'utf8'))
-  if (userData) {
-    return userData;
-  }
-  else {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(os.homedir(), '.wcfconfig/user'), 'utf8'));
+  } catch (err) {
     console.warn(path.join(os.homedir(), '.wcfconfig/') + ' is missing! Run wcf start from your desired directory to get started!');
   }
 }

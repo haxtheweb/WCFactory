@@ -13,4 +13,5 @@ install:
   - lerna exec -- yarn link
 script:
   - wcf
+  - wcf start --author test --copyrightOwner test --license MIT
   - wcf factory --humanName test --description test --name test --orgNpm @test --orgGit test --gitRepo git@github.com:test/test.git
