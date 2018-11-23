@@ -1,6 +1,8 @@
 # Web Component Factory
 
 [![Join the chat at https://gitter.im/wcfactory/Lobby](https://badges.gitter.im/wcfactory/Lobby.svg)](https://gitter.im/wcfactory/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.com/elmsln/wcfactory.svg?branch=master)](https://travis-ci.com/elmsln/wcfactory)
+[![NPM Version](https://img.shields.io/npm/v/@wcfactory/cli.svg)](https://www.npmjs.com/package/@wcfactory/cli)
 
 A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills* See (End user support)(#endusersupport) for full details below.
 
