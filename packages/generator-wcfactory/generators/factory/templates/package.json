@@ -100,7 +100,7 @@
     "trim": "0.0.1",
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.0",
-    "webpack": "4.26.0",
+    "webpack": "4.26.1",
     "whatwg-fetch": "3.0.0",
     "yo": "2.0.5",
     "@emotion/styled-base": "0.10.6"
