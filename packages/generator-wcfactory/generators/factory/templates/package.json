@@ -104,8 +104,7 @@
     "web-component-tester": "6.9.0",
     "webpack": "4.26.1",
     "whatwg-fetch": "3.0.0",
-    "yo": "2.0.5",
-    "@emotion/styled-base": "0.10.6"
+    "yo": "2.0.5"
   },
   "dependencies": {
     "lit-html": "0.13.0",
