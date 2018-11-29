@@ -1,6 +1,7 @@
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
+import del from "rollup-plugin-delete";
 
 function umdConfig({ elementName, className } = {}) {
   const umdFilename = `${elementName}.umd.js`;
@@ -16,9 +17,13 @@ function umdConfig({ elementName, className } = {}) {
       commonjs(),
       babel({
         presets: ["@babel/preset-env"],
-        plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-syntax-import-meta"]
+        plugins: [
+          "@babel/plugin-syntax-dynamic-import",
+          "@babel/plugin-syntax-import-meta"
+        ]
       }),
-      terser()
+      terser(),
+      del({ targets: "build" })
     ],
     external: id => id.startsWith("..")
   };
