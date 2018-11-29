@@ -82,7 +82,7 @@
     "husky": "1.2.0",
     "inquirer-recursive": "0.0.5",
     "jest": "23.6.0",
-    "lerna": "3.5.0",
+    "lerna": "3.5.1",
     "lint-staged": "8.1.0",
     "lodash": "4.17.11",
     "lodash.clonedeep": "4.5.0",
