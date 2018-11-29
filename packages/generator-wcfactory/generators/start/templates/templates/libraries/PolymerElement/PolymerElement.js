@@ -4,7 +4,6 @@
  */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 <%- includesString %>
-export { <%= elementClassName %> };
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -40,3 +39,4 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   <%- additionalFunctionsString %>
 }
 window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+export { <%= elementClassName %> };

@@ -4,7 +4,6 @@
  */
 import RHElement from "@rhelements/rhelement/rhelement.js";
 <%- includesString %>
-export { <%= elementClassName %> };
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -65,3 +64,4 @@ class <%= elementClassName %> extends <%= customElementClass %> {
 }
 
 RHElement.create(<%= elementClassName %>);
+export { <%= elementClassName %> };

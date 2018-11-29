@@ -6,7 +6,6 @@ import { props, withComponent } from 'skatejs';
 import withLitHtml from '@skatejs/renderer-lit-html';
 import { html } from 'lit-html';
 <%- includesString %>
-export { <%= elementClassName %> };
 // extend into class name matching library for consistency
 class SkateJS extends withComponent(withLitHtml()) { }
 /**
@@ -78,3 +77,4 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   <%- additionalFunctionsString %>
 }
 customElements.define("<%= elementName %>", <%= elementClassName %>);
+export { <%= elementClassName %> };

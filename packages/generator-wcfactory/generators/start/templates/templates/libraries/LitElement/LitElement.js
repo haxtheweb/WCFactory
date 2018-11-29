@@ -4,7 +4,6 @@
  */
 import { LitElement, html } from '@polymer/lit-element';
 <%- includesString %>
-export { <%= elementClassName %> };
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -49,3 +48,4 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   <%- additionalFunctionsString %>
 }
 customElements.define("<%= elementName %>", <%= elementClassName %>);
+export { <%= elementClassName %> };

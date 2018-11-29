@@ -4,7 +4,6 @@
  */
 import 'slim-js';
 <%- includesString %>
-export { <%= elementClassName %> };
 /**
  * `<%= elementName %>`
  * `<%= description %>`
@@ -64,3 +63,4 @@ Slim.tag(
     <%- additionalFunctionsString %>
   }
 );
+export { <%= elementClassName %> };
