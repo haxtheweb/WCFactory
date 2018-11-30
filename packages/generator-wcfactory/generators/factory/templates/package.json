@@ -42,7 +42,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.0.0",
     "@babel/plugin-syntax-import-meta": "7.0.0",
     "@babel/preset-env": "7.1.6",
-    "@open-wc/webpack": "^0.1.0",
+    "@open-wc/webpack": "0.1.1",
     "babel-loader": "8.0.4",
     "@storybook/addon-a11y": "4.0.9",
     "@storybook/addon-actions": "4.0.9",
@@ -114,8 +114,8 @@
     "@polymer/lit-element": "0.6.4",
     "@polymer/polymer": "3.1.0",
     "slim-js": "4.0.5",
-    "@lrnwebcomponents/hax-body": "^0.0.35",
-    "@lrnwebcomponents/deduping-fix": "^0.0.35"
+    "@lrnwebcomponents/hax-body": "0.0.35",
+    "@lrnwebcomponents/deduping-fix": "0.0.35"
   },
   "lint-staged": {
     "linters": {
