@@ -357,7 +357,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    process.chdir(`${this.props.factory}/elements/${this.props.elementName}`);
+    process.chdir(`${this.props.factory}`);
     this.installDependencies({
       npm: false,
       bower: false,
@@ -366,9 +366,8 @@ module.exports = class extends Generator {
   }
 
   end() {
+    process.chdir(`${this.props.factory}/elements/${this.props.elementName}`);
     this.spawnCommandSync("yarn", ["run", "build"]);
-    process.chdir(this.props.factory);
-    this.spawnCommand("lerna", ["link"]);
     let banner =
       chalk.green("\n    A fresh made ") +
       chalk.yellow("Web Component Factory ") +
