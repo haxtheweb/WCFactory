@@ -35,7 +35,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@wcfactory/cli": "^0.6.1",
+    "@wcfactory/cli": "^0.6.2",
     "@wcfactory/common": "^0.6.0",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.8",
@@ -43,5 +43,5 @@
     "lodash": "^4.17.4",
     "yeoman-generator": "^3.0.0"
   },
-  "version": "0.6.1"
+  "version": "0.6.2"
 }
