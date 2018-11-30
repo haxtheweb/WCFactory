@@ -171,9 +171,10 @@ module.exports = class extends Generator {
     // step through the active package.json file and grab the pieces we most directly need
     this.props.templateReturnFunctionPart = this.props.activeWCFLibrary.wcfactory.templateReturnFunctionPart;
     // work on scripts
-    _.forEach(this.props.activeWCFLibrary.scripts, (version, dependency) => {
-      this.props.libraryScripts += `"${dependency}":"${version}",`;
-    });
+    for (var scriptName in this.props.activeWCFLibrary.scripts) {
+      let scriptContents = this.props.activeWCFLibrary.scripts[scriptName].replace(new RegExp('"', 'g'), '\\\"');
+      this.props.libraryScripts += `"${scriptName}":"${scriptContents}",`;
+    }
     // trim that last , if needed
     if (this.props.libraryScripts !== '') {
       this.props.libraryScripts = this.props.libraryScripts.slice(0, -1);
