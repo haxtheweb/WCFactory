@@ -117,7 +117,7 @@
     "skatejs": "5.2.4",
     "slim-js": "4.0.5",
     "twig": "1.12.0",
-    "@lrnwebcomponents/deduping-fix": "0.0.38",
+    "@lrnwebcomponents/deduping-fix": "0.0.39",
     "@lrnwebcomponents/hax-body-behaviors": "0.0.39"
   },
   "lint-staged": {
