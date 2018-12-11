@@ -382,6 +382,10 @@ module.exports = class extends Generator {
       chalk.white(": ") +
       chalk.green("Learning Network\n")
     banner +=
+      chalk.green("\n\nTo publish your element when done goto:\n    ") +
+      chalk.yellow(
+        `https://www.webcomponents.org/publish`
+      ) +
       chalk.green("\n\nTo work on your new element type:\n    ") +
       chalk.yellow(
         `cd ${this.props.factory}/elements/${this.props.elementName} && yarn start\n\n`
