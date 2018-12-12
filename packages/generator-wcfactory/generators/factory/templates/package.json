@@ -97,7 +97,7 @@
     "react-dom": "*",
     "requirejs": "2.3.6",
     "rollup": "0.67.4",
-    "rollup-plugin-babel": "4.0.3",
+    "rollup-plugin-babel": "4.1.0",
     "rollup-plugin-commonjs": "9.2.0",
     "rollup-plugin-delete": "0.1.2",
     "rollup-plugin-terser": "3.0.0",
