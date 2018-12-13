@@ -38,7 +38,7 @@
     "@wcfactory/cli": "^0.6.3",
     "@wcfactory/common": "^0.6.0",
     "gulp": "^3.9.1",
-    "inquirer-recursive": "0.0.5",
+    "inquirer-recursive": "0.0.6",
     "lodash": "^4.17.4",
     "yeoman-generator": "^3.0.0"
   },
