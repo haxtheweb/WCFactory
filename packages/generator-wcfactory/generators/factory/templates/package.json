@@ -82,7 +82,7 @@
     "gulp-svg-sprite": "1.5.0",
     "gulp-trim": "1.0.2",
     "husky": "1.2.0",
-    "inquirer-recursive": "0.0.5",
+    "inquirer-recursive": "0.0.6",
     "jest": "23.6.0",
     "lerna": "3.6.0",
     "lint-staged": "8.1.0",
