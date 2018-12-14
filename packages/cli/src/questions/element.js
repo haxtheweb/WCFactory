@@ -195,7 +195,7 @@ var factoryAnswer = '';
       {
         type: 'confirm',
         name: 'observer',
-        message: "Notice changes to this property?",
+        message: "Observe changes to this property?",
         default: true
       },
     ]
