@@ -105,7 +105,7 @@
     "trim": "0.0.1",
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.1",
-    "webpack": "4.28.0",
+    "webpack": "4.28.1",
     "whatwg-fetch": "3.0.0",
     "yo": "2.0.5"
   },
