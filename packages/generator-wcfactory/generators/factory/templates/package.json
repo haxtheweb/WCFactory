@@ -104,7 +104,7 @@
     "strip-css-comments": "3.0.0",
     "trim": "0.0.1",
     "wct-browser-legacy": "1.0.2",
-    "web-component-tester": "6.9.1",
+    "web-component-tester": "6.9.2",
     "webpack": "4.28.3",
     "whatwg-fetch": "3.0.0",
     "yo": "2.0.5"
