@@ -10,7 +10,7 @@
     "eslint": "5.11.1",
     "eslint-config-prettier": "3.3.0",
     "eslint-plugin-node": "8.0.0",
-    "eslint-plugin-prettier": "3.0.0",
+    "eslint-plugin-prettier": "3.0.1",
     "lerna": "3.8.1",
     "prettier": "1.15.3"
   },
