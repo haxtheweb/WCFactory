@@ -60,12 +60,12 @@ var factoryAnswer = '';
   {
     type: "confirm",
     name: "useSass",
-    when: () => {
+    when: (flags) => {
       if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return _.get(packageJson, 'wcfactory.askSASS');
+      return typeof flags.useSass !== 'boolean' && _.get(packageJson, 'wcfactory.askSASS');
     },
     message: "Do you want to use Sass in this element?",
     store: true
@@ -101,12 +101,12 @@ var factoryAnswer = '';
     type: "confirm",
     name: "addProps",
     message: "Do you want custom properties? (typically yes)",
-    when: () => {
+    when: (flags) => {
       if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return _.get(packageJson, 'wcfactory.askProps')
+      return typeof flags.addProps !== 'boolean' && _.get(packageJson, 'wcfactory.askProps')
     },
     store: true
   },
