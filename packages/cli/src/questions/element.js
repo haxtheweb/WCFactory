@@ -18,14 +18,14 @@ var factoryAnswer = '';
     require: true,
     store: true,
     choices: factoryList,
-    default: () => {
-      if (factoryList.length === 1) {
-        console.log(`Only one factory, "${factoryList[0].name}" selected.`);
-        return factoryList[0].value;
-      }
-    },
     when: (flags) => {
-      return (factoryList.length > 1 && !flags.factory)
+      if (factoryList.length > 1 && !flags.factory) {
+        return true;
+      } else {
+        flags.factory = factoryAnswer = factoryList[0].value;
+        factoryAnswer = factoryList[0].value;
+        return false;
+      }
     },
   },
   {
@@ -35,15 +35,6 @@ var factoryAnswer = '';
     store: true,
     choices: librariesOptions,
     when: (answers) => {
-      // account for auto selection
-      if (!answers.factory) {
-        factoryAnswer = factoryList[0].value;
-        answers.factory = factoryAnswer;
-      }
-      else {
-        factoryAnswer = answers.factory;
-        answers.factory = factoryAnswer;
-      }
       if (!fs.existsSync(path.join(factoryAnswer, 'package.json'))) {
         factoryAnswer = `${factoryDir}/${factoryAnswer}`;
         answers.factory = factoryAnswer;
@@ -69,12 +60,12 @@ var factoryAnswer = '';
   {
     type: "confirm",
     name: "useSass",
-    when: () => {
+    when: (flags) => {
       if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return _.get(packageJson, 'wcfactory.askSASS');
+      return typeof flags.useSass !== 'boolean' && _.get(packageJson, 'wcfactory.askSASS');
     },
     message: "Do you want to use Sass in this element?",
     store: true
@@ -110,12 +101,12 @@ var factoryAnswer = '';
     type: "confirm",
     name: "addProps",
     message: "Do you want custom properties? (typically yes)",
-    when: (answers, flags) => {
+    when: (flags) => {
       if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return _.get(packageJson, 'wcfactory.askProps')
+      return typeof flags.addProps !== 'boolean' && _.get(packageJson, 'wcfactory.askProps')
     },
     store: true
   },
@@ -124,7 +115,7 @@ var factoryAnswer = '';
     name: "useHAX",
     message: "Auto build support for the HAX authoring system?",
     store: true,
-    when: (answers, flags) => {
+    when: (answers) => {
       if (!factoryAnswer) {
         return false;
       }
