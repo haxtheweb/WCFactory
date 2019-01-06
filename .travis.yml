@@ -8,6 +8,10 @@ os:
   - linux
   - osx
   - windows
+matrix:
+  allow_failures:
+    - node_js: 8
+      os: windows
 install:
   - npm install --global yarn lerna
   - lerna bootstrap
