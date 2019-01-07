@@ -23,3 +23,5 @@ script:
   - wcf element --customElementTemplate Slim --name slim-test --description test --no-addProps --no-useSass
   - wcf element --customElementTemplate Polymer --name polymer-test --description test --no-addProps --no-useSass
   - wcf element --customElementTemplate Vanilla --name vanilla-test --description test --no-addProps --no-useSass
+  - cd factories/test
+  - lerna run build
