@@ -27,7 +27,7 @@
   "devDependencies": {
     "@oclif/dev-cli": "1.21.0",
     "@oclif/test": "1.2.2",
-    "globby": "8.0.1"
+    "globby": "8.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
