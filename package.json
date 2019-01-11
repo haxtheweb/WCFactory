@@ -11,7 +11,7 @@
     "eslint-config-prettier": "3.3.0",
     "eslint-plugin-node": "8.0.1",
     "eslint-plugin-prettier": "3.0.1",
-    "lerna": "3.10.2",
+    "lerna": "3.10.5",
     "prettier": "1.15.3"
   },
   "scripts": {
