@@ -20,7 +20,7 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "@polymer/lit-element": "^0.6.1"
+    "@polymer/lit-element": "^0.7.0"
   },
   "devDependencies": {
     "web-animations-js": "2.3.1",
