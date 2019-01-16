@@ -22,7 +22,7 @@ var factoryAnswer = '';
       if (factoryList.length > 1 && !flags.factory) {
         return true;
       } else {
-        flags.factory = factoryAnswer = factoryList[0].value;
+        flags.factory = factoryList[0].value;
         factoryAnswer = factoryList[0].value;
         return false;
       }
@@ -35,6 +35,9 @@ var factoryAnswer = '';
     store: true,
     choices: librariesOptions,
     when: (answers) => {
+      if (factoryAnswer == '') {
+        factoryAnswer = answers.factory;
+      }
       if (!fs.existsSync(path.join(factoryAnswer, 'package.json'))) {
         factoryAnswer = `${factoryDir}/${factoryAnswer}`;
         answers.factory = factoryAnswer;
