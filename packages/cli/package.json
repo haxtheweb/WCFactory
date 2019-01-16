@@ -1,7 +1,7 @@
 {
   "name": "@wcfactory/cli",
   "description": "CLI for managing your custom elements at scale.",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "author": "heyMP @heyMP",
   "bin": {
     "wcf": "./bin/run"
@@ -12,7 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "@wcfactory/common": "^0.6.0",
-    "@wcfactory/generator-wcfactory": "^0.6.4",
+    "@wcfactory/generator-wcfactory": "^0.6.5",
     "date-fns": "^1.29.0",
     "glob": "^7.1.3",
     "inquirer": "^6.2.0",
