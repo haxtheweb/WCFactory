@@ -116,7 +116,7 @@
     "lit-html": "0.14.0",
     "skatejs": "5.2.4",
     "slim-js": "4.0.5",
-    "twig": "1.13.0",
+    "twig": "1.13.1",
     "@lrnwebcomponents/deduping-fix": "0.2.0",
     "@lrnwebcomponents/hax-body-behaviors": "0.2.0"
   },
