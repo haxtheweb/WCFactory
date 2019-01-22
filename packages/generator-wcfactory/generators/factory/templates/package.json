@@ -41,7 +41,7 @@
     "@babel/core": "7.2.2",
     "@babel/plugin-syntax-dynamic-import": "7.2.0",
     "@babel/plugin-syntax-import-meta": "7.2.0",
-    "@babel/preset-env": "7.2.3",
+    "@babel/preset-env": "7.3.0",
     "@open-wc/webpack": "0.1.4",
     "babel-loader": "8.0.5",
     "@storybook/addon-a11y": "4.1.7",
