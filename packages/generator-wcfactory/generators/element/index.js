@@ -5,6 +5,7 @@ const path = require("path");
 const mkdirp = require("mkdirp");
 const chalk = require("chalk");
 const process = require("process");
+const {fixDotfiles} = require('../../utils/fix-dotfiles');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -317,6 +318,11 @@ module.exports = class extends Generator {
     );
 
     this.fs.copy(
+      this.templatePath("_.*"),
+      this.destinationPath(`${this.props.elementName}`)
+    );
+
+    this.fs.copy(
       this.templatePath("polymer.json"),
       this.destinationPath(`${this.props.elementName}/polymer.json`)
     );
@@ -355,6 +361,8 @@ module.exports = class extends Generator {
       ),
       this.props
     );
+
+    fixDotfiles(this);
   }
 
   install() {
