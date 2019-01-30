@@ -4,6 +4,7 @@ const _ = require("lodash");
 const mkdirp = require("mkdirp");
 const process = require("process");
 const fs = require("fs");
+const {fixDotfiles} = require('../../utils/fix-dotfiles');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -48,6 +49,7 @@ module.exports = class extends Generator {
       this.props,
       { ignore: ["._*"] }
     );
+    fixDotfiles(this);
   }
 
   install() {
