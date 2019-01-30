@@ -15,7 +15,7 @@ Verify that you have yarn enabled — if not [install yarn globally](https://yar
 $ yarn global add @wcfactory/cli
 ```
 ## Usage (company)
-A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else.
+A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
 ```bash
 # create a new company, a series of factories linked by the owner
 $ mkdir my-company-name && cd my-company-name && wcf start
