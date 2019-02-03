@@ -95,7 +95,7 @@ This is confirmed to work with 98.26% of all global traffic (Aug-Sep 2018) and s
 
 ### Yarn and Lerna
 
-We use a combination of Yarn Workspaces and Lerna to manage local developement and publishing of this monorepo. [Read more about that ingeration(https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
+We use a combination of Yarn Workspaces and Lerna to manage local developement and publishing of this monorepo. [Read more about that ingeration](https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#managing-dependencies-of-workspaces)
 
 ### Install
 
