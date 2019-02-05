@@ -22,7 +22,7 @@
   "dependencies": {
     "@skatejs/renderer-lit-html": "^0.2.2",
     "skatejs": "^5.2.4",
-    "lit-html": "^0.14.0"
+    "lit-html": "^1.0.0"
   },
   "devDependencies": {
     "web-animations-js": "2.3.1",
