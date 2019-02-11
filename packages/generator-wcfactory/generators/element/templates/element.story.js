@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/polymer";
 import * as storybookBridge from "@storybook/addon-knobs/polymer";
 import { <%= elementClassName %> } from "./<%= elementName %>.js";
-
+import "@polymer/iron-demo-helpers/demo-snippet.js";
 // need to account for polymer goofiness when webpack rolls this up
 var template = require("raw-loader!./demo/index.html");
 let pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
