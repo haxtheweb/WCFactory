@@ -16,6 +16,9 @@ install:
   - lerna bootstrap
   - lerna exec -- yarn link
 script:
+  - cd ..
+  - mkdir wcf-test
+  - cd wcf-test
   - wcf
   - wcf start --author test --copyrightOwner test --license MIT
   - wcf factory --humanName test --description test --name test --orgNpm @test --orgGit test --gitRepo git@github.com:test/test.git
