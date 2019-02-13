@@ -9,6 +9,7 @@ os:
   - osx
   - windows
 matrix:
+  fast_finish: true
   allow_failures:
     - os: windows
 install:
