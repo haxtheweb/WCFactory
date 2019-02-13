@@ -16,14 +16,20 @@ const KNOWN_DOTFILES = {
 
 exports.fixDotfiles = function(generator) {
     generator.fs.store.each(file => {
-        // Yeoman's mem-fs store includes your source directories *sigh*, so this filters those out.
-        if (!isSubPath(generator.destinationPath(), file.path)) {
+        const remap = KNOWN_DOTFILES[file.basename];
+        if (!remap) {
             return;
         }
-        const remap = KNOWN_DOTFILES[file.basename];
-        if (remap) {
-            generator.fs.move(file.path, file.dirname + '/' + remap);
+
+        // Yeoman's mem-fs store includes your source directories *sigh*, so this filters those out.
+        const isInDest = isSubPath(generator.destinationPath(), file.path);
+        // This fixes #385 - because Travis tests are being run in the same directory as our sources, we need to double-check that we're not running in the template path.
+        const isInTemplate = isSubPath(generator.templatePath(), file.path);
+        if (!isInDest || isInTemplate) {
+            return;
         }
+
+        generator.fs.move(file.path, file.dirname + '/' + remap);
     });
 }
 
