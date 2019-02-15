@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { LitElement, html } from '@polymer/lit-element';
+import { LitElement, html } from 'lit-element';
 <%- includesString %>
 /**
  * `<%= elementName %>`
@@ -31,6 +31,22 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   constructor() {
     super();
     <%- constructorString %>
+    this.tag = <%= elementClassName %>.tag;
+    // map our imported properties json to real props on the element
+    // @notice static getter of properties is built via tooling
+    // to edit modify src/<%= elementName %>-properties.json
+    let obj = <%= elementClassName %>.properties;
+    for (let p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        if (this.hasAttribute(p)) {
+          this[p] = this.getAttribute(p);
+        }
+        else {
+          this.setAttribute(p, obj[p].value);
+          this[p] = obj[p].value;
+        }
+      }
+    }
   }
   /**
    * life cycle, element is afixed to the DOM
