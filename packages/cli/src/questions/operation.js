@@ -1,4 +1,4 @@
-const { factoryLocations, getElements, getElementScripts } = require('@wcfactory/common/config')
+const { factoryOptions, getElements, getElementScripts } = require('@wcfactory/common/config')
 
 let FACTORY_CHOICE = null
 let ELEMENT_CHOICE = null
@@ -9,7 +9,9 @@ const questions = [
     name: "factory",
     message: "Factory to build from",
     store: true,
-    choices: factoryLocations
+    choices: () => {
+      return factoryOptions()
+    }
   },
   {
     type: "list",

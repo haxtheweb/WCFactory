@@ -27,7 +27,6 @@ Operation.flags = {
   // global
   help: flags.help({ char: 'h' }),
   description: flags.string({ char: 'd', description: 'Run the develop command for an element.' }),
-  // factory: flags.string({ char: 'f', description: 'Factory to develop from' }),
 }
 
 module.exports = Operation

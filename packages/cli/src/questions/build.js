@@ -7,7 +7,7 @@ const questions = [
     message: "Factory to build from",
     store: true,
     // we just need the name of the factory
-    choices: factoryOptions.map(i => Object.assign(i, { value: i.name }))
+    choices: factoryOptions()
   },
   {
     type: "list",

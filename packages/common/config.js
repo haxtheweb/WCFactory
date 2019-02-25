@@ -32,16 +32,12 @@ const factoryDir = () => {
  * Get a list of factory options
  */
 const factoryOptions = () => {
-  let factoryOptions = [];
   let folders = glob.sync(`${factoryDir()}/*`);
-  _.forEach(folders, val => {
-    let name = val.split("/").pop();
-    factoryOptions.push({
-      name: name,
-      value: val
-    });
-  });
-  return factoryOptions
+  return folders.map(i => {
+    let name = i.split("/").pop();
+    const obj = Object.assign({ name: name, value: i })
+    return obj
+  })
 }
 
 /**
@@ -267,7 +263,7 @@ const getElementScripts = (elementLocation) => {
 module.exports.config = config()
 module.exports.userConfig = userConfig()
 module.exports.factoryDir = factoryDir()
-module.exports.factoryOptions = factoryOptions()
+module.exports.factoryOptions = factoryOptions
 module.exports.buildsDir = buildsDir()
 module.exports.buildOptions = buildOptions()
 module.exports.buildData = buildData()
