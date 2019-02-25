@@ -38,7 +38,7 @@ const factoryOptions = () => {
     let name = val.split("/").pop();
     factoryOptions.push({
       name: name,
-      value: name
+      value: val
     });
   });
   return factoryOptions
@@ -235,6 +235,35 @@ const getLibraryLocations = () => {
   return files
 }
 
+/**
+ * Get a list of all elements in a factory
+ * @return array containing names and locations
+ */
+const getElements = (factoryLocation) => {
+  const packagePath = path.join(factoryLocation, 'package.json')
+  try {
+    const package = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+    // look through the listing of workspaces and return a flattened
+    // array of elements
+    return _.flatten(package.workspaces.packages.map(i => {
+      const pattern = i
+      const elements = glob.sync(path.join(factoryLocation, pattern))
+      return elements
+        .map(i => Object.assign({name: path.basename(i), location: i }))
+    }))
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * Return a list of scripts defined in an element
+ */
+const getElementScripts = (elementLocation) => {
+  const package = JSON.parse(fs.readFileSync(path.join(elementLocation, 'package.json'), 'utf8'))
+  return Object.keys(package.scripts)
+}
+
 module.exports.config = config()
 module.exports.userConfig = userConfig()
 module.exports.factoryDir = factoryDir()
@@ -245,3 +274,5 @@ module.exports.buildData = buildData()
 module.exports.libraries = libraries()
 module.exports.librariesOptions = librariesOptions()
 module.exports.librariesDir = librariesDir()
+module.exports.getElements = getElements
+module.exports.getElementScripts = getElementScripts

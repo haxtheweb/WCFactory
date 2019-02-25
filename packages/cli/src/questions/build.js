@@ -6,7 +6,8 @@ const questions = [
     name: "factory",
     message: "Factory to build from",
     store: true,
-    choices: factoryOptions
+    // we just need the name of the factory
+    choices: factoryOptions.map(i => Object.assign(i, { value: i.name }))
   },
   {
     type: "list",
