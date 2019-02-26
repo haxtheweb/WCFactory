@@ -10,8 +10,8 @@ const _ = require('lodash')
 const glob = require('glob')
 const os = require('os')
 const cwd = process.cwd()
-const { execFile } = require('child_process')
-const lernaPath = require.resolve('@lerna/cli')
+const { execFileSync } = require('child_process')
+const lernaPath = require.resolve('lerna/cli')
 
 /**
  * Get a singular config object for this project.
@@ -241,7 +241,7 @@ const getElements = (factoryLocation) => {
   try {
     // look through the listing of workspaces and return a flattened
     // array of elements
-    return execFile(lernaPath, ["list", "--json"], { cwd: factoryLocation }, (err, stdOut) => JSON.parse(stdOut))
+    return JSON.parse(execFileSync(lernaPath, ["list", "--json", "--all", "--long"], { cwd: factoryLocation }))
   } catch (error) {
     throw error
   }
