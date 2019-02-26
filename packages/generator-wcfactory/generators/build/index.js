@@ -13,7 +13,7 @@ module.exports = class extends Generator {
   }
   writing() {
     // load factory's package
-    const packageJson = require(`${factoryDir}/${this.props.factory}/package.json`);
+    const packageJson = require(`${this.props.factory}/package.json`);
     this.props.version = packageJson.version;
     this.props.author = config.author;
     this.props.copyrightOwner = config.copyrightOwner;
@@ -31,7 +31,7 @@ module.exports = class extends Generator {
     })
     // package files of each element
     let files = glob.sync(
-      `${factoryDir}/${this.props.factory}/elements/*/package.json`
+      `/${this.props.factory}/elements/*/package.json`
     );
     _.forEach(files, val => {
       let json = JSON.parse(fs.readFileSync(val, "utf8"));

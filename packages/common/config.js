@@ -10,6 +10,8 @@ const _ = require('lodash')
 const glob = require('glob')
 const os = require('os')
 const cwd = process.cwd()
+const { execFileSync } = require('child_process')
+const lernaPath = require.resolve('lerna/cli')
 
 /**
  * Get a singular config object for this project.
@@ -32,16 +34,12 @@ const factoryDir = () => {
  * Get a list of factory options
  */
 const factoryOptions = () => {
-  let factoryOptions = [];
   let folders = glob.sync(`${factoryDir()}/*`);
-  _.forEach(folders, val => {
-    let name = val.split("/").pop();
-    factoryOptions.push({
-      name: name,
-      value: name
-    });
-  });
-  return factoryOptions
+  return folders.map(i => {
+    let name = i.split("/").pop();
+    const obj = Object.assign({ name: name, value: i })
+    return obj
+  })
 }
 
 /**
@@ -235,13 +233,37 @@ const getLibraryLocations = () => {
   return files
 }
 
+/**
+ * Get a list of all elements in a factory
+ * @return array containing names and locations and versions
+ */
+const getElements = (factoryLocation) => {
+  try {
+    // look through the listing of workspaces and return a flattened
+    // array of elements
+    return JSON.parse(execFileSync(lernaPath, ["list", "--json", "--all", "--long"], { cwd: factoryLocation }))
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * Return a list of scripts defined in an element
+ */
+const getElementScripts = (elementLocation) => {
+  const package = JSON.parse(fs.readFileSync(path.join(elementLocation, 'package.json'), 'utf8'))
+  return Object.keys(package.scripts)
+}
+
 module.exports.config = config()
 module.exports.userConfig = userConfig()
 module.exports.factoryDir = factoryDir()
-module.exports.factoryOptions = factoryOptions()
+module.exports.factoryOptions = factoryOptions
 module.exports.buildsDir = buildsDir()
 module.exports.buildOptions = buildOptions()
 module.exports.buildData = buildData()
 module.exports.libraries = libraries()
 module.exports.librariesOptions = librariesOptions()
 module.exports.librariesDir = librariesDir()
+module.exports.getElements = getElements
+module.exports.getElementScripts = getElementScripts
