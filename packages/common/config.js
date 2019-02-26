@@ -10,6 +10,8 @@ const _ = require('lodash')
 const glob = require('glob')
 const os = require('os')
 const cwd = process.cwd()
+const { execFile } = require('child_process')
+const lernaPath = require.resolve('@lerna/cli')
 
 /**
  * Get a singular config object for this project.
@@ -233,20 +235,13 @@ const getLibraryLocations = () => {
 
 /**
  * Get a list of all elements in a factory
- * @return array containing names and locations
+ * @return array containing names and locations and versions
  */
 const getElements = (factoryLocation) => {
-  const packagePath = path.join(factoryLocation, 'package.json')
   try {
-    const package = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
     // look through the listing of workspaces and return a flattened
     // array of elements
-    return _.flatten(package.workspaces.packages.map(i => {
-      const pattern = i
-      const elements = glob.sync(path.join(factoryLocation, pattern))
-      return elements
-        .map(i => Object.assign({name: path.basename(i), location: i }))
-    }))
+    return execFile(lernaPath, ["list", "--json"], { cwd: factoryLocation }, (err, stdOut) => JSON.parse(stdOut))
   } catch (error) {
     throw error
   }
