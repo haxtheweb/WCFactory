@@ -21,7 +21,7 @@ class Operation extends Command {
 Operation.description = 'Run a script specified in a package.'
 
 /**
- * @todo dynaimically generate this based on the questions const
+ * @todo dynamically generate this based on the questions const
  */
 Operation.flags = {
   // global
