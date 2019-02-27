@@ -1,0 +1,22 @@
+{
+  "name": "@wcfactory/graphql-server",
+  "version": "0.7.0",
+  "author": "heyMP @heyMP",
+  "main": "index.js",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@wcfactory/common": "^0.7.0",
+    "apollo-server": "^2.4.8",
+    "graphql": "^14.1.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
