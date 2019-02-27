@@ -1,5 +1,8 @@
 const inquirer = require('inquirer')
+// REGISTER INQUIRER PROMPTS HERE
 inquirer.registerPrompt('recursive', require('inquirer-recursive'));
+inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+// END REGISTER INQUIRER PROMPTS HERE
 const UpdaterRenderer = require('listr-update-renderer');
 const VerboseRenderer = require('listr-verbose-renderer');
 

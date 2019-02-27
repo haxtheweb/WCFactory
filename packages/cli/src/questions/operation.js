@@ -1,6 +1,9 @@
 const { factoryOptions, getElements, getElementScripts } = require('@wcfactory/common/config')
+// fuzzy search
+const Fuse = require('fuse.js')
 
 let FACTORY_CHOICE = null
+let ELEMENT_OPTIONS = null
 let ELEMENT_CHOICE = null
 
 const questions = [
@@ -11,22 +14,29 @@ const questions = [
     store: true,
     choices: () => {
       return factoryOptions()
-    }
+    },
   },
   {
-    type: "list",
+    type: "autocomplete",
     name: "element",
     message: "Choose your element",
     when: (answers) => {
       // forward the answer to other choices
       FACTORY_CHOICE = answers.factory
+      ELEMENT_OPTIONS = getElements(FACTORY_CHOICE)
+        .map(i => Object.assign(i, { value: i.location }))
       return true
     },
-    choices: (answers) => {
-      // get the list of elements for this factory
-      const elements = getElements(FACTORY_CHOICE)
-      // format the element for the list
-      return elements.map(i => Object.assign(i, { value: i.location }))
+    source: (answers, input) => {
+      const fuse = new Fuse(ELEMENT_OPTIONS, { keys: ['name'] })
+      return new Promise((res,rej) => {
+        // fuzzy search the elements
+        if (input) {
+          const result = fuse.search(input)
+          res(result)
+        }
+        res(ELEMENT_OPTIONS)
+      })
     }
   },
   {
