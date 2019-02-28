@@ -1,8 +1,9 @@
+const { spawn } = require('child_process')
 const { ApolloServer, gql, PubSub } = require('apollo-server');
 const { factoryOptions, getElements } = require('@wcfactory/common/config')
 const pubsub = new PubSub()
 
-const STREAM_UPDATED = 'STREAM_UPDATED';
+const CHILD_PROCESS = 'CHILD_PROCESS';
 
 /**
  * SDK
@@ -28,7 +29,7 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    streamUpdated: String
+    childProcess: String
   }
 
   type Query {
@@ -37,7 +38,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    startStream(factoryLocation: String): Boolean!
+    runOperation(location: String!, operation: String): Boolean!
   }
 `;
 
@@ -50,15 +51,17 @@ const resolvers = {
     elements: (parent, { factoryLocation }) => getFactoryElements(factoryLocation)
   },
   Subscription: {
-    streamUpdated: {
+    childProcess: {
       // Additional event labels can be passed to asyncIterator creation
-      subscribe: () => pubsub.asyncIterator([STREAM_UPDATED]),
+      subscribe: () => pubsub.asyncIterator([CHILD_PROCESS]),
     },
   },
   Mutation: {
-    startStream(root, args, context) {
-      pubsub.publish(STREAM_UPDATED, { streamUpdated: 'asdf'});
-      return true
+    runOperation(root, { location, operation = 'dev' }, context) {
+      spawn('npm', ['run', operation], { cwd: location }).stdout.on('data', function(data) {
+        pubsub.publish(CHILD_PROCESS, { childProcess: data.toString()});
+        return true
+      });
     },
   },
 };
@@ -66,7 +69,16 @@ const resolvers = {
 /**
  * Create and start server
  */
-const server = new ApolloServer({ cors: true, typeDefs, resolvers });
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+const server = new ApolloServer({
+  cors: true,
+  typeDefs,
+  resolvers,
+  subscriptions: {
+    onConnect: (params, webSocket) => {
+      console.log(params)
+    }
+  }
+});
+server.listen().then(({ url, subscriptionsUrl }) => {
+  console.log(`🚀  Server ready at ${url} & ${subscriptionsUrl}`);
 });
