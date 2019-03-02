@@ -4,7 +4,7 @@
  *
  * @todo think about where we want these configs, how we want overrides to work
  */
-const fs = require('fs')
+const { existsSync, readFileSync } = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const glob = require('glob')
@@ -35,11 +35,15 @@ const factoryDir = () => {
  */
 const factoryOptions = () => {
   let folders = glob.sync(`${factoryDir()}/*`);
-  return folders.map(i => {
-    let name = i.split("/").pop();
-    const obj = Object.assign({ name: name, value: i })
-    return obj
-  })
+  return folders
+    // verify if each one has a package.json
+    .filter(i => existsSync(path.join(i, 'package.json')))
+    // format the item
+    .map(i => {
+      let name = i.split("/").pop();
+      const obj = Object.assign({ name: name, value: i })
+      return obj
+    })
 }
 
 /**
@@ -117,9 +121,9 @@ const collectPackageConfigs = () => {
   while (path.basename(_cwd) !== '') {
     // look for package
     const p = path.join(_cwd, 'package.json')
-    if (fs.existsSync(p)) {
+    if (existsSync(p)) {
       // push the content of the file into an array
-      const packageJSONContents = JSON.parse(fs.readFileSync(p, 'utf8'))
+      const packageJSONContents = JSON.parse(readFileSync(p, 'utf8'))
       const wcfactorySettings = _.get(packageJSONContents, 'wcfactory')
       if (wcfactorySettings) {
         configs.push(wcfactorySettings)
@@ -146,9 +150,9 @@ const collectUserConfigs = () => {
     // look for package
     const c = path.join(_cwd, '.wcfconfig')
     const p = path.join(c, 'user')
-    if (fs.existsSync(p)) {
+    if (existsSync(p)) {
       // push the content of the file into an array
-      const wcfactorySettings = JSON.parse(fs.readFileSync(p, 'utf8'))
+      const wcfactorySettings = JSON.parse(readFileSync(p, 'utf8'))
       configs.push(wcfactorySettings)
     }
     // move up a directory
@@ -176,7 +180,7 @@ const libraries = () => {
   const libsLocations = getLibraryLocations()
   _.forEach(libsLocations, (lib, key) => {
     const packageLocation = path.join(lib, 'package.json')
-    let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
+    let json = JSON.parse(readFileSync(packageLocation, "utf8"));
     libs[json.name] = json;
   })
   return libs
@@ -187,7 +191,7 @@ const libraries = () => {
  */
 const getUserConfig = () => {
   try {
-    return JSON.parse(fs.readFileSync(path.join(os.homedir(), '.wcfconfig/user'), 'utf8'));
+    return JSON.parse(readFileSync(path.join(os.homedir(), '.wcfconfig/user'), 'utf8'));
   } catch (err) {
     console.warn(path.join(os.homedir(), '.wcfconfig/') + ' is missing! Run wcf start from your desired directory to get started!');
   }
@@ -214,7 +218,7 @@ const librariesOptions = () => {
   let libraries = getLibraryLocations()
   _.forEach(libraries, (lib, key) => {
     const packageLocation = path.join(lib, 'package.json')
-    let json = JSON.parse(fs.readFileSync(packageLocation, "utf8"));
+    let json = JSON.parse(readFileSync(packageLocation, "utf8"));
     options.push({
       name: `${json.name} -- ${json.description}. ${Object.keys(json.dependencies).length} dependencies`,
       value: json.name
@@ -251,7 +255,7 @@ const getElements = (factoryLocation) => {
  * Return a list of scripts defined in an element
  */
 const getElementScripts = (elementLocation) => {
-  const package = JSON.parse(fs.readFileSync(path.join(elementLocation, 'package.json'), 'utf8'))
+  const package = JSON.parse(readFileSync(path.join(elementLocation, 'package.json'), 'utf8'))
   return Object.keys(package.scripts)
 }
 
