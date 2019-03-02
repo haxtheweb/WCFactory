@@ -1,7 +1,24 @@
 <!doctype html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Source+Code+Pro" rel="stylesheet">
   </head>
+  <style>
+    body {
+      background: #3C4556;
+      color: #f2f2f2;
+      font-family: "Noto Serif","Inconsolata","Times New Roman",Times,serif;
+    }
+    body a {
+      color: rgba(139, 233, 253, 1)
+    }
+    body ::slotted(a:hover,a:focus) {
+      color: rgba(139, 233, 253, .7)
+    }
+    h1,h2,h3,h4 {
+      font-family: 'Source Code Pro', monospace;
+    }
+  </style>
   <body>
     <wcfactory-ui></wcfactory-ui>
   </body>

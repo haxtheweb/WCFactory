@@ -11,6 +11,18 @@ class WCFactoryUI extends LitElement {
 
   render() {
     return html`
+      <style>
+        :host {
+          display: block;
+          max-width: 900px;
+          margin: auto;
+        }
+        h1 {
+          text-align: center;
+          margin-bottom: 5vw
+        }
+      </style>
+      <h1>Web Component Factory</h1>
       <div id="router-outlet"></div>
     `;  
   }

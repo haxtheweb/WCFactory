@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "@vaadin/router": "^1.2.0",
+    "@vaadin/vaadin-list-box": "^1.1.0",
+    "@vaadin/vaadin-item": "^2.1.0",
     "@wcfactory/graphql-server": "^0.7.0",
+    "@ui5/webcomponents": "^0.8.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client-ws": "^2.4.0",
     "apollo-link": "^1.2.8",
