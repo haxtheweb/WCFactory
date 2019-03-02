@@ -37,7 +37,7 @@ class WCFactoryUIFactories extends LitElement {
       listing of factories
       <ul>
         ${this.factories.map(factory => html`
-            <li>🏭 ${factory.name}</li>
+            <li><a href="/factories/${factory.name}">🏭 ${factory.name}</a></li>
           `)}
       </ul>
     `;

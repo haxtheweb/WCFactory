@@ -5,7 +5,7 @@ const { factoryOptions, getElements } = require('@wcfactory/common/config')
  * SDK
  */
 const getFactories = () => factoryOptions().map(i => Object.assign({ name: i.name, location: i.value}))
-const getFactory = (name) => getFactories().find(i => i.name === name).map(i => Object.assign({}, i, { factory: name }))
+const getFactory = (name) => getFactories().find(i => i.name === name)
 
 /**
  * Define Schema

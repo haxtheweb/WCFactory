@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit-element';
 import {Router} from '@vaadin/router';
 import './wcfactory-ui-factories.js'
+import './wcfactory-ui-factory.js'
 import './wcfactory-ui-404.js'
 
 class WCFactoryUI extends LitElement {
@@ -22,6 +23,8 @@ class WCFactoryUI extends LitElement {
     const router = new Router(outlet);
     router.setRoutes([
       {path: '/', component: 'wcfactory-ui-factories'},
+      {path: '/factories', component: 'wcfactory-ui-factory'},
+      {path: '/factories/:factory', component: 'wcfactory-ui-factory'},
       {path: '(.*)', component: 'wcfactory-ui-404'},
     ]);
   }
