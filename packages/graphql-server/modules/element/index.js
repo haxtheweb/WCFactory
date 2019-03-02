@@ -15,6 +15,10 @@ const typeDefs = gql`
     elements(factory: ID!): [Element]
   }
 
+  extend type Factory {
+    elements: [Element]
+  }
+
   type Element {
     name: String!
     location: String
@@ -32,6 +36,13 @@ const resolvers = {
 
     elements: (_, {factory}) => getElements(factory)
   },
+
+  Factory: {
+    elements({name}, args, context) {
+      const factory = name
+      return getElements(factory)
+    }
+  }
 }
 
 module.exports = {
