@@ -2,9 +2,13 @@
   "name": "wcfactory",
   "version": "0.1.8",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": [
+      "**/lit-element*",
+      "**/lit-element*/**"
+    ]
+  },
   "license": "Apache-2.0",
   "devDependencies": {
     "eslint": "5.13.0",
