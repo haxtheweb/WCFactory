@@ -241,11 +241,13 @@ const getLibraryLocations = () => {
  * Get a list of all elements in a factory
  * @return array containing names and locations and versions
  */
-const getElements = (factoryLocation) => {
+const getElements = (factory) => {
   try {
+    // get factory path
+    const factoryPath = path.join(factoryDir(), factory)
     // look through the listing of workspaces and return a flattened
     // array of elements
-    return JSON.parse(execFileSync(lernaPath, ["list", "--json", "--all", "--long"], { cwd: factoryLocation }))
+    return JSON.parse(execFileSync(lernaPath, ["list", "--json", "--all", "--long"], { cwd: factoryPath }))
   } catch (error) {
     throw error
   }

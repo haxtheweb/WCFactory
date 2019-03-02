@@ -5,6 +5,7 @@ const { factoryOptions, getElements } = require('@wcfactory/common/config')
  * SDK
  */
 const getFactories = () => factoryOptions().map(i => Object.assign({ name: i.name, location: i.value}))
+const getFactory = (name) => getFactories().find(i => i.name === name).map(i => Object.assign({}, i, { factory: name }))
 
 /**
  * Define Schema
@@ -23,7 +24,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    factory: (_, {name}, ctx) => getFactories().find(i => i.name === name),
+    factory: (_, {name}, ctx) => getFactory(name),
     factories: () => getFactories()
   },
 }
