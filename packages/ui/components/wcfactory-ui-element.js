@@ -14,7 +14,6 @@ class WCFactoryUIElement extends LitElement {
 
 
   render() {
-    console.log(this.element)
     return html`
       <style>
         :host {
