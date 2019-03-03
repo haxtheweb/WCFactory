@@ -13,6 +13,11 @@ class WCFactoryUI extends LitElement {
     return html`
       <style>
         :host {
+          --list-item-hover-background: rgba(255,255,255, 0.1);
+        }
+      </style>
+      <style>
+        :host {
           display: block;
           max-width: 900px;
           margin: auto;
@@ -22,7 +27,7 @@ class WCFactoryUI extends LitElement {
           margin-bottom: 5vw
         }
       </style>
-      <h1>Web Component Factory</h1>
+      <h1>WCFactory</h1>
       <div id="router-outlet"></div>
     `;  
   }

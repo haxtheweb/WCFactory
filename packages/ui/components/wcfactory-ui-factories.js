@@ -39,6 +39,7 @@ class WCFactoryUIFactories extends LitElement {
       <style>
         :host {
           display: block;
+
         }
         #list {
           display: flex;
@@ -51,7 +52,7 @@ class WCFactoryUIFactories extends LitElement {
           text-decoration: none;
         }
         #list-item:hover, #list-item:focus {
-          background: rgba(255,255,255, 0.1);
+          background: --list-item-hover-background;
         }
         #item-title {
           flex: 1 1 auto;
@@ -65,7 +66,7 @@ class WCFactoryUIFactories extends LitElement {
       <div id="list">
         ${this.factories.map(factory => html`
           <a id="list-item" href="/factories/${factory.name}">
-            <h2 id="item-title"> ${factory.name} </h2>
+            <h2 id="item-title"> 🏭${factory.name} </h2>
             <div id="item-desc"> ${factory.location} </div>
           </a>
         `)}

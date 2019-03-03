@@ -37,7 +37,7 @@ const cache = new InMemoryCache();
 
 // set up link state for local
 const stateLink = withClientState({
-  cache
+  cache,
 });
 
 export default new ApolloClient({
