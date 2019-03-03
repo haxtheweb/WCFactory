@@ -6,7 +6,13 @@ import './wcfactory-ui-404.js'
 
 class WCFactoryUI extends LitElement {
   firstUpdated() {
+    this.addEventListener('wcfactory-ui-open-location', this._openLocationHandler.bind(this))
     this.routerSetup()
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.removeEventListener('wcfactory-ui-open-location', this._openLocationHandler.bind(this))
   }
 
   render() {
@@ -44,6 +50,10 @@ class WCFactoryUI extends LitElement {
       {path: '/factories/:factory', component: 'wcfactory-ui-factory'},
       {path: '(.*)', component: 'wcfactory-ui-404'},
     ]);
+  }
+
+  _openLocationHandler(e) {
+    console.log('e:', e)
   }
 }
 
