@@ -65,7 +65,7 @@ const resolvers = {
         // add to operations
         operations.push({location, script})
         // notify the subscription
-        // pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: 'asdf' });
+        pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: 'asdf' });
         return true
       } catch (error) {
         throw error
