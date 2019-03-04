@@ -7,7 +7,7 @@ const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
  */
 operations = []
 
-const CHILD_PROCESS = 'CHILD_PROCESS';
+const OPERATIONS_UPDATE = 'OPERATIONS_UPDATE';
 
 /**
  * Define Schema
@@ -35,14 +35,14 @@ const typeDefs = gql`
   }
 
   extend type Subscription {
-    childProcess: String
+    operationsUpdate: String
   }
 ` 
 
 const resolvers = {
   Subscription: {
-    childProcess: {
-      subscribe: () => pubsub.asyncIterator([CHILD_PROCESS]),
+    operationsUpdate: {
+      subscribe: () => pubsub.asyncIterator([OPERATIONS_UPDATE]),
     }
   },
 
