@@ -87,9 +87,9 @@ class WCFactoryUIFactory extends LitElement {
 
         <div id="filter">
           <wcfactory-ui-search
-            placeholder="filter"
+            placeholder="element name"
             @input=${e => this.elementFilter = e.composedPath()[0].value}>
-            <span slot="label">Filter Here:</span>
+            <span slot="label">Filter elements:</span>
           </wcfactory-ui-search>
         </div>
 
