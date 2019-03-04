@@ -8,6 +8,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@lrnwebcomponents/paper-search": "^2.0.5",
     "@polymer/iron-behaviors": "^3.0.1",
     "@vaadin/router": "^1.2.0",
     "@vaadin/vaadin-list-box": "^1.1.0",
@@ -23,6 +24,7 @@
     "apollo-link-ws": "^1.0.14",
     "apollo-utilities": "^1.2.1",
     "graphql-tag": "^2.10.1",
+    "fuse.js": "^3.4.2",
     "lit-element": "^2.0.1",
     "mobx": "^5.9.0"
   },

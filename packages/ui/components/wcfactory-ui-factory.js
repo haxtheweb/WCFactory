@@ -1,7 +1,9 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
+import Fuse from 'fuse.js'
 import client from '../client.js'
 import './wcfactory-ui-element.js'
+import './wcfactory-ui-search.js'
 
 class WCFactoryUIFactory extends LitElement {
   static get properties() {
@@ -9,7 +11,8 @@ class WCFactoryUIFactory extends LitElement {
       location: { type: Object },
       loading: { type: Boolean },
       factory: { type: Object },
-      activeElement: { type: String }
+      activeElement: { type: String },
+      elementFilter: { type: String }
     }
   }
 
@@ -18,6 +21,7 @@ class WCFactoryUIFactory extends LitElement {
     this.factory = null
     this.loading = true
     this.activeElement = null
+    this.elementFilter = ''
   }
 
   render() {
@@ -31,6 +35,11 @@ class WCFactoryUIFactory extends LitElement {
       return html`loading...`
     }
     else if (this.factory) {
+      // setup fuzzy search
+      var fuse = new Fuse(this.factory.elements, {keys: ['name'], minMatchCharLength: 2})
+      const filteredElements = (this.elementFilter !== '') ? fuse.search(this.elementFilter) : this.factory.elements
+
+      // render
       return html`
         <style>
           :host {
@@ -76,8 +85,17 @@ class WCFactoryUIFactory extends LitElement {
         Location: ${this.factory.location} <br>
         Elements: (${this.factory.elements.length})
 
+        <div id="filter">
+          <wcfactory-ui-search
+            placeholder="filter"
+            @input=${e => this.elementFilter = e.composedPath()[0].value}>
+            <span slot="label">Filter Here:</span>
+          </wcfactory-ui-search>
+        </div>
+
         <div id="elements">
-            ${this.factory.elements.map(element => html`
+            ${filteredElements
+              .map(element => html`
             <div id="element-container" active=${(element.name === this.activeElement)}>
               <div id="element"
                 @click=${this._activateItemHander}
