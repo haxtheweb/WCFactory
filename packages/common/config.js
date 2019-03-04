@@ -257,8 +257,13 @@ const getElements = (factory) => {
  * Return a list of scripts defined in an element
  */
 const getElementScripts = (elementLocation) => {
-  const package = JSON.parse(readFileSync(path.join(elementLocation, 'package.json'), 'utf8'))
-  return Object.keys(package.scripts)
+  const packageLocation = path.join(elementLocation, 'package.json')
+  try {
+    const package = JSON.parse(readFileSync(packageLocation, 'utf8'))
+    return Object.keys(package.scripts)
+  } catch (error) {
+  }
+  return []
 }
 
 module.exports.config = config()

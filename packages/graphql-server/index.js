@@ -4,7 +4,8 @@ const server = new ApolloServer({
   modules: [
     require('./modules/factory'),
     require('./modules/element'),
-    require('./modules/misc'),
+    require('./modules/scripts'),
+    require('./modules/misc')
   ]
 })
 
