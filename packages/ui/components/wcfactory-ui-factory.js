@@ -36,6 +36,17 @@ class WCFactoryUIFactory extends LitElement {
           :host {
             display: block;
           }
+          *[aria-role="button"] {
+            cursor: pointer;
+          }
+          #element-container {
+            display: block;
+            font-family: inherit;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: inherit;
+          }
           #element {
             display: flex;
             flex-direction: column;
@@ -68,9 +79,21 @@ class WCFactoryUIFactory extends LitElement {
         <div id="elements">
             ${this.factory.elements.map(element => html`
             <div id="element-container" active=${(element.name === this.activeElement)}>
-              <div id="element" @click=${(() => this.activeElement = element.name)}> 📦 ${element.name} </div>
-              <div id="element-item-container">
-                <wcfactory-ui-element .element=${element}></wcfactory-ui-element>
+              <div id="element"
+                @click=${this._activateItemHander}
+                @keypress=${this._activateItemHander}
+                data-name=${element.name}
+                aria-role="button"
+                aria-haspopup="true"
+                aria-pressed=${(element.name === this.activeElement)}
+                tabindex="1"> 
+                📦 ${element.name}
+              </div>
+              <div id="element-item-container" tabindex=${((element.name === this.activeElement) ? '1' : null)}>
+                <wcfactory-ui-element
+                  .element=${element}
+                  tabindex=${((element.name === this.activeElement) ? '1' : null)}>
+                </wcfactory-ui-element>
               </div>
             </div>
             `)}
@@ -103,6 +126,27 @@ class WCFactoryUIFactory extends LitElement {
         this.factory = factory
       })
     } catch (error) {
+    }
+  }
+
+  _activateItemHander(e) {
+    let selection = false
+    // if it's a click
+    if (e.type === 'click') {
+      selection = true
+    }
+    // or if its a space or enter
+    else if (typeof e.keyCode !== 'undefined') {
+      if (e.keyCode === 13 || e.keyCode === 32) {
+        selection = true
+      }
+    }
+    // if selection is good then we'll pop open the dialog
+    if (selection) {
+      // change active item
+      this.activeElement = e.target.dataset.name
+      // forward focus to dialog
+      e.target.nextSibling.focus()
     }
   }
 }

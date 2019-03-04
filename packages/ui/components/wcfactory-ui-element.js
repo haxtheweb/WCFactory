@@ -36,6 +36,13 @@ class WCFactoryUIElement extends LitElement {
         #location {
           font-size: 14px;
           opacity: 0.7;
+          font-family: inherit;
+          border: none;
+          margin: 0;
+          padding: 0;
+          background: none;
+          color: inherit;
+          cursor: pointer;
         }
       </style>
       <div id="header">
@@ -44,23 +51,16 @@ class WCFactoryUIElement extends LitElement {
       </div>
       <div id="middle"></div>
       <div id="footer">
-        <div id="location" @click=${this._locationClicked}>📁${this.element.location} </div>
+        <button id="location" @click=${this._locationClicked}>📁${this.element.location} </button>
       </div>
     `;
   }
 
   _locationClicked(e) {
-    console.log('e:', e)
     this.openLocation(this.element.location)
-    // this.dispatchEvent(new CustomEvent('wcfactory-ui-open-location',{
-    //     bubbles: true,
-    //     cancelable: false,
-    //     detail: { location: this.element.location }
-    //   }))
   }
 
   openLocation(location) {
-    console.log('location:', location)
     client.mutate({
       mutation: gql`
         mutation($location: String!) {
