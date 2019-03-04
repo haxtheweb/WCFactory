@@ -8,20 +8,20 @@ const typeDefs = gql`
   extend type Element {
     scripts: [String]
   }
+  
+  extend type Factory {
+    scripts: [String]
+  }
 ` 
 
 const resolvers = {
   Element: {
-    scripts: ({location}, args, ctx) => {
-      if (location) {
-        const scripts = getElementScripts(location)
-        return scripts
-      }
-      else {
-        return []
-      }
-    }
+    scripts: ({location}, args, ctx) => getElementScripts(location)
   },
+
+  Factory: {
+    scripts: ({location}, args, ctx) => getElementScripts(location)
+  }
 }
 
 module.exports = {
