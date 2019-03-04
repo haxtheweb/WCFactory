@@ -5,13 +5,15 @@ import client from '../client.js'
 class WCFactoryUIElement extends LitElement {
   static get properties() {
     return {
-      element: { type: Object } 
+      element: { type: Object },
+      operations: { type: Array }
     }
   }
 
   constructor() {
     super()
     this.element = {}
+    this.operations = []
   }
 
   render() {
@@ -52,7 +54,6 @@ class WCFactoryUIElement extends LitElement {
           padding: 0;
           background: none;
           color: inherit;
-          cursor: pointer;
           margin: 10px 0;
         }
         #location {
@@ -72,7 +73,7 @@ class WCFactoryUIElement extends LitElement {
         <div id="version"> 📦${this.element.version} </div>
       </div>
       <div id="middle">
-        ${this._renderScripts(this.element)}
+        ${this._renderScripts(this.element, this.operations)}
       </div>
       <div id="footer">
         <button id="location" @click=${this._locationClicked}>📁${this.element.location} </button>
@@ -80,7 +81,8 @@ class WCFactoryUIElement extends LitElement {
     `;
   }
 
-  _renderScripts(element) {
+  _renderScripts(element, operations) {
+    this.fetchOperations()
     return html`
       <style>
         .script {
@@ -88,12 +90,22 @@ class WCFactoryUIElement extends LitElement {
         }
       </style>
       <div id="scripts">
-        ${element.scripts.map(script =>
-          html`
-            <button class="script" @click=${e => this.runScript(script, element.location)}>
-              🚀${script}
-            </button>
-          `
+        ${element.scripts.map(script => {
+          if (operations.find(i => (i.script === script && i.location === element.location))) {
+            return html`
+              <span class="script">
+                🔄${script}
+              </span>
+            `
+          }
+          else {
+            return html`
+              <button class="script" @click=${e => this.runScript(script, element.location)}>
+                🚀${script}
+              </button>
+            `
+          }
+        }
         )}
       </div>
     `
@@ -123,6 +135,24 @@ class WCFactoryUIElement extends LitElement {
       `,
       variables: { script, location }
     })
+  }
+
+  fetchOperations() {
+    try {
+      client.watchQuery({
+        query: gql`
+        query {
+          operations {
+            script
+            location
+          }
+        }
+      `,
+      }).subscribe(({ data: { operations } }) => {
+        this.operations = operations
+      })
+    } catch (error) {
+    }
   }
 }
 

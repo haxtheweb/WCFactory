@@ -12,8 +12,7 @@
     "apollo-server": "^2.4.8",
     "apollo-client": "^2.5.1",
     "graphql": "^14.1.1",
-    "subscriptions-transport-ws": "^0.9.15",
-    "xterm": "^3.11.0"
+    "lowdb": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js",
@@ -37,6 +36,8 @@
     "parcel-bundler": "^1.11.0",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "xterm": "^3.11.0",
+    "subscriptions-transport-ws": "^0.9.15"
   }
 }
