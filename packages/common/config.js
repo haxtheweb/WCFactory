@@ -10,7 +10,7 @@ const _ = require('lodash')
 const glob = require('glob')
 const os = require('os')
 const cwd = process.cwd()
-const { execFileSync } = require('child_process')
+const { execFileSync, spawn } = require('child_process')
 const lernaPath = require.resolve('lerna/cli')
 
 /**
@@ -266,6 +266,21 @@ const getElementScripts = (elementLocation) => {
   return []
 }
 
+/**
+ * Execute a script via npm run
+ * @param {string} script 
+ * @param {string} location 
+ * @return process
+ */
+const runScript = (script, location) => {
+  // run the operation for that element
+  return spawn('npm', ['run', script], {
+    cwd: location,
+    stdio: 'inherit',
+    shell: true
+  });
+}
+
 module.exports.config = config()
 module.exports.userConfig = userConfig()
 module.exports.factoryDir = factoryDir()
@@ -278,3 +293,4 @@ module.exports.librariesOptions = librariesOptions()
 module.exports.librariesDir = librariesDir()
 module.exports.getElements = getElements
 module.exports.getElementScripts = getElementScripts
+module.exports.runScript = runScript

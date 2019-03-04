@@ -132,6 +132,7 @@ class WCFactoryUIFactory extends LitElement {
               name
               location
               version
+              scripts
             }
           }
         }

@@ -2,7 +2,7 @@ const path = require('path')
 const { Command, flags } = require('@oclif/command')
 const { promptUser } = require('../utils/commands')
 const { questions } = require('../questions/operation')
-const { spawn } = require('child_process');
+const { runScript } = require('@wcfactory/common')
 
 class Operation extends Command {
   async run() {
@@ -10,11 +10,7 @@ class Operation extends Command {
     // prompt the user for remaining flags
     flags = await promptUser(questions, flags, this)
     // run the operation for that element
-    const ls = spawn('npm', ['run', flags.script], {
-      cwd: flags.element,
-      stdio: 'inherit',
-      shell: true
-    });
+    runScript(flags.script, flags.element)
   }
 }
 
