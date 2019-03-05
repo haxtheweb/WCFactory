@@ -278,7 +278,7 @@ const runScript = (script, location) => {
     cwd: location,
     stdio: 'inherit',
     shell: true
-  });
+  })
 }
 
 module.exports.config = config()

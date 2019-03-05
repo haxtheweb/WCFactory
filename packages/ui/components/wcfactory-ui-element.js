@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
+import './wcfactory-ui-scripts.js'
 import client from '../client.js'
 
 class WCFactoryUIElement extends LitElement {
@@ -13,7 +14,6 @@ class WCFactoryUIElement extends LitElement {
   constructor() {
     super()
     this.element = {}
-    this.operations = []
   }
 
   render() {
@@ -73,42 +73,12 @@ class WCFactoryUIElement extends LitElement {
         <div id="version"> 📦${this.element.version} </div>
       </div>
       <div id="middle">
-        ${this._renderScripts(this.element, this.operations)}
+        <wcfactory-ui-scripts .scripts=${this.element.scripts} .location=${this.element.location}></wcfactory-ui-scripts>
       </div>
       <div id="footer">
         <button id="location" @click=${this._locationClicked}>📁${this.element.location} </button>
       </div>
     `;
-  }
-
-  _renderScripts(element, operations) {
-    this.fetchOperations()
-    return html`
-      <style>
-        .script {
-          margin-right: 10px;
-        }
-      </style>
-      <div id="scripts">
-        ${element.scripts.map(script => {
-          if (operations.find(i => (i.script === script && i.location === element.location))) {
-            return html`
-              <span class="script">
-                🔄${script}
-              </span>
-            `
-          }
-          else {
-            return html`
-              <button class="script" @click=${e => this.runScript(script, element.location)}>
-                🚀${script}
-              </button>
-            `
-          }
-        }
-        )}
-      </div>
-    `
   }
 
   _locationClicked(e) {
@@ -124,35 +94,6 @@ class WCFactoryUIElement extends LitElement {
       `,
       variables: { location }
     })
-  }
-
-  runScript(script, location) {
-    client.mutate({
-      mutation: gql`
-        mutation($script: String!, $location: String!) {
-          runScript(script: $script, location: $location)
-        }
-      `,
-      variables: { script, location }
-    })
-  }
-
-  fetchOperations() {
-    try {
-      client.watchQuery({
-        query: gql`
-        query {
-          operations {
-            script
-            location
-          }
-        }
-      `,
-      }).subscribe(({ data: { operations } }) => {
-        this.operations = operations
-      })
-    } catch (error) {
-    }
   }
 }
 

@@ -1,4 +1,5 @@
 const { gql, PubSub } = require('apollo-server')
+const { spawn } = require('child_process')
 const pubsub = new PubSub()
 const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
 
@@ -8,6 +9,7 @@ const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
 operations = []
 
 const OPERATIONS_UPDATE = 'OPERATIONS_UPDATE';
+const OPERATIONS_CHILD_PROCESS = 'OPERATIONS_CHILD_PROCESS';
 
 /**
  * Define Schema
@@ -35,7 +37,8 @@ const typeDefs = gql`
   }
 
   extend type Subscription {
-    operationsUpdate: String
+    operationsUpdate: String,
+    operationsChildProcess: String
   }
 ` 
 
@@ -43,6 +46,9 @@ const resolvers = {
   Subscription: {
     operationsUpdate: {
       subscribe: () => pubsub.asyncIterator([OPERATIONS_UPDATE]),
+    },
+    operationsChildProcess: {
+      subscribe: () => pubsub.asyncIterator([OPERATIONS_CHILD_PROCESS]),
     }
   },
 
@@ -61,11 +67,17 @@ const resolvers = {
   Mutation: {
     runScript: (_, {script, location}, ctx) => {
       try {
-        runScript(script, location)
+        spawn('npm', ['run', script], {
+          cwd: location,
+        }).stdout.on('data', data => {
+          pubsub.publish(OPERATIONS_CHILD_PROCESS, { operationsChildProcess: data.toString()});
+          return true
+        })
+        const operation = {location, script, __typename: 'Operations'} 
         // add to operations
-        operations.push({location, script})
+        operations.push(operation)
         // notify the subscription
-        pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: JSON.stringify({ script, location }) });
+        pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: JSON.stringify(operation) });
         return true
       } catch (error) {
         throw error
