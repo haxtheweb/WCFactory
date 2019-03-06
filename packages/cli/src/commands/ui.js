@@ -12,13 +12,13 @@ class UI extends Command {
      * script somewhere else.
      */
     // start up the UI
-    spawn('npm', ['run', flags.script], {
+    spawn('npm', ['run', 'start:build'], {
       cwd: path.dirname(uiLocation),
       stdio: 'inherit',
       shell: true
     });
     // start up the Graphql server
-    spawn('npm', ['run', flags.script], {
+    spawn('npm', ['run', 'start'], {
       cwd: path.dirname(serverLocation),
       stdio: 'inherit',
       shell: true
@@ -33,11 +33,7 @@ UI.description = 'Start up the visual user interface for WCFactory.'
  */
 UI.flags = {
   help: flags.help({ char: 'h' }),
-  description: flags.string({ char: 'd', description: UI.description }),
-  script: flags.string({ char: 's', default: 'start', description: `
-    Specify the operation you would like to execute as defined in the scripts object
-    in the package.json.
-  `})
+  description: flags.string({ char: 'd', description: UI.description })
 }
 
 module.exports = UI

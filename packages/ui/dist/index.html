@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Source+Code+Pro" rel="stylesheet">
+  <script nomodule type="application/javascript">/* eslint-env browser */
+/**
+ * nomodule fix for Safari 10.1
+ * from https://gist.github.com/samthor/64b114e4a4f539915a95b91ffd340acc
+ */
+(function() {
+  const check = document.createElement('script')
+  if ('onbeforeload' in check) {
+    let support = false
+    document.addEventListener('beforeload', function(e) {
+      if (e.target === check) {
+        support = true
+      } else if (!e.target.hasAttribute('nomodule') || !support) {
+        return
+      }
+      e.preventDefault()
+    }, true)
+
+    check.type = 'module'
+    check.src = '.'
+    document.head.appendChild(check)
+    check.remove()
+  }
+}())
+</script></head>
+  <style>
+    body {
+      --wcfactory-ui-background-color: #3C4556;
+      --wcfactory-ui-secondary-color: #282c33;
+      --wcfactory-ui-color: #f2f2f2;
+      background: var(--wcfactory-ui-background-color);
+      color: var(--wcfactory-ui-color);
+      font-family: "Noto Serif","Inconsolata","Times New Roman",Times,serif;
+    }
+    body a {
+      color: rgba(139, 233, 253, 1)
+    }
+    body ::slotted(a:hover,a:focus) {
+      color: rgba(139, 233, 253, .7)
+    }
+    h1,h2,h3,h4 {
+      font-family: 'Source Code Pro', monospace;
+    }
+  </style>
+  <body>
+    <wcfactory-ui></wcfactory-ui>
+  <script type="module" src="main.ca96e35223108003a05c.js"></script><script type="text/javascript" src="main.es5.4f8d84753e97d1c48290.js" nomodule></script></body>
+</html>

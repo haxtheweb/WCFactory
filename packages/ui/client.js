@@ -6,6 +6,8 @@ import { ApolloLink, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { withClientState } from 'apollo-link-state';
+import { RetryLink } from "apollo-link-retry";
+
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -51,6 +53,7 @@ export default new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
+    new RetryLink(),
     stateLink,
     httpWsLink
   ]),
