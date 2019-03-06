@@ -37,6 +37,8 @@ const httpWsLink = split(
 // This is the same cache you pass into new ApolloClient
 const cache = new InMemoryCache();
 
+const retryLink = new RetryLink();
+
 // set up link state for local
 const stateLink = withClientState({
   cache,
@@ -53,7 +55,7 @@ export default new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    new RetryLink(),
+    retryLink,
     stateLink,
     httpWsLink
   ]),

@@ -73,7 +73,7 @@ class WCFactoryUIFactory extends LitElement {
             margin: 20px;
           }
           #element-container[active="true"] #element-item-container {
-            max-height: 400px;
+            max-height: 100vh;
             transform: scale(1.1);
             transition: all 0.4s ease-in-out;
             margin-top: -50px;

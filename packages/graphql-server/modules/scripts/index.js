@@ -9,7 +9,17 @@ const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
 operations = []
 
 const OPERATIONS_UPDATE = 'OPERATIONS_UPDATE';
-const OPERATIONS_CHILD_PROCESS = 'OPERATIONS_CHILD_PROCESS';
+
+const updateOperation = (operation) => {
+  // filter out the current operation if there is one
+  const newOperations = operations.filter(i => (i.script === i.script && i.location === operation.location) ? false : true)
+  // add operation
+  newOperations.push(operation)
+  // save to operations
+  operations = newOperations
+  // notify the subscription
+  pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: JSON.stringify(operation) });
+}
 
 /**
  * Define Schema
@@ -18,6 +28,8 @@ const typeDefs = gql`
   type Operation {
     script: String!
     location: String!
+    pid: String
+    output: [String]
   }
 
   extend type Query {
@@ -37,8 +49,7 @@ const typeDefs = gql`
   }
 
   extend type Subscription {
-    operationsUpdate: String,
-    operationsChildProcess: String
+    operationsUpdate: String
   }
 ` 
 
@@ -46,9 +57,6 @@ const resolvers = {
   Subscription: {
     operationsUpdate: {
       subscribe: () => pubsub.asyncIterator([OPERATIONS_UPDATE]),
-    },
-    operationsChildProcess: {
-      subscribe: () => pubsub.asyncIterator([OPERATIONS_CHILD_PROCESS]),
     }
   },
 
@@ -67,17 +75,24 @@ const resolvers = {
   Mutation: {
     runScript: (_, {script, location}, ctx) => {
       try {
-        spawn('npm', ['run', script], {
+        let operation = { __typename: 'Operations', location, script } 
+        // spawn the command
+        const cp = spawn('npm', ['run', script], {
           cwd: location,
-        }).stdout.on('data', data => {
-          pubsub.publish(OPERATIONS_CHILD_PROCESS, { operationsChildProcess: data.toString()});
-          return true
         })
-        const operation = {location, script, __typename: 'Operations'} 
-        // add to operations
-        operations.push(operation)
-        // notify the subscription
-        pubsub.publish(OPERATIONS_UPDATE, { operationsUpdate: JSON.stringify(operation) });
+        // save pid
+        operation = Object.assign({}, operation, { pid: cp.pid, output: [] })
+        // save the operation
+        updateOperation(operation)
+
+        // listen for stdout
+        cp.stdout.on('data', data => {
+          // save the operation
+          operation.output.push(data.toString())
+          updateOperation(operation)
+        })
+
+        // verify it completed
         return true
       } catch (error) {
         throw error
