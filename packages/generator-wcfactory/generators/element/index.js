@@ -212,12 +212,12 @@ module.exports = class extends Generator {
               }` + "\n\n";
       }
     });
-    if (this.answers.useSass) {
-      if (this.answers.sassLibrary && this.answers.sassLibrary.pkg) {
+    if (this.answers.useSass && this.answers.sassLibrary) {
+      if (this.answers.sassLibrary.pkg) {
         this.props.sassLibraryPkg = this.answers.sassLibrary.pkg;
       }
 
-      if (this.answers.sassLibrary && this.answers.sassLibrary.path) {
+      if (this.answers.sassLibrary.path) {
         this.props.sassLibraryPath = this.answers.sassLibrary.path;
       }
       if (this.props.libraryDependencies === '') {
