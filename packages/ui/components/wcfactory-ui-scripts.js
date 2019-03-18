@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import client from '../client.js'
+import './wcfactory-ui-terminal'
 
 const SUBSCRIBE_OPERATIONS_UPDATE = gql`
   subscription {
@@ -117,13 +118,6 @@ class WCFactoryUIScripts extends LitElement {
           background: black;
         }
 
-        #output {
-          background: black;
-          height: 100px;
-          overflow-x: hidden;
-          overflow-y: scroll;
-          font-size: 10px;
-        }
       </style>
         ${this.activeScript}
         ${this.script}
@@ -136,7 +130,9 @@ class WCFactoryUIScripts extends LitElement {
                 class="script"
                 active=${(this.activeScript === script)}> 🔄${script} </span>
               <div id="output">
-                ${currentOperationOutput.map(o => html`${o.output} <br/>`)}
+                <wcfactory-ui-terminal>
+                  ${currentOperationOutput.map(o => html`${o.output} <br/>`)}
+                </wcfactory-ui-terminal>
               </div>
             `
           }
