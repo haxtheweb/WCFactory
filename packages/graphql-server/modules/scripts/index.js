@@ -38,7 +38,6 @@ const deleteOperation = (operation) => {
           const deleted = (i.script === operation.script && i.location === operation.location)
           return !deleted
         })
-        console.log('operations:', operations)
         // filter out the operationsOutput array
         operationsOutput = operationsOutput.filter(i => i.operation !== pid)
         response(true)

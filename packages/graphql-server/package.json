@@ -12,7 +12,8 @@
     "apollo-server": "^2.4.8",
     "apollo-client": "^2.5.1",
     "graphql": "^14.1.1",
-    "lowdb": "^1.0.0"
+    "lowdb": "^1.0.0",
+    "tree-kill": "^1.2.1"
   },
   "scripts": {
     "start": "node index.js",
