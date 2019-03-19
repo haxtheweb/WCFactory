@@ -2,6 +2,7 @@ const { gql, PubSub } = require('apollo-server')
 const pubsub = new PubSub()
 const { spawn } = require('child_process')
 const kill = require('tree-kill')
+const uuid = require('uuid/v4');
 const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
 
 /**
@@ -134,11 +135,11 @@ const resolvers = {
           cwd: location,
         })
         // save the operation
-        updateOperation({ __typename: 'Operations', location, script, pid: cp.pid })
+        updateOperation({ __typename: 'Operations', location, script, pid: cp.pid, id: uuid() })
 
         // listen for stdout
         cp.stdout.on('data', data => {
-          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: cp.pid })
+          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: cp.pid, id: uuid() })
         })
 
         // verify it completed

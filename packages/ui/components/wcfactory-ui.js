@@ -3,6 +3,7 @@ import {Router} from '@vaadin/router';
 import './wcfactory-ui-factories.js'
 import './wcfactory-ui-factory.js'
 import './wcfactory-ui-404.js'
+import './wcfactory-ui-active-scripts.js'
 
 class WCFactoryUI extends LitElement {
   firstUpdated() {
@@ -34,6 +35,7 @@ class WCFactoryUI extends LitElement {
         }
       </style>
       <h1>WCFactory</h1>
+      <wcfactory-ui-active-scripts></wcfactory-ui-active-scripts>
       <div id="router-outlet"></div>
     `;  
   }
