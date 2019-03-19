@@ -1,6 +1,7 @@
 const { gql, PubSub } = require('apollo-server')
-const { spawn } = require('child_process')
 const pubsub = new PubSub()
+const { spawn } = require('child_process')
+const kill = require('tree-kill')
 const { getElementScripts, runScript } = require('@wcfactory/common/config.js')
 
 /**
@@ -14,7 +15,7 @@ const OPERATIONS_OUTPUT = 'OPERATIONS_OUTPUT';
 
 const updateOperation = (operation) => {
   // filter out the current operation if there is one
-  const newOperations = operations.filter(i => (i.script === i.script && i.location === operation.location) ? false : true)
+  const newOperations = operations.filter(i => (i.script === operation.script && i.location === operation.location) ? false : true)
   // add operation
   newOperations.push(operation)
   // save to operations
@@ -28,6 +29,9 @@ const saveOperationOutput = (output) => {
   // notify the subscription
   pubsub.publish(OPERATIONS_OUTPUT, { operationsOutput: JSON.stringify(output) });
 }
+
+// return the active operation pid based on script name and location
+const getOperationID = (operation) => operations.filter(i => i.script === operation.script && i.location === operation.location).map(i => i.pid).shift()
 
 /**
  * Define Schema
@@ -60,13 +64,14 @@ const typeDefs = gql`
 
   extend type Mutation {
     runScript(script: String!, location: String!): Boolean
+    stopScript(script: String!, location: String!): Boolean
   }
 
   extend type Subscription {
     operationsUpdate: String,
     operationsOutput: String
   }
-` 
+`
 
 const resolvers = {
   Subscription: {
@@ -89,15 +94,15 @@ const resolvers = {
   },
 
   Element: {
-    scripts: ({location}, args, ctx) => getElementScripts(location)
+    scripts: ({ location }, args, ctx) => getElementScripts(location)
   },
 
   Factory: {
-    scripts: ({location}, args, ctx) => getElementScripts(location)
+    scripts: ({ location }, args, ctx) => getElementScripts(location)
   },
 
   Mutation: {
-    runScript: (_, {script, location}, ctx) => {
+    runScript: (_, { script, location }, ctx) => {
       try {
         // spawn the command
         const cp = spawn('npm', ['run', script], {
@@ -116,7 +121,9 @@ const resolvers = {
       } catch (error) {
         throw error
       }
-    }
+    },
+
+    stopScript: async (_, { script, location }, ctx) => true
   }
 }
 
