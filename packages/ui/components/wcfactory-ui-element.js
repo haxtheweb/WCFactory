@@ -7,8 +7,7 @@ import client from '../client.js'
 class WCFactoryUIElement extends LitElement {
   static get properties() {
     return {
-      element: { type: Object },
-      operations: { type: Array }
+      element: { type: Object }
     }
   }
 
@@ -80,21 +79,6 @@ class WCFactoryUIElement extends LitElement {
         <wcfactory-ui-location .location=${this.element.location}></wcfactory-ui-location>
       </div>
     `;
-  }
-
-  _locationClicked(e) {
-    this.openLocation(this.element.location)
-  }
-
-  openLocation(location) {
-    client.mutate({
-      mutation: gql`
-        mutation($location: String!) {
-          openLocation(location: $location)
-        }
-      `,
-      variables: { location }
-    })
   }
 }
 
