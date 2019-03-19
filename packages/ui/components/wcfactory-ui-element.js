@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import './wcfactory-ui-scripts.js'
+import './wcfactory-ui-location.js'
 import client from '../client.js'
 
 class WCFactoryUIElement extends LitElement {
@@ -76,7 +77,7 @@ class WCFactoryUIElement extends LitElement {
         <wcfactory-ui-scripts .scripts=${this.element.scripts} .location=${this.element.location}></wcfactory-ui-scripts>
       </div>
       <div id="footer">
-        <button id="location" @click=${this._locationClicked}>📁${this.element.location} </button>
+        <wcfactory-ui-location .location=${this.element.location}></wcfactory-ui-location>
       </div>
     `;
   }
