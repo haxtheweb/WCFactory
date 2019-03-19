@@ -134,7 +134,8 @@ class WCFactoryUIScripts extends LitElement {
             return html`
               <span
                 class="script"
-                active=${(this.activeScript === script)}> 🔄${script} </span>
+                active=${(this.activeScript === script)}
+                @click=${e => this.stopScript(script, this.location)}> 🔄${script} </span>
               <div id="output">
                 ${currentOperationOutput.map(o => html`${o.output} <br/>`)}
               </div>
@@ -159,6 +160,28 @@ class WCFactoryUIScripts extends LitElement {
           }
         `,
         variables: { script, location }
+      })
+    } catch (error) {}
+  }
+
+  async stopScript(script, location) {
+    try {
+      await client.mutate({
+        mutation: gql`
+          mutation($script: String!, $location: String!) {
+            stopScript(script: $script, location: $location)
+          }
+        `,
+        variables: { script, location },
+        // update the cache based on returned data
+        update: (store, { data: { stopScript }}) => {
+          // if we successfully stoped the script then update local cache
+          if (stopScript) {
+            const cache = store.readQuery({ query: GET_OPERATIONS })
+            const operations = cache.operations.filter(i => !(i.script === script && i.location === location))
+            store.writeQuery({ query: GET_OPERATIONS, data: Object.assign({}, cache, { operations }) })
+          }
+        }
       })
     } catch (error) {}
   }

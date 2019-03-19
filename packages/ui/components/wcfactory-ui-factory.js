@@ -4,6 +4,7 @@ import Fuse from 'fuse.js'
 import client from '../client.js'
 import './wcfactory-ui-element.js'
 import './wcfactory-ui-search.js'
+import './wcfactory-ui-scripts.js'
 
 class WCFactoryUIFactory extends LitElement {
   static get properties() {
@@ -83,6 +84,7 @@ class WCFactoryUIFactory extends LitElement {
 
         Name: ${this.factory.name} <br>
         Location: ${this.factory.location} <br>
+        <wcfactory-ui-scripts .scripts=${this.factory.scripts} .location=${this.factory.location}></wcfactory-ui-scripts> <br>
         Elements: (${this.factory.elements.length})
 
         <div id="filter">
@@ -128,6 +130,7 @@ class WCFactoryUIFactory extends LitElement {
           factory(name: $name) {
             name
             location
+            scripts
             elements {
               name
               location

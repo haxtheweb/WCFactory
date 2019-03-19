@@ -8,7 +8,6 @@ import { getMainDefinition } from 'apollo-utilities';
 import { withClientState } from 'apollo-link-state';
 import { RetryLink } from "apollo-link-retry";
 
-
 // Create an http link:
 const httpLink = new HttpLink({
   uri: `http://localhost:4000`,
@@ -19,7 +18,8 @@ const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true
-  }
+  },
+  connectToDevTools: true
 });
 
 // using the ability to split links, you can send data to each link
