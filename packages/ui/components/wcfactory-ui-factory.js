@@ -5,6 +5,7 @@ import client from '../client.js'
 import './wcfactory-ui-element.js'
 import './wcfactory-ui-search.js'
 import './wcfactory-ui-scripts.js'
+import './wcfactory-ui-location.js'
 
 class WCFactoryUIFactory extends LitElement {
   static get properties() {
@@ -44,10 +45,23 @@ class WCFactoryUIFactory extends LitElement {
       return html`
         <style>
           :host {
+            --wcfactory-ui-factory-font-size: 16px;
             display: block;
+            font-size: var(--wcfactory-ui-factory-font-size);
           }
           *[aria-role="button"] {
             cursor: pointer;
+          }
+          #factory-info {
+            background: rgba(0,0,0, 0.1);
+            padding: calc(var(--wcfactory-ui-factory-font-size) * 1.2);
+          }
+          #factory-info wcfactory-ui-scripts {
+            --wcfactory-ui-scripts-font-size: 14px;
+          }
+          #factory-info + #filter {
+            --wcfactory-ui-factory-filter-margin-top: 3em;
+            margin-top: var(--wcfactory-ui-factory-filter-margin-top);
           }
           #element-container {
             display: block;
@@ -82,12 +96,14 @@ class WCFactoryUIFactory extends LitElement {
           }
         </style>
 
-        Name: ${this.factory.name} <br>
-        Location: ${this.factory.location} <br>
-        <wcfactory-ui-scripts .scripts=${this.factory.scripts} .location=${this.factory.location}></wcfactory-ui-scripts> <br>
-        Elements: (${this.factory.elements.length})
+        <div id="factory-info">
+          Name: <span class="name">${this.factory.name}</span> <br>
+          Location: <wcfactory-ui-location location=${this.factory.location}></wcfactory-ui-location> <br>
+          <wcfactory-ui-scripts .scripts=${this.factory.scripts} .location=${this.factory.location}></wcfactory-ui-scripts> <br>
+        </div>
 
         <div id="filter">
+          Elements: (${this.factory.elements.length})
           <wcfactory-ui-search
             placeholder="element name"
             @input=${e => this.elementFilter = e.composedPath()[0].value}>

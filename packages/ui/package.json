@@ -28,7 +28,8 @@
     "graphql-tag": "^2.10.1",
     "fuse.js": "^3.4.2",
     "lit-element": "^2.0.1",
-    "mobx": "^5.9.0"
+    "mobx": "^5.9.0",
+    "lit-apollo": "^0.8.1"
   },
   "devDependencies": {
     "@open-wc/building-webpack": "^0.1.9",

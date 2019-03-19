@@ -100,6 +100,10 @@ class WCFactoryUIScripts extends LitElement {
   render() {
     return html`
       <style>
+        :host {
+          --wcfactory-ui-scripts-font-size: 12px;
+          font-size: var(--wcfactory-ui-scripts-font-size);
+        }
         button {
           font-family: inherit;
           border: none;
@@ -107,17 +111,17 @@ class WCFactoryUIScripts extends LitElement {
           padding: 0;
           background: none;
           color: inherit;
-          cursor: pointer
+          cursor: pointer;
+          font-size: var(--wcfactory-ui-scripts-font-size);
         }
         .script {
-          margin-right: 10px;
-          padding: 5px;
+          cursor: pointer;
+          padding: calc(var(--wcfactory-ui-scripts-font-size) * .6);
         }
 
         .script[active="true"] {
           background: black;
         }
-
       </style>
         ${this.activeScript}
         ${this.script}
