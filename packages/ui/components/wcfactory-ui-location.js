@@ -35,7 +35,6 @@ class WCFactoryUILocation extends ApolloMutation {
       </div>
     `;  
   }
-
 }
 
 customElements.define('wcfactory-ui-location', WCFactoryUILocation);

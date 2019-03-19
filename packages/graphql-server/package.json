@@ -18,7 +18,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "demo": "parcel ./demo/index.html"
+    "demo": "parcel ./demo/index.html",
+    "generate:schema": "apollo service:download generated/schema.json"
   },
   "devDependencies": {
     "@open-wc/building-webpack": "^0.1.3",
