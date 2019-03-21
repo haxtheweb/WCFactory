@@ -1,15 +1,18 @@
 import { html, ApolloQuery } from 'lit-apollo';
 import gql from 'graphql-tag'
 import client from '../client.js'
-import { fragment as scriptFragment } from './wcfactory-ui-active-script'
 
 export const GET_ACTIVE_OPERATIONS = gql`
   query {
     operations {
-      ...Script
+      pid
+      location
+      script
+      element {
+        name
+      }
     }
   }
-  ${scriptFragment}
 `
 
 class WCFactoryUIActiveScripts extends ApolloQuery {
@@ -21,14 +24,13 @@ class WCFactoryUIActiveScripts extends ApolloQuery {
   render() {
     const { data, error, loading } = this;
     return html`
-      Active Scripts ${data.operations.length}
-      ${data.operations.map(operation =>
-        html`
+      ${data.operations.map(operation => {
+        return html`
           <div>
             <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
           </div>
         `
-      )}
+      })}
     `
   }
 }

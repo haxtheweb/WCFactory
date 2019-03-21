@@ -2,17 +2,6 @@ import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import client from '../client.js'
 
-/**
- * Define what info we need from our parent
- */
-export const fragment = gql`
-  fragment Script on Operation {
-    pid
-    location
-    script
-  }
-`
-
 class WCFactoryUIActiveScript extends LitElement {
   static get properties() {
     return {
@@ -24,7 +13,7 @@ class WCFactoryUIActiveScript extends LitElement {
   }
   render() {
     return html`
-      ${this.script.location}
+      ${this.script.element.name}
     `
   }
 }

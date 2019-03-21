@@ -89,7 +89,7 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    runScript(script: String!, location: String!): Boolean
+    runScript(script: String!, location: String!): Operation!
     stopScript(script: String!, location: String!): Boolean
   }
 
@@ -120,7 +120,7 @@ const resolvers = {
   },
 
   Element: {
-    scripts: ({ location }, args, ctx) => getElementScripts(location)
+    scripts: ({ location }, args, ctx) => getElementScripts(location),
   },
 
   Factory: {
@@ -135,15 +135,16 @@ const resolvers = {
           cwd: location,
         })
         // save the operation
-        updateOperation({ __typename: 'Operations', location, script, pid: cp.pid, id: uuid() })
+        const operation = { __typename: 'Operations', location, script, pid: `${cp.pid}` } 
+        updateOperation(operation)
 
         // listen for stdout
         cp.stdout.on('data', data => {
-          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: cp.pid, id: uuid() })
+          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: `${cp.pid}` })
         })
 
         // verify it completed
-        return true
+        return operation
       } catch (error) {
         throw error
       }

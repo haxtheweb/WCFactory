@@ -1,5 +1,5 @@
 import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, split } from 'apollo-link';
@@ -18,8 +18,7 @@ const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/graphql`,
   options: {
     reconnect: true
-  },
-  connectToDevTools: true
+  }
 });
 
 // using the ability to split links, you can send data to each link
@@ -35,7 +34,15 @@ const httpWsLink = split(
 );
 
 // This is the same cache you pass into new ApolloClient
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  dataIdFromObject: object => {
+    switch (object.__typename) {
+      case 'Operation': return object.pid;
+      case 'Element': return object.name;
+      default: return defaultDataIdFromObject(object); // fall back to default handling
+    }
+  }
+});
 
 const retryLink = new RetryLink();
 
@@ -60,5 +67,5 @@ export default new ApolloClient({
     httpWsLink
   ]),
   cache: cache,
-  connectToDevTools: false
+  connectToDevTools: true
 });

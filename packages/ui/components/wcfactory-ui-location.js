@@ -2,7 +2,7 @@ import { html, ApolloMutation } from 'lit-apollo';
 import gql from 'graphql-tag'
 import client from '../client.js'
 
-const OPEN_LOCATION_MUTATION = gql`
+export const OPEN_LOCATION_MUTATION = gql`
   mutation($location: String!) {
     openLocation(location: $location)
   }

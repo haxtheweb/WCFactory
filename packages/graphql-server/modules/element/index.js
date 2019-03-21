@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server')
-const { getElements, getFactories } = require('@wcfactory/common/config')
+const { getElements, getFactories, getElementByLocation } = require('@wcfactory/common/config')
 
 /**
  * SDK
@@ -19,8 +19,12 @@ const typeDefs = gql`
     elements: [Element]
   }
 
+  extend type Operation {
+    element: Element!
+  }
+
   type Element {
-    name: String!
+    name: ID!
     location: String
     version: String
     private: Boolean
@@ -42,6 +46,10 @@ const resolvers = {
       const factory = name
       return getElements(factory)
     }
+  },
+
+  Operation: {
+    element: ({ location }) => getElementByLocation(location)
   }
 }
 

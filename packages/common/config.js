@@ -256,6 +256,18 @@ const getElements = (factory) => {
 /**
  * Return a list of scripts defined in an element
  */
+const getElementByLocation = (elementLocation) => {
+  try {
+    const elementList = JSON.parse(execFileSync(lernaPath, ["list", "--json", "--all", "--long"], { cwd: elementLocation }))
+    return elementList.find(i => i.location === elementLocation)
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * Return a list of scripts defined in an element
+ */
 const getElementScripts = (elementLocation) => {
   const packageLocation = path.join(elementLocation, 'package.json')
   try {
@@ -292,5 +304,6 @@ module.exports.libraries = libraries()
 module.exports.librariesOptions = librariesOptions()
 module.exports.librariesDir = librariesDir()
 module.exports.getElements = getElements
+module.exports.getElementByLocation = getElementByLocation
 module.exports.getElementScripts = getElementScripts
 module.exports.runScript = runScript
