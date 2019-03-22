@@ -11,6 +11,10 @@ export const GET_OPERATIONS = gql`
       id
       location
       script
+      element {
+        id
+        name
+      }
     }
   }
 `

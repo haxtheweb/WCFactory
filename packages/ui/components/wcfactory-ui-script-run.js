@@ -9,6 +9,10 @@ export const RUN_SCRIPT_MUTATION = gql`
       id
       location
       script
+      element {
+        id
+        name
+      }
     }
   }
 `
@@ -59,6 +63,11 @@ class WCFactoryUIScriptRun extends ApolloMutation {
 
         .script[active="true"] {
           background: black;
+        }
+
+        .script[disabled] {
+          cursor: inherit;
+          opacity: 0.5;
         }
       </style>
 

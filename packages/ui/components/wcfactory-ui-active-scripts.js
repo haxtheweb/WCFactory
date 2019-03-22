@@ -1,29 +1,19 @@
 import { html, ApolloQuery } from 'lit-apollo';
 import gql from 'graphql-tag'
 import client from '../client.js'
-
-export const GET_ACTIVE_OPERATIONS = gql`
-  query {
-    operations {
-      pid
-      location
-      script
-      element {
-        name
-      }
-    }
-  }
-`
+import './wcfactory-ui-active-script.js'
+import { GET_OPERATIONS } from './wcfactory-ui-script.js'
 
 class WCFactoryUIActiveScripts extends ApolloQuery {
   constructor() {
     super()
     this.client = client
-    this.query = GET_ACTIVE_OPERATIONS
+    this.query = GET_OPERATIONS
   }
   render() {
     const { data, error, loading } = this;
     return html`
+      <h3>Active Scripts (${data.operations.length})</h3>
       ${data.operations.map(operation => {
         return html`
           <div>
