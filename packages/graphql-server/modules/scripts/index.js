@@ -64,19 +64,21 @@ const getOperationID = (operation) => operations.filter(i => i.script === operat
  */
 const typeDefs = gql`
   type Operation {
-    pid: ID!
+    id: ID!
+    pid: Int!
     script: String!
     location: String!
   }
 
   type OperationOutput {
+    id: ID!
     operation: Operation!
     output: String
   }
 
   extend type Query {
-    operations: [Operation!]
-    operation(pid: ID!): Operation!
+    operations: [Operation]
+    operation(pid: Int!): Operation!
     operationsOutput: [OperationOutput!]
   }
 
@@ -135,12 +137,12 @@ const resolvers = {
           cwd: location,
         })
         // save the operation
-        const operation = { __typename: 'Operations', location, script, pid: `${cp.pid}` } 
+        const operation = { __typename: 'Operations', location, script, pid: cp.pid, id: uuid() } 
         updateOperation(operation)
 
         // listen for stdout
         cp.stdout.on('data', data => {
-          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: `${cp.pid}` })
+          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: `${cp.pid}`, id: uuid() })
         })
 
         // verify it completed

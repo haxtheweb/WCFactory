@@ -34,15 +34,7 @@ const httpWsLink = split(
 );
 
 // This is the same cache you pass into new ApolloClient
-const cache = new InMemoryCache({
-  dataIdFromObject: object => {
-    switch (object.__typename) {
-      case 'Operation': return object.pid;
-      case 'Element': return object.name;
-      default: return defaultDataIdFromObject(object); // fall back to default handling
-    }
-  }
-});
+const cache = new InMemoryCache();
 
 const retryLink = new RetryLink();
 
@@ -58,7 +50,7 @@ export default new ApolloClient({
         graphQLErrors.map(({ message, locations, path }) =>
           console.log(
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-          ),
+          )
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),

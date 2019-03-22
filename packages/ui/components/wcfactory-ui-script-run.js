@@ -6,7 +6,7 @@ import { GET_OPERATIONS } from './wcfactory-ui-script.js'
 export const RUN_SCRIPT_MUTATION = gql`
   mutation($script: String!, $location: String!) {
     runScript(script: $script, location: $location) {
-      pid
+      id
       location
       script
     }

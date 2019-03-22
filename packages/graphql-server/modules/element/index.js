@@ -11,8 +11,8 @@ const getFactoryElements = (factory) => getElements(factory).map(i => Object.ass
  */
 const typeDefs = gql`
   extend type Query {
-    element(factory: ID!, name: String!): Element
-    elements(factory: ID!): [Element]
+    element(factory: String!, name: String!): Element
+    elements(factory: String!): [Element]
   }
 
   extend type Factory {
@@ -24,10 +24,11 @@ const typeDefs = gql`
   }
 
   type Element {
-    name: ID!
-    location: String
-    version: String
-    private: Boolean
+    id: ID!
+    name: String!
+    location: String!
+    version: String!
+    private: Boolean!
   }
 ` 
 
@@ -36,20 +37,26 @@ const resolvers = {
     element: (_, {factory, name}, ctx) =>
       getElements(factory)
         .find(i => i.name === name)
-        .map(i => Object.assign({}, i, { factory: getFactory() })),
+        .map(i => Object.assign({}, i, { id: `${i.location}`})),
 
-    elements: (_, {factory}) => getElements(factory)
+    elements: (_, {factory}) =>
+      getElements(factory)
+        .map(i => Object.assign({}, i, { id: `${i.location}`})),
   },
 
   Factory: {
     elements({name}, args, context) {
       const factory = name
       return getElements(factory)
+        .map(i => Object.assign({}, i, { id: `${i.location}`}))
     }
   },
 
   Operation: {
-    element: ({ location }) => getElementByLocation(location)
+    element: ({ location }) => {
+      const element = getElementByLocation(location)
+      return Object.assign({}, element, { id: `${location}`})
+    }
   }
 }
 

@@ -6,11 +6,11 @@ import './wcfactory-ui-script-run.js'
 import './wcfactory-ui-script-stop.js'
 
 export const GET_OPERATIONS = gql`
-  query {
+  query operationsList {
     operations {
-      script
+      id
       location
-      pid
+      script
     }
   }
 `
@@ -32,8 +32,7 @@ class WCFactoryUIScript extends ApolloQuery {
   render() {
     // set up the mutation
     const { data } = this
-    const { operations } = data
-    const active = (operations.find(i => i.script === this.script && i.location === this.location)) ? true : false
+    const active = (data.operations.find(i => i.script === this.script && i.location === this.location)) ? true : false
     if (active) {
       return html`
         <wcfactory-ui-script-stop .script=${this.script} .location=${this.location}></wcfactory-ui-script-stop>

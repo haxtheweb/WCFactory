@@ -148,6 +148,7 @@ class WCFactoryUIFactory extends LitElement {
             location
             scripts
             elements {
+              id
               name
               location
               version
