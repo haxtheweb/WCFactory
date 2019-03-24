@@ -13,14 +13,30 @@ class WCFactoryUIActiveScripts extends ApolloQuery {
   render() {
     const { data, error, loading } = this;
     return html`
-      <h3>Active Scripts (${data.operations.length})</h3>
-      ${data.operations.map(operation => {
-        return html`
-          <div>
-            <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
-          </div>
-        `
-      })}
+      <style>
+        :host {
+          display: block;
+          position: fixed;
+          right: 0;
+          bottom: 0;
+          z-index: 100;
+        }
+        #tabs {
+          display: flex;
+        }
+        #container {
+          max-width: 300px;
+        }
+      </style>
+      <div id="tabs">
+        ${data.operations.map(operation => {
+          return html`
+            <div id="container">
+              <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
+            </div>
+          `
+        })}
+      </div>
     `
   }
 }

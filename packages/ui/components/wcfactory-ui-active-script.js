@@ -18,11 +18,13 @@ export const GET_OPERATION_OUTPUT = gql`
 class WCFactoryUIActiveScript extends ApolloQuery {
   static get properties() {
     return {
-      script: { type: Object }
+      script: { type: Object },
+      active: { type: Boolean, reflect: true }
     }
   }
   constructor() {
     super()
+    this.active = true
     this.script = {}
   }
   firstUpdated() {
@@ -35,11 +37,31 @@ class WCFactoryUIActiveScript extends ApolloQuery {
   }
   render() {
     const { data, loading, error } = this
+    const active = this.active
     if (data) {
       return html`
-        <wcfactory-ui-terminal>
-          ${data.operationOutput.map(i => html`<div>${i.output}</div>`)}
-        </wcfactory-ui-terminal>
+        <style>
+          :host {
+            display: block;
+            background: var(--wcfactory-ui-secondary-color);
+          }
+          #header {
+            font-size: .6em;
+            padding: 1em;
+          }
+          :host[active] {
+            display: none;
+          }
+          wcfactory-ui-terminal {
+            --wcfactory-ui-terminal-bg: calc(var(--wcfactory-ui-secondary-color) * 0.9);
+          }
+        </style>
+        <div id="header" @click=${() => this.active = !this.active}>${this.script.element.name}</div>
+        <div id="body">
+          <wcfactory-ui-terminal>
+            ${data.operationOutput.map(i => html`<div>${i.output}</div>`)}
+          </wcfactory-ui-terminal>
+        </div>
       `
     }
     if (loading) return html`loading...`

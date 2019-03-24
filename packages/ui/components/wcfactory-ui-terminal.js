@@ -24,11 +24,12 @@ class WCFactoryUITerminal extends LitElement {
     return html`
       <style>
         :host {
+          --wcfactory-ui-terminal-bg: black;
           display: block;
         }
 
         #output {
-          background: black;
+          background: var(--wcfactory-ui-terminal-bg);
           height: 150px;
           overflow-x: hidden;
           overflow-y: scroll;
