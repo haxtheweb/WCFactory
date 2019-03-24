@@ -9,6 +9,7 @@ export const RUN_SCRIPT_MUTATION = gql`
       id
       location
       script
+      pid
       element {
         id
         name

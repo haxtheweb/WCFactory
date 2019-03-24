@@ -79,7 +79,8 @@ const typeDefs = gql`
   extend type Query {
     operations: [Operation]
     operation(pid: Int!): Operation!
-    operationsOutput: [OperationOutput!]
+    operationOutput(pid: Int!): [OperationOutput]
+    operationsOutput: [OperationOutput]
   }
 
   extend type Element {
@@ -114,11 +115,16 @@ const resolvers = {
   Query: {
     operations: (parent) => operations,
     operation: (parent, { pid }, ctx) => operations.filter(i => i.pid === pid),
-    operationsOutput: () => operationsOutput
+    operationsOutput: () => operationsOutput,
+    operationOutput: (parent, { pid }) => operationsOutput.filter(i => {
+      return i.operation === pid
+    })
   },
 
   OperationOutput: {
-    operation: ({ operation }) => operations.find(i => i.pid === operation)
+    operation: ({ operation }) =>  operations.find(i => {
+      return (i.pid === operation)
+    })
   },
 
   Element: {
@@ -142,7 +148,7 @@ const resolvers = {
 
         // listen for stdout
         cp.stdout.on('data', data => {
-          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: `${cp.pid}`, id: uuid() })
+          saveOperationOutput({ __typename: 'OperationsOutput', output: data.toString(), operation: cp.pid, id: uuid() })
         })
 
         // verify it completed

@@ -11,6 +11,7 @@ export const GET_OPERATIONS = gql`
       id
       location
       script
+      pid
       element {
         id
         name
