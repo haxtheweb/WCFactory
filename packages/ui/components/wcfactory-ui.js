@@ -4,11 +4,13 @@ import './wcfactory-ui-factories.js'
 import './wcfactory-ui-factory.js'
 import './wcfactory-ui-404.js'
 import './wcfactory-ui-active-scripts.js'
+import { subscribeToOperationsOutput } from '../subscriptions/operationsOutput.js'
 
 class WCFactoryUI extends LitElement {
   firstUpdated() {
     this.addEventListener('wcfactory-ui-open-location', this._openLocationHandler.bind(this))
     this.routerSetup()
+    subscribeToOperationsOutput()
   }
 
   disconnectedCallback() {

@@ -3,11 +3,14 @@ import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-terminal.js'
 
-const GET_OPERATION_OUTPUT = gql`
+export const GET_OPERATION_OUTPUT = gql`
   query($pid: Int!) {
     operationOutput(pid: $pid) {
       id
       output
+      operation {
+        pid
+      }
     }
   }
 `
@@ -35,7 +38,7 @@ class WCFactoryUIActiveScript extends ApolloQuery {
     if (data) {
       return html`
         <wcfactory-ui-terminal>
-          <div>${data.operationOutput.map(i => html`${i.output}`)}</div>
+          ${data.operationOutput.map(i => html`<div>${i.output}</div>`)}
         </wcfactory-ui-terminal>
       `
     }
