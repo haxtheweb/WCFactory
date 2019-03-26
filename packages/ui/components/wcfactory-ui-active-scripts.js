@@ -2,6 +2,8 @@ import { html, ApolloQuery } from 'lit-apollo';
 import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-active-script.js'
+import './wcfactory-ui-desktop-tabs.js'
+import './wcfactory-ui-desktop-tab.js'
 import { GET_OPERATIONS } from './wcfactory-ui-script.js'
 
 class WCFactoryUIActiveScripts extends ApolloQuery {
@@ -28,15 +30,18 @@ class WCFactoryUIActiveScripts extends ApolloQuery {
           max-width: 300px;
         }
       </style>
-      <div id="tabs">
+    
+    <wcfactory-ui-desktop-tabs>
         ${data.operations.map(operation => {
           return html`
-            <div id="container">
+            <wcfactory-ui-desktop-tab>
+              <span slot="header">${operation.element.name}</span>
               <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
-            </div>
+            </wcfactory-ui-desktop-tab>
           `
         })}
-      </div>
+      </wcfactory-ui-desktop-tabs>
+
     `
   }
 }

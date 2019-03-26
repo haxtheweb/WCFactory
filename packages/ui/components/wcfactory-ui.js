@@ -4,6 +4,8 @@ import './wcfactory-ui-factories.js'
 import './wcfactory-ui-factory.js'
 import './wcfactory-ui-404.js'
 import './wcfactory-ui-active-scripts.js'
+import './wcfactory-ui-desktop-tabs.js'
+import './wcfactory-ui-terminal.js'
 import { subscribeToOperationsOutput } from '../subscriptions/operationsOutput.js'
 
 class WCFactoryUI extends LitElement {
@@ -41,8 +43,9 @@ class WCFactoryUI extends LitElement {
         }
       </style>
       <h1><a href="/">WCFactory</a></h1>
-      <wcfactory-ui-active-scripts></wcfactory-ui-active-scripts>
       <div id="router-outlet"></div>
+
+      <wcfactory-ui-active-scripts></wcfactory-ui-active-scripts>
     `;  
   }
 
