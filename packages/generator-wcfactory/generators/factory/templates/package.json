@@ -97,16 +97,7 @@
     "yo": "2.0.5"
   },
   "dependencies": {
-    "@polymer/lit-element": "0.7.1",
-    "@polymer/polymer": "3.1.0",
-    "@polymer/iron-demo-helpers": "3.1.0",
-    "@skatejs/renderer-lit-html": "0.2.2",
-    "lit-html": "1.0.0",
-    "skatejs": "5.2.4",
-    "slim-js": "4.0.5",
-    "twig": "1.13.2",
-    "@lrnwebcomponents/deduping-fix": "2.0.5",
-    "@lrnwebcomponents/hax-body-behaviors": "2.0.5"
+    "@lrnwebcomponents/deduping-fix": "2.0.8"
   },
   "lint-staged": {
     "linters": {
