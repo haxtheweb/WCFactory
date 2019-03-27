@@ -49,12 +49,19 @@ class WCFactoryUIFactory extends LitElement {
             display: block;
             font-size: var(--wcfactory-ui-factory-font-size);
           }
+          #wrapper {
+            background: rgba(0,0,0, 0.1);
+            padding: calc(var(--wcfactory-ui-factory-font-size) * 1.2);
+          }
+          .spacer {
+            flex: 1 1 auto;
+          }
           *[aria-role="button"] {
             cursor: pointer;
           }
           #factory-info {
-            background: rgba(0,0,0, 0.1);
-            padding: calc(var(--wcfactory-ui-factory-font-size) * 1.2);
+            display: flex;
+            flex-wrap: wrap;
           }
           #factory-info wcfactory-ui-scripts {
             --wcfactory-ui-scripts-font-size: 14px;
@@ -96,43 +103,43 @@ class WCFactoryUIFactory extends LitElement {
           }
         </style>
 
-        <div id="factory-info">
-          Name: <span class="name">${this.factory.name}</span> <br>
-          Location: <wcfactory-ui-location location=${this.factory.location}></wcfactory-ui-location> <br>
-          <wcfactory-ui-scripts .scripts=${this.factory.scripts} .location=${this.factory.location}></wcfactory-ui-scripts> <br>
-        </div>
+        <div id="wrapper">
+          <div id="factory-info">
+            <div class="name">🏭 ${this.factory.name}</div>
+            <div class="spacer"></div>
+            <wcfactory-ui-location location=${this.factory.location}></wcfactory-ui-location> <br>
+          </div>
 
-        <div id="filter">
-          Elements: (${this.factory.elements.length})
-          <wcfactory-ui-search
-            placeholder="element name"
-            @input=${e => this.elementFilter = e.composedPath()[0].value}>
-            <span slot="label">Filter elements:</span>
-          </wcfactory-ui-search>
-        </div>
+          <div id="filter">
+            <wcfactory-ui-search
+              placeholder="element name"
+              @input=${e => this.elementFilter = e.composedPath()[0].value}>
+            </wcfactory-ui-search> <span id="elementCount">(${this.factory.elements.length})</span>
+          </div>
 
-        <div id="elements">
-            ${filteredElements
-              .map(element => html`
-            <div id="element-container" active=${(element.name === this.activeElement)}>
-              <div id="element"
-                @click=${this._activateItemHander}
-                @keypress=${this._activateItemHander}
-                data-name=${element.name}
-                aria-role="button"
-                aria-haspopup="true"
-                aria-pressed=${(element.name === this.activeElement)}
-                tabindex="1"> 
-                📦 ${element.name}
+          <div id="elements">
+              ${filteredElements
+                .map(element => html`
+              <div id="element-container" active=${(element.name === this.activeElement)}>
+                <div id="element"
+                  @click=${this._activateItemHander}
+                  @keypress=${this._activateItemHander}
+                  data-name=${element.name}
+                  aria-role="button"
+                  aria-haspopup="true"
+                  aria-pressed=${(element.name === this.activeElement)}
+                  tabindex="1"> 
+                  ∈ ${element.name}
+                </div>
+                <div id="element-item-container" tabindex=${((element.name === this.activeElement) ? '1' : null)}>
+                  <wcfactory-ui-element
+                    .element=${element}
+                    tabindex=${((element.name === this.activeElement) ? '1' : null)}>
+                  </wcfactory-ui-element>
+                </div>
               </div>
-              <div id="element-item-container" tabindex=${((element.name === this.activeElement) ? '1' : null)}>
-                <wcfactory-ui-element
-                  .element=${element}
-                  tabindex=${((element.name === this.activeElement) ? '1' : null)}>
-                </wcfactory-ui-element>
-              </div>
-            </div>
-            `)}
+              `)}
+          </div>
         </div>
       `;
     }

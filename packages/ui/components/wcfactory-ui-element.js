@@ -40,6 +40,10 @@ class WCFactoryUIElement extends LitElement {
         }
         #header {
           display: flex;
+          align-items: center;
+        }
+        #header > * {
+          margin: 0 .5em;
         }
         #title {
           flex: 1 1 auto;
@@ -70,13 +74,15 @@ class WCFactoryUIElement extends LitElement {
       </style>
       <div id="header">
         <div id="title"> ${this.element.name} </div>
+        <div id="location">
+          <wcfactory-ui-location .location=${this.element.location}></wcfactory-ui-location>
+        </div>
         <div id="version"> 📦${this.element.version} </div>
       </div>
       <div id="middle">
         <wcfactory-ui-scripts .scripts=${this.element.scripts} .location=${this.element.location}></wcfactory-ui-scripts>
       </div>
       <div id="footer">
-        <wcfactory-ui-location .location=${this.element.location}></wcfactory-ui-location>
       </div>
     `;
   }

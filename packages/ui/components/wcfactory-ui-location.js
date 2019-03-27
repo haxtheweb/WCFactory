@@ -30,9 +30,7 @@ class WCFactoryUILocation extends ApolloMutation {
           cursor: pointer;
         }
       </style>
-      <div id="location" @click=${this.mutate}>
-        📁 ${this.location}
-      </div>
+      <div id="location" @click=${this.mutate}>📁</div>
     `;  
   }
 }
