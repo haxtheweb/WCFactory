@@ -17,6 +17,10 @@ class WCFactoryUIScriptStop extends ApolloMutation {
     }
   }
 
+  constructor() {
+    super()
+  }
+
   render() {
     this.client = client
     this.mutation = STOP_SCRIPT_MUTATION
@@ -63,7 +67,7 @@ class WCFactoryUIScriptStop extends ApolloMutation {
       <button
         class="script"
         @click=${this.mutate}>
-          ❌ ${this.script}
+          ❌ <slot></slot>
       </button>
     `
   }

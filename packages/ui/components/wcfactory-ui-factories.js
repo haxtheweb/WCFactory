@@ -1,7 +1,6 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import client from '../client.js'
-import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 
 const query = gql`
   query {

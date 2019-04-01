@@ -2,6 +2,7 @@ import { html, ApolloQuery } from 'lit-apollo'
 import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-terminal.js'
+import './wcfactory-ui-script-stop.js'
 
 export const GET_OPERATION_OUTPUT = gql`
   query($pid: Int!) {
@@ -40,8 +41,20 @@ class WCFactoryUIActiveScript extends ApolloQuery {
         <style>
           :host {
             display: block;
+            position: relative;
+          }
+          #scripts {
+            display: flex;
+            flex-direction: row-reverse;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translateY(-110%);
           }
         </style>
+        <div id="scripts">
+          <wcfactory-ui-script-stop .script=${this.script.script} .location=${this.script.location}></wcfactory-ui-script-stop>
+        </div>
         <wcfactory-ui-terminal>
           ${data.operationOutput.map(i => html`<div>${i.output}</div>`)}
         </wcfactory-ui-terminal>

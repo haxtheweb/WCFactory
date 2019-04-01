@@ -40,7 +40,7 @@ class WCFactoryUIScript extends ApolloQuery {
     const active = (data.operations.find(i => i.script === this.script && i.location === this.location)) ? true : false
     if (active) {
       return html`
-        <wcfactory-ui-script-stop .script=${this.script} .location=${this.location}></wcfactory-ui-script-stop>
+        <wcfactory-ui-script-stop .script=${this.script} .location=${this.location}>${this.script}</wcfactory-ui-script-stop>
       `
     }
     else {

@@ -51,7 +51,14 @@ class WCFactoryUIDesktopTab extends LitElement {
   render() {
     return html`
       <div id="container" active=${this.active} tabindex="1">
-        <div id="header" @click=${() => this.active = !this.active}><slot name="header"></slot></div>
+        <div id="header" @click=${() => this.active = !this.active}>
+          <div id="header-left">
+            <slot name="header"></slot>
+          </div>
+          <div id="header-right">
+            <slot name="header-right"></slot>
+          </div>
+        </div>
         <div id="body"><slot></slot></div>
       </div>
     `;
