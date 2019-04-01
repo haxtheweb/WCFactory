@@ -10,6 +10,9 @@
   "dependencies": {
     "@lrnwebcomponents/paper-search": "^2.0.5",
     "@polymer/iron-behaviors": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/iron-form": "^3.0.1",
     "@vaadin/router": "^1.2.0",
     "@vaadin/vaadin-list-box": "^1.1.0",
     "@vaadin/vaadin-item": "^2.1.0",
@@ -29,7 +32,8 @@
     "fuse.js": "^3.4.2",
     "lit-element": "^2.0.1",
     "mobx": "^5.9.0",
-    "lit-apollo": "^0.8.1"
+    "lit-apollo": "^0.8.1",
+    "is-valid-element-name": "^1.0.0"
   },
   "devDependencies": {
     "@open-wc/building-webpack": "^0.1.9",
