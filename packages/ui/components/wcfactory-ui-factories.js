@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import client from '../client.js'
+import './wcfactory-ui-button.js'
 
 const query = gql`
   query {
@@ -70,6 +71,7 @@ class WCFactoryUIFactories extends LitElement {
           </a>
         `)}
       </div>
+      <wcfactory-ui-button @click=${() => window.location = '/factories/create' }>🏭 Create factory</wcfactory-ui-button>
     `;
   }
 }

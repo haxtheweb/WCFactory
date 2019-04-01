@@ -16,9 +16,20 @@ const typeDefs = gql`
     factories: [Factory]
   }
 
+  extend type Mutation {
+    createFactory(createFactoryInput: CreateFactoryInput): Boolean
+  }
+
   type Factory {
     name: ID!
     location: String!
+  }
+
+  input CreateFactoryInput {
+    name: String!
+    description: String!
+    gitOrg: String!
+    npmOrg: String!
   }
 ` 
 
@@ -27,6 +38,9 @@ const resolvers = {
     factory: (_, {name}, ctx) => getFactory(name),
     factories: () => getFactories()
   },
+  Mutation: {
+    createFactory: (_, variables) => true
+  }
 }
 
 module.exports = {

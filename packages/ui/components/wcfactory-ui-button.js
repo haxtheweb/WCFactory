@@ -4,13 +4,15 @@ import '@polymer/paper-button/paper-button.js';
 class WCFactoryUIButton extends LitElement {
   static get properties() {
     return {
-      disabled: { type: Boolean, reflect: true }
+      disabled: { type: Boolean, reflect: true },
+      cta: { type: Boolean, reflect: true }
     }
   }
 
   constructor() {
     super()
     this.disabled = false
+    this.cta = false
   }
 
   render() {
