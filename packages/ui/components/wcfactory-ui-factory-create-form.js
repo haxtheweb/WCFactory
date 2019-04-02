@@ -8,9 +8,11 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
     return {
       form: { type: Object },
       name: { type: String },
+      humanName: { type: String },
       description: { type: String },
-      gitOrg: { type: String },
-      npmOrg: { type: String },
+      orgGit: { type: String },
+      orgNpm: { type: String },
+      gitRepo: { type: String },
       isValid: { type: Boolean },
     }
   }
@@ -19,20 +21,24 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
     super()
     this.isValid = false
     this.name = ''
+    this.humanName = ''
     this.description = ''
-    this.gitOrg = ''
-    this.npmOrg = ''
+    this.orgGit = ''
+    this.orgNpm = ''
+    this.gitRepo = ''
   }
 
   updated(changed) {
     if (
       this.name !== '' &&
+      this.humanName !== '' &&
       this.description !== '' &&
-      this.gitOrg !== '' &&
-      this.npmOrg !== ''
+      this.orgGit !== '' &&
+      this.orgNpm !== ''
     ) {
       const valid = this._validateForm()
     }
+    this.gitRepo = `git:github.com/${this.orgGit ? this.orgGit : '<org name>'}/${this.name ? this.name : '<name>'}`
   }
 
   render () {
@@ -61,22 +67,23 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
         <iron-form id="form">
           <form>
             <paper-input always-float-label required label="name" auto-validate auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.name = e.detail.value}></paper-input>
+            <paper-input always-float-label required label="human name" auto-validate auto-validate @value-changed=${(e) => this.humanName = e.detail.value}></paper-input>
             <paper-input always-float-label required label="description" @value-changed=${(e) => this.description = e.detail.value}></paper-input>
-            <paper-input always-float-label required label="gitOrg" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.gitOrg = e.detail.value}></paper-input>
-            <paper-input always-float-label required label="npmOrg" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.npmOrg = e.detail.value}></paper-input>
+            <paper-input always-float-label required label="orgGit" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.orgGit = e.detail.value}></paper-input>
+            <paper-input always-float-label required label="orgNpm" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.orgNpm = e.detail.value}></paper-input>
           <form>
         </iron-form>
 
         <div id="info">
-          <div id="name"><h2>🏭 ${this.name}</h2></div>
+          <div id="name"><h2>🏭 ${this.humanName}</h2></div>
           <div id="repo-info">
             <div id="git-repo">
               Git Repo: <br>
-              git:github.com/${this.gitOrg ? this.gitOrg : '<git org>'}/${this.name ? this.name : '<name>'}
+              ${this.gitRepo}
             </div>
-            <div id="npm-repo" ?data-filled=${this.npmOrg}>
+            <div id="npm-repo" ?data-filled=${this.orgNpm}>
               NPM Repo: <br>
-              @${this.npmOrg ? `${this.npmOrg}` : ''}
+              @${this.orgNpm ? `${this.orgNpm}` : ''}
             </div>
           </div>
         </div>
@@ -95,14 +102,16 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
         bubbles: true,
         detail: {
           name: this.name,
+          humanName: this.humanName,
           description: this.description,
-          gitOrg: this.gitOrg,
-          npmOrg: this.npmOrg,
+          orgGit: this.orgGit,
+          orgNpm: `@${this.orgNpm}`,
+          gitRepo: this.gitRepo
         }
       }))
     }
   }
-  
+ 
   _validateForm() {
     const form = this.shadowRoot.querySelector('#form')
     const valid = form.validate()

@@ -1,11 +1,51 @@
 const { gql } = require('apollo-server')
-const { factoryOptions, getElements } = require('@wcfactory/common/config')
+const { factoryOptions, getElements, factoryDir } = require('@wcfactory/common/config')
+const { spawn } = require('child_process')
+const path = require('path')
 
 /**
  * SDK
  */
-const getFactories = () => factoryOptions().map(i => Object.assign({ name: i.name, location: i.value}))
-const getFactory = (name) => getFactories().find(i => i.name === name)
+const getFactories = () => factoryOptions().map(i => formatFactory(i))
+const getFactory = (name) => getFactories().map(i => formatFactory(i)).find(i => i.name === name)
+const formatFactory = (factory) => Object.assign({}, {
+  id: `factory:${factory.value}`,
+  name: factory.name,
+  location: factory.value,
+  output: factoryGetOutput(`factory:${factory.value}`),
+})
+
+/**
+ * Get any factory output
+ * @param {FactoryScript.id} id 
+ */
+const factoryGetOutput = (id) =>  {
+  const found = factoryScripts.find(i => i.id === id)
+  if (found) {
+    return found.output
+  }
+  return null
+}
+
+/**
+ * Update the factory set output list
+ * @param {FactoryScript.id} id 
+ */
+const factorySetOutput = (id, output) => {
+  let newFactoryScripts = factoryScripts.filter(i => i.id !== id)
+  factoryScripts = [...newFactoryScripts, { id, output }]
+}
+
+/**
+ * @typedef {Object} FactoryScript
+ * @property {string} id factory id
+ * @property {string} output factory output
+ */
+
+/**
+ * @typedef {FactoryScript[]} FactoryScripts
+ */
+let factoryScripts = []
 
 /**
  * Define Schema
@@ -21,15 +61,19 @@ const typeDefs = gql`
   }
 
   type Factory {
-    name: ID!
+    id: ID!
+    name: String!
     location: String!
+    output: String
   }
 
   input CreateFactoryInput {
     name: String!
+    humanName: String!
     description: String!
-    gitOrg: String!
-    npmOrg: String!
+    orgGit: String!
+    orgNpm: String!
+    gitRepo: String!
   }
 ` 
 
@@ -39,7 +83,16 @@ const resolvers = {
     factories: () => getFactories()
   },
   Mutation: {
-    createFactory: (_, variables) => true
+    createFactory: (_, { createFactoryInput: { name, humanName, description, orgGit, orgNpm, gitRepo }}) => {
+      const cp = spawn('wcf', ['factory', `--name=${name}`, `--humanName=${humanName}`, `--description=${description}`, `--orgGit=${orgGit}`, `--orgNpm=${orgNpm}`, `--gitRepo=${gitRepo}`, '-y'])
+      cp.stdout.on('data', data => {
+        console.log('data:', data.toString())
+        const output = data.toString()
+        const factoryId = `factory:${path.join(factoryDir, name)}`
+        factorySetOutput(factoryId, output)
+      })
+      return true
+    }
   }
 }
 

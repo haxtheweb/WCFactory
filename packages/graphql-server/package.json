@@ -11,6 +11,7 @@
     "@wcfactory/common": "^0.7.0",
     "apollo-server": "^2.4.8",
     "apollo-client": "^2.5.1",
+    "case": "^1.6.1",
     "graphql": "^14.1.1",
     "lowdb": "^1.0.0",
     "tree-kill": "^1.2.1",

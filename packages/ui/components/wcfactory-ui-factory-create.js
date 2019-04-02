@@ -1,7 +1,7 @@
 // import { LitElement, html } from 'lit-element';
-import { ApolloMutation, html } from 'lit-apollo';
+import { ApolloMutation, html } from 'lit-apollo'
 import gql from 'graphql-tag'
-import 'lit-apollo/elements/apollo-mutation-element.js';
+import 'lit-apollo/elements/apollo-mutation-element.js'
 import client from '../client.js'
 import './wcfactory-ui-factory-create-form.js'
 
