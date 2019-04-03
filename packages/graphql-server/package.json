@@ -15,7 +15,8 @@
     "graphql": "^14.1.1",
     "lowdb": "^1.0.0",
     "tree-kill": "^1.2.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "open": "^6.0.0"
   },
   "scripts": {
     "start": "node index.js",

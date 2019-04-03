@@ -38,7 +38,6 @@ class WCFactoryUIFactories extends LitElement {
       client.watchQuery({
         query: GET_FACTORIES,
       }).subscribe(({ data: { factories }}) => {
-        console.log('factories:', factories)
         this.factories = factories
       })
     } catch (error) {

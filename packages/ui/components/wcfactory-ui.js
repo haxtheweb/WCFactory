@@ -9,21 +9,13 @@ import './wcfactory-ui-terminal.js'
 import './wcfactory-ui-factory-create.js'
 import { subscribeToOperationsOutput } from '../subscriptions/operationsOutput.js'
 import { subscribeToFactoryUpdates } from '../subscriptions/factoryUpdate.js'
-import client from '../client.js';
-import { FACTORY_FRAGMENT } from './wcfactory-ui-factories.js';
 
 class WCFactoryUI extends LitElement {
   firstUpdated() {
-    this.addEventListener('wcfactory-ui-open-location', this._openLocationHandler.bind(this))
     this.routerSetup()
     subscribeToOperationsOutput()
     subscribeToFactoryUpdates()
 
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback()
-    this.removeEventListener('wcfactory-ui-open-location', this._openLocationHandler.bind(this))
   }
 
   render() {
@@ -48,20 +40,11 @@ class WCFactoryUI extends LitElement {
           margin-bottom: 5vw
         }
       </style>
-      <button @click=${this._getFactories}>Get factories Cache</button>
       <h1><a href="/">WCFactory</a></h1>
       <div id="router-outlet"></div>
 
       <wcfactory-ui-active-scripts></wcfactory-ui-active-scripts>
     `;  
-  }
-
-  _getFactories(e) {
-    const id = 'Factory:/Users/michael/github/monorepos/factories/EberlyWC'
-    const fragment = FACTORY_FRAGMENT
-    const cache = client.readFragment({ fragment, id })
-    const data = Object.assign({}, cache, { name: 'I changed this in cache!' })
-    client.writeFragment({ fragment, id, data })
   }
 
   /**
@@ -77,10 +60,6 @@ class WCFactoryUI extends LitElement {
       {path: '/factories/:factory', component: 'wcfactory-ui-factory'},
       {path: '(.*)', component: 'wcfactory-ui-404'},
     ]);
-  }
-
-  _openLocationHandler(e) {
-    console.log('e:', e)
   }
 }
 

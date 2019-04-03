@@ -15,9 +15,16 @@ export const CREATE_FACTORY_MUTATION = gql`
 `
 
 export class WCFactoryUIFactoryCreate extends LitElement {
+  static get properties() {
+    return {
+      loading: { type: Boolean }
+    }
+  }
+
   render() {
     return html`
-      <wcfactory-ui-factory-create-form @submit=${this._submitHandler}></wcfactory-ui-factory-create-form>
+      <wcfactory-ui-factory-create-form @submit=${this._submitHandler} .loading=${this.loading}></wcfactory-ui-factory-create-form>
+      <a id="return-home" href="/" hidden></a>
     `;
   }
 
@@ -25,6 +32,7 @@ export class WCFactoryUIFactoryCreate extends LitElement {
    * Create a new factory and add it to the cache
    */
   _submitHandler(e) {
+    this.loading = true;
     client.mutate({
       mutation: CREATE_FACTORY_MUTATION,
       variables: { createFactoryInput: e.detail },
@@ -34,6 +42,10 @@ export class WCFactoryUIFactoryCreate extends LitElement {
         const cache = store.readQuery({ query })
         const factories = [...cache.factories, createFactory]
         store.writeQuery({ query, data: Object.assign({}, cache, { factories }) })
+        setTimeout(() => {
+          this.loading = false;
+          this.shadowRoot.querySelector('#return-home').click()
+        }, 1000)
       }
     })
   }
