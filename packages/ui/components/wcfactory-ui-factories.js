@@ -2,14 +2,25 @@ import { LitElement, html } from 'lit-element';
 import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-button.js'
+import './wcfactory-ui-factory-state.js'
 
-const query = gql`
+export const FACTORY_FRAGMENT = gql`
+  fragment FactoryInfo on Factory {
+    __typename
+    id
+    name
+    location
+    output
+  }
+`
+
+export const GET_FACTORIES = gql`
   query {
     factories {
-      name
-      location
+      ...FactoryInfo
     }
   }
+  ${FACTORY_FRAGMENT}
 `;
 
 class WCFactoryUIFactories extends LitElement {
@@ -25,14 +36,14 @@ class WCFactoryUIFactories extends LitElement {
 
     try {
       client.watchQuery({
-        query,
+        query: GET_FACTORIES,
       }).subscribe(({ data: { factories }}) => {
+        console.log('factories:', factories)
         this.factories = factories
       })
     } catch (error) {
     }
   }
-
 
   render() {
     return html`
@@ -65,13 +76,18 @@ class WCFactoryUIFactories extends LitElement {
       </style>
       <div id="list">
         ${this.factories.map(factory => html`
-          <a id="list-item" href="/factories/${factory.name}">
+          <a id="list-item" href=${factory.output ? '' : `/factories/${factory.name}`}>
             <h2 id="item-title"> 🏭${factory.name} </h2>
-            <div id="item-desc"> ${factory.location} </div>
+            <div id="item-desc">
+              ${factory.output
+                ? html`<wcfactory-ui-factory-state .output=${factory.output}></wcfactory-ui-factory-state>`
+                : html`${factory.location}`
+              }
+            </div>
           </a>
         `)}
       </div>
-      <wcfactory-ui-button @click=${() => window.location = '/factories/create' }>🏭 Create factory</wcfactory-ui-button>
+      <a href="/factories/create"><wcfactory-ui-button>🏭 Create factory</wcfactory-ui-button></a>
     `;
   }
 }

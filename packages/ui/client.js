@@ -43,6 +43,26 @@ const stateLink = withClientState({
   cache,
 });
 
+/**
+ * Helper function to write fragment changes to cache
+ * 
+ * @param {object} client apollo client instance
+ * @param {string} fragment gql fragment string 
+ * @param {string} id id of the object without typename prefix
+ * @param {string} __typename typename of the object in the cache
+ * @param {data} data changes you want applied to object in cache
+ */
+export const writeFragment = ({ client, fragment, id, __typename, data }) => {
+  try {
+    const id = `${__typename}:${id}`
+    const cache = client.readFragment({ fragment, id })
+    const data = Object.assign({}, cache, data)
+    client.writeFragment({ fragment, id, data })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {

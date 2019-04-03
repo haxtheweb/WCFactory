@@ -7,7 +7,12 @@ import './wcfactory-ui-factory-create-form.js'
 
 export const CREATE_FACTORY_MUTATION = gql`
   mutation($createFactoryInput: CreateFactoryInput!) {
-    createFactory(createFactoryInput: $createFactoryInput)
+    createFactory(createFactoryInput: $createFactoryInput) {
+      id
+      name
+      location
+      output
+    }
   }
 `
 
@@ -16,7 +21,7 @@ export class WCFactoryUIFactoryCreate extends ApolloMutation {
     this.client = client
     this.mutation = CREATE_FACTORY_MUTATION
     return html`
-      <wcfactory-ui-factory-create-form @submit=${this._submitHandler}></wcfactory-ui-factory-create-form>
+      <wcfactory-ui-factory-create-form @submit=${this._submitHandler} .loading=${this.loading}></wcfactory-ui-factory-create-form>
     `;
   }
 

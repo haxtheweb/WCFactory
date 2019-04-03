@@ -14,6 +14,7 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
       orgNpm: { type: String },
       gitRepo: { type: String },
       isValid: { type: Boolean },
+      loading: { type: Boolean, reflect: true },
     }
   }
 
@@ -26,6 +27,7 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
     this.orgGit = ''
     this.orgNpm = ''
     this.gitRepo = ''
+    this.loading = false
   }
 
   updated(changed) {
@@ -46,6 +48,7 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
       <style>
         :host {
           display: block;
+          position: relative;
         }
         #footer {
           margin-top: 5vw;
@@ -61,6 +64,18 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
         }
         #info {
           margin-top: 1vw;
+        }
+        #loading {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255,255,255,0.7);
+          color: black;
         }
       </style>
       <div id="wrapper">
@@ -92,6 +107,11 @@ class WCFactoryUIFactoryCreateForm extends LitElement {
       <div id="create">
         <wcfactory-ui-button @click=${() => this._submit()} .disabled=${!this.isValid} cta >Create Factory</wcfactory-ui-button>
       </div>
+
+      ${this.loading
+        ? html`<div id="loading">...Creating Factory</div>`
+        : ''
+      }
     `;
   }
 

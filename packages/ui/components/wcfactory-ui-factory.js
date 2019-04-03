@@ -149,7 +149,7 @@ class WCFactoryUIFactory extends LitElement {
     try {
       client.watchQuery({
         query: gql`
-        query($name: ID!) {
+        query($name: String!) {
           factory(name: $name) {
             name
             location

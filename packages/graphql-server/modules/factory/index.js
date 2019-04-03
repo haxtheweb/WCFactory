@@ -1,18 +1,21 @@
-const { gql } = require('apollo-server')
+const { gql, PubSub } = require('apollo-server')
+const pubsub = new PubSub()
 const { factoryOptions, getElements, factoryDir } = require('@wcfactory/common/config')
 const { spawn } = require('child_process')
 const path = require('path')
+const kill = require('tree-kill')
 
 /**
  * SDK
  */
 const getFactories = () => factoryOptions().map(i => formatFactory(i))
-const getFactory = (name) => getFactories().map(i => formatFactory(i)).find(i => i.name === name)
+const getFactory = (name) => getFactories().find(i => i.name === name)
 const formatFactory = (factory) => Object.assign({}, {
-  id: `factory:${factory.value}`,
+  id: `${factory.value}`,
   name: factory.name,
   location: factory.value,
-  output: factoryGetOutput(`factory:${factory.value}`),
+  output: factoryGetOutput(`${factory.value}`),
+  __typename: 'Factory'
 })
 
 /**
@@ -29,11 +32,26 @@ const factoryGetOutput = (id) =>  {
 
 /**
  * Update the factory set output list
+ * @param {Factory} factory
+ */
+const factorySetOutput = (factory, output) => {
+  const newfactory = Object.assign({}, factory, { output })
+
+  // save new factory output
+  let newFactoryScripts = factoryScripts.filter(i => i.id !== factory.id)
+  factoryScripts = [...newFactoryScripts, newfactory]
+
+  // publish over websocket
+  pubsub.publish(FACTORY_UPDATE, { factoryUpdate: JSON.stringify(newfactory) })
+}
+
+/**
+ * Update the factory set output list
  * @param {FactoryScript.id} id 
  */
-const factorySetOutput = (id, output) => {
+const factoryDeleteOutput = (id) => {
   let newFactoryScripts = factoryScripts.filter(i => i.id !== id)
-  factoryScripts = [...newFactoryScripts, { id, output }]
+  factoryScripts = [...newFactoryScripts]
 }
 
 /**
@@ -47,17 +65,29 @@ const factorySetOutput = (id, output) => {
  */
 let factoryScripts = []
 
+
+
+/**
+ * Subscriptions
+ */
+const FACTORY_UPDATE = 'FACTORY_UPDATE'
+
+
 /**
  * Define Schema
  */
 const typeDefs = gql`
   extend type Query {
-    factory(name: ID!): Factory
+    factory(name: String!): Factory
     factories: [Factory]
   }
 
   extend type Mutation {
-    createFactory(createFactoryInput: CreateFactoryInput): Boolean
+    createFactory(createFactoryInput: CreateFactoryInput): Factory
+  }
+
+  extend type Subscription {
+    factoryUpdate: String
   }
 
   type Factory {
@@ -84,14 +114,36 @@ const resolvers = {
   },
   Mutation: {
     createFactory: (_, { createFactoryInput: { name, humanName, description, orgGit, orgNpm, gitRepo }}) => {
+      const factoryId = `${path.join(factoryDir, name)}`
+      const location = `${path.join(factoryDir, name)}`
+      // assemble new factory
+      const factory = { id: factoryId, name, location, output: 'initializing', __typename: 'Factory' }
+
+      // create the new factory with wcf factory
       const cp = spawn('wcf', ['factory', `--name=${name}`, `--humanName=${humanName}`, `--description=${description}`, `--orgGit=${orgGit}`, `--orgNpm=${orgNpm}`, `--gitRepo=${gitRepo}`, '-y'])
       cp.stdout.on('data', data => {
-        console.log('data:', data.toString())
         const output = data.toString()
-        const factoryId = `factory:${path.join(factoryDir, name)}`
-        factorySetOutput(factoryId, output)
+        if (output.includes('Initialized empty Git')) factorySetOutput(factory, `Initialized empty Git`)
+        if (output.includes('Resolving packages')) factorySetOutput(factory, `Resolving packages`)
+        if (output.includes('Fetching packages')) factorySetOutput(factory, `Fetching packages`)
+        if (output.includes('Linking dependencies')) factorySetOutput(factory, `Linking packages`)
+        if (output.includes('Building fresh packages')) factorySetOutput(factory, `Building fresh packages`)
+        if (output.includes('master (root-commit)')) factorySetOutput(factory, `Wrapping up!`)
       })
-      return true
+      cp.on('close', (code) => {
+        // set the output to null
+        factorySetOutput(factory, null)
+        // delete output in storage
+        factoryDeleteOutput(factoryId)
+      });
+
+      // return the new factory for the user
+      return factory
+    }
+  },
+  Subscription: {
+    factoryUpdate: {
+      subscribe: () => pubsub.asyncIterator([FACTORY_UPDATE])
     }
   }
 }
