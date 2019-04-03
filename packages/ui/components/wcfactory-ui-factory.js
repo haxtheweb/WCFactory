@@ -6,6 +6,7 @@ import './wcfactory-ui-element.js'
 import './wcfactory-ui-search.js'
 import './wcfactory-ui-scripts.js'
 import './wcfactory-ui-location.js'
+import './wcfactory-ui-button.js'
 
 class WCFactoryUIFactory extends LitElement {
   static get properties() {
@@ -140,6 +141,8 @@ class WCFactoryUIFactory extends LitElement {
               </div>
               `)}
           </div>
+
+          <a><wcfactory-ui-button disabled>Create Element (coming soon)</wcfactory-ui-button></a>
         </div>
       `;
     }

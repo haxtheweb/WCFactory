@@ -7,6 +7,7 @@ import './wcfactory-ui-active-scripts.js'
 import './wcfactory-ui-desktop-tabs.js'
 import './wcfactory-ui-terminal.js'
 import './wcfactory-ui-factory-create.js'
+import './wcfactory-ui-element-create.js'
 import { subscribeToOperationsOutput } from '../subscriptions/operationsOutput.js'
 import { subscribeToFactoryUpdates } from '../subscriptions/factoryUpdate.js'
 
@@ -58,6 +59,7 @@ class WCFactoryUI extends LitElement {
       {path: '/factories', component: 'wcfactory-ui-factory'},
       {path: '/factories/create', component: 'wcfactory-ui-factory-create'},
       {path: '/factories/:factory', component: 'wcfactory-ui-factory'},
+      {path: '/factories/:factory/create-element', component: 'wcfactory-ui-element-create'},
       {path: '(.*)', component: 'wcfactory-ui-404'},
     ]);
   }
