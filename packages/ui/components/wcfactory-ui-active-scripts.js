@@ -32,15 +32,15 @@ class WCFactoryUIActiveScripts extends ApolloQuery {
       </style>
     
     <wcfactory-ui-desktop-tabs>
-        ${data.operations.map(operation => {
-          return html`
-            <wcfactory-ui-desktop-tab>
-              <span slot="header">${operation.element.name}</span>
-              <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
-            </wcfactory-ui-desktop-tab>
-          `
-        })}
-      </wcfactory-ui-desktop-tabs>
+      ${data.operations.map(operation => {
+        return html`
+          <wcfactory-ui-desktop-tab active>
+            <span slot="header">${operation.element.name}</span>
+            <wcfactory-ui-active-script .script=${operation}></wcfactory-ui-active-script>
+          </wcfactory-ui-desktop-tab>
+        `
+      })}
+    </wcfactory-ui-desktop-tabs>
 
     `
   }
