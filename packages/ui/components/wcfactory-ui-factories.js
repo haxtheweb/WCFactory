@@ -26,7 +26,7 @@ export const GET_FACTORIES = gql`
 class WCFactoryUIFactories extends LitElement {
   static get properties() {
     return {
-      factories: { type: Array } 
+      factories: { type: Array }
     }
   }
 

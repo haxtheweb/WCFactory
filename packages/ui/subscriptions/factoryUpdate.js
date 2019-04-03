@@ -16,9 +16,7 @@ export const subscribeToFactoryUpdates = () => {
     try {
       const id = `${factoryUpdateData.__typename}:${factoryUpdateData.id}`
       const fragment = FACTORY_FRAGMENT
-      const cache = client.readFragment({ fragment, id })
-      const data = Object.assign({}, cache, { output: factoryUpdateData.output })
-      client.writeFragment({ fragment, id, data })
+      client.writeFragment({ fragment, id, data: factoryUpdateData })
     } catch (err) {
       console.log(err)
     }

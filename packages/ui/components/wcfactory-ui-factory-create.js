@@ -1,33 +1,41 @@
-// import { LitElement, html } from 'lit-element';
-import { ApolloMutation, html } from 'lit-apollo'
+import { LitElement, html } from 'lit-element';
+// import { ApolloMutation, html } from 'lit-apollo'
 import gql from 'graphql-tag'
-import 'lit-apollo/elements/apollo-mutation-element.js'
 import client from '../client.js'
 import './wcfactory-ui-factory-create-form.js'
+import { FACTORY_FRAGMENT, GET_FACTORIES } from './wcfactory-ui-factories'
 
 export const CREATE_FACTORY_MUTATION = gql`
   mutation($createFactoryInput: CreateFactoryInput!) {
     createFactory(createFactoryInput: $createFactoryInput) {
-      id
-      name
-      location
-      output
+      ...FactoryInfo
     }
   }
+  ${FACTORY_FRAGMENT}
 `
 
-export class WCFactoryUIFactoryCreate extends ApolloMutation {
+export class WCFactoryUIFactoryCreate extends LitElement {
   render() {
-    this.client = client
-    this.mutation = CREATE_FACTORY_MUTATION
     return html`
-      <wcfactory-ui-factory-create-form @submit=${this._submitHandler} .loading=${this.loading}></wcfactory-ui-factory-create-form>
+      <wcfactory-ui-factory-create-form @submit=${this._submitHandler}></wcfactory-ui-factory-create-form>
     `;
   }
 
+  /**
+   * Create a new factory and add it to the cache
+   */
   _submitHandler(e) {
-    this.variables = Object.assign({}, { createFactoryInput: e.detail })
-    this.mutate()
+    client.mutate({
+      mutation: CREATE_FACTORY_MUTATION,
+      variables: { createFactoryInput: e.detail },
+      update: (store, { data: { createFactory } }) => {
+        const { id, __typename } = createFactory
+        const query = GET_FACTORIES
+        const cache = store.readQuery({ query })
+        const factories = [...cache.factories, createFactory]
+        store.writeQuery({ query, data: Object.assign({}, cache, { factories }) })
+      }
+    })
   }
 }
 
