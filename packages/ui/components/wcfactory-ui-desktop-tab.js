@@ -32,6 +32,7 @@ class WCFactoryUIDesktopTab extends LitElement {
       #header {
         font-size: .8em;
         padding: 1em;
+        cursor: pointer;
       }
       :host([active]) #header {
         border-top: 1px solid var(--wcfactory-ui-accent-color);

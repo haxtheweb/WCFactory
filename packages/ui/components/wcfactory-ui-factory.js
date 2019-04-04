@@ -69,7 +69,8 @@ class WCFactoryUIFactory extends LitElement {
           }
           #factory-info + #filter {
             --wcfactory-ui-factory-filter-margin-top: 3em;
-            margin-top: var(--wcfactory-ui-factory-filter-margin-top);
+            margin: var(--wcfactory-ui-factory-filter-margin-top) 0;
+            margin-bottom: calc(var(--wcfactory-ui-factory-filter-margin-top) * .5);
           }
           #element-container {
             display: block;
@@ -101,6 +102,15 @@ class WCFactoryUIFactory extends LitElement {
             transition: all 0.4s ease-in-out;
             margin-top: -50px;
             box-shadow: 1px 1px 1px rgba(0,0,0, 0.2)
+          }
+          .center {
+            text-align: center;
+          }
+          .code {
+            background: black;
+            padding: .4em;
+            margin: -.4em 0;
+            font-size: 0.9em;
           }
         </style>
 
@@ -143,9 +153,15 @@ class WCFactoryUIFactory extends LitElement {
           </div>
 
           <a><wcfactory-ui-button disabled>Create Element (coming soon)</wcfactory-ui-button></a>
+          <p class="center">create element by running the following command in your terminal 😄</p>
+          <p class="center"><span class="code">wcf element ${this._renderFactoryFlag(this.factory.location)}</span></p>
         </div>
       `;
     }
+  }
+
+  _renderFactoryFlag(location) {
+    return `--factory=${location}`
   }
 
   fetchFactory(factory) {

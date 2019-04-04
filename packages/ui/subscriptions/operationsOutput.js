@@ -30,7 +30,11 @@ export const subscribeToOperationsOutput = () => {
       })
     }
     catch(error) {
-      console.error(error)
+      client.writeQuery({
+        query: GET_OPERATION_OUTPUT,
+        variables: { pid: operationsOutputData.operation },
+        data: Object.assign({}, { data: { operationsOutput: [operationsOutputData] }})
+      })
     }
   })
 }
