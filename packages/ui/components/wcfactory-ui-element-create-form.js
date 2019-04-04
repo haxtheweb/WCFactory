@@ -1,5 +1,10 @@
 import { LitElement, html } from 'lit-element';
+import gql from 'graphql-tag'
+import client from '../client.js'
 import '@polymer/paper-input/paper-input.js';
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '@polymer/paper-item/paper-item.js';
+import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/iron-form/iron-form.js';
 import './wcfactory-ui-button.js'
 
@@ -7,6 +12,7 @@ class WCFactoryUIElementCreateForm extends LitElement {
   static get properties() {
     return {
       form: { type: Object },
+      formOptions: { type: Object },
       isValid: { type: Boolean },
       loading: { type: Boolean, reflect: true },
       factory: { type: String }
@@ -21,11 +27,14 @@ class WCFactoryUIElementCreateForm extends LitElement {
     this.form = {
       name: ''
     }
-  }
+    this._getFormOptions()
+ }
 
   updated(changed) {
     if (
-      false
+      this.form.name &&
+      this.form.description &&
+      this.form.library
     ) {
       const valid = this._validateForm()
     }
@@ -51,7 +60,7 @@ class WCFactoryUIElementCreateForm extends LitElement {
           color: #333;
         }
         #info {
-          margin-top: 1vw;
+          margin-top: 5vw;
         }
         #loading {
           position: absolute;
@@ -69,6 +78,9 @@ class WCFactoryUIElementCreateForm extends LitElement {
           width: 100%;
           margin-bottom: 2vw;
         }
+        paper-dropdown-menu {
+          width: 100%;
+        }
       </style>
 
      <div id="wrapper">
@@ -77,32 +89,43 @@ class WCFactoryUIElementCreateForm extends LitElement {
 
         <iron-form id="form">
           <form>
-            <paper-input always-float-label required label="name" auto-validate auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.form = Object.assign({}, this.form, { name: e.detail.value})}></paper-input>
+            <paper-input always-float-label required label="name" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.form = Object.assign({}, this.form, { name: e.detail.value})}></paper-input>
+            <paper-input always-float-label required label="description"  @value-changed=${(e) => this.form = Object.assign({}, this.form, { description: e.detail.value})}></paper-input>
             <paper-input always-float-label required label="factory" disabled value=${this.factory}></paper-input>
+            ${this.formOptions
+              ? html`
+                <paper-dropdown-menu label="Library" required>
+                  <paper-listbox slot="dropdown-content" @selected-changed=${e => this.form = Object.assign({}, this.form, { library: this.formOptions.libraries[e.detail.value].name})}>
+                    ${this.formOptions.libraries.map(library =>
+                      html`<paper-item>${library.description}</paper-item>`
+                    )}
+                  </paper-listbox>
+                </paper-dropdown-menu>
+              `
+              : ''
+            }
           <form>
         </iron-form>
 
         <div id="info">
-          <div id="name"><h2>∈ ${this.humanName}</h2></div>
+          <div id="name"><h2>∈ ${this.form.name}</h2></div>
           <div id="repo-info">
             <div id="git-repo">
-              Git Repo: <br>
-              ${this.gitRepo}
-            </div>
-            <div id="npm-repo" ?data-filled=${this.orgNpm}>
-              NPM Repo: <br>
-              @${this.orgNpm ? `${this.orgNpm}` : ''}
+              <div>
+                Description: ${this.form.description}
+              </div>
+              Element Type: ${this.form.library}
             </div>
           </div>
         </div>
       </div>
 
       <div id="create">
-        <wcfactory-ui-button @click=${() => this._submit()} .disabled=${!this.isValid} cta >Create Factory</wcfactory-ui-button>
+        <wcfactory-ui-button @click=${() => this._submit()} .disabled=${!this.isValid} cta >Create Element</wcfactory-ui-button>
       </div>
 
       ${this.loading
-        ? html`<div id="loading">...Creating Factory</div>`
+        ? html`<div id="loading">...Creating Element</div>`
         : ''
       }
     `;
@@ -111,15 +134,7 @@ class WCFactoryUIElementCreateForm extends LitElement {
   _submit() {
     const valid = this._validateForm()
     if (valid) {
-      this.dispatchEvent(new CustomEvent('submit', {
-        bubbles: true,
-        detail: {
-          name: this.name,
-          humanName: this.humanName,
-          description: this.description,
-          orgGit: this.orgGit,
-        }
-      }))
+
     }
   }
  
@@ -130,8 +145,23 @@ class WCFactoryUIElementCreateForm extends LitElement {
     return valid
   }
 
-  _setValue() {
+  _getFormOptions() {
+    client.watchQuery({
+      query: gql`
+        query {
+          elementCreateOptions {
+            libraries {
+              name
+              description
+            }
+          }
+        }
+      `
+    }).subscribe(({ data: { elementCreateOptions } }) => {
+      this.formOptions = elementCreateOptions
+    })
   }
+
 }
 
 customElements.define('wcfactory-ui-element-create-form', WCFactoryUIElementCreateForm);

@@ -271,8 +271,8 @@ const getElementByLocation = (elementLocation) => {
 const getElementScripts = (elementLocation) => {
   const packageLocation = path.join(elementLocation, 'package.json')
   try {
-    const package = JSON.parse(readFileSync(packageLocation, 'utf8'))
-    return Object.keys(package.scripts)
+    const packageObj = JSON.parse(readFileSync(packageLocation, 'utf8'))
+    return Object.keys(packageObj.scripts)
   } catch (error) {
   }
   return []

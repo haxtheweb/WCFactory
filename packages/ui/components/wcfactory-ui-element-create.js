@@ -16,7 +16,6 @@ export class WCFactoryUIElementCreate extends LitElement {
       <wcfactory-ui-element-create-form .factory=${this.location.params.factory}></wcfactory-ui-element-create-form>
     `;
   }
-
 }
 
 customElements.define('wcfactory-ui-element-create', WCFactoryUIElementCreate);

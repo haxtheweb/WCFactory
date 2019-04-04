@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server')
-const { getElements, getFactories, getElementByLocation } = require('@wcfactory/common/config')
+const { getElements, getFactories, getElementByLocation, librariesOptions } = require('@wcfactory/common/config')
 
 /**
  * SDK
@@ -13,6 +13,7 @@ const typeDefs = gql`
   extend type Query {
     element(factory: String!, name: String!): Element
     elements(factory: String!): [Element]
+    elementCreateOptions: ElementCreateOptions
   }
 
   extend type Factory {
@@ -30,6 +31,15 @@ const typeDefs = gql`
     version: String!
     private: Boolean!
   }
+
+  type ElementCreateOptions {
+    libraries: [ElementCreateOptionsLibrary]
+  }
+
+  type ElementCreateOptionsLibrary {
+    name: String
+    description: String
+  }
 ` 
 
 const resolvers = {
@@ -42,6 +52,12 @@ const resolvers = {
     elements: (_, {factory}) =>
       getElements(factory)
         .map(i => Object.assign({}, i, { id: `${i.location}`})),
+    
+    elementCreateOptions: () => { return {}}
+  },
+
+  ElementCreateOptions: {
+    libraries: () => librariesOptions.map(i => Object.assign({ name: i.value, description: i.name }))
   },
 
   Factory: {
