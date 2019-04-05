@@ -97,7 +97,7 @@
     "yo": "2.0.5"
   },
   "dependencies": {
-    "@lrnwebcomponents/deduping-fix": "2.0.8"
+    "@lrnwebcomponents/deduping-fix": "2.0.9"
   },
   "lint-staged": {
     "linters": {
