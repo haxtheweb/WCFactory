@@ -137,6 +137,13 @@ module.exports = class extends Generator {
       ),
       this.props
     );
+    this.fs.copyTpl(
+      this.sourceRoot("templates/builds/_common/manifest.json"),
+      this.destinationPath(
+        `${buildsDir}/${this.props.name}/manifest.json`
+      ),
+      this.props
+    );
   }
 
   install() {
