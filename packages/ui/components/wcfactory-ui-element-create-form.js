@@ -3,10 +3,12 @@ import gql from 'graphql-tag'
 import client from '../client.js'
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/iron-form/iron-form.js';
 import './wcfactory-ui-button.js'
+import './wcfactory-ui-properties-form.js'
 
 class WCFactoryUIElementCreateForm extends LitElement {
   static get properties() {
@@ -81,6 +83,23 @@ class WCFactoryUIElementCreateForm extends LitElement {
         paper-dropdown-menu {
           width: 100%;
         }
+        pap
+        .prop {
+          margin: .5em;
+        }
+        #useSass {
+          margin: 1em 0;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: flex-end;
+          align-items: center;
+        }
+        #useSass label {
+          margin: 0 .5em;
+        }
+        wcfactory-ui-properties-form {
+          margin-top: -1em;
+        }
       </style>
 
      <div id="wrapper">
@@ -89,9 +108,17 @@ class WCFactoryUIElementCreateForm extends LitElement {
 
         <iron-form id="form">
           <form>
-            <paper-input always-float-label required label="name" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.form = Object.assign({}, this.form, { name: e.detail.value})}></paper-input>
-            <paper-input always-float-label required label="description"  @value-changed=${(e) => this.form = Object.assign({}, this.form, { description: e.detail.value})}></paper-input>
-            <paper-input always-float-label required label="factory" disabled value=${this.factory}></paper-input>
+
+            <h3>Name</h3>
+            <paper-input always-float-label required label="Element name" auto-validate pattern="[a-z\-]*" @value-changed=${(e) => this.form = Object.assign({}, this.form, { name: e.detail.value})}></paper-input>
+
+            <h3>Description</h3>
+            <paper-input always-float-label required label="Description / purpose of the element"  @value-changed=${(e) => this.form = Object.assign({}, this.form, { description: e.detail.value})}></paper-input>
+
+            <h3>Factory</h3>
+            <paper-input always-float-label required label="Factory" disabled value=${this.factory}></paper-input>
+
+            <h3>Library</h3>
             ${this.formOptions
               ? html`
                 <paper-dropdown-menu label="Library" required>
@@ -104,8 +131,28 @@ class WCFactoryUIElementCreateForm extends LitElement {
               `
               : ''
             }
+
+            <h3>Use Sass (optional)</h3>
+            <div id="useSass">
+              <label for="useSass">Do you want to use Sass in this element?</label>
+              <paper-checkbox
+                id="useSass"
+                @selected-changed=${e => this.form = Object.assign({}, this.form, { useSass: e.detail.value })}
+              > </paper-checkbox>
+            </div>
+
+            <h3>Properties (optional)</h3>
+            <div class="properties">
+              <wcfactory-ui-properties-form
+                @value-changed=${e => {
+                  this.form = Object.assign({}, this.form, { propsList: e.detail })
+                }}
+              > </wcfactory-ui-properties-form>
+            </div>
+
+
           <form>
-        </iron-form>
+       </iron-form>
 
         <div id="info">
           <div id="name"><h2>∈ ${this.form.name}</h2></div>
@@ -114,7 +161,31 @@ class WCFactoryUIElementCreateForm extends LitElement {
               <div>
                 Description: ${this.form.description}
               </div>
-              Element Type: ${this.form.library}
+              <div>
+                Element Type: ${this.form.library}
+              </div>
+              ${this.form.propsList && this.form.propsList.length > 0
+                ? html`
+                  <div class="props">
+                    Properties:
+                    ${this.form.propsList.map(prop => {
+                      if (prop.name || prop.description || prop.default) {
+                        return html`
+                          <div class="prop">
+                            name: ${prop.name} <br>
+                            description: ${prop.type} <br>
+                            default: ${prop.default} <br>
+                            observe: ${prop.observe ? 'yes' : 'no'} <br>
+                          </div>
+                        `
+                      }
+                      return 'none'
+                    }
+                    )}
+                  </div>
+                `
+                : ''
+              }
             </div>
           </div>
         </div>
