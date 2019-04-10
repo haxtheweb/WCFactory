@@ -13,6 +13,8 @@ Make sure you have a version of node >=6.0 and above.
 Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
 ```bash
 $ yarn global add @wcfactory/cli
+$ yarn global add polymer-cli
+$ yarn global add lerna
 ```
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
