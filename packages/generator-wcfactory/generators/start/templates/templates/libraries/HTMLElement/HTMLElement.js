@@ -33,7 +33,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     this.tag = <%= elementClassName %>.tag;
     // map our imported properties json to real props on the element
     // @notice static getter of properties is built via tooling
-    // to edit modify src/<%= elementClassName %>-properties.json
+    // to edit modify src/<%= elementName %>-properties.json
     let obj = <%= elementClassName %>.properties;
     for (let p in obj) {
       if (obj.hasOwnProperty(p)) {

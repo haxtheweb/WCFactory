@@ -1,7 +1,7 @@
 # Web Component Factory
 
 [![Join the chat at https://gitter.im/wcfactory/Lobby](https://badges.gitter.im/wcfactory/Lobby.svg)](https://gitter.im/wcfactory/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.com/elmsln/wcfactory.svg?branch=master)](https://travis-ci.com/elmsln/wcfactory)
+[![Build Status](https://travis-ci.com/elmsln/WCFactory.svg?branch=master)](https://travis-ci.com/elmsln/WCFactory)
 
 A factory that churns out web components, library agnostic with a unified development, testing, and build to production pipeline. We want to eliminate the barriers to web component adoption because as of Oct 23rd, 89.18% of all traffic can handle web components with *no polyfills* See (End user support)(#endusersupport) for full details below.
 
@@ -13,6 +13,8 @@ Make sure you have a version of node >=6.0 and above.
 Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
 ```bash
 $ yarn global add @wcfactory/cli
+$ yarn global add polymer-cli
+$ yarn global add lerna
 ```
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.

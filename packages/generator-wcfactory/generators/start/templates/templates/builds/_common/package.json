@@ -6,8 +6,9 @@
   "license": "<%= license %>",
   "main": "webcomponents/es6/build.js",
   "module": "webcomponents/amd/build.amd.js",
-  "flat": true,
   "dependencies": {
+    "promise-polyfill": "8.1.0",
+    "fetch-ie8": "1.5.0",
 <%- dependencies %>
   },
   "resolutions": {

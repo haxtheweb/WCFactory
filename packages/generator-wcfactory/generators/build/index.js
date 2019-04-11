@@ -126,7 +126,7 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.sourceRoot("templates/builds/_common/build.js"),
       this.destinationPath(
-        `${buildsDir}/${this.props.name}/build.js`
+        `${buildsDir}/${this.props.name}/dist/build.js`
       ),
       this.props
     );
@@ -134,6 +134,13 @@ module.exports = class extends Generator {
       this.sourceRoot("templates/builds/_common/polymer.json"),
       this.destinationPath(
         `${buildsDir}/${this.props.name}/polymer.json`
+      ),
+      this.props
+    );
+    this.fs.copyTpl(
+      this.sourceRoot("templates/builds/_common/manifest.json"),
+      this.destinationPath(
+        `${buildsDir}/${this.props.name}/manifest.json`
       ),
       this.props
     );
