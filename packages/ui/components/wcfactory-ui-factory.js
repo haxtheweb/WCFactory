@@ -152,7 +152,7 @@ class WCFactoryUIFactory extends LitElement {
               `)}
           </div>
 
-          <a href="/factories/${this.factory.name}/create-element"><wcfactory-ui-button disabled>Create Element (coming soon)</wcfactory-ui-button></a>
+          <a data-href="/factories/${this.factory.name}/create-element"><wcfactory-ui-button disabled>Create Element (coming soon)</wcfactory-ui-button></a>
           <p class="center">create element by running the following command in your terminal 😄</p>
           <p class="center"><span class="code">wcf element ${this._renderFactoryFlag(this.factory.location)}</span></p>
         </div>
