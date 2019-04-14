@@ -94,7 +94,7 @@
     "web-component-tester": "6.9.2",
     "webpack": "4.30.0",
     "whatwg-fetch": "3.0.0",
-    "yo": "2.0.5"
+    "yo": "2.0.6"
   },
   "dependencies": {
     "@lrnwebcomponents/deduping-fix": "2.0.9"
