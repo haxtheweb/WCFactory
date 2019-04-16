@@ -29,7 +29,7 @@
     "@lrnwebcomponents/deduping-fix": "2.0.9",
     "@polymer/iron-demo-helpers": "3.1.0",
     "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
-    "@webcomponents/webcomponentsjs": "2.2.8",
+    "@webcomponents/webcomponentsjs": "2.2.9",
     "concurrently": "4.1.0",
     "gulp-babel": "8.0.0",
     "gulp-sourcemaps": "2.6.5",
