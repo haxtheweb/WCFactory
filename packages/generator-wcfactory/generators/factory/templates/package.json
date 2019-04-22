@@ -25,7 +25,7 @@
   "scripts": {
     "start": "bash scripts/preinstall.sh && yarn run storybook",
     "lerna": "lerna",
-    "preinstall": "bash scripts/preinstall.sh",
+    "preinstall": "node scripts/preinstall.js",
     "postinstall": "node scripts/postinstall.js",
     "init": "lerna init",
     "test": "yarn run build && wct --configFile wct.conf.json test/index.html",
