@@ -48,7 +48,7 @@
     "babel-plugin-transform-custom-element-classes": "0.1.0",
     "babel-plugin-transform-es2015-modules-umd": "6.24.1",
     "babel-preset-env": "1.7.0",
-    "browser-sync": "2.26.4",
+    "browser-sync": "2.26.5",
     "chalk": "2.4.2",
     "css-scss": "0.1.1",
     "decomment": "0.9.2",
