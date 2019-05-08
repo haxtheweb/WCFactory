@@ -40,7 +40,7 @@
     "gulp": "^3.9.1",
     "inquirer-recursive": "0.0.6",
     "lodash": "^4.17.4",
-    "yeoman-generator": "^3.0.0"
+    "yeoman-generator": "^4.0.0"
   },
   "version": "0.7.3"
 }
