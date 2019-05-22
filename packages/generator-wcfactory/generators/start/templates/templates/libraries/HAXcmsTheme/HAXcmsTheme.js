@@ -3,7 +3,7 @@
  * @license <%= license %>, see License.md for full text.
  */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { HAXCMSTheme } from "@lrnwebcomponents/haxcms-elements/lib/HAXCMSThemeWiring.js";
+import { HAXCMSTheme } from "@lrnwebcomponents/haxcms-elements/lib/core/HAXCMSThemeWiring.js";
 import { store } from "@lrnwebcomponents/haxcms-elements/lib/core/haxcms-site-store.js";
 import { autorun, toJS } from "mobx";
 
