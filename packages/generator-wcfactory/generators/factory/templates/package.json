@@ -83,7 +83,7 @@
     "react": "*",
     "react-dom": "*",
     "requirejs": "2.3.6",
-    "rollup": "1.12.3",
+    "rollup": "1.12.5",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.3.4",
     "rollup-plugin-delete": "0.2.2",
@@ -92,7 +92,7 @@
     "trim": "0.0.1",
     "wct-browser-legacy": "1.0.2",
     "web-component-tester": "6.9.2",
-    "webpack": "4.32.1",
+    "webpack": "4.32.2",
     "whatwg-fetch": "3.0.0",
     "yo": "2.0.6"
   },
