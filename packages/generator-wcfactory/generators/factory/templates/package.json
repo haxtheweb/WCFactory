@@ -54,7 +54,7 @@
     "decomment": "0.9.2",
     "del": "3.0.0",
     "dialog-polyfill": "0.5.0",
-    "global": "4.3.2",
+    "global": "4.4.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "8.0.0",
     "gulp-clean-css": "4.2.0",
