@@ -1,6 +1,6 @@
 {
-  "name": "Singleton via Polymer",
-  "description": "Singleton element pattern with Polymer for help",
+  "name": "HAXcmsTheme",
+  "description": "Build a theme for HAXcms that much faster",
   "wcfactory": {
     "customElementClass": "PolymerElement",
     "templateReturnFunctionPart": "static get template() {\n    return html",
@@ -9,7 +9,7 @@
       "suffix": "]]"
     }
   },
-  "main": "SingletonElement/SingletonElement.js",
+  "main": "HAXcmsTheme/HAXcmsTheme.js",
   "version": "0.0.1",
   "scripts": {
     "start": "yarn run dev",
@@ -20,7 +20,9 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.5"
+    "@polymer/polymer": "^3.0.5",
+    "@lrnwebcomponents/haxcms-elements": "^2.0.10",
+    "@lrnwebcomponents/simple-colors": "^2.0.10"
   },
   "devDependencies": {
     "web-animations-js": "2.3.1",
