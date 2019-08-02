@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
-    "@oclif/test": "1.2.4",
+    "@oclif/test": "1.2.5",
     "globby": "10.0.1"
   },
   "engines": {
