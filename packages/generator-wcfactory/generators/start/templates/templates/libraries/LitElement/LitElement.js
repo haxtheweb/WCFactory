@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element/lit-element.js';
 <%- includesString %>
 /**
  * `<%= elementName %>`
