@@ -31,7 +31,7 @@ gulp.task("merge", () => {
       }
       let props = '{}';
       props = fs.readFileSync(path.join("./", packageJson.wcfactory.files.properties));
-      let cssResult = '<style>';
+      let cssResult =  "";
       if (packageJson.wcfactory.useSass && packageJson.wcfactory.files.scss) {
         const sass = require('node-sass');
         cssResult += sass.renderSync({
@@ -41,12 +41,22 @@ gulp.task("merge", () => {
       else if (packageJson.wcfactory.files.css) {
         cssResult += fs.readFileSync(path.join("./", packageJson.wcfactory.files.css));
       }
-      cssResult += "</style>";
       cssResult = stripCssComments(cssResult).trim();
-      return `
+      let litResult = packageJson.wcfactory.customElementClass !== 'LitElement' ? `` : `
+  //styles function
+  static get styles() {
+    return css\`
+  ${cssResult}\`;
+  }`, 
+        styleResult = packageJson.wcfactory.customElementClass !== 'LitElement' ? `<style>
+${cssResult}
+        </style>` : ``;
+
+      return `${litResult}
+
   // render function
   <%= templateReturnFunctionPart %>\`
-${cssResult}
+${styleResult}
 ${html}\`;
   }
 ${haxString}
