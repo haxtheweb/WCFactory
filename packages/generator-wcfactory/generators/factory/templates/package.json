@@ -83,7 +83,7 @@
     "react": "*",
     "react-dom": "*",
     "requirejs": "2.3.6",
-    "rollup": "1.26.3",
+    "rollup": "1.26.4",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-delete": "1.1.0",
