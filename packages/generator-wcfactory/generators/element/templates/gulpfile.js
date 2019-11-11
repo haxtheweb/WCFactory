@@ -29,11 +29,17 @@ gulp.task("merge", () => {
     return ${HAXProps};
   }`;
       }
-      let props = fs.readFileSync(
+      let rawprops = "{}";
+      rawprops = fs.readFileSync(
         path.join("./", packageJson.wcfactory.files.properties)
       );
+      let props = `${rawprops}`;
       props = props.replace(/\"type\": \"(\w+)\"/g, '"type": $1');
-      props = props.replace(/\{(.*\n*\s*)/, "{$1...super.properties,$1");
+      props = props.replace(/\{([\s\n]*)/, "{$1...super.properties$1");
+      props = props.replace(
+        /([\s\n]*\/\*[\s\S]*?\*\/)?([\s\n]*)*(\"?\w*\"?[\s\n]*\:[\s\n]*\{)/,
+        ",$2$1$2$3"
+      );
       let cssResult =  "";
       if (packageJson.wcfactory.useSass && packageJson.wcfactory.files.scss) {
         const sass = require('node-sass');
