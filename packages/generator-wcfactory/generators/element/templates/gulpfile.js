@@ -29,9 +29,18 @@ gulp.task("merge", () => {
     return ${HAXProps};
   }`;
       }
-      let props = '{}';
-      props = fs.readFileSync(path.join("./", packageJson.wcfactory.files.properties));
-      let cssResult = '<style>';
+      let rawprops = "{}";
+      rawprops = fs.readFileSync(
+        path.join("./", packageJson.wcfactory.files.properties)
+      );
+      let props = `${rawprops}`;
+      props = props.replace(/\"type\": \"(\w+)\"/g, '"type": $1');
+      props = props.replace(/\{([\s\n]*)/, "{$1...super.properties$1");
+      props = props.replace(
+        /(\/\*[\s\S]*?\*\/)|(\/\/.*)?([\s\n]*)*(\"?\w*\"?[\s\n]*\:[\s\n]*\{)/,
+        ",$3$1$2$3$4"
+      );
+      let cssResult =  "";
       if (packageJson.wcfactory.useSass && packageJson.wcfactory.files.scss) {
         const sass = require('node-sass');
         cssResult += sass.renderSync({
@@ -41,22 +50,39 @@ gulp.task("merge", () => {
       else if (packageJson.wcfactory.files.css) {
         cssResult += fs.readFileSync(path.join("./", packageJson.wcfactory.files.css));
       }
-      cssResult += "</style>";
-      cssResult = stripCssComments(cssResult).trim();
-      return `
+      let styleRegex = /\/\*[\s]*LIST SHARED STYLES BELOW[\s]*((?:(?:\w+)[\s,]*)*)\*\//g,
+            styleArray = cssResult.match(styleRegex) && cssResult.match(styleRegex).length > 0 ? cssResult.match(styleRegex)[0].replace(styleRegex,'$1').match(/(\w+)[\s,]*/g) : [];
+            sharedStyles = styleArray && styleArray.length > 0 ? styleArray.map(style => style.replace(/(\w+)[\s,]*/g,`
+        $1`))
+              : ``;
+          cssResult = stripCssComments(cssResult).trim();
+          let litResult =
+              packageJson.wcfactory.customElementClass !== "LitElement"
+                ? ``
+                : `
+  //styles function
+  static get styles() {
+    return  [${sharedStyles ? `${sharedStyles},`: ``}
+      css\`
+${cssResult}
+      \`
+    ];
+  }`, 
+        styleResult = packageJson.wcfactory.customElementClass !== 'LitElement' ? `<style>
+${cssResult}
+        </style>` : ``;
+
+      return `${litResult}
+
   // render function
   <%= templateReturnFunctionPart %>\`
-${cssResult}
+${styleResult}
 ${html}\`;
   }
 ${haxString}
   // properties available to the custom element for data binding
   static get properties() {
-    let props = ${props};
-    if (super.properties) {
-      props = Object.assign(props, super.properties);
-    }
-    return props;
+    return ${props};
   }`;
       })
     )

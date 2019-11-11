@@ -42,7 +42,7 @@ class <%= elementClassName %> extends <%= customElementClass %> {
           this[p] = this.getAttribute(p);
         }
         else {
-          this.setAttribute(p, obj[p].value);
+          if (p.reflect) this.setAttribute(p, obj[p].value);
           this[p] = obj[p].value;
         }
       }
