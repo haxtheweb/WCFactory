@@ -1,8 +1,8 @@
 {
-  "name": "Singleton via Polymer",
-  "description": "Singleton element pattern with Polymer for help",
+  "name": "Singleton via LitElement",
+  "description": "Singleton element pattern with LitElement for help",
   "wcfactory": {
-    "customElementClass": "PolymerElement",
+    "customElementClass": "LitElement",
     "templateReturnFunctionPart": "static get template() {\n    return html",
     "propertyBinding": {
       "prefix": "[[",
@@ -20,7 +20,7 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.5"
+    "lit-element": "^2.2.1"
   },
   "devDependencies": {
     "web-animations-js": "2.3.2",

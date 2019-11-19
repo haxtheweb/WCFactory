@@ -2,7 +2,7 @@
   "name": "HAXcmsTheme",
   "description": "Build a theme for HAXcms that much faster",
   "wcfactory": {
-    "customElementClass": "PolymerElement",
+    "customElementClass": "LitElement",
     "templateReturnFunctionPart": "static get template() {\n    return html",
     "propertyBinding": {
       "prefix": "[[",
@@ -20,9 +20,9 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.5",
-    "@lrnwebcomponents/haxcms-elements": "^2.0.10",
-    "@lrnwebcomponents/simple-colors": "^2.0.10"
+    "lit-element": "^2.2.1",
+    "@lrnwebcomponents/haxcms-elements": "^2.2.0",
+    "@lrnwebcomponents/simple-colors": "^2.2.0"
   },
   "devDependencies": {
     "web-animations-js": "2.3.2",

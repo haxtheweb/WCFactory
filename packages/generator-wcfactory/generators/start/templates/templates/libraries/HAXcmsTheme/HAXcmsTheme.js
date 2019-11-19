@@ -17,7 +17,6 @@ import { autorun, toJS } from "mobx";
  *  - HAXCMSTheme - A super class that provides correct baseline wiring to build a new theme
  *
  * @customElement
- * @polymer
  * @demo demo/index.html
  */
   class <%= elementClassName %> extends HAXCMSLitElementTheme {
