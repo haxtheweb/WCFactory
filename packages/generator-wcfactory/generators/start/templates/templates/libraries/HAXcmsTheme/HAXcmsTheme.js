@@ -2,8 +2,8 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { HAXCMSTheme } from "@lrnwebcomponents/haxcms-elements/lib/core/HAXCMSThemeWiring.js";
+import { html, css } from "lit-element/lit-element.js";
+import { HAXCMSLitElementTheme } from "@lrnwebcomponents/haxcms-elements/lib/core/HAXCMSLitElementTheme.js";
 import { store } from "@lrnwebcomponents/haxcms-elements/lib/core/haxcms-site-store.js";
 import { autorun, toJS } from "mobx";
 
@@ -20,7 +20,7 @@ import { autorun, toJS } from "mobx";
  * @polymer
  * @demo demo/index.html
  */
-class <%= elementClassName %> extends HAXCMSTheme(<%= customElementClass %>) {
+  class <%= elementClassName %> extends HAXCMSLitElementTheme {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
 
   /**
@@ -36,16 +36,18 @@ class <%= elementClassName %> extends HAXCMSTheme(<%= customElementClass %>) {
   constructor() {
     super();
     this.__disposer = [];
-  }
-  /**
-   * life cycle, element is afixed to the DOM
-   */
-  connectedCallback() {
-    super.connectedCallback();
     autorun(reaction => {
       this.activeManifestIndex = toJS(store.activeManifestIndex);
       this.__disposer.push(reaction);
     });
+  }
+  /**
+   * life cycle, element is afixed to the DOM
+   */
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
     <%- connectedString %>
   }
   /**
