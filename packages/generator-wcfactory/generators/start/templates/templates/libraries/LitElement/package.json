@@ -1,6 +1,6 @@
 {
   "name": "lit-element",
-  "description": "data binding ++, very small library",
+  "description": "data binding ++, about as small as possible library",
   "wcfactory": {
     "customElementClass": "LitElement",
     "templateReturnFunctionPart": "render() {\n    return html",

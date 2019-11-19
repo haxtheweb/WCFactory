@@ -3,10 +3,10 @@
   "description": "Build a theme for HAXcms that much faster",
   "wcfactory": {
     "customElementClass": "LitElement",
-    "templateReturnFunctionPart": "static get template() {\n    return html",
+    "templateReturnFunctionPart": "render() {\n    return html",
     "propertyBinding": {
-      "prefix": "[[",
-      "suffix": "]]"
+      "prefix": "${this.",
+      "suffix": "}"
     }
   },
   "main": "HAXcmsTheme/HAXcmsTheme.js",
