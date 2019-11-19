@@ -1,15 +1,15 @@
 {
-  "name": "HAXcmsTheme",
-  "description": "Build a theme for HAXcms that much faster",
+  "name": "Polymer",
+  "description": "data binding +++, utilities to build complex things, a small library",
   "wcfactory": {
-    "customElementClass": "LitElement",
+    "customElementClass": "PolymerElement",
     "templateReturnFunctionPart": "static get template() {\n    return html",
     "propertyBinding": {
       "prefix": "[[",
       "suffix": "]]"
     }
   },
-  "main": "HAXcmsTheme/HAXcmsTheme.js",
+  "main": "PolymerElement/PolymerElement.js",
   "version": "0.0.1",
   "scripts": {
     "start": "yarn run dev",
@@ -20,9 +20,7 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "lit-element": "^2.2.1",
-    "@lrnwebcomponents/haxcms-elements": "^2.2.0",
-    "@lrnwebcomponents/simple-colors": "^2.2.0"
+    "@polymer/polymer": "^3.0.5"
   },
   "devDependencies": {
     "web-animations-js": "2.3.2",

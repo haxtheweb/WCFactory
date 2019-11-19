@@ -1,3 +1,7 @@
+/* 
+  LIST SHARED STYLES BELOW
+
+*/
 <% if (sassLibraryPath) { %>@import "../../<%= sassLibraryPath %>";<% } %>
 :host {
   display: block;
