@@ -15,6 +15,7 @@ Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/
 $ yarn global add @wcfactory/cli
 $ yarn global add polymer-cli
 $ yarn global add lerna
+$ yarn global add web-component-analyzer
 ```
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
