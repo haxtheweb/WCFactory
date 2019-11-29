@@ -24,7 +24,7 @@ window.<%= elementClassName %>.requestAvailability = () => {
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
+ * @customElement <%= elementName %>
  * @demo demo/index.html
  */
 class <%= elementClassName %> extends <%= customElementClass %> {

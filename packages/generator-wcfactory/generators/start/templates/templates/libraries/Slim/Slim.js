@@ -11,7 +11,7 @@ import 'slim-js';
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
+ * @customElement <%= elementName %>
  * @slimjs
  * @demo demo/index.html
  */

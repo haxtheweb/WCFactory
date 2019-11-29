@@ -11,7 +11,7 @@ import { HAXWiring } from "hax-body-behaviors/lib/HAXWiring.js"
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
+ * @customElement heym-asdf
  * @polymer
  * @demo demo/index.html
  */

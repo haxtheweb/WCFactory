@@ -11,7 +11,7 @@ import { LitElement, html, css } from 'lit-element/lit-element.js';
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
+ * @customElement <%= elementName %>
  * @demo demo/index.html
  */
 class <%= elementClassName %> extends <%= customElementClass %> {

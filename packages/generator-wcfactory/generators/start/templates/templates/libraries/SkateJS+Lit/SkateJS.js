@@ -15,7 +15,7 @@ class SkateJS extends withComponent(withLitHtml()) { }
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
+ * @customElement <%= elementName %>
  * @lit-html
  * @skatejs
  * @demo demo/index.html

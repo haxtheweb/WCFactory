@@ -16,7 +16,7 @@ import { autorun, toJS } from "mobx";
  *  - HAXcms - A headless content management system
  *  - HAXCMSTheme - A super class that provides correct baseline wiring to build a new theme
  *
- * @customElement
+ * @customElement <%= elementName %>
  * @demo demo/index.html
  */
   class <%= elementClassName %> extends HAXCMSLitElementTheme {
