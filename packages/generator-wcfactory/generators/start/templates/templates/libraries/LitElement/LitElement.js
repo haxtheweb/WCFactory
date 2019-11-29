@@ -11,8 +11,8 @@ import { LitElement, html, css } from 'lit-element/lit-element.js';
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement <%= elementName %>
  * @demo demo/index.html
+ * @customElement <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -65,9 +65,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
       }
       */
     });
-  }
-  disconnectedCallback() {
-    super.disconnectedCallback();
   }
   <%- additionalFunctionsString %>
 }

@@ -10,8 +10,8 @@
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement <%= elementName %>
  * @demo demo/index.html
+ * @customElement <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -28,8 +28,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   constructor(delayRender = false) {
     super();
     <%- constructorString %>
-    // set tag for later use
-    this.tag = <%= elementClassName %>.tag;
     // map our imported properties json to real props on the element
     // @notice static getter of properties is built via tooling
     // to edit modify src/<%= elementName %>-properties.json
@@ -85,12 +83,6 @@ class <%= elementClassName %> extends <%= customElementClass %> {
    * callback when any observed attribute changes
    */
   attributeChangedCallback(attr, oldValue, newValue) {
-
-  }
-  /**
-   * Removed from the DOM
-   */
-  disconnectedCallback() {
 
   }
   <%- additionalFunctionsString %>

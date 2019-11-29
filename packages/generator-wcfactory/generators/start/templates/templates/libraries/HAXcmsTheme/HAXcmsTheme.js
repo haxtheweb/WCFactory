@@ -16,8 +16,8 @@ import { autorun, toJS } from "mobx";
  *  - HAXcms - A headless content management system
  *  - HAXCMSTheme - A super class that provides correct baseline wiring to build a new theme
  *
- * @customElement <%= elementName %>
  * @demo demo/index.html
+ * @customElement <%= elementName %>
  */
   class <%= elementClassName %> extends HAXCMSLitElementTheme {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -34,6 +34,7 @@ import { autorun, toJS } from "mobx";
    */
   constructor() {
     super();
+    <%- constructorString %>
     this.__disposer = [];
     autorun(reaction => {
       this.activeManifestIndex = toJS(store.activeManifestIndex);

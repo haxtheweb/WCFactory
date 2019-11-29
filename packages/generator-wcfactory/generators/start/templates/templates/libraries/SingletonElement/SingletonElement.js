@@ -24,8 +24,8 @@ window.<%= elementClassName %>.requestAvailability = () => {
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement <%= elementName %>
  * @demo demo/index.html
+ * @customElement <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -38,20 +38,27 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     return "<%= elementName %>";
   }
   /**
-   * life cycle, element is afixed to the DOM
+   * HTMLElement
    */
   constructor() {
     super();
-    <%- connectedString %>
-    window.addEventListener("<%= elementName %>-hide", this.hide<%= elementClassName %>.bind(this));
-    window.addEventListener("<%= elementName %>-show", this.show<%= elementClassName %>.bind(this));
+    <%- constructorString %>
   }
   /**
-   * life cycle, element is removed from the DOM
+   * HTMLElement
+   */
+  connectedCallback() {
+    super.connectedCallback();
+    <%- connectedString %>
+    window.addEventListener("<%= elementName %>-hide", this.hide <%= elementClassName %>.bind(this));
+    window.addEventListener("<%= elementName %>-show", this.show <%= elementClassName %>.bind(this));
+  }
+  /**
+   * HTMLElement
    */
   disconnectedCallback() {
-    window.removeEventListener("<%= elementName %>-hide", this.hide<%= elementClassName %>.bind(this));
-    window.removeEventListener("<%= elementName %>-show", this.show<%= elementClassName %>.bind(this));
+    window.removeEventListener("<%= elementName %>-hide", this.hide <%= elementClassName %>.bind(this));
+    window.removeEventListener("<%= elementName %>-show", this.show <%= elementClassName %>.bind(this));
     super.disconnectedCallback();
   }
   /**
