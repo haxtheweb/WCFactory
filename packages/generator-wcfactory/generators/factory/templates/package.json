@@ -87,7 +87,7 @@
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-delete": "1.1.0",
-    "rollup-plugin-terser": "5.1.2",
+    "rollup-plugin-terser": "5.2.0",
     "strip-css-comments": "4.0.0",
     "trim": "0.0.1",
     "wct-browser-legacy": "1.0.2",
