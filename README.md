@@ -10,11 +10,12 @@ A factory that churns out web components, library agnostic with a unified develo
 ### Install
 
 Make sure you have a version of node >=6.0 and above.
-Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
+Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/lang/en/docs/install/) and ensure it is [globally available via PATH](https://yarnpkg.com/lang/en/docs/cli/global/). If using Linux, make sure you add `--prefix /usr/local` at the end of each of these calls
 ```bash
 $ yarn global add @wcfactory/cli
 $ yarn global add polymer-cli
 $ yarn global add lerna
+$ yarn global add web-component-analyzer
 ```
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
@@ -121,22 +122,6 @@ Verify that the cli is installed globally
 ```bash
 wcf -h
 ```
-
-### Docker
-
-We include a docker-compose file for developement purposes which has the monorepo pre-installed.  It also has
-the cli globally available in the image.
-
-To run wcfactory cli commands inside of the docker image you can run the follow command:
-
-Examples
-```bash
-docker-compose run wcf <command>
-docker-compose run wcf factory
-docker-compose run wcf new
-```
-
-Anything created inside of the docker image will be synced locally inside of the `./tmp/docker/wcfactory` directory.
 
 ### Troubleshooting
 

@@ -11,8 +11,8 @@ import 'twig/twig.min.js';
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
  * @demo demo/index.html
+ * @customElement <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
