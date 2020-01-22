@@ -12,7 +12,8 @@
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-prettier": "3.1.1",
     "lerna": "3.18.4",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "symlink-dir": "3.1.1"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
