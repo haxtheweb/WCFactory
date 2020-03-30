@@ -40,7 +40,7 @@ wcf factory
 # add a new element to the factory-name that you produced in the previous step
 wcf element
 ```
-Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
+Answer the prompts for your new element and you're off and running. To work on your new element called `new-name` perform the following:
 ```bash
 $ cd {factoryName}/elements/new-name
 $ yarn start
