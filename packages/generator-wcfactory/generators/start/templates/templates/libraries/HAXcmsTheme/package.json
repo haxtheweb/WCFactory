@@ -20,9 +20,9 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse"
   },
   "dependencies": {
-    "lit-element": "^2.2.1",
-    "@lrnwebcomponents/haxcms-elements": "^2.2.0",
-    "@lrnwebcomponents/simple-colors": "^2.2.0"
+    "lit-element": "2.3.1",
+    "@lrnwebcomponents/haxcms-elements": "^2.6.2",
+    "@lrnwebcomponents/simple-colors": "^2.6.2"
   },
   "devDependencies": {
     "web-animations-js": "2.3.2",
@@ -30,7 +30,6 @@
     "@polymer/iron-demo-helpers": "3.1.0",
     "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
     "@webcomponents/webcomponentsjs": "2.4.1",
-    "concurrently": "4.1.2",
     "gulp-babel": "8.0.0",
     "gulp-sourcemaps": "2.6.5",
     "lodash": "4.17.15",

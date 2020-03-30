@@ -34,9 +34,9 @@ gulp.task("merge", () => {
       }
       let rawprops = "{}";
       if (packageJson.wcfactory.files.properties) {
-      rawprops = fs.readFileSync(
-        path.join("./", packageJson.wcfactory.files.properties)
-      );
+        rawprops = fs.readFileSync(
+          path.join("./", packageJson.wcfactory.files.properties)
+        );
       }
       let props = `${rawprops}`;
       props = props.replace(/\"type\": \"(\w+)\"/g, '"type": $1');
