@@ -78,16 +78,16 @@ module.exports = class extends Generator {
     });
     if(this.props.customElementClass == "LitElement") {
       let props = {};
-      Object.keys(this.props.propsList).forEach(key=>{
-        let type = this.props.propsList[key].type,
-        val = this.props.propsList[key].value;
-        props[key] = {
+      _.forEach(this.props.propsListRaw, (prop)=>{
+        let type = prop.type,
+        val = prop.value;
+        props[prop] = {
           type: type,
-          reflect: this.props.propsList[key].reflectToAttribute,
-          attribute: key.string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+          reflect: prop.reflectToAttribute,
+          attribute: prop.name.string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
         };
+        this.props.constructorString += `this.${prop} = ${type !== "String" || val === null || !val ? val : `"${val}"`};\n`;
       });
-      this.props.constructorString += `this.${key} = ${type !== "String" || val === null || !val ? val : `"${val}"`};\n`;
       this.props.propsListString = JSON.stringify(props, null, '  ');
     } else {
       this.props.propsListString = JSON.stringify(this.props.propsList, null, '  ');
