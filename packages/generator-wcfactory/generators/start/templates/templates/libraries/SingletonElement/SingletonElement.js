@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { LitElement, html, css } from "lit-element/lit-element.js";
 // register globally so we can make sure there is only one
 window.<%= elementClassName %> = window.<%= elementClassName %> || {};
 // request if this exists. This helps invoke the element existing in the dom
@@ -24,9 +24,8 @@ window.<%= elementClassName %>.requestAvailability = () => {
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
- * @polymer
  * @demo demo/index.html
+ * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -39,21 +38,28 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     return "<%= elementName %>";
   }
   /**
-   * life cycle, element is afixed to the DOM
+   * HTMLElement
+   */
+  constructor() {
+    super();
+    <%- constructorString %>
+  }
+  /**
+   * HTMLElement
    */
   connectedCallback() {
     super.connectedCallback();
     <%- connectedString %>
-    window.addEventListener("<%= elementName %>-hide", this.hide<%= elementClassName %>.bind(this));
-    window.addEventListener("<%= elementName %>-show", this.show<%= elementClassName %>.bind(this));
+    window.addEventListener("<%= elementName %>-hide", this.hide <%= elementClassName %>.bind(this));
+    window.addEventListener("<%= elementName %>-show", this.show <%= elementClassName %>.bind(this));
   }
   /**
-   * life cycle, element is removed from the DOM
+   * HTMLElement
    */
   disconnectedCallback() {
-    super.connectedCallback();
-    window.removeEventListener("<%= elementName %>-hide", this.hide<%= elementClassName %>.bind(this));
-    window.removeEventListener("<%= elementName %>-show", this.show<%= elementClassName %>.bind(this));
+    window.removeEventListener("<%= elementName %>-hide", this.hide <%= elementClassName %>.bind(this));
+    window.removeEventListener("<%= elementName %>-show", this.show <%= elementClassName %>.bind(this));
+    super.disconnectedCallback();
   }
   /**
    * Hide callback

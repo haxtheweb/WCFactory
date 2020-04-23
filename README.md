@@ -10,12 +10,26 @@ A factory that churns out web components, library agnostic with a unified develo
 ### Install
 
 Make sure you have a version of node >=6.0 and above.
-Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/lang/en/docs/install/) and ensure it is [globally available via PATH](https://yarnpkg.com/lang/en/docs/cli/global/).
+Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/lang/en/docs/install/) and ensure it is [globally available via PATH](https://yarnpkg.com/lang/en/docs/cli/global/). If using Linux, make sure you add `--prefix /usr/local` at the end of each of these calls
 ```bash
+$ yarn global add symlink-dir
 $ yarn global add @wcfactory/cli
 $ yarn global add polymer-cli
 $ yarn global add lerna
+$ yarn global add web-component-analyzer
 ```
+
+## Windows
+
+[Cygwin command line](https://www.cygwin.com/) is lightly tested, but slower than true Bash environment.
+
+### Windows Install
+
+To properly configure git endlines for Windows, run this configuration
+```bash
+$ git config --global core.autocrlf true
+```
+
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
 ```bash
@@ -26,7 +40,7 @@ wcf factory
 # add a new element to the factory-name that you produced in the previous step
 wcf element
 ```
-Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
+Answer the prompts for your new element and you're off and running. To work on your new element called `new-name` perform the following:
 ```bash
 $ cd {factoryName}/elements/new-name
 $ yarn start

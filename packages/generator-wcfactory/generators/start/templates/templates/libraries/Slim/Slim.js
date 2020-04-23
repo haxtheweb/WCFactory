@@ -11,9 +11,9 @@ import 'slim-js';
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
  * @slimjs
  * @demo demo/index.html
+ * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -26,11 +26,11 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     return "<%= elementName %>";
   }
   /**
-   * life cycle
+   * HTMLElement
    */
   constructor() {
     super();
-      <% - constructorString %>
+      <%- constructorString %>
       // map our imported properties json to real props on the element
       // @notice static getter of properties is built via tooling
       // to edit modify src/<%= elementName %>-properties.json
@@ -56,9 +56,9 @@ class <%= elementClassName %> extends <%= customElementClass %> {
    * life cycle, element is afixed to the DOM
    */
   onRender() {
-    <% - connectedString %>
+    <%- connectedString %>
   }
-  <% - additionalFunctionsString %>
+  <%- additionalFunctionsString %>
 }
 
 Slim.tag(

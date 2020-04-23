@@ -15,10 +15,10 @@ class SkateJS extends withComponent(withLitHtml()) { }
  * @microcopy - language worth noting:
  *  -
  *
- * @customElement
  * @lit-html
  * @skatejs
  * @demo demo/index.html
+ * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
