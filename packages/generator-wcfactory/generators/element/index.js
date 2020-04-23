@@ -76,13 +76,22 @@ module.exports = class extends Generator {
       }
       this.props.propsList[prop.name] = prop;
     });
-    this.props.propsListString = JSON.stringify(this.props.propsList, null, '  ')
-    this.props.propsListString = this.props.propsListString.replace('"Number"', 'Number');
-    this.props.propsListString = this.props.propsListString.replace('"Boolean"', 'Boolean');
-    this.props.propsListString = this.props.propsListString.replace('"Array"', 'Array');
-    this.props.propsListString = this.props.propsListString.replace('"String"', 'String');
-    this.props.propsListString = this.props.propsListString.replace('"Object"', 'Object');
-    this.props.propsListString = this.props.propsListString.replace('"Date"', 'Date');
+    if(this.props.customElementClass == "LitElement") {
+      let props = {};
+      Object.keys(this.props.propsList).forEach(key=>{
+        let type = this.props.propsList[key].type,
+        val = this.props.propsList[key].value;
+        props[key] = {
+          type: type,
+          reflect: this.props.propsList[key].reflectToAttribute,
+          attribute: key.string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
+        };
+      });
+      this.props.constructorString += `this.${key} = ${type !== "String" || val === null || !val ? val : `"${val}"`};\n`;
+      this.props.propsListString = JSON.stringify(props, null, '  ');
+    } else {
+      this.props.propsListString = JSON.stringify(this.props.propsList, null, '  ');
+    }
     // work on HAX integration if requested
     if (this.props.useHAX) {
       // set baseline for HAX schema
