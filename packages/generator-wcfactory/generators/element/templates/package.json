@@ -14,7 +14,10 @@
       "js": "src/<%= elementName %>.js",
       "properties": "src/<%= elementName %>-properties.json",
       "hax": "src/<%= elementName %>-hax.json"
-    }
+    },
+    "sharedHaxProps": [],
+    "sharedProps": [],
+    "sharedStyles": []
   },
   "version": "<%= version %>",
   "description": "<%= description %>",
