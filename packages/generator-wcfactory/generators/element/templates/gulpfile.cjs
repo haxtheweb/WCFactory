@@ -6,7 +6,6 @@ const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const decomment = require("decomment");
-const sourcemaps = require("gulp-sourcemaps");
 const packageJson = require("./package.json");
 // merge all the src files together
 gulp.task("merge", () => {
@@ -138,14 +137,6 @@ gulp.task("watch", () => {
   );
 });
 
-// shift build files around a bit and build source maps
-gulp.task("sourcemaps", () => {
-  return gulp
-    .src("./" + packageJson.wcfactory.elementName + ".es6.js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
-});
-
 gulp.task("dev", gulp.series("merge", "analyze", "watch"));
 
-gulp.task("default", gulp.series("merge", "analyze", "compile", "sourcemaps"));
+gulp.task("default", gulp.series("merge", "analyze", "compile"));

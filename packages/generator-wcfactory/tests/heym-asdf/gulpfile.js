@@ -10,7 +10,6 @@ const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const decomment = require("decomment");
-const sourcemaps = require("gulp-sourcemaps");
 const packageJson = require("./package.json");
 
 gulp.task("merge", () => {
@@ -134,20 +133,8 @@ gulp.task("compile", () => {
 gulp.task("watch", () => {
   return gulp.watch(
     "./src/*",
-    gulp.series("merge", "build", "compile", "sourcemaps")
+    gulp.series("merge", "build", "compile")
   );
-});
-
-// shift build files around a bit and build source maps
-gulp.task("sourcemaps", () => {
-  gulp
-    .src("./" + packageJson.wcfactory.elementName + ".amd.js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
-  return gulp
-    .src("./" + packageJson.wcfactory.elementName + ".js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
 });
 
 /**
@@ -205,11 +192,11 @@ const handleError = function(e) {
 };
 const flags = {}; // available options - https://github.com/GoogleChrome/lighthouse/#cli-options
 
-gulp.task("default", gulp.series("merge", "build", "compile", "sourcemaps"));
+gulp.task("default", gulp.series("merge", "build", "compile"));
 
 gulp.task(
   "dev",
-  gulp.series("merge", "build", "compile", "sourcemaps", "watch")
+  gulp.series("merge", "build", "compile", "watch")
 );
 
 gulp.task("lighthouse", () => {
