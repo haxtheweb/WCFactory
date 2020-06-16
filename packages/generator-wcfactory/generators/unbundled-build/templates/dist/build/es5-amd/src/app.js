@@ -1,0 +1,1 @@
+define(["./components/hax-status.js"],function(_haxStatus){"use strict"});
