@@ -9,7 +9,6 @@ const stripAnsi = require("strip-ansi");
 const rimraf = require("rimraf");
 const fs = require("fs-extra");
 
-
 const build = () => {
   // Moving index.html
   const spawn = cp.spawn(polymer, ["build"], {
@@ -24,6 +23,10 @@ const build = () => {
     console.log(output);
   });
   spawn.on('close', code => {
+    // delete old dist
+    fs.removeSync(path.join(process.cwd(), `dist`));
+    // ensure dist is there
+    fs.ensureDirSync(path.join(process.cwd(), `dist`));
     // delete distributed build directory prior to creation of a new one
     fs.rmdirSync(path.join(process.cwd(), 'dist/build'), { recursive: true });
     // move files to productionb build path
@@ -61,22 +64,17 @@ const moveFiles = ({ name, pattern }) => {
   // remove old dir
   rimraf.sync(assetsDirNew);
   fs.copy(assetsDir, assetsDirNew);
-  console.log(`Copying assets directory...`)
+  console.log(`Copying static assets...`);
 
   glob(path.join(process.cwd(), `src`, pattern), null, function (er, files) {
-    let itemsProcessed = 0;
     files.forEach((file) => {
       let contents = fs.readFileSync(file, 'utf8');
       contents = contents.replace('app.js', 'build.js');
       const newPath = path.join(file.replace(path.join(process.cwd(), 'src'), path.join(process.cwd(), 'dist')));
-      if (!fs.existsSync(path.dirname(newPath))){
+      if (!fs.existsSync(path.dirname(newPath))) {
         fs.mkdirSync(path.dirname(newPath));
       }
       fs.writeFileSync(newPath, contents, 'utf8');
-      itemsProcessed++;
-      if (itemsProcessed === files.length) {
-        console.log(`${name} move complete!`);
-      }
     })
   })
 }
