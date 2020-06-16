@@ -1,0 +1,22 @@
+{
+  "name": "my-unbundled-app",
+  "version": "0.0.0",
+  "description": "a boilerplate for your app to do its build routine",
+  "main": "app.js",
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "2.4.3",
+    "@lrnwebcomponents/dynamic-import-registry": "2.6.16",
+    "@lrnwebcomponents/wc-autoload": "2.6.16",
+    "@lrnwebcomponents/deduping-fix": "2.6.16",
+    "fetch-ie8": "1.5.0",
+    "promise-polyfill": "8.1.3",
+    "web-animations-js": "2.3.2",
+    "@lrnwebcomponents/accent-card": "2.6.17",
+    "@lrnwebcomponents/h-a-x": "2.6.17"
+  },
+  "flat": true,
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
