@@ -19,6 +19,8 @@
     "lerna": "^3.11.0",
     "lodash": "^4.17.11",
     "rimraf": "^3.0.2",
+    "polymer-cli": "1.9.11",
     "strip-ansi": "^6.0.0"
-  }
+  },
+  "gitHead": "72f5a446893e45d8c2df8ea2116ef3e741e13849"
 }
