@@ -34,7 +34,7 @@
     "test-suite-inject": "node scripts/test-suite-inject.js",
     "storybook": "start-storybook -c .storybook -p 9001 -s ./elements",
     "build-storybook": "build-storybook -c .storybook -o ../../storybooks/lrnwebcomponents",
-    "rebuild-wcfcache": "./node_modules/.bin/gulp",
+    "rebuild-wcfcache": "./node_modules/.bin/gulp --gulpfile=gulpfile.cjs",
     "new": "yarn run rebuild-wcfcache && wcf element && yarn run test-suite-inject && yarn install --link-duplicates"
   },
   "devDependencies": {
