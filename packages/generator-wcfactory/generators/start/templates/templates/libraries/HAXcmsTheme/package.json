@@ -20,9 +20,9 @@
     "lighthouse": "../../node_modules/.bin/gulp lighthouse --gulpfile=gulpfile.cjs"
   },
   "dependencies": {
-    "lit-element": "2.3.1",
-    "@lrnwebcomponents/haxcms-elements": "^2.6.2",
-    "@lrnwebcomponents/simple-colors": "^2.6.2"
+    "lit-element": "^2.3.1",
+    "@lrnwebcomponents/haxcms-elements": "^2.6.22",
+    "@lrnwebcomponents/simple-colors": "^2.6.21"
   },
   "devDependencies": {
     "web-animations-js": "2.3.2",
