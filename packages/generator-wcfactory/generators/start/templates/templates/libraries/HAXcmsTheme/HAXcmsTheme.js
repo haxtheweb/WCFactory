@@ -74,5 +74,5 @@ import { autorun, toJS } from "mobx";
 
   <%- additionalFunctionsString %>
 }
-window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
 export { <%= elementClassName %> };

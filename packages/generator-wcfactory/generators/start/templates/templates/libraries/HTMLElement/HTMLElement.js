@@ -87,5 +87,5 @@ class <%= elementClassName %> extends <%= customElementClass %> {
   }
   <%- additionalFunctionsString %>
 }
-window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
 export { <%= elementClassName %> };
