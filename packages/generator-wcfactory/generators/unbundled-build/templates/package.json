@@ -6,7 +6,7 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "2.4.4",
     "@lrnwebcomponents/dynamic-import-registry": "2.7.6",
-    "@lrnwebcomponents/wc-autoload": "2.6.16",
+    "@lrnwebcomponents/wc-autoload": "2.7.6",
     "@lrnwebcomponents/deduping-fix": "2.6.16",
     "fetch-ie8": "1.5.0",
     "promise-polyfill": "8.1.3",
