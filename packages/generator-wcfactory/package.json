@@ -35,13 +35,13 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@wcfactory/cli": "^0.8.6",
+    "@wcfactory/cli": "^0.8.7",
     "@wcfactory/common": "^0.8.6",
     "gulp": "^3.9.1",
     "inquirer-recursive": "0.0.6",
     "lodash": "^4.17.4",
     "yeoman-generator": "^4.0.0"
   },
-  "version": "0.8.6",
+  "version": "0.8.7",
   "gitHead": "72f5a446893e45d8c2df8ea2116ef3e741e13849"
 }
