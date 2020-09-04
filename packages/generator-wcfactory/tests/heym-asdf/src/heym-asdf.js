@@ -72,4 +72,4 @@ class HeymAsdf extends PolymerElement {
 
 
 }
-window.customElements.define(HeymAsdf.tag, HeymAsdf);
+customElements.define(HeymAsdf.tag, HeymAsdf);
