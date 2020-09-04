@@ -86,34 +86,7 @@ ${html}\`;
     .pipe(gulp.dest("./"));
 });
 
-gulp.task("build", () => {
-  const spawn = require("child_process").spawn;
-  let child = spawn("polymer", ["build"]);
-  return child.on("close", function(code) {
-    console.log("child process exited with code " + code);
-  });
-});
 gulp.task("compile", () => {
-  // copy outputs
-  gulp
-    .src("./build/es6/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(
-      rename({
-        suffix: ".es5"
-      })
-    )
-    .pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(
-      rename({
-        suffix: ".amd"
-      })
-    )
-    .pipe(gulp.dest("./"));
   return gulp
     .src("./" + packageJson.wcfactory.elementName + ".js")
     .pipe(
@@ -133,7 +106,7 @@ gulp.task("compile", () => {
 gulp.task("watch", () => {
   return gulp.watch(
     "./src/*",
-    gulp.series("merge", "build", "compile")
+    gulp.series("merge", "compile")
   );
 });
 
@@ -192,11 +165,11 @@ const handleError = function(e) {
 };
 const flags = {}; // available options - https://github.com/GoogleChrome/lighthouse/#cli-options
 
-gulp.task("default", gulp.series("merge", "build", "compile"));
+gulp.task("default", gulp.series("merge", "compile"));
 
 gulp.task(
   "dev",
-  gulp.series("merge", "build", "compile", "watch")
+  gulp.series("merge", "compile", "watch")
 );
 
 gulp.task("lighthouse", () => {
