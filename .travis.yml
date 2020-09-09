@@ -3,6 +3,7 @@ cache: yarn
 node_js:
   - 10
   - 12
+  - 14
 os:
   - linux
   - osx
@@ -12,7 +13,7 @@ matrix:
   allow_failures:
     - os: windows
 install:
-  - npm install --global yarn lerna
+  - npm install --global yarn lerna web-component-analyzer
   - lerna bootstrap
   - lerna exec -- yarn link
 script:
