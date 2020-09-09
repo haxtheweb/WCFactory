@@ -106,8 +106,7 @@
   "lint-staged": {
     "linters": {
       "*.{js,json}": [
-        "prettier --write",
-        "git add"
+        "prettier --write"
       ]
     },
     "ignore": [
