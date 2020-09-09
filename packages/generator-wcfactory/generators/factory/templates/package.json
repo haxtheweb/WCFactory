@@ -62,7 +62,7 @@
     "gulp-copy": "4.0.1",
     "gulp-rename": "1.4.0",
     "gulp-replace": "1.0.0",
-    "gulp-sass": "4.0.2",
+    "gulp-sass": "4.1.0",
     "gulp-sequence": "1.0.0",
     "gulp-shell": "0.8.0",
     "gulp-strip-css-comments": "2.0.0",
