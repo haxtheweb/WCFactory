@@ -75,7 +75,7 @@
     "lint-staged": "10.3.0",
     "lodash": "4.17.15",
     "lodash.clonedeep": "4.5.0",
-    "node-sass": "4.13.1",
+    "node-sass": "4.14.1",
     "polymer-build": "3.1.4",
     "polymer-webpack-loader": "2.0.3",
     "polymer-cli": "1.9.11",
