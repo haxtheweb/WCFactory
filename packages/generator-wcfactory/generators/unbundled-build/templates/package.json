@@ -12,7 +12,7 @@
     "promise-polyfill": "8.1.3",
     "web-animations-js": "2.3.2",
     "@lrnwebcomponents/accent-card": "2.7.7",
-    "@lrnwebcomponents/h-a-x": "2.7.7"
+    "@lrnwebcomponents/h-a-x": "2.7.8"
   },
   "flat": true,
   "private": false,
