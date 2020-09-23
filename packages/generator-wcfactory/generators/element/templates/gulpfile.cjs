@@ -88,9 +88,8 @@ ${cssResult}
 
           return `${litResult}
 
-// render function
-  render() {
-    return html\`
+// Template return function
+  <%= templateReturnFunctionPart %>\`
 ${styleResult}
 ${html}\`;
   }
