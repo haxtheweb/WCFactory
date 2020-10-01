@@ -29,7 +29,7 @@
   "module": "<%= elementName %>.js",
   "umd": "<%= elementName %>.umd.js",
   "scripts": {
-    "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
+    "test": "wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
     <%- libraryScripts %>
   },
   "author": {
