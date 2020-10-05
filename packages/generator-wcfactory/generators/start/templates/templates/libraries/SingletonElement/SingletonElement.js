@@ -25,7 +25,7 @@ window.<%= elementClassName %>.requestAvailability = () => {
  *  -
  *
  * @demo demo/index.html
- * @customElement <%= elementName %>
+ * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -76,5 +76,5 @@ class <%= elementClassName %> extends <%= customElementClass %> {
 
   <%- additionalFunctionsString %>
 }
-window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
 export { <%= elementClassName %> };

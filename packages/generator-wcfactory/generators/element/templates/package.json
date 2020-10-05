@@ -14,7 +14,10 @@
       "js": "src/<%= elementName %>.js",
       "properties": "src/<%= elementName %>-properties.json",
       "hax": "src/<%= elementName %>-hax.json"
-    }
+    },
+    "sharedHaxProps": [],
+    "sharedProps": [],
+    "sharedStyles": []
   },
   "version": "<%= version %>",
   "description": "<%= description %>",
@@ -23,10 +26,10 @@
     "url": "<%= gitRepo %>"
   },
   "main": "<%= elementName %>.js",
-  "module": "<%= elementName %>.es6.js",
+  "module": "<%= elementName %>.js",
   "umd": "<%= elementName %>.umd.js",
   "scripts": {
-    "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
+    "test": "wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
     <%- libraryScripts %>
   },
   "author": {

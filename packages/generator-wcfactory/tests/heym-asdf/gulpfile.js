@@ -10,7 +10,6 @@ const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const stripCssComments = require("strip-css-comments");
 const decomment = require("decomment");
-const sourcemaps = require("gulp-sourcemaps");
 const packageJson = require("./package.json");
 
 gulp.task("merge", () => {
@@ -87,34 +86,7 @@ ${html}\`;
     .pipe(gulp.dest("./"));
 });
 
-gulp.task("build", () => {
-  const spawn = require("child_process").spawn;
-  let child = spawn("polymer", ["build"]);
-  return child.on("close", function(code) {
-    console.log("child process exited with code " + code);
-  });
-});
 gulp.task("compile", () => {
-  // copy outputs
-  gulp
-    .src("./build/es6/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(
-      rename({
-        suffix: ".es5"
-      })
-    )
-    .pipe(gulp.dest("./"));
-  gulp
-    .src("./build/es5-amd/" + packageJson.wcfactory.elementName + ".js")
-    .pipe(
-      rename({
-        suffix: ".amd"
-      })
-    )
-    .pipe(gulp.dest("./"));
   return gulp
     .src("./" + packageJson.wcfactory.elementName + ".js")
     .pipe(
@@ -134,20 +106,8 @@ gulp.task("compile", () => {
 gulp.task("watch", () => {
   return gulp.watch(
     "./src/*",
-    gulp.series("merge", "build", "compile", "sourcemaps")
+    gulp.series("merge", "compile")
   );
-});
-
-// shift build files around a bit and build source maps
-gulp.task("sourcemaps", () => {
-  gulp
-    .src("./" + packageJson.wcfactory.elementName + ".amd.js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
-  return gulp
-    .src("./" + packageJson.wcfactory.elementName + ".js")
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write("./"));
 });
 
 /**
@@ -205,11 +165,11 @@ const handleError = function(e) {
 };
 const flags = {}; // available options - https://github.com/GoogleChrome/lighthouse/#cli-options
 
-gulp.task("default", gulp.series("merge", "build", "compile", "sourcemaps"));
+gulp.task("default", gulp.series("merge", "compile"));
 
 gulp.task(
   "dev",
-  gulp.series("merge", "build", "compile", "sourcemaps", "watch")
+  gulp.series("merge", "compile", "watch")
 );
 
 gulp.task("lighthouse", () => {

@@ -7,12 +7,8 @@ import { LitElement, html, css } from 'lit-element/lit-element.js';
 /**
  * `<%= elementName %>`
  * `<%= description %>`
- *
- * @microcopy - language worth noting:
- *  -
- *
  * @demo demo/index.html
- * @customElement <%= elementName %>
+ * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */

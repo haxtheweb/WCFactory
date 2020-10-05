@@ -17,7 +17,7 @@ import { autorun, toJS } from "mobx";
  *  - HAXCMSTheme - A super class that provides correct baseline wiring to build a new theme
  *
  * @demo demo/index.html
- * @customElement <%= elementName %>
+ * @element <%= elementName %>
  */
   class <%= elementClassName %> extends HAXCMSLitElementTheme {
   /* REQUIRED FOR TOOLING DO NOT TOUCH */
@@ -74,5 +74,5 @@ import { autorun, toJS } from "mobx";
 
   <%- additionalFunctionsString %>
 }
-window.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
 export { <%= elementClassName %> };

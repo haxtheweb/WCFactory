@@ -14,12 +14,13 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "eslint": "6.6.0",
-    "eslint-config-prettier": "6.7.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.12.0",
     "eslint-plugin-node": "10.0.0",
-    "eslint-plugin-prettier": "3.1.1",
-    "lerna": "3.18.4",
-    "prettier": "1.19.1"
+    "eslint-plugin-prettier": "3.1.4",
+    "lerna": "3.22.1",
+    "prettier": "1.19.1",
+    "symlink-dir": "3.1.2"
   },
   "scripts": {
     "postinstall": "patch-package",
@@ -37,7 +38,7 @@
     ]
   },
   "engines": {
-    "node": "^10.0.0 || ^12.0.0",
+    "node": "^10.0.0 || ^12.0.0 || ^14.0.0",
     "yarn": "^1.10.1"
   },
   "dependencies": {

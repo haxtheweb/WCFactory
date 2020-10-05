@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://i.creativecommons.org" />
+  <link rel="preconnect" href="https://licensebuttons.net" />
+  <link rel="preload" href="https://cdn.webcomponents.psu.edu/cdn/build.js" as="script" />
+  <link rel="preload" href="https://cdn.webcomponents.psu.edu/cdn/wc-registry.json" as="fetch" crossorigin="anonymous" />
+  <link rel="preload" href="https://cdn.webcomponents.psu.edu/cdn/build/es6/node_modules/web-animations-js/web-animations-next-lite.min.js" as="script" />
+  <link rel="preload" href="https://cdn.webcomponents.psu.edu/cdn/build/es6/node_modules/@lrnwebcomponents/wc-autoload/wc-autoload.js" as="script" crossorigin="anonymous" />
+  <link rel="modulepreload" href="https://cdn.webcomponents.psu.edu/cdn/build/es6/node_modules/@lrnwebcomponents/wc-autoload/wc-autoload.js" />
+  <link rel="preload" href="https://cdn.webcomponents.psu.edu/cdn/build/es6/node_modules/@lrnwebcomponents/dynamic-import-registry/dynamic-import-registry.js" as="script" crossorigin="anonymous" />
+  <link rel="modulepreload" href="https://cdn.webcomponents.psu.edu/cdn/build/es6/node_modules/@lrnwebcomponents/dynamic-import-registry/dynamic-import-registry.js" />
+
+  <base href="/"/>
+  <title>Your App</title>
+  <style>
+    body[no-js] your-app {
+      display: none !important;
+    }
+    .somefallback {
+      display: none;
+    }
+    body[no-js] .somefallback {
+      display: block;
+    }
+  </style>
+</head>
+<body no-js>
+  <div class="somefallback"></div>
+  <your-app></your-app>
+  <a11y-collapse>
+  <div slot="heading">Demo</div>
+  <grid-plate layout="1-1">
+  <meme-maker slot="col-1" alt="Cat stalking a small toy" image-url="https://cdn2.thecatapi.com/images/9j5.jpg" top-text="I bring you" bottom-text="the death"></meme-maker>
+  <md-block slot="col-2" source="https://raw.githubusercontent.com/btopro/ist402/master/files/glossary.md"></md-block>
+</grid-plate>
+</a11y-collapse>
+  <script>
+    // useful for legacy browser / JS failure
+    document.body.removeAttribute('no-js');
+    // supply a CDN to load the assets over for the build
+    window.__appCDN="https://cdn.webcomponents.psu.edu/cdn/";
+    // if true, non-evergreen browsers get a "please upgrade" message
+    window.__appForceUpgrade=false;
+    // ability to override the name of the registry file; rare usage
+    window.WCGlobalRegistryFileName = "wc-registry-other-things.json";
+  </script>
+  <script src="https://cdn.webcomponents.psu.edu/cdn/build.js"></script>
+</body>
+</html>
