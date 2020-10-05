@@ -26,7 +26,7 @@ class UI extends Command {
   }
 }
 
-UI.description = 'Start up the visual user interface for WCFactory.'
+UI.description = '[In Development] Start up the visual user interface for WCFactory.'
 
 /**
  * @todo dynaimically generate this based on the questions const

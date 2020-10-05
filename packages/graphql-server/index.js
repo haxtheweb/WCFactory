@@ -1,4 +1,6 @@
 const { ApolloServer } = require('apollo-server')
+// Set a really high max listener.
+require('events').EventEmitter.defaultMaxListeners = 1000;
 
 const server = new ApolloServer({
   modules: [

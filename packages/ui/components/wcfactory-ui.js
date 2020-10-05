@@ -16,7 +16,6 @@ class WCFactoryUI extends LitElement {
     this.routerSetup()
     subscribeToOperationsOutput()
     subscribeToFactoryUpdates()
-
   }
 
   render() {
