@@ -10,7 +10,7 @@ module.exports = class extends Generator {
   writing() {
     // copy all files that don't start with an underscore
     this.fs.copy(
-      path.join(__dirname, `../../factory/templates`),
+      path.join(__dirname, `../../start/templates/templates`),
       path.join(userConfig.companyDir, `templates`)
     );
   }
