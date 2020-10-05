@@ -1,0 +1,58 @@
+{
+  "name": "@wcfactory/ui",
+  "version": "0.8.6",
+  "author": "heyMP @heyMP",
+  "main": "index.js",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@lrnwebcomponents/paper-search": "^2.0.5",
+    "@polymer/iron-behaviors": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-listbox": "^3.0.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/paper-dropdown-menu": "^3.0.1",
+    "@polymer/iron-form": "^3.0.1",
+    "@polymer/paper-spinner": "^3.0.1",
+    "@vaadin/router": "^1.2.0",
+    "@vaadin/vaadin-list-box": "^1.1.0",
+    "@vaadin/vaadin-item": "^2.1.0",
+    "@vaadin/vaadin-tabs": "^2.1.2",
+    "@wcfactory/graphql-server": "^0.8.6",
+    "@ui5/webcomponents": "^0.8.0",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client-ws": "^2.4.0",
+    "apollo-link": "^1.2.8",
+    "apollo-link-retry": "^2.2.11",
+    "apollo-link-error": "^1.1.7",
+    "apollo-link-http": "^1.5.11",
+    "apollo-link-state": "^0.4.2",
+    "apollo-link-ws": "^1.0.14",
+    "apollo-utilities": "^1.2.1",
+    "case": "^1.6.1",
+    "graphql-tag": "^2.10.1",
+    "fuse.js": "^3.4.2",
+    "lit-element": "^2.0.1",
+    "mobx": "^5.9.0",
+    "lit-apollo": "^0.8.1",
+    "is-valid-element-name": "^1.0.0"
+  },
+  "devDependencies": {
+    "@open-wc/building-webpack": "^0.1.9",
+    "http-server": "^0.11.1",
+    "owc-dev-server": "^0.1.6",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "start:es5": "webpack-dev-server --mode development --es5",
+    "start:build": "http-server dist/ -o",
+    "build": "webpack --mode production",
+    "build:stats": "webpack --mode production --profile --json > bundle-stats.json"
+  }
+}

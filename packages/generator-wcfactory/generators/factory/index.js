@@ -5,6 +5,7 @@ const mkdirp = require("mkdirp");
 const process = require("process");
 const fs = require("fs");
 const {fixDotfiles} = require('../../utils/fix-dotfiles');
+const { spawn } = require('child_process')
 
 module.exports = class extends Generator {
   constructor(args, opts) {
