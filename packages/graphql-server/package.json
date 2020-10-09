@@ -13,7 +13,7 @@
     "apollo-client": "^2.5.1",
     "case": "^1.6.1",
     "graphql": "^14.1.1",
-    "graphql-type-json": "^0.2.4",
+    "graphql-type-json": "^0.3.0",
     "lowdb": "^1.0.0",
     "tree-kill": "^1.2.1",
     "uuid": "^3.3.2",
