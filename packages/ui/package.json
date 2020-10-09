@@ -22,7 +22,7 @@
     "@vaadin/vaadin-item": "^2.1.0",
     "@vaadin/vaadin-tabs": "^2.1.2",
     "@wcfactory/graphql-server": "^0.8.6",
-    "@ui5/webcomponents": "^0.8.0",
+    "@ui5/webcomponents": "^0.23.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client-ws": "^2.4.0",
     "apollo-link": "^1.2.8",
