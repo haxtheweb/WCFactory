@@ -41,12 +41,12 @@
     "is-valid-element-name": "^1.0.0"
   },
   "devDependencies": {
-    "@open-wc/building-webpack": "^0.1.9",
-    "http-server": "^0.11.1",
-    "owc-dev-server": "^0.1.6",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1"
+    "@open-wc/building-webpack": "0.1.10",
+    "http-server": "0.11.1",
+    "owc-dev-server": "0.1.6",
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
