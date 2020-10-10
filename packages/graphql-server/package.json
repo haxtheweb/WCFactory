@@ -38,7 +38,7 @@
     "http-server": "0.12.3",
     "lit-element": "2.4.0",
     "nodemon": "1.19.4",
-    "owc-dev-server": "0.1.6",
+    "owc-dev-server": "0.4.3",
     "parcel-bundler": "1.12.4",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
