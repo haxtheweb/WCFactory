@@ -107,7 +107,6 @@ module.exports = class extends Generator {
           }
         },
         'settings': {
-          'quick': [],
           'configure': [],
           'advanced': []
         }
@@ -143,22 +142,16 @@ module.exports = class extends Generator {
           config.validationType = 'url';
           config.required = true;
           config.icon = 'icons:link';
-          // make this quickly available
-          this.props.haxList.settings.quick.push(config);
         }
         else if (prop.name === 'alt') {
           config.inputMethod = 'alt';
           config.required = true;
           config.icon = 'icons:accessibility';
-          // make this quickly available
-          this.props.haxList.settings.quick.push(config);
         }
         else if (prop.name === 'color' || prop.name === 'primaryColor' || prop.name === 'accentColor') {
           if (config.type === 'textfield') {
             config.inputMethod = 'colorpicker';
             config.icon = 'editor:format-color-fill';
-            // make this quickly available by default
-            this.props.haxList.settings.quick.push(config);
           }
         }
         this.props.haxList.settings.configure.push(config);

@@ -16,12 +16,11 @@
       }
     ],
     "meta": {
-      "author": "heymp",
-      "owner": "Red Hat, Inc."
+      "author": "elms:ln",
+      "owner": ""
     }
   },
   "settings": {
-    "quick": [],
     "configure": [
       {
         "property": "title",
