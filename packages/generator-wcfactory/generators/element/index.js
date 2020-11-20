@@ -298,9 +298,9 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("element.story.js"),
+      this.templatePath("element.stories.js"),
       this.destinationPath(
-        `${this.props.elementName}/${this.props.elementName}.story.js`
+        `${this.props.elementName}/${this.props.elementName}.stories.js`
       ),
       this.props
     );

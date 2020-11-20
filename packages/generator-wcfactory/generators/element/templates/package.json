@@ -15,6 +15,7 @@
       "properties": "src/<%= elementName %>-properties.json",
       "hax": "src/<%= elementName %>-hax.json"
     },
+    "iconset": {},
     "sharedHaxProps": [],
     "sharedProps": [],
     "sharedStyles": []
