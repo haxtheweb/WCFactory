@@ -29,7 +29,14 @@ gulp.task("merge", () => {
             haxString = `
   // haxProperty definition
   static get haxProperties() {
-    return ${HAXProps};
+    return ${
+      packageJson.wcfactory.sharedHaxProps &&
+      packageJson.wcfactory.sharedHaxProps.length > 0 
+      ? `{
+          ...${HAXProps}, 
+          ${packageJson.wcfactory.sharedHaxProps.join(', ')}
+        }` : HAXProps
+    };
   }`;
           }
           let rawprops = "{}";
