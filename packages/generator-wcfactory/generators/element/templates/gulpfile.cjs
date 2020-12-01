@@ -15,6 +15,9 @@ gulp.task("merge", () => {
       replace(
         /\/\* REQUIRED FOR TOOLING DO NOT TOUCH \*\//g,
         (classStatement, character, jsFile) => {
+          if (!packageJson.wcfactory.files.html) {
+            return false;
+          }
           // pull these off the package wcfactory files area
           let html = fs
             .readFileSync(path.join("./", packageJson.wcfactory.files.html))
