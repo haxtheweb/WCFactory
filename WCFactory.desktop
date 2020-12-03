@@ -4,5 +4,6 @@ Name=WCFactory
 Comment=WCFactory
 Exec=wcf ui
 Terminal=true
+Icon=./hax.png
 Type=Application
 Categories=Utility;Application;
