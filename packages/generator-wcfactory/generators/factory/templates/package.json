@@ -53,7 +53,7 @@
     "css-scss": "0.1.1",
     "decomment": "0.9.3",
     "del": "5.1.0",
-    "dialog-polyfill": "0.5.3",
+    "dialog-polyfill": "0.5.4",
     "global": "4.4.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "8.0.0",
