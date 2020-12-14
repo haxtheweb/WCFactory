@@ -46,9 +46,9 @@
     "symlink-dir": "4.1.0"
   },
   "dependencies": {
-    "@open-wc/storybook-prebuilt": "^1.2.0",
+    "@open-wc/storybook-prebuilt": "1.2.0",
     "patch-package": "6.2.2",
     "postinstall-postinstall": "2.1.0",
-    "rollup-plugin-cpy": "^2.0.1"
+    "rollup-plugin-cpy": "2.0.1"
   }
 }
