@@ -27,7 +27,7 @@
     "@lrnwebcomponents/deduping-fix": "2.7.7",
     "@polymer/iron-demo-helpers": "3.1.0",
     "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
-    "@webcomponents/webcomponentsjs": "2.4.4",
+    "@webcomponents/webcomponentsjs": "2.5.0",
     "gulp-babel": "8.0.0",
     "lodash": "4.17.20",
     "polymer-cli": "1.9.11",
