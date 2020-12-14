@@ -4,7 +4,7 @@
   "description": "a boilerplate for your app to do its build routine",
   "main": "app.js",
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "2.4.4",
+    "@webcomponents/webcomponentsjs": "2.5.0",
     "@lrnwebcomponents/dynamic-import-registry": "2.7.10",
     "@lrnwebcomponents/wc-autoload": "2.7.10",
     "@lrnwebcomponents/deduping-fix": "2.7.7",
