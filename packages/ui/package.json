@@ -1,6 +1,6 @@
 {
   "name": "@wcfactory/ui",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "author": "heyMP @heyMP",
   "main": "index.js",
   "license": "Apache 2.0",
@@ -8,6 +8,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@apollo-elements/lit-apollo": "3.2.1",
     "@lrnwebcomponents/paper-search": "^2.0.5",
     "@polymer/iron-behaviors": "^3.0.1",
     "@polymer/iron-form": "^3.0.1",
@@ -22,7 +23,7 @@
     "@vaadin/vaadin-item": "^2.1.0",
     "@vaadin/vaadin-list-box": "^1.1.0",
     "@vaadin/vaadin-tabs": "^2.1.2",
-    "@wcfactory/graphql-server": "^0.9.0",
+    "@wcfactory/graphql-server": "^0.10.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client-ws": "^2.4.0",
     "apollo-link": "^1.2.8",
@@ -36,7 +37,6 @@
     "fuse.js": "^3.4.2",
     "graphql-tag": "^2.10.1",
     "is-valid-element-name": "^1.0.0",
-    "@apollo-elements/lit-apollo": "3.2.1",
     "lit-element": "^2.0.1",
     "mobx": "^5.9.0"
   },
