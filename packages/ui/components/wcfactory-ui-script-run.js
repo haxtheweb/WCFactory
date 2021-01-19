@@ -1,4 +1,4 @@
-import { html, ApolloMutation } from 'lit-apollo';
+import { html, ApolloMutation } from '@apollo-elements/lit-apollo';
 import gql from 'graphql-tag'
 import client from '../client.js'
 import { GET_OPERATIONS } from './wcfactory-ui-script.js'

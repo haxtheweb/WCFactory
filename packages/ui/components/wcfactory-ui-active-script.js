@@ -1,4 +1,4 @@
-import { html, ApolloQuery } from 'lit-apollo'
+import { html, ApolloQuery } from '@apollo-elements/lit-apollo'
 import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-terminal.js'
