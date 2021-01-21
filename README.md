@@ -17,6 +17,7 @@ $ yarn global add @wcfactory/cli
 $ yarn global add polymer-cli
 $ yarn global add lerna
 $ yarn global add web-component-analyzer
+$ yarn global add http-server
 ```
 
 ## Windows
