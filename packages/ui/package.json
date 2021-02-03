@@ -18,7 +18,7 @@
     "@polymer/paper-item": "^3.0.1",
     "@polymer/paper-listbox": "^3.0.1",
     "@polymer/paper-spinner": "^3.0.1",
-    "@ui5/webcomponents": "^0.27.0",
+    "@ui5/webcomponents": "^0.29.0",
     "@vaadin/router": "^1.2.0",
     "@vaadin/vaadin-item": "^2.1.0",
     "@vaadin/vaadin-list-box": "^1.1.0",
