@@ -36,7 +36,7 @@
     "@open-wc/demoing-storybook": "2.4.7",
     "@open-wc/storybook": "0.2.8",
     "@open-wc/webpack-import-meta-loader": "0.4.7",
-    "concurrently": "4.1.2",
+    "concurrently": "5.3.0",
     "eslint": "7.19.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-node": "11.1.0",
