@@ -43,7 +43,7 @@
     "subscriptions-transport-ws": "0.9.18",
     "webpack": "4.46.0",
     "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.0",
+    "webpack-dev-server": "3.11.2",
     "xterm": "3.14.5"
   }
 }
