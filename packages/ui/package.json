@@ -1,6 +1,6 @@
 {
   "name": "@wcfactory/ui",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "author": "heyMP @heyMP",
   "main": "index.js",
   "license": "Apache 2.0",
@@ -23,7 +23,7 @@
     "@vaadin/vaadin-item": "^2.1.0",
     "@vaadin/vaadin-list-box": "^1.1.0",
     "@vaadin/vaadin-tabs": "^2.1.2",
-    "@wcfactory/graphql-server": "^0.10.0",
+    "@wcfactory/graphql-server": "^0.11.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client-ws": "^2.4.0",
     "apollo-link": "^1.2.8",
