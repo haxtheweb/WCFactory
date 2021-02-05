@@ -1,9 +1,12 @@
 const { Command, flags } = require('@oclif/command')
+var yeoman = require('yeoman-environment')
+var env = yeoman.createEnv()
+env.register(require.resolve('@wcfactory/generator-wcfactory/generators/template/update'), 'wcfactory:template:update')
 
 class Template extends Command {
   async run() {
     let { args, flags } = this.parse(Template)
-    console.log(`You must specify template:update`)
+    env.run('wcfactory:template:update', flags)
   }
 }
 

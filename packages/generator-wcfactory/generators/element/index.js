@@ -61,7 +61,8 @@ module.exports = class extends Generator {
       storyGroup: _.upperFirst(name),
       lowerCaseName: name,
       camelCaseName: _.camelCase(this.answers.name),
-      useSass: this.answers.useSass,
+      useSass: (this.answers.useSass == "" ? false : this.answers.useSass),
+      useCLI: this.answers.useCLI,
       sassLibraryPkg: false,
       sassLibraryPath: false,
       libraryScripts: '',
@@ -241,23 +242,24 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/LICENSE.md`),
       this.props
     );
-
-    this.fs.copyTpl(
-      this.templatePath(`src/properties.json`),
-      this.destinationPath(
-        `${this.props.elementName}/src/${
-          this.props.elementName
-        }-properties.json`
-      ),
-      this.props
-    );
-    this.fs.copyTpl(
-      this.templatePath(`src/hax.json`),
-      this.destinationPath(
-        `${this.props.elementName}/src/${this.props.elementName}-hax.json`
-      ),
-      this.props
-    );
+    if (this.answers.useCLI) {
+      this.fs.copyTpl(
+        this.templatePath(`src/properties.json`),
+        this.destinationPath(
+          `${this.props.elementName}/src/${
+            this.props.elementName
+          }-properties.json`
+        ),
+        this.props
+      );
+      this.fs.copyTpl(
+        this.templatePath(`src/hax.json`),
+        this.destinationPath(
+          `${this.props.elementName}/src/${this.props.elementName}-hax.json`
+        ),
+        this.props
+      );
+    }
 
     this.fs.copyTpl(
       this.templatePath("README.md"),
@@ -274,6 +276,12 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath("rollup.config.js"),
       this.destinationPath(`${this.props.elementName}/rollup.config.js`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("lib/.gitkeep"),
+      this.destinationPath(`${this.props.elementName}/lib/.gitkeep`),
       this.props
     );
 
@@ -319,41 +327,60 @@ module.exports = class extends Generator {
       this.templatePath("polymer.json"),
       this.destinationPath(`${this.props.elementName}/polymer.json`)
     );
-
-    if (this.props.useSass) {
+    if (this.answers.useCLI) {
+      if (this.props.useSass) {
+        this.fs.copyTpl(
+          this.templatePath("src/element.scss"),
+          this.destinationPath(
+            `${this.props.elementName}/src/${this.props.elementName}.scss`
+          ),
+          this.props
+        );
+      } else {
+        this.fs.copy(
+          this.templatePath("src/element.css"),
+          this.destinationPath(
+            `${this.props.elementName}/src/${this.props.elementName}.css`
+          )
+        );
+      }
+    }
+    else {
+      this.props.useSass = false;
+    }
+    if (this.answers.useCLI) {
       this.fs.copyTpl(
-        this.templatePath("src/element.scss"),
+        this.templatePath("src/element.html"),
         this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}.scss`
+          `${this.props.elementName}/src/${this.props.elementName}.html`
         ),
         this.props
       );
-    } else {
-      this.fs.copy(
-        this.templatePath("src/element.css"),
+    }
+    // if we use the CLI, we dump in this template file
+    // otherwise we have to stitch them all together
+    if (this.answers.useCLI) {
+      this.fs.copyTpl(
+        this.sourceRoot(
+          `../../../templates/libraries/${this.props.activeWCFLibrary.main}`
+        ),
         this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}.css`
-        )
+          `${this.props.elementName}/src/${this.props.elementName}.js`
+        ),
+        this.props
       );
     }
-
-    this.fs.copyTpl(
-      this.templatePath("src/element.html"),
-      this.destinationPath(
-        `${this.props.elementName}/src/${this.props.elementName}.html`
-      ),
-      this.props
-    );
-
-    this.fs.copyTpl(
-      this.sourceRoot(
-        `../../../templates/libraries/${this.props.activeWCFLibrary.main}`
-      ),
-      this.destinationPath(
-        `${this.props.elementName}/src/${this.props.elementName}.js`
-      ),
-      this.props
-    );
+    else {
+      this.fs.copyTpl(
+        this.sourceRoot(
+          `../../../templates/noCLI/${this.props.activeWCFLibrary.main}`
+        ),
+        this.destinationPath(
+          `${this.props.elementName}/src/${this.props.elementName}.js`
+        ),
+        this.props
+      );
+    }
 
     fixDotfiles(this);
   }

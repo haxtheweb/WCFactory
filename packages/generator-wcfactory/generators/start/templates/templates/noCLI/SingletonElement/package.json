@@ -1,6 +1,6 @@
 {
-  "name": "lit-element",
-  "description": "data binding ++, about as small as possible library",
+  "name": "Singleton via LitElement",
+  "description": "Singleton element pattern with LitElement for help",
   "wcfactory": {
     "customElementClass": "LitElement",
     "templateReturnFunctionPart": "render() {\n    return html",
@@ -9,7 +9,7 @@
       "suffix": "}"
     }
   },
-  "main": "LitElement/LitElement.js",
+  "main": "SingletonElement/SingletonElement.js",
   "version": "0.0.1",
   "scripts": {
     "start": "yarn run dev",
@@ -20,19 +20,20 @@
     "lighthouse": "gulp lighthouse --gulpfile=gulpfile.cjs"
   },
   "dependencies": {
-    "lit-element": "2.4.0"
+    "lit-element": "^2.3.1"
   },
   "devDependencies": {
+    "web-animations-js": "2.3.2",
     "@lrnwebcomponents/deduping-fix": "2.7.7",
-    "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
     "@polymer/iron-demo-helpers": "3.1.0",
+    "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
     "@webcomponents/webcomponentsjs": "2.5.0",
-    "concurrently": "5.3.0",
     "gulp-babel": "8.0.0",
     "lodash": "4.17.20",
-    "polymer-build": "3.1.4",
     "polymer-cli": "1.9.11",
-    "wct-browser-legacy": "1.0.2",
-    "web-animations-js": "2.3.2"
+    "es-dev-server": "1.60.2",
+    "concurrently": "5.3.0",
+    "polymer-build": "3.1.4",
+    "wct-browser-legacy": "1.0.2"
   }
 }
