@@ -10,6 +10,9 @@ import { StorybookUtilities } from "@lrnwebcomponents/storybook-utilities/storyb
 import { <%= elementClassName %> } from "./<%= elementName %>.js";
 // need to account for polymer goofiness when webpack rolls this up
 
+
+/** 
+ * Uncomment to add to Storybook
 export default {
   title: '<%= storyGroup %>|<%= elementClassName %>',
   component: '<%= elementName %>',
@@ -21,4 +24,6 @@ export default {
 const utils = new StorybookUtilities();
 export const <%= elementClassName %>Story = () => {
   return utils.makeElementFromClass(<%= elementClassName %>);
-};
+}; 
+*/
+
