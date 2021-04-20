@@ -30,7 +30,9 @@
   "module": "<%= elementName %>.js",
   "umd": "<%= elementName %>.umd.js",
   "scripts": {
-    "test": "wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
+    "test": "web-test-runner \"test/**/*.test.js\" --node-resolve",
+    "test:watch": "web-test-runner \"test/**/*.test.js\" --node-resolve --watch",
+    "test:browsers": "web-test-runner \"test/**/*.test.js\" --node-resolve --playwright --browsers chromium firefox webkit",
     <%- libraryScripts %>
   },
   "author": {

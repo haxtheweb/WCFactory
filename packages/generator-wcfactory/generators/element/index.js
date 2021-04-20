@@ -290,20 +290,14 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/demo/index.html`),
       this.props
     );
-
+    
     this.fs.copyTpl(
-      this.templatePath("test/element_test.html"),
+      this.templatePath("test/element.test.js"),
       this.destinationPath(
-        `${this.props.elementName}/test/${this.props.elementName}_test.html`
+        `${this.props.elementName}/test/${this.props.elementName}.test.js`
       ),
       this.props
-    );
-
-    this.fs.copyTpl(
-      this.templatePath("test/index.html"),
-      this.destinationPath(`${this.props.elementName}/test/index.html`),
-      this.props
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath("element.stories.js"),
