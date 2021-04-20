@@ -1,7 +1,7 @@
 {
   "name": "@wcfactory/cli",
   "description": "CLI for managing your custom elements at scale.",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "author": "heyMP @heyMP",
   "bin": {
     "wcf": "./bin/run"
@@ -11,10 +11,10 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "@wcfactory/common": "^0.11.0",
-    "@wcfactory/generator-wcfactory": "^0.11.0",
-    "@wcfactory/graphql-server": "^0.11.0",
-    "@wcfactory/ui": "^0.11.0",
+    "@wcfactory/common": "^0.12.0",
+    "@wcfactory/generator-wcfactory": "^0.12.0",
+    "@wcfactory/graphql-server": "^0.12.0",
+    "@wcfactory/ui": "^0.12.0",
     "date-fns": "^1.29.0",
     "fuse.js": "^3.4.2",
     "glob": "^7.1.3",
