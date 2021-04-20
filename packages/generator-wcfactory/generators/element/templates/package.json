@@ -30,7 +30,9 @@
   "module": "<%= elementName %>.js",
   "umd": "<%= elementName %>.umd.js",
   "scripts": {
-    "test": "wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
+    "test": "web-test-runner \"test/**/*.test.js\" --node-resolve",
+    "test:watch": "web-test-runner \"test/**/*.test.js\" --node-resolve --watch",
+    "test:browsers": "web-test-runner \"test/**/*.test.js\" --node-resolve --playwright --browsers chromium firefox webkit",
     <%- libraryScripts %>
   },
   "author": {
@@ -41,6 +43,11 @@
     <%- libraryDependencies %>
   },
   "devDependencies": {
+    "@open-wc/testing": "2.5.32",
+    "@web/test-runner": "0.12.19",
+    "@web/test-runner-commands": "0.4.2",
+    "@web/test-runner-playwright": "0.8.4",
+    "@web/test-runner-puppeteer": "0.9.3",
     <%- libraryDevDependencies %>
   },
   "private": false,
