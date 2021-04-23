@@ -38,7 +38,7 @@
     "new": "yarn run rebuild-wcfcache && wcf element && yarn run test-suite-inject && yarn install --link-duplicates"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "4.1.18",
+    "@storybook/addon-knobs": "6.2.9",
     "@open-wc/webpack": "0.1.6",
     "@open-wc/storybook": "0.2.8",
     "@emotion/core": "0.13.1",
