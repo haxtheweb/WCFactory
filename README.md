@@ -7,7 +7,12 @@ A factory that churns out web components, library agnostic with a unified develo
 
 [Here's a video showing what this is and how it works](https://www.youtube.com/playlist?list=PLJQupiji7J5cAv7Jfr1V8FvUTx_jJrmCl).
 
-### Install
+### Quick Install
+```bash
+curl -fsSL https://raw.githubusercontent.com/elmsln/WCFactory/master/wcfactoryme.sh -o wcfactoryme.sh && sh wcfactoryme.sh
+```
+
+### Manual Install
 
 Make sure you have a version of node v14.16.1 and above.
 Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/lang/en/docs/install/) and ensure it is [globally available via PATH](https://yarnpkg.com/lang/en/docs/cli/global/). If using Linux, make sure you add `--prefix /usr/local` at the end of each of these calls
@@ -26,6 +31,7 @@ $ yarn global add http-server
 
 ### Windows Install
 
+Make sure a path entry to yarn global binaries is present or `wcf` will fail. Yarn global binaries can be found in `C:\Users\<username>\AppData\Local\Yarn\bin`
 To properly configure git endlines for Windows, run this configuration
 ```bash
 $ git config --global core.autocrlf true
