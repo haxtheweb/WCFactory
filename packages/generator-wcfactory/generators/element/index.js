@@ -274,8 +274,8 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("rollup.config.js"),
-      this.destinationPath(`${this.props.elementName}/rollup.config.js`),
+      this.templatePath("rollup.config.mjs"),
+      this.destinationPath(`${this.props.elementName}/rollup.config.mjs`),
       this.props
     );
 

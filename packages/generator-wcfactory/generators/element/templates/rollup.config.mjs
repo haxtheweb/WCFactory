@@ -1,4 +1,4 @@
-// rollup.config.js
+// rollup.config.mjs
 import configFactory from "@wcfactory/rollup-umd-build";
 import packageJson from "./package.json";
 
