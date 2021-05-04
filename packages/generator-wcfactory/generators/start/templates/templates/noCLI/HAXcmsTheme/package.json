@@ -13,7 +13,7 @@
   "version": "0.0.1",
   "scripts": {
     "start": "yarn run dev",
-    "build": "gulp --gulpfile=gulpfile.cjs && rollup -c && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"**/*.js\" --outFile custom-elements.json",
+    "build": "gulp --gulpfile=gulpfile.cjs && node --experimental-json-modules ../../node_modules/.bin/rollup --config && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"**/*.js\" --outFile custom-elements.json",
     "dev": "concurrently --kill-others \"yarn run watch\" \"yarn run serve\"",
     "watch": "gulp dev --gulpfile=gulpfile.cjs",
     "serve": "es-dev-server -c ../../es-dev-server.config.js",
@@ -25,6 +25,7 @@
     "@lrnwebcomponents/simple-colors": "^2.6.21"
   },
   "devDependencies": {
+    "@wcfactory/rollup-umd-build": "^0.12.2",
     "web-animations-js": "2.3.2",
     "@lrnwebcomponents/deduping-fix": "2.7.7",
     "@polymer/iron-demo-helpers": "3.1.0",

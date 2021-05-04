@@ -15,7 +15,7 @@
   "es2015": "heym-asdf.js",
   "amd": "heym-asdf.amd.js",
   "scripts": {
-    "build": "gulp --gulpfile=gulpfile.cjs && rollup -c && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"**/*.js\" --outFile custom-elements.json",
+    "build": "gulp --gulpfile=gulpfile.cjs && node --experimental-json-modules ../../node_modules/.bin/rollup --config && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"**/*.js\" --outFile custom-elements.json",
     "dev": "npm run build && open ./src && concurrently --kill-others \"npm run watch\" \"npm run serve\"",
     "watch": "gulp dev --gulpfile=gulpfile.cjs",
     "serve": "cd build/es6 && polymer serve --npm --module-resolution=node --open",
