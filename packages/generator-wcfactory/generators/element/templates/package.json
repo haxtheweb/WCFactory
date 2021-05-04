@@ -42,7 +42,7 @@
   "dependencies": {
     <%- libraryDependencies %>
   },
-  "devDependencies": {
+  "devDependencies": {,
     <%- libraryDevDependencies %>
   },
   "private": false,
