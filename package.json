@@ -13,7 +13,6 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "postinstall": "patch-package",
     "bootstrap": "lerna bootstrap",
     "lint": "eslint -c package.json --ignore-path .gitignore --no-eslintrc .",
     "format": "eslint -c package.json --ignore-path .gitignore --no-eslintrc --fix .",
@@ -47,7 +46,6 @@
   },
   "dependencies": {
     "@open-wc/storybook-prebuilt": "1.2.0",
-    "patch-package": "6.2.2",
     "postinstall-postinstall": "2.1.0",
     "rollup-plugin-cpy": "2.0.1"
   }
