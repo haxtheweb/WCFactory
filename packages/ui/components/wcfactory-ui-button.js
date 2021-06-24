@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 import '@polymer/paper-button/paper-button.js';
 
 class WCFactoryUIButton extends LitElement {

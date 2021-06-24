@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 import {Router} from '@vaadin/router';
 import './wcfactory-ui-factories.js'
 import './wcfactory-ui-factory.js'

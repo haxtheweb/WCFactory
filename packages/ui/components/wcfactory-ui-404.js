@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 
 class WCFactoryUI404 extends LitElement {
   render() {

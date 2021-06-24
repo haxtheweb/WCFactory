@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 // import { ApolloMutation, html } from '@apollo-elements/lit-apollo'
 import gql from 'graphql-tag'
 import client from '../client.js'

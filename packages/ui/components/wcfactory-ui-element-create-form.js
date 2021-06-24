@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 import gql from 'graphql-tag'
 import client from '../client.js'
 import '@polymer/paper-input/paper-input.js';

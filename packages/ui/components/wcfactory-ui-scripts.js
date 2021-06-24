@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit-element';
+import { html, LitElement } from "lit";
 import gql from 'graphql-tag'
 import client from '../client.js'
 import './wcfactory-ui-script.js'

@@ -101,7 +101,10 @@
     "yo": "3.1.1"
   },
   "dependencies": {
-    "@lrnwebcomponents/deduping-fix": "2.7.7"
+    "@lit/reactive-element": "^1.0.0-rc.2",
+    "lit-element": "^3.0.0-rc.2",
+    "lit-html": "^2.0.0-rc.3",
+    "@lrnwebcomponents/deduping-fix": "3.0.0"
   },
   "lint-staged": {
     "linters": {

@@ -37,7 +37,7 @@
     "fuse.js": "^3.4.2",
     "graphql-tag": "^2.10.1",
     "is-valid-element-name": "^1.0.0",
-    "lit-element": "^2.0.1",
+    "lit": "^2.0.0-rc.2",
     "mobx": "^5.9.0"
   },
   "devDependencies": {

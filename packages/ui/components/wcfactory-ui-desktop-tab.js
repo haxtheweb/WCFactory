@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from "lit";
 
 class WCFactoryUIDesktopTab extends LitElement {
   static get properties() {

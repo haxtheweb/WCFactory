@@ -1,5 +1,5 @@
 
-import { html } from "lit-element/lit-element.js";
+import { html } from "lit";
 import {
   withKnobs,
   withWebComponentsKnobs,

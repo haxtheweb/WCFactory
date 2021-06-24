@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from "lit";
 import '@polymer/paper-spinner/paper-spinner.js';
 
 class WCFactoryUIFactoryState extends LitElement {

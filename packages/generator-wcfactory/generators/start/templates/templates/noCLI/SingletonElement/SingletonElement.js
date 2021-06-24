@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { LitElement, html, css } from "lit-element/lit-element.js";
+import { LitElement, html, css } from "lit";
 // register globally so we can make sure there is only one
 window.<%= elementClassName %> = window.<%= elementClassName %> || {};
 // request if this exists. This helps invoke the element existing in the dom

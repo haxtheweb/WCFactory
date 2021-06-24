@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html } from "lit";
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/iron-form/iron-form.js';
 import './wcfactory-ui-button.js'
