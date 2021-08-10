@@ -1,6 +1,6 @@
 {
   "name": "@wcfactory/graphql-server",
-  "version": "0.12.0",
+  "version": "0.12.5",
   "author": "heyMP @heyMP",
   "main": "index.js",
   "license": "Apache 2.0",
