@@ -1,6 +1,6 @@
 import { expect, fixture, html, assert, elementUpdated, fixtureCleanup } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
-import '../src/<%= elementName %>.js';
+import '../<%= elementName %>.js';
 
 
 /* 
