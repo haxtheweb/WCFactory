@@ -4,15 +4,15 @@
   "description": "a boilerplate for your app to do its build routine",
   "main": "app.js",
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "2.5.0",
-    "@lrnwebcomponents/dynamic-import-registry": "2.7.10",
-    "@lrnwebcomponents/wc-autoload": "2.7.10",
-    "@lrnwebcomponents/deduping-fix": "3.0.0",
+    "@webcomponents/webcomponentsjs": "2.6.0",
+    "@lrnwebcomponents/dynamic-import-registry": "^4.0.1",
+    "@lrnwebcomponents/wc-autoload": "^4.0.1",
+    "@lrnwebcomponents/deduping-fix": "^4.0.0",
     "fetch-ie8": "1.5.0",
     "promise-polyfill": "8.2.0",
     "web-animations-js": "2.3.2",
-    "@lrnwebcomponents/accent-card": "2.8.0",
-    "@lrnwebcomponents/h-a-x": "2.8.0"
+    "@lrnwebcomponents/accent-card": "^4.0.4",
+    "@lrnwebcomponents/h-a-x": "^4.0.4"
   },
   "flat": true,
   "private": false,

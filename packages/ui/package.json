@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo-elements/lit-apollo": "3.3.0",
-    "@lrnwebcomponents/paper-search": "^2.0.5",
+    "@lrnwebcomponents/paper-search": "^4.0.4",
     "@polymer/iron-behaviors": "^3.0.1",
     "@polymer/iron-form": "^3.0.1",
     "@polymer/paper-button": "^3.0.1",
@@ -37,7 +37,7 @@
     "fuse.js": "^3.4.2",
     "graphql-tag": "^2.10.1",
     "is-valid-element-name": "^1.0.0",
-    "lit": "^2.0.0-rc.2",
+    "lit": "^2.0.2",
     "mobx": "^5.9.0"
   },
   "devDependencies": {
