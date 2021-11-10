@@ -40,7 +40,7 @@
     "gulp-connect": "^5.0.0",
     "lighthouse": "^2.x",
     "lodash": "^4.17.10",
-    "polymer-cli": "1.9.11",
+    "@web/dev-server": "0.1.28",
     "polymer-build": "^3.0.4",
     "wct-browser-legacy": "^1.0.1"
   }
