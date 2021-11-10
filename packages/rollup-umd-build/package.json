@@ -1,6 +1,6 @@
 {
   "name": "@wcfactory/rollup-umd-build",
-  "version": "0.12.3",
+  "version": "0.13.0",
   "description": "rollup configuration for monorepos that wcfactory generates",
   "module": "rollup.config.factory.mjs",
   "main": "rollup.config.factory.mjs",
