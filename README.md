@@ -17,12 +17,12 @@ curl -fsSL https://raw.githubusercontent.com/elmsln/WCFactory/master/wcfactoryme
 Make sure you have a version of node v14.16.1 and above.
 Verify that you have yarn enabled — if not [install yarn](https://yarnpkg.com/lang/en/docs/install/) and ensure it is [globally available via PATH](https://yarnpkg.com/lang/en/docs/cli/global/). If using Linux, make sure you add `--prefix /usr/local` at the end of each of these calls
 ```bash
-$ yarn global add symlink-dir
-$ yarn global add @wcfactory/cli
-$ yarn global add polymer-cli
-$ yarn global add lerna
-$ yarn global add web-component-analyzer
-$ yarn global add http-server
+yarn global add symlink-dir
+yarn global add @wcfactory/cli
+yarn global add polymer-cli
+yarn global add lerna
+yarn global add web-component-analyzer
+yarn global add http-server
 ```
 
 ## Windows
@@ -34,14 +34,14 @@ $ yarn global add http-server
 Make sure a path entry to yarn global binaries is present or `wcf` will fail. Yarn global binaries can be found in `C:\Users\<username>\AppData\Local\Yarn\bin`
 To properly configure git endlines for Windows, run this configuration
 ```bash
-$ git config --global core.autocrlf true
+git config --global core.autocrlf true
 ```
 
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
 ```bash
 # create a new company, a series of factories linked by the owner
-$ mkdir my-company-name && cd my-company-name && wcf start
+mkdir my-company-name && cd my-company-name && wcf start
 # create a new factory after you've made the company
 wcf factory
 # add a new element to the factory-name that you produced in the previous step
@@ -49,8 +49,8 @@ wcf element
 ```
 Answer the prompts for your new element and you're off and running. To work on your new element called `new-name` perform the following:
 ```bash
-$ cd {factoryName}/elements/new-name
-$ yarn start
+cd {factoryName}/elements/new-name
+yarn start
 ```
 This will open the folder to the `elements/new-name/src` folder, start watching it for changes which will be compiled automatically (and documented), and open a mini-server (via `polymer serve`) which will allow you to edit the src directory files, compile them together and make them available for the localhost window for viewing.
 

@@ -13,31 +13,38 @@ Welcome to the <%= humanName %> project!
 ### Install
 
 ```bash
-$ git clone <%= gitRepo %>
-$ cd <%= name %>
-$ yarn install
-$ yarn start
+git clone <%= gitRepo %>
+cd <%= name %>
+yarn global add @wcfactory/cli
+yarn global add polymer-cli
+yarn global add @web/test-runner
+yarn global add @web/test-runner-commands
+yarn global add @web/test-runner-puppeteer
+yarn global add @web/test-runner-playwright
+yarn global add lerna
+yarn global add web-component-analyzer
+yarn install
 ```
 
 ## Scripts
 
-- `$ yarn start`
+- `yarn start`
     - Launch a demo server. This should be continuously running as you develop.
-- `$ wcf element`
+- `wcf element`
     -  Create a new component.
-- `$ yarn run rebuild-wcfcache`
+- `yarn run rebuild-wcfcache`
     - Rebuild caches as to what web component libraries can be used
-- `$ yarn test`
+- `yarn test`
     -  Run tests on ALL <%= name %>.
-- `$ yarn run build`
+- `yarn run build`
     -  Run build on ALL <%= name %>.
-- `$ yarn run storybook`
+- `yarn run storybook`
     - Run storybook
-- `$ yarn run build-storybook`
+- `yarn run build-storybook`
     - Build storybook for deployment
-- `$ lerna publish`
+- `lerna publish`
     - Publish ALL <%= name %>' elements to npmjs.com
-- `$ lerna run build --no-bail`
+- `lerna run build --no-bail`
     - Run `build` command in all projects in the repo, don't bail if there's an issue
 
 ## Web Component development
@@ -52,13 +59,13 @@ Run `wcf element` to make a new element. Go to the new element following the dir
 ### Example development on a web component
 
 ```bash
-$ cd /Sites/<%= name %>
-$ yarn start
+cd /Sites/<%= name %>
+yarn start
 
 # SHIFT + CTRL + T to open a new tab in Terminal
 
-$ cd elements your-card  # or any other web component
-$ yarn run dev
+cd elements your-card  # or any other web component
+yarn run dev
 ```
 
 Make a change to the web component and save. The gulpfile will handle transpiling the element down to ES5 and will bring in the HTML and Sass into the template in the web component.
@@ -68,14 +75,14 @@ Make a change to the web component and save. The gulpfile will handle transpilin
 To test all <%= name %>, run `yarn test` from the root of the repo. If you only want to test the web component you're working on:
 
 ```bash
-$ cd elements/your-card
-$ yarn test
+cd elements/your-card
+yarn test
 ```
 
 Also, if your tests are failing and you want access to a live browser to investigate why, the following flag will keep the browser open.
 
 ```bash
-$ yarn test -- -p
+yarn test -- -p
 ```
 
 Then open the URL that will be printed in the terminal. It looks something like this: `http://localhost:8081/components/@<%= orgNpm %>/<%= name %>/generated-index.html?cli_browser_id=0`.
@@ -87,7 +94,7 @@ We've added [Storybook](https://storybook.js.org/) to <%= name %> as a way to pr
 To run storybook
 
 ```bash
-$ yarn run storybook
+yarn run storybook
 ```
 
 This will start a web server on port 9001. Navigate in your browser to `http://localhost:9001` to see Storybook in action. Storybook will watch for file changes and reload the browser automatically for you. This is a little slow at the moment, but we'll look into speeding this up.
@@ -95,7 +102,7 @@ This will start a web server on port 9001. Navigate in your browser to `http://l
 To export the storybook static site
 
 ```bash
-$ yarn run build-storybook
+yarn run build-storybook
 ```
 
 This places a build of the storybook site in the .storybook_out directory.

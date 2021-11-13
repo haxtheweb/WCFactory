@@ -99,6 +99,12 @@
     "whatwg-fetch": "3.6.1",
     "yo": "3.1.1"
   },
+  "peerDependencies": {
+    "@web/test-runner": "0.12.19",
+    "@web/test-runner-commands": "0.4.2",
+    "@web/test-runner-playwright": "0.8.4",
+    "@web/test-runner-puppeteer": "0.9.3"
+  },
   "dependencies": {
     "lit": "^2.0.2",
     "@lit/reactive-element": "^1.0.0",
