@@ -16,11 +16,11 @@
     "build": "gulp --gulpfile=gulpfile.cjs && node --experimental-json-modules ../../node_modules/.bin/rollup --config && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"**/*.js\" --outFile custom-elements.json",
     "dev": "concurrently --kill-others \"yarn run watch\" \"yarn run serve\"",
     "watch": "gulp dev --gulpfile=gulpfile.cjs",
-    "serve": "web-dev-server -c ../../web-dev-server.config.js",
+    "serve": "web-dev-server -c ../../web-dev-server.config.mjs",
     "lighthouse": "gulp lighthouse --gulpfile=gulpfile.cjs"
   },
   "dependencies": {
-    "lit": "^2.0.2"
+    "lit": "^2.2.4"
   },
   "devDependencies": {
     "@wcfactory/rollup-umd-build": "^0.12.1",
