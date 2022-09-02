@@ -1,4 +1,3 @@
-
 import { html } from 'lit-html';
 import {
   withKnobs,
@@ -19,5 +18,8 @@ export default {
 };
 const utils = new StorybookUtilities();
 export const <%= elementClassName %>Story = () => {
-  return utils.makeElementFromClass(<%= elementClassName %>);
+  return utils.makeUsageDocs(
+    <%= elementClassName %>,
+    import.meta.url, utils.makeElementFromClass(<%= elementClassName %>)
+  );
 };
