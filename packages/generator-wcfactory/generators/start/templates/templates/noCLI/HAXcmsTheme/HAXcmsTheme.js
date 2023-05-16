@@ -4,6 +4,8 @@
  */
 import { html, css } from "lit";
 import { HAXCMSLitElementTheme } from "@lrnwebcomponents/haxcms-elements/lib/core/HAXCMSLitElementTheme.js";
+import { HAXCMSRememberRoute } from "@lrnwebcomponents/haxcms-elements/lib/core/utils/HAXCMSRememberRoute.js";
+import { HAXCMSThemeParts } from "@lrnwebcomponents/haxcms-elements/lib/core/utils/HAXCMSThemeParts.js";
 import { store } from "@lrnwebcomponents/haxcms-elements/lib/core/haxcms-site-store.js";
 import { autorun, toJS } from "mobx";
 /**
@@ -17,7 +19,7 @@ import { autorun, toJS } from "mobx";
  * @demo demo/index.html
  * @element <%= elementName %>
  */
-class <%= elementClassName %> extends HAXCMSLitElementTheme {
+class <%= elementClassName %> extends HAXCMSThemeParts(HAXCMSRememberRoute(HAXCMSLitElementTheme)) {
   /**
    * Add elements to cheat on initial paint here
    */
@@ -50,9 +52,11 @@ class <%= elementClassName %> extends HAXCMSLitElementTheme {
    */
   render() {
     return html`
-      <div>
+    <main id="contentcontainer">
+      <section id="slot">
         <slot></slot>
-      </div>
+      </section>
+    </main>
     `;
   }
   /**
