@@ -106,7 +106,7 @@
     "@web/test-runner-puppeteer": "0.9.3"
   },
   "dependencies": {
-    "lit": "^2.2.4",
+    "lit": "^2.7.4",
     "@lit/reactive-element": "^1.0.0",
     "lit-element": "^3.0.0",
     "lit-html": "^2.0.0",

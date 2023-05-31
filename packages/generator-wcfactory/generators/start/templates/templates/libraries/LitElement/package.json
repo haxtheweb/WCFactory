@@ -20,7 +20,7 @@
     "lighthouse": "gulp lighthouse --gulpfile=gulpfile.cjs"
   },
   "dependencies": {
-    "lit": "^2.2.4"
+    "lit": "^2.7.4"
   },
   "devDependencies": {
     "@wcfactory/rollup-umd-build": "^0.12.1",
