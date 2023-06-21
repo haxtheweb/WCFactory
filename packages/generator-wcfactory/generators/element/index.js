@@ -2,10 +2,9 @@ const { config, libraries } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const path = require("path");
-const mkdirp = require("mkdirp");
+const { mkdirp } = require("mkdirp");
 const chalk = require("chalk");
 const process = require("process");
-const {fixDotfiles} = require('../../utils/fix-dotfiles');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -13,7 +12,7 @@ module.exports = class extends Generator {
     this.answers = opts
   }
 
-  writing() {
+  async writing() {
     const dir = path.join(path.dirname(__filename), "../", "../");
     const operationJson = require(`${dir}/package.json`);
     // move to the company to write relative to here
@@ -222,8 +221,9 @@ module.exports = class extends Generator {
       }
     }
     // create element directory
-    mkdirp.sync(`${this.props.factory}/elements/${this.props.elementName}`);
+    await mkdirp.sync(`${this.props.factory}/elements/${this.props.elementName}`);
     // transition into that directory
+    process.chdir(`${this.props.factory}/elements/`);
     this.destinationRoot(`${this.props.factory}/elements/`);
     this.fs.copyTpl(
       this.templatePath("package.json"),
@@ -274,8 +274,8 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("rollup.config.mjs"),
-      this.destinationPath(`${this.props.elementName}/rollup.config.mjs`),
+      this.templatePath("lib/.gitkeep"),
+      this.destinationPath(`${this.props.elementName}/lib/.gitkeep`),
       this.props
     );
 
@@ -312,9 +312,16 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}`)
     );
 
-    this.fs.copy(
-      this.templatePath("_.*"),
-      this.destinationPath(`${this.props.elementName}`)
+    this.fs.copyTpl(
+      this.templatePath("_.gitignore"),
+      this.destinationPath(`${this.props.elementName}/.gitignore`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("_.npmignore"),
+      this.destinationPath(`${this.props.elementName}/.npmignore`),
+      this.props
     );
 
     this.fs.copy(
@@ -375,8 +382,6 @@ module.exports = class extends Generator {
         this.props
       );
     }
-
-    fixDotfiles(this);
   }
 
   install() {
@@ -404,10 +409,7 @@ module.exports = class extends Generator {
       chalk.white(": ") +
       chalk.green("Learning Network\n")
     banner +=
-      chalk.green("\n\nTo publish your element when done goto:\n    ") +
-      chalk.yellow(
-        `https://www.webcomponents.org/publish`
-      ) +
+      chalk.green("\n\nTo publish your element when done go to your element via CLI and type: npm publish:\n    ") +
       chalk.green("\n\nTo work on your new element type:\n    ") +
       chalk.yellow(
         `cd ${this.props.factory}/elements/${this.props.elementName} && yarn start\n\n`

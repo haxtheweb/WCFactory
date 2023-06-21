@@ -59,7 +59,7 @@ The factories produced by this come equiped with storybook integration. To publi
 - Never have to understand the complexities of tooling
 - CLI should seek to empower as many people as possible
 - Anyone should be able to manage, create, and share elements in an element library
-- Seamless sharing to webcomponents.org, npmjs.com, and git
+- Seamless sharing to npmjs.com, and git
 - Unify CLI, build step, and element packaging across all libraries
 - Allow advanced developers to fork, tinker, and repurpose to their will
 

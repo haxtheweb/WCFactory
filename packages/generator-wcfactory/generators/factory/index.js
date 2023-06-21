@@ -50,7 +50,11 @@ module.exports = class extends Generator {
       this.props,
       { ignore: ["._*"] }
     );
-    fixDotfiles(this);
+    this.fs.copyTpl(
+      this.templatePath("_.gitignore"),
+      this.destinationPath(`.gitignore`),
+      this.props
+    );
   }
 
   install() {

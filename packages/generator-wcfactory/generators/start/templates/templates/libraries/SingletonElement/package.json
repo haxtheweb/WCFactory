@@ -13,22 +13,22 @@
   "version": "0.0.1",
   "scripts": {
     "start": "yarn run dev",
-    "build": "gulp --gulpfile=gulpfile.cjs && node --experimental-json-modules ../../node_modules/.bin/rollup --config && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"*.js|lib/**.js\" --format vscode --outFile custom-elements.json",
+    "build": "gulp --gulpfile=gulpfile.cjs && prettier --ignore-path ../../.prettierignore --write '**/*.{js,json}' && wca analyze \"*.js|lib/**.js\" --format vscode --outFile custom-elements.json",
     "dev": "concurrently --kill-others \"yarn run watch\" \"yarn run serve\"",
     "watch": "gulp dev --gulpfile=gulpfile.cjs",
     "serve": "web-dev-server -c ../../web-dev-server.config.mjs",
     "lighthouse": "gulp lighthouse --gulpfile=gulpfile.cjs"
   },
   "dependencies": {
-    "lit": "^2.7.4"
+    "lit": "^2.7.5"
   },
   "devDependencies": {
     "@wcfactory/rollup-umd-build": "^0.12.1",
     "web-animations-js": "2.3.2",
-    "@lrnwebcomponents/deduping-fix": "^4.0.0",
+    "@lrnwebcomponents/deduping-fix": "^7.0.4",
     "@polymer/iron-demo-helpers": "3.1.0",
     "@polymer/iron-component-page": "github:PolymerElements/iron-component-page",
-    "@webcomponents/webcomponentsjs": "2.5.0",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "gulp-babel": "8.0.0",
     "lodash": "4.17.21",
     "@web/dev-server": "0.1.28",

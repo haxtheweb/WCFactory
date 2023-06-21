@@ -7,7 +7,7 @@
 const { existsSync, readFileSync } = require('fs')
 const path = require('path')
 const _ = require('lodash')
-const glob = require('glob')
+const { glob } = require('glob')
 const os = require('os')
 const cwd = process.cwd()
 const { execFileSync, spawn } = require('child_process')

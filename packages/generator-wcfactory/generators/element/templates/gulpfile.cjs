@@ -125,23 +125,6 @@ gulp.task("analyze", () => {
     }
   );
 });
-// copy from the built locations pulling them together
-gulp.task("compile", () => {
-  return gulp
-    .src("./" + packageJson.wcfactory.elementName + ".js")
-    .pipe(
-      replace(
-        /^(import .*?)(['"]\.\.\/(?!\.\.\/).*)(\.js['"];)$/gm,
-        "$1$2.umd$3"
-      )
-    )
-    .pipe(
-      rename({
-        suffix: ".umd"
-      })
-    )
-    .pipe(gulp.dest("./"));
-});
 
 gulp.task("watch", () => {
   return gulp.watch("./src/*", gulp.series("merge", "analyze"));
@@ -181,5 +164,5 @@ SimpleIconsetStore.registerManifest(${exportName});`
 
 gulp.task(
   "default",
-  gulp.series("merge", "analyze", "compile")
+  gulp.series("merge", "analyze")
 );

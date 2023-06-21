@@ -2,7 +2,7 @@ const cp = require("child_process");
 // @todo this should be handled better
 const path = require("path");
 const polymer = path.join(require.resolve("polymer-cli"), '../../bin/polymer.js');
-const glob = require("glob");
+const { glob } = require("glob");
 const Terser = require("terser");
 const chalk = require("chalk");
 const stripAnsi = require("strip-ansi");
@@ -40,17 +40,6 @@ const build = () => {
         keep_fnames: true,
         mangle: false,
         module: true
-      }
-    })
-    // Run terser
-    runTerser({
-      name: 'es6-amd',
-      pattern: path.join(process.cwd(), "dist/build/es6-amd/**/*.js"),
-      terserOpts: {
-        keep_fnames: true,
-        mangle: false,
-        module: true,
-        safari10: true,
       }
     })
     moveFiles({ name: `html files`, pattern: "*.html" });

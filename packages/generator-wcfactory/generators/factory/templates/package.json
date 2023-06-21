@@ -43,7 +43,7 @@
     "@open-wc/storybook": "0.2.8",
     "@emotion/core": "0.13.1",
     "@emotion/styled": "0.10.6",
-    "@webcomponents/webcomponentsjs": "2.5.0",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-custom-element-classes": "0.1.0",
     "babel-plugin-transform-es2015-modules-umd": "6.24.1",
@@ -106,11 +106,11 @@
     "@web/test-runner-puppeteer": "0.9.3"
   },
   "dependencies": {
-    "lit": "^2.7.4",
+    "lit": "^2.7.5",
     "@lit/reactive-element": "^1.0.0",
     "lit-element": "^3.0.0",
     "lit-html": "^2.0.0",
-    "@lrnwebcomponents/deduping-fix": "4.0.0"
+    "@lrnwebcomponents/deduping-fix": "^7.0.4"
   },
   "lint-staged": {
     "linters": {
