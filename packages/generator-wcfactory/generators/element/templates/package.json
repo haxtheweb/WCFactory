@@ -4,21 +4,7 @@
     "className": "<%= elementClassName %>",
     "customElementClass": "<%= customElementClass %>",
     "elementName": "<%= elementName %>",
-    "generator-wcfactory-version": "<%= generatorWCFactoryVersion %>",
-    "useHAX": <%= useHAX %>,
-    "useSass": <%= useSass %>,
-    "files": {
-      "css": "src/<%= elementName %>.css",
-      "scss": "src/<%= elementName %>.scss",
-      "html": "src/<%= elementName %>.html",
-      "js": "src/<%= elementName %>.js",
-      "properties": "src/<%= elementName %>-properties.json",
-      "hax": "src/<%= elementName %>-hax.json"
-    },
-    "iconset": {},
-    "sharedHaxProps": [],
-    "sharedProps": [],
-    "sharedStyles": []
+    "generator-wcfactory-version": "<%= generatorWCFactoryVersion %>"
   },
   "version": "<%= version %>",
   "description": "<%= description %>",
@@ -30,8 +16,7 @@
   "module": "<%= elementName %>.js",
   "umd": "<%= elementName %>.umd.js",
   "scripts": {
-    "test": "web-test-runner \"test/**/*.test.js\" --node-resolve --config=../../web-test-runner.config.mjs  --playwright --browsers chromium firefox",
-    "test:watch": "web-test-runner \"test/**/*.test.js\" --node-resolve --watch --config=../../web-test-runner.config.mjs  --playwright --browsers chromium firefox",
+    "test": "../../node_modules/.bin/wct --configFile ../../wct.conf.json node_modules/<%= orgNpm %>/<%= elementName %>/test/",
     <%- libraryScripts %>
   },
   "author": {

@@ -1,6 +1,8 @@
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const process = require("process");
+const {fixDotfiles} = require('../../utils/fix-dotfiles');
+
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -42,11 +44,8 @@ module.exports = class extends Generator {
       this.props,
       { ignore: [".DS_Store"] }
     );
-    this.fs.copyTpl(
-      this.templatePath("_.gitignore"),
-      this.destinationPath(`.gitignore`),
-      this.props
-    );
+
+    fixDotfiles(this);
   }
 
   install() {

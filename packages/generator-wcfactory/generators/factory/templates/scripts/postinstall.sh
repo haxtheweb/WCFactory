@@ -31,12 +31,6 @@ for project in */ ; do
     if [ -d "build" ]; then
       symlink-dir ../../../elements/${p}/build ../../node_modules/<%= orgNpm %>/${p}/build
     fi
-    if [ -d "locales" ]; then
-      symlink-dir ../../../elements/${p}/locales ../../node_modules/<%= orgNpm %>/${p}/locales
-    fi
-    if [ -d "server" ]; then
-      symlink-dir ../../../elements/${p}/server ../../node_modules/<%= orgNpm %>/${p}/server
-    fi
     if [ -d "src" ]; then
       symlink-dir ../../../elements/${p}/src ../../node_modules/<%= orgNpm %>/${p}/src
     fi
@@ -53,12 +47,6 @@ for project in */ ; do
     if [ -d "build" ]; then
       symlink-dir ../../../elements/${p}/build ../../node_modules/<%= orgNpm %>/${p}/build
     fi
-    if [ -d "locales" ]; then
-      symlink-dir ../../../elements/${p}/locales ../../node_modules/<%= orgNpm %>/${p}/locales
-    fi
-    if [ -d "server" ]; then
-      symlink-dir ../../../elements/${p}/server ../../node_modules/<%= orgNpm %>/${p}/server
-    fi
     if [ -d "src" ]; then
       symlink-dir ../../../elements/${p}/src ../../node_modules/<%= orgNpm %>/${p}/src
     fi
@@ -74,12 +62,6 @@ for project in */ ; do
     fi
     if [ -d "build" ]; then
        ln -s ../../../elements/${p}/build ../../node_modules/<%= orgNpm %>/${p}/build
-    fi
-    if [ -d "locales" ]; then
-       ln -s ../../../elements/${p}/locales ../../node_modules/<%= orgNpm %>/${p}/locales
-    fi
-    if [ -d "server" ]; then
-       ln -s ../../../elements/${p}/server ../../node_modules/<%= orgNpm %>/${p}/server
     fi
     if [ -d "src" ]; then
        ln -s ../../../elements/${p}/src ../../node_modules/<%= orgNpm %>/${p}/src

@@ -1,10 +1,11 @@
-const { config, libraries } = require('@wcfactory/common/config')
+const { config, libraries, librariesDir } = require('@wcfactory/common/config')
 const Generator = require("yeoman-generator");
 const _ = require("lodash");
 const path = require("path");
-const { mkdirp } = require("mkdirp");
+const mkdirp = require("mkdirp");
 const chalk = require("chalk");
 const process = require("process");
+const {fixDotfiles} = require('../../utils/fix-dotfiles');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -60,8 +61,7 @@ module.exports = class extends Generator {
       storyGroup: _.upperFirst(name),
       lowerCaseName: name,
       camelCaseName: _.camelCase(this.answers.name),
-      useSass: (this.answers.useSass == "" ? false : this.answers.useSass),
-      useCLI: this.answers.useCLI,
+      useSass: this.answers.useSass,
       sassLibraryPkg: false,
       sassLibraryPath: false,
       libraryScripts: '',
@@ -107,6 +107,7 @@ module.exports = class extends Generator {
           }
         },
         'settings': {
+          'quick': [],
           'configure': [],
           'advanced': []
         }
@@ -142,16 +143,22 @@ module.exports = class extends Generator {
           config.validationType = 'url';
           config.required = true;
           config.icon = 'icons:link';
+          // make this quickly available
+          this.props.haxList.settings.quick.push(config);
         }
         else if (prop.name === 'alt') {
           config.inputMethod = 'alt';
           config.required = true;
           config.icon = 'icons:accessibility';
+          // make this quickly available
+          this.props.haxList.settings.quick.push(config);
         }
         else if (prop.name === 'color' || prop.name === 'primaryColor' || prop.name === 'accentColor') {
           if (config.type === 'textfield') {
             config.inputMethod = 'colorpicker';
             config.icon = 'editor:format-color-fill';
+            // make this quickly available by default
+            this.props.haxList.settings.quick.push(config);
           }
         }
         this.props.haxList.settings.configure.push(config);
@@ -221,9 +228,8 @@ module.exports = class extends Generator {
       }
     }
     // create element directory
-    await mkdirp.sync(`${this.props.factory}/elements/${this.props.elementName}`);
+    mkdirp.sync(`${this.props.factory}/elements/${this.props.elementName}`);
     // transition into that directory
-    process.chdir(`${this.props.factory}/elements/`);
     this.destinationRoot(`${this.props.factory}/elements/`);
     this.fs.copyTpl(
       this.templatePath("package.json"),
@@ -242,24 +248,6 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/LICENSE.md`),
       this.props
     );
-    if (this.answers.useCLI) {
-      this.fs.copyTpl(
-        this.templatePath(`src/properties.json`),
-        this.destinationPath(
-          `${this.props.elementName}/src/${
-            this.props.elementName
-          }-properties.json`
-        ),
-        this.props
-      );
-      this.fs.copyTpl(
-        this.templatePath(`src/hax.json`),
-        this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}-hax.json`
-        ),
-        this.props
-      );
-    }
 
     this.fs.copyTpl(
       this.templatePath("README.md"),
@@ -274,14 +262,8 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("lib/.gitkeep"),
-      this.destinationPath(`${this.props.elementName}/lib/.gitkeep`),
-      this.props
-    );
-
-    this.fs.copyTpl(
-      this.templatePath("lib/.gitkeep"),
-      this.destinationPath(`${this.props.elementName}/lib/.gitkeep`),
+      this.templatePath("rollup.config.js"),
+      this.destinationPath(`${this.props.elementName}/rollup.config.js`),
       this.props
     );
 
@@ -290,98 +272,54 @@ module.exports = class extends Generator {
       this.destinationPath(`${this.props.elementName}/demo/index.html`),
       this.props
     );
-    
-    this.fs.copyTpl(
-      this.templatePath("test/element.test.js"),
-      this.destinationPath(
-        `${this.props.elementName}/test/${this.props.elementName}.test.js`
-      ),
-      this.props
-    )
 
     this.fs.copyTpl(
-      this.templatePath("element.stories.js"),
+      this.templatePath("lib/hax.json"),
+      this.destinationPath(`${this.props.elementName}/lib/${this.props.elementName}.haxProperties.json`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("test/element_test.html"),
       this.destinationPath(
-        `${this.props.elementName}/${this.props.elementName}.stories.js`
+        `${this.props.elementName}/test/${this.props.elementName}_test.html`
       ),
       this.props
     );
 
+    this.fs.copyTpl(
+      this.templatePath("test/index.html"),
+      this.destinationPath(`${this.props.elementName}/test/index.html`),
+      this.props
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("element.story.js"),
+      this.destinationPath(
+        `${this.props.elementName}/${this.props.elementName}.story.js`
+      ),
+      this.props
+    );
     this.fs.copy(
       this.templatePath(".*"),
       this.destinationPath(`${this.props.elementName}`)
     );
-
-    this.fs.copyTpl(
-      this.templatePath("_.gitignore"),
-      this.destinationPath(`${this.props.elementName}/.gitignore`),
-      this.props
+    this.fs.copy(
+      this.templatePath("_.*"),
+      this.destinationPath(`${this.props.elementName}`)
     );
-
-    this.fs.copyTpl(
-      this.templatePath("_.npmignore"),
-      this.destinationPath(`${this.props.elementName}/.npmignore`),
-      this.props
-    );
-
     this.fs.copy(
       this.templatePath("polymer.json"),
       this.destinationPath(`${this.props.elementName}/polymer.json`)
     );
-    if (this.answers.useCLI) {
-      if (this.props.useSass) {
-        this.fs.copyTpl(
-          this.templatePath("src/element.scss"),
-          this.destinationPath(
-            `${this.props.elementName}/src/${this.props.elementName}.scss`
-          ),
-          this.props
-        );
-      } else {
-        this.fs.copy(
-          this.templatePath("src/element.css"),
-          this.destinationPath(
-            `${this.props.elementName}/src/${this.props.elementName}.css`
-          )
-        );
-      }
-    }
-    else {
-      this.props.useSass = false;
-    }
-    if (this.answers.useCLI) {
-      this.fs.copyTpl(
-        this.templatePath("src/element.html"),
-        this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}.html`
-        ),
-        this.props
-      );
-    }
-    // if we use the CLI, we dump in this template file
-    // otherwise we have to stitch them all together
-    if (this.answers.useCLI) {
-      this.fs.copyTpl(
-        this.sourceRoot(
-          `../../../templates/libraries/${this.props.activeWCFLibrary.main}`
-        ),
-        this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}.js`
-        ),
-        this.props
-      );
-    }
-    else {
-      this.fs.copyTpl(
-        this.sourceRoot(
-          `../../../templates/noCLI/${this.props.activeWCFLibrary.main}`
-        ),
-        this.destinationPath(
-          `${this.props.elementName}/src/${this.props.elementName}.js`
-        ),
-        this.props
-      );
-    }
+
+    this.fs.copyTpl(
+      `${librariesDir}/${this.props.activeWCFLibrary.main}`,
+      this.destinationPath(
+        `${this.props.elementName}/src/${this.props.elementName}.js`
+      ),
+      this.props
+    );
   }
 
   install() {
@@ -395,21 +333,23 @@ module.exports = class extends Generator {
 
   end() {
     process.chdir(`${this.props.factory}/elements/${this.props.elementName}`);
+    this.spawnCommandSync("move", ["_.gitignore", ".gitignore"]);
+    this.spawnCommandSync("move", ["_.npmignore", ".npmignore"]);
     this.spawnCommandSync("yarn", ["run", "build"]);
+    process.chdir(`${this.props.factory}`);
+    this.spawnCommandSync("yarn", ["run", "haxschema", '--write', `--element=${this.props.elementName}`]);
     let banner =
       chalk.green("\n    A fresh made ") +
       chalk.yellow("Web Component Factory ") +
       chalk.green("element brought to you by:\n        ") +
       chalk.blue("The Pennsylvania ") +
       chalk.white("State University's ") +
-      chalk.magenta("E") +
-      chalk.cyan("L") +
-      chalk.red("M") +
-      chalk.yellow("S") +
-      chalk.white(": ") +
-      chalk.green("Learning Network\n")
+      chalk.magenta("H") +
+      chalk.cyan("A") +
+      chalk.red("X") +
+      chalk.white("The") +
+      chalk.green("Web\n")
     banner +=
-      chalk.green("\n\nTo publish your element when done go to your element via CLI and type: npm publish:\n    ") +
       chalk.green("\n\nTo work on your new element type:\n    ") +
       chalk.yellow(
         `cd ${this.props.factory}/elements/${this.props.elementName} && yarn start\n\n`

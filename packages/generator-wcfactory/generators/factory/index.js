@@ -5,7 +5,6 @@ const mkdirp = require("mkdirp");
 const process = require("process");
 const fs = require("fs");
 const {fixDotfiles} = require('../../utils/fix-dotfiles');
-const { spawn } = require('child_process')
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -50,11 +49,7 @@ module.exports = class extends Generator {
       this.props,
       { ignore: ["._*"] }
     );
-    this.fs.copyTpl(
-      this.templatePath("_.gitignore"),
-      this.destinationPath(`.gitignore`),
-      this.props
-    );
+    fixDotfiles(this);
   }
 
   install() {

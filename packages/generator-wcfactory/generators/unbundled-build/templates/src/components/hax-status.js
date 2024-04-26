@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit";
+import { LitElement, html } from "lit-element";
 
 class HaxStatus extends LitElement {
   static get properties() {

@@ -1,5 +1,5 @@
 const path = require('path')
-const { glob } = require('glob')
+const glob = require('glob')
 const { factoryDir } = require('./config')
 
 /**

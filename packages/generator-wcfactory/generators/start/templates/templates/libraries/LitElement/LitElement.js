@@ -2,7 +2,7 @@
  * Copyright <%= year %> <%= copyrightOwner %>
  * @license <%= license %>, see License.md for full text.
  */
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css } from 'lit';
 <%- includesString %>
 /**
  * `<%= elementName %>`
@@ -11,8 +11,6 @@ import { LitElement, html, css } from "lit";
  * @element <%= elementName %>
  */
 class <%= elementClassName %> extends <%= customElementClass %> {
-  /* REQUIRED FOR TOOLING DO NOT TOUCH */
-
   /**
    * Convention we use
    */
@@ -28,41 +26,12 @@ class <%= elementClassName %> extends <%= customElementClass %> {
     <%- constructorString %>
   }
   /**
-   * LitElement ready
+   * haxProperties integration via file reference
    */
-  firstUpdated(changedProperties) {
-    <%- connectedString %>
-  }
-  /**
-   * LitElement life cycle - property changed
-   */
-  updated(changedProperties) {
-    changedProperties.forEach((oldValue, propName) => {
-      /* notify example
-      // notify
-      if (propName == 'format') {
-        this.dispatchEvent(
-          new CustomEvent(`${propName}-changed`, {
-            detail: {
-              value: this[propName],
-            }
-          })
-        );
-      }
-      */
-      /* observer example
-      if (propName == 'activeNode') {
-        this._activeNodeChanged(this[propName], oldValue);
-      }
-      */
-      /* computed example
-      if (['id', 'selected'].includes(propName)) {
-        this.__selectedChanged(this.selected, this.id);
-      }
-      */
-    });
-  }
+  static get haxProperties() {
+    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url).href;
+  }  
   <%- additionalFunctionsString %>
 }
-customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
+globalThis.customElements.define(<%= elementClassName %>.tag, <%= elementClassName %>);
 export { <%= elementClassName %> };

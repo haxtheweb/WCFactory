@@ -18,11 +18,11 @@ var factoryAnswer = '';
     require: true,
     store: true,
     choices: factoryList,
-    when: (answers) => {
-      if (factoryList.length > 1 && !answers.factory) {
+    when: (flags) => {
+      if (factoryList.length > 1 && !flags.factory) {
         return true;
       } else {
-        answers.factory = factoryList[0].value;
+        flags.factory = factoryList[0].value;
         factoryAnswer = factoryList[0].value;
         return false;
       }
@@ -63,27 +63,14 @@ var factoryAnswer = '';
   {
     type: "confirm",
     name: "useSass",
-    when: (answers) => {
+    when: (flags) => {
       if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return typeof answers.useSass !== 'boolean' && _.get(packageJson, 'wcfactory.askSASS');
+      return typeof flags.useSass !== 'boolean' && _.get(packageJson, 'wcfactory.askSASS');
     },
     message: "Do you want to use Sass in this element?",
-    store: true
-  },
-  {
-    type: "confirm",
-    name: "useCLI",
-    when: (answers) => {
-      if (!factoryAnswer) {
-        return false;
-      }
-      const packageJson = require(`${factoryAnswer}/package.json`);
-      return typeof answers.useCLI !== 'boolean' && _.get(packageJson, 'wcfactory.useCLI');
-    },
-    message: "Do you want to use the guided CLI or are you 1337? (No will just make a boilerplate to get going)",
     store: true
   },
   {
@@ -91,7 +78,7 @@ var factoryAnswer = '';
     name: "sassLibrary",
     message: "Do want to use existing Sass dependencies?",
     when: (answers) => {
-      if (!answers.useCLI || !factoryAnswer) {
+      if (!factoryAnswer || !answers.useSass) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
@@ -116,13 +103,13 @@ var factoryAnswer = '';
   {
     type: "confirm",
     name: "addProps",
-    message: "Do you want custom properties? (typically yes)",
-    when: (answers) => {
-      if (!answers.useCLI || !factoryAnswer) {
+    message: "Do you want custom properties?",
+    when: (flags) => {
+      if (!factoryAnswer) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
-      return typeof answers.addProps !== 'boolean' && _.get(packageJson, 'wcfactory.askProps')
+      return typeof flags.addProps !== 'boolean' && _.get(packageJson, 'wcfactory.askProps')
     },
     store: true
   },
@@ -132,7 +119,7 @@ var factoryAnswer = '';
     message: "Auto build support for the HAX authoring system?",
     store: true,
     when: (answers) => {
-      if (!answers.useCLI || !factoryAnswer) {
+      if (!factoryAnswer || !answers.addProps) {
         return false;
       }
       const packageJson = require(`${factoryAnswer}/package.json`);
@@ -144,7 +131,10 @@ var factoryAnswer = '';
     message: 'Add a new property?',
     name: 'propsList',
     when: (answers) => {
-      return answers.useCLI && answers.addProps;
+      if (!factoryAnswer || !answers.addProps) {
+        return false;
+      }
+      return  answers.addProps;
     },
     prompts: [
       {

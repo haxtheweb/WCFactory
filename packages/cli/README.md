@@ -12,13 +12,13 @@ A factory that churns out web components, library agnostic with a unified develo
 Make sure you have a version of node >=6.0 and above.
 Verify that you have yarn enabled — if not [install yarn globally](https://yarnpkg.com/lang/en/docs/install/).
 ```bash
-yarn global add @wcfactory/cli
+$ yarn global add @wcfactory/cli
 ```
 ## Usage (company)
 A company helps you manage multiple factories and the products they produce so you'll need to create one before you do anything else. **The company MUST be created in a directory above your user directory** in some manner. example: `/home/dana/Documents/git/company` or any directory above `/home/dana`.
 ```bash
 # create a new company, a series of factories linked by the owner
-mkdir my-company-name && cd my-company-name && wcf start
+$ mkdir my-company-name && cd my-company-name && wcf start
 # create a new factory after you've made the company
 wcf factory
 # add a new element to the factory-name that you produced in the previous step
@@ -26,8 +26,8 @@ wcf element
 ```
 Answer the prompts for your new element and your off and running. To work on your new element called `new-name` perform the following:
 ```bash
-cd {factoryName}/elements/new-name
-yarn start
+$ cd {factoryName}/elements/new-name
+$ yarn start
 ```
 This will open the folder to the `elements/new-name/src` folder, start watching it for changes which will be compiled automatically (and documented), and open a mini-server (via `polymer serve`) which will allow you to edit the src directory files, compile them together and make them available for the localhost window for viewing.
 
@@ -59,7 +59,7 @@ The factories produced by this come equiped with storybook integration. To publi
 - Never have to understand the complexities of tooling
 - CLI should seek to empower as many people as possible
 - Anyone should be able to manage, create, and share elements in an element library
-- Seamless sharing to npmjs.com, and git
+- Seamless sharing to webcomponents.org, npmjs.com, and git
 - Unify CLI, build step, and element packaging across all libraries
 - Allow advanced developers to fork, tinker, and repurpose to their will
 
