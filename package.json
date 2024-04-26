@@ -37,7 +37,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@babel/plugin-syntax-optional-catch-binding": "^7.8.3",
-    "@open-wc/building-utils": "2.18.3",
+    "@open-wc/building-utils": "2.21.1",
     "@open-wc/demoing-storybook": "2.4.7",
     "@open-wc/storybook": "0.2.8",
     "@open-wc/webpack-import-meta-loader": "0.4.7",
