@@ -29,10 +29,7 @@ exports.fixDotfiles = function(generator) {
             return;
         }
 
-        generator.fs.move(file.path, file.dirname + '/' + remap, { overwrite: true }, err => {
-            if (err) return console.error(err)
-            console.log('Dot files rewritten!')
-        });
+        generator.fs.move(file.path, file.dirname + '/' + remap);
     });
 }
 

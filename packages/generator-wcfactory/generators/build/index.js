@@ -26,7 +26,7 @@ module.exports = class extends Generator {
     process.chdir(userConfig.companyDir);
     Object.assign(this.props, {
       buildData: buildData,
-      dependencies: `    "@webcomponents/webcomponentsjs": "2.2.1",` + `\n    "web-animations-js":"2.3.1",` + "\n",
+      dependencies: `    "@webcomponents/webcomponentsjs": "2.8.0",` + `\n    "web-animations-js":"2.3.1",` + "\n",
       imports: '',
     })
     // package files of each element

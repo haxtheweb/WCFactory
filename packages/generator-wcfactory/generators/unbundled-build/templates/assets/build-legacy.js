@@ -23,7 +23,7 @@ if (!ancient) {
       cdn + "build/es6-amd/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
       //cdn + "build/es6-amd/node_modules/@polymer/polymer/polymer-legacy.js"
     ];
-    window.WCAutoloadPolyfillEntryPoint = cdn + "build/es6-amd/node_modules/@lrnwebcomponents/wc-autoload/wc-autoload.js";
+    window.WCAutoloadPolyfillEntryPoint = cdn + "build/es6-amd/node_modules/@haxtheweb/wc-autoload/wc-autoload.js";
   }
   else {
     defs = [
@@ -34,10 +34,10 @@ if (!ancient) {
       cdn + "build/es5-amd/node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
       //cdn + "build/es5-amd/node_modules/@polymer/polymer/polymer-legacy.js"
     ];
-    window.WCAutoloadPolyfillEntryPoint = cdn + "build/es5-amd/node_modules/@lrnwebcomponents/wc-autoload/wc-autoload.js";
+    window.WCAutoloadPolyfillEntryPoint = cdn + "build/es5-amd/node_modules/@haxtheweb/wc-autoload/wc-autoload.js";
   }
   define(defs, function () {"use strict";
-    define([cdn + "build/es5-amd/node_modules/@lrnwebcomponents/deduping-fix/deduping-fix.js", window.WCAutoloadPolyfillEntryPoint], function () {"use strict";
+    define([cdn + "build/es5-amd/node_modules/@haxtheweb/deduping-fix/deduping-fix.js", window.WCAutoloadPolyfillEntryPoint], function () {"use strict";
       window.WCAutoload.process();
     });
   });

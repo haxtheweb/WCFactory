@@ -17,7 +17,7 @@ try {
   ani.src = cdn + "build/es6/node_modules/web-animations-js/web-animations-next-lite.min.js";
   def.parentNode.insertBefore(ani, def);
   var build = document.createElement("script");
-  build.src = cdn + "build/es6/node_modules/@lrnwebcomponents/wc-autoload/wc-autoload.js";
+  build.src = cdn + "build/es6/node_modules/@haxtheweb/wc-autoload/wc-autoload.js";
   build.type = "module";
   def.parentNode.insertBefore(build, def);
 } catch (err) {

@@ -1,12 +1,14 @@
 {
   "name": "@wcfactory/cli",
-  "version": "0.8.7",
+  "version": "0.13.1",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
-    "@types/glob": {
-      "version": "7.1.1",
-      "dev": true
+    "@oclif/config": {
+      "version": "1.13.3",
+      "requires": {
+        "tslib": "^1.9.3"
+      }
     },
     "ansi-regex": {
       "version": "5.0.0"
@@ -15,24 +17,10 @@
       "version": "2.1.0",
       "dev": true
     },
-    "braces": {
-      "version": "3.0.2",
-      "dev": true,
-      "requires": {
-        "fill-range": "^7.0.1"
-      }
-    },
     "cli-cursor": {
       "version": "3.1.0",
       "requires": {
         "restore-cursor": "^3.1.0"
-      }
-    },
-    "dir-glob": {
-      "version": "3.0.1",
-      "dev": true,
-      "requires": {
-        "path-type": "^4.0.0"
       }
     },
     "emoji-regex": {
@@ -45,20 +33,11 @@
         "micromatch": "^4.0.2"
       }
     },
-    "fill-range": {
-      "version": "7.0.1",
-      "dev": true,
-      "requires": {
-        "to-regex-range": "^5.0.1"
-      }
-    },
     "globby": {
-      "version": "10.0.1",
+      "version": "10.0.2",
       "dev": true,
       "requires": {
-        "@types/glob": "^7.1.1",
         "array-union": "^2.1.0",
-        "dir-glob": "^3.0.1",
         "fast-glob": "^3.0.3",
         "ignore": "^5.1.1",
         "slash": "^3.0.0"
@@ -69,52 +48,70 @@
       "dev": true
     },
     "inquirer": {
-      "version": "7.0.1",
+      "version": "7.1.0",
       "requires": {
         "ansi-escapes": "^4.2.1",
+        "chalk": "^3.0.0",
         "cli-cursor": "^3.1.0",
         "figures": "^3.0.0",
-        "string-width": "^4.1.0"
+        "run-async": "^2.4.0",
+        "rxjs": "^6.5.3",
+        "string-width": "^4.1.0",
+        "strip-ansi": "^6.0.0"
       },
       "dependencies": {
         "ansi-escapes": {
-          "version": "4.3.0",
+          "version": "4.3.1",
           "requires": {
-            "type-fest": "^0.8.1"
+            "type-fest": "^0.11.0"
           }
         },
+        "chalk": {
+          "version": "3.0.0"
+        },
         "figures": {
-          "version": "3.1.0"
+          "version": "3.2.0"
         }
       }
     },
     "inquirer-autocomplete-prompt": {
-      "version": "1.0.1"
+      "version": "1.0.2",
+      "requires": {
+        "run-async": "^2.3.0"
+      }
     },
     "is-fullwidth-code-point": {
       "version": "3.0.0"
-    },
-    "is-number": {
-      "version": "7.0.0",
-      "dev": true
     },
     "micromatch": {
       "version": "4.0.2",
       "dev": true,
       "requires": {
-        "braces": "^3.0.1"
+        "picomatch": "^2.0.5"
       }
     },
-    "path-type": {
-      "version": "4.0.0",
+    "picomatch": {
+      "version": "2.1.1",
       "dev": true
     },
     "restore-cursor": {
       "version": "3.1.0"
     },
+    "run-async": {
+      "version": "2.4.0"
+    },
+    "rxjs": {
+      "version": "6.5.5",
+      "requires": {
+        "tslib": "^1.9.0"
+      }
+    },
     "slash": {
       "version": "3.0.0",
       "dev": true
+    },
+    "source-map": {
+      "version": "0.7.3"
     },
     "string-width": {
       "version": "4.2.0",
@@ -122,25 +119,25 @@
         "emoji-regex": "^8.0.0",
         "is-fullwidth-code-point": "^3.0.0",
         "strip-ansi": "^6.0.0"
-      },
-      "dependencies": {
-        "strip-ansi": {
-          "version": "6.0.0",
-          "requires": {
-            "ansi-regex": "^5.0.0"
-          }
-        }
       }
     },
-    "to-regex-range": {
-      "version": "5.0.1",
-      "dev": true,
+    "strip-ansi": {
+      "version": "6.0.0",
       "requires": {
-        "is-number": "^7.0.0"
+        "ansi-regex": "^5.0.0"
       }
+    },
+    "terser": {
+      "version": "5.3.5",
+      "requires": {
+        "source-map": "~0.7.2"
+      }
+    },
+    "tslib": {
+      "version": "1.10.0"
     },
     "type-fest": {
-      "version": "0.8.1"
+      "version": "0.11.0"
     }
   }
 }

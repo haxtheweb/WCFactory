@@ -10,7 +10,9 @@ class Factory extends Command {
     // process the user input
     let { args, flags } = this.parse(Factory)
     // prompt the user for more info
-    flags = await promptUser(questions, flags, this)
+    if (!flags.yes) {
+      flags = await promptUser(questions, flags, this)
+    }
     // add a year
     flags.year = new Date().getFullYear()
     // kick off generator
@@ -34,6 +36,7 @@ Factory.flags = {
   orgGit: flags.string({ char: 'O', description: 'Git organization name' }),
   name: flags.string({ char: 'n', description: 'Git organization name' }),
   gitRepo: flags.string({ char: 'g', description: 'Your Repo name. Must be a valid git/npm name' }),
+  yes: flags.boolean({ char: 'y', description: 'Skip prompts' }),
 }
 
 module.exports = Factory

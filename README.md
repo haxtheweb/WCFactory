@@ -125,7 +125,7 @@ We use a combination of Yarn Workspaces and Lerna to manage local developement a
 Clone and install dependencies with yarn install.
 
 ```bash
-git clone https://github.com/elmsln/wcfactory.git
+git clone https://github.com/haxtheweb/wcfactory.git
 cd wcfactory
 yarn install
 ```

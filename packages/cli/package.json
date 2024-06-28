@@ -1,7 +1,7 @@
 {
   "name": "@wcfactory/cli",
   "description": "CLI for managing your custom elements at scale.",
-  "version": "0.8.7",
+  "version": "0.13.1",
   "author": "heyMP @heyMP",
   "bin": {
     "wcf": "./bin/run"
@@ -11,27 +11,29 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "@wcfactory/common": "^0.8.6",
-    "@wcfactory/generator-wcfactory": "^0.8.7",
+    "@wcfactory/common": "^0.13.0",
+    "@wcfactory/generator-wcfactory": "^0.13.1",
+    "@wcfactory/graphql-server": "^0.13.0",
+    "@wcfactory/ui": "^0.13.0",
+    "@web/dev-server": "0.1.28",
     "date-fns": "^1.29.0",
     "fuse.js": "^3.4.2",
     "glob": "^7.1.3",
     "inquirer": "^7.0.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
-    "inquirer-recursive": "^0.0.6",
+    "inquirer-recursive": "^0.0.7",
     "listr": "^0.14.2",
     "listr-update-renderer": "^0.5.0",
     "listr-verbose-renderer": "^0.6.0",
     "lodash": "^4.17.11",
-    "polymer-cli": "1.9.11",
-    "terser": "^4.7.0",
+    "terser": "^5.0.0",
     "yeoman-environment": "^2.3.3",
     "yeoman-generator": "^4.0.0"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "1.22.2",
-    "@oclif/test": "1.2.5",
-    "globby": "10.0.1"
+    "@oclif/dev-cli": "1.26.0",
+    "@oclif/test": "1.2.8",
+    "globby": "10.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -67,5 +69,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "7ff583e930d906d39c5a05334745eb1927574e8f"
+  "gitHead": "29ecf644fd332864f6d89fcd960867820b5eee27"
 }

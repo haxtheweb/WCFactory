@@ -1,7 +1,7 @@
 {
   "name": "@wcfactory/common",
   "description": "Share utilities for wcfactory.",
-  "version": "0.8.6",
+  "version": "0.13.0",
   "main": "index.js",
   "license": "Apache 2.0",
   "repository": "elmsln/wcfactory",
@@ -22,5 +22,5 @@
     "rimraf": "^3.0.2",
     "strip-ansi": "^6.0.0"
   },
-  "gitHead": "53176e73a12036cd329b6d908ad11919a97a24b0"
+  "gitHead": "f1d2d491de11b0e15a4d04d1ad45e2f2e0994fcf"
 }
