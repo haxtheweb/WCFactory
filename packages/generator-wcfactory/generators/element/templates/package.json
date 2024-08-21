@@ -48,7 +48,9 @@
     "access": "public"
   },
   "keywords": [
-    "web-components",
-    "html"
-  ]
+    "webcomponents",
+    "html",
+    "lit"
+  ],
+  "customElements": "custom-elements.json"
 }

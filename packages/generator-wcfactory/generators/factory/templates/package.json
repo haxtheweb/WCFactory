@@ -124,10 +124,11 @@
     ]
   },
   "keywords": [
-    "custom-elements",
     "webcomponents",
+    "html",
     "lit"
   ],
+  "customElements": "custom-elements.json",
   "private": true,
   "npmClient": "yarn",
   "useWorkspaces": true,
