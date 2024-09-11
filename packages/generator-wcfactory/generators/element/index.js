@@ -274,12 +274,6 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("rollup.config.mjs"),
-      this.destinationPath(`${this.props.elementName}/rollup.config.mjs`),
-      this.props
-    );
-
-    this.fs.copyTpl(
       this.templatePath("lib/.gitkeep"),
       this.destinationPath(`${this.props.elementName}/lib/.gitkeep`),
       this.props
