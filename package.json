@@ -1,5 +1,5 @@
 {
-  "name": "wcfactory",
+  "name": "@haxtheweb/wcfactory",
   "version": "0.1.8",
   "private": true,
   "workspaces": {
@@ -53,6 +53,7 @@
     "symlink-dir": "4.1.0"
   },
   "dependencies": {
+    "patch-package": "8.0.0",
     "@open-wc/storybook-prebuilt": "1.2.0",
     "postinstall-postinstall": "2.1.0",
     "rollup-plugin-cpy": "2.0.1"

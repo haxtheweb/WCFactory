@@ -5,9 +5,9 @@
   "main": "index.js",
   "license": "Apache 2.0",
   "repository": "elmsln/wcfactory",
-  "homepage": "https://github.com/elmsln/wcfactory/",
+  "homepage": "https://github.com/haxtheweb/wcfactory/",
   "bugs": {
-    "url": "https://github.com/elmsln/wcfactory/issues"
+    "url": "https://github.com/haxtheweb/wcfactory/issues"
   },
   "publishConfig": {
     "access": "public"

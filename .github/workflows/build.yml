@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-latest, macos-latest]
-        node-version: [14]
+        platform: [ubuntu-latest]
+        node-version: [20]
         include:
           - platform: ubuntu-latest
             node-version: 12

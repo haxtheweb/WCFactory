@@ -7,9 +7,9 @@
     "askHAX": true
   },
   "repository": "elmsln/wcfactory",
-  "homepage": "https://github.com/elmsln/wcfactory/",
+  "homepage": "https://github.com/haxtheweb/wcfactory/",
   "bugs": {
-    "url": "https://github.com/elmsln/wcfactory/issues"
+    "url": "https://github.com/haxtheweb/wcfactory/issues"
   },
   "main": "generators/app/index.js",
   "files": [
